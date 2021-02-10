@@ -1,37 +1,564 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<link rel="alternate" type="application/rss+xml" title="Hexo" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Hexo" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="Hexo" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="网安" />
+
+
+<link rel="canonical" href="http://example.com/2018/11/12/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0/">
+
+
+
+  <title>
+信息安全学习记 |
+Yume Shoka = Hexo</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">信息安全学习记
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2018-11-12 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2018-11-12T00:00:00+08:00">2018-11-12</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Yume Shoka</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2018/11/12/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="John Doe">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="信息安全学习记"><a href="#信息安全学习记" class="headerlink" title="信息安全学习记"></a>信息安全学习记</h1><p>11月17日就比赛了，但是题目还没有做，理论也没有看，我希望这次比赛带给我的不是荣誉，而是更加明白网络安全的学习是终身的，是恒持的，也更加明白什么是团队，什么是Panther。</p>
+<h2 id="AWD和WAF"><a href="#AWD和WAF" class="headerlink" title="AWD和WAF"></a>AWD和WAF</h2><p>在此我想提一下的是DEFCON CHINA，黑客大会中国。Capture The Flag即起源于DEFCON。</p>
+<blockquote>
+<h3 id="AWD-Attack-With-Defence"><a href="#AWD-Attack-With-Defence" class="headerlink" title="AWD(Attack With Defence)"></a>AWD(Attack With Defence)</h3></blockquote>
+<p>AWD即使CTF攻防赛，大概来讲就是每人有一台服务器，需要做的就是别让别人拿到你的flag，在允许的范围内搭建WAF(Web Application Firewall)，之后通过各种种shell或者审计的方式拿到别人的flag。</p>
+<p>有些专业名词你需要掌握：<br>fd<br>playload<br>shell<br>cms</p>
+<p>题目漏洞大概在：<br>1-sqli居多<br>2-文件包含<br>3-各种rce<br>4-文件上传</p>
+<p>比赛流程<br>首先备份，然后审计。</p>
+<p>常识<br>不是赛棍也是赛狗，常识还是要有的。不知为何大部分CTF博主都有自嘲的技能啊。<br>比赛开始前，最好先备份使用xftp或者命令<code>scp -r -P Port remote_username@remote_ip:remote_folder local_file</code>来dump一下源码，数据库也是可以的。<br>对于wordpress，wpscan是不可少的。<br>1-主办方放了一个wp，然后每个队伍都有config备份文件以及phpmyadmin。这种情况下，最机智的方法，是靠你多年手速，迅速下载其他队伍备份文件，然后登陆phpmyadmin后，拿别的队伍的shell最机智的方法不是去利用phpmyadmin写shell，万一没权限不就白白耽误时间了。[转]<br>2-同样是最新版的wp，也没有安装插件，但是主办方在一个比较深的目录里放了一个任意文件上传，绕过上传的方式也比较简单。[转]<br>流量审计也很重要</p>
+<p>有些工具<br>D盾查杀专为IIS设计的一个主动防御软件<br>seay扫洞，php审计<br>御剑扫描，目前已经有<span class="exturl" data-url="aHR0cDovL3d3dy5tb29uc2VjLmNvbS9wb3N0LTc1My5odG1s">源</span></p>
+<blockquote>
+<h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3></blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3d1cGNvL3dlYmxvZ2dlcg==">参考链接</span></p>
+<h2 id="Bugku题集"><a href="#Bugku题集" class="headerlink" title="Bugku题集"></a>Bugku题集</h2><h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><blockquote>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4></blockquote>
+<p>打开后代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line">    <span class="variable">$a</span> = @<span class="variable">$_REQUEST</span>[<span class="string">&#x27;hello&#x27;</span>];</span><br><span class="line">    <span class="keyword">eval</span>( <span class="string">&quot;var_dump(<span class="subst">$a</span>);&quot;</span>);</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>构造包含语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?hello&#x3D;1);show_source(&#39;flag.php&#39;);var_dump(</span><br></pre></td></tr></table></figure>
+<p>其中eval可以执行里面的相关命令，var_dump显示。当输入时，$a的值是<code>1);show_source(&#39;flag.php&#39;);var_dump(</code>，执行eval时显示flag.php中的文件内容，内含flag。</p>
+<p>原理，其中涉及到远程文件包含漏洞。<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuMmN0by5jb20vYXJ0aWNsZS8yMDEzMDQvMjA0MTU4Lmh0bWw=">参考链接</span></p>
+<p>涉及到的危险函数：include(),require()和include_once(),require_once()，可以查看到服务器上的其他文件，甚至可以使用一些方法执行cmd命令。</p>
+<blockquote>
+<h4 id="变量1"><a href="#变量1" class="headerlink" title="变量1"></a>变量1</h4></blockquote>
+<p>直接php文件如下:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag1.php&quot;</span>;</span><br><span class="line">highlight_file(<span class="keyword">__file__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;args&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$args</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;args&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!preg_match(<span class="string">&quot;/^\w+$/&quot;</span>,<span class="variable">$args</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;args error!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="string">&quot;var_dump($<span class="subst">$args</span>);&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这里涉及到一个可变长变量的概念，就是代码中的$$args，和间接寻址方式类似，找变量名为$args这个变量内容的变量。</p>
+<p>使用全局变量GLOBALS来解决，传递GLOBALS即可。其中，这个GLOBALS变量不同于超全局变量，是可以在任何地方使用的，用户也可以自己加带有键值的参数。</p>
+<blockquote>
+<h4 id="Web5"><a href="#Web5" class="headerlink" title="Web5"></a>Web5</h4></blockquote>
+<p>网页中有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])</span><br></pre></td></tr></table></figure>
+<p>其实很不想放这个东西，好长，所以上面的东西就是意思一下。。。<br>其实这个是JSfuck，使用六个字符就编写出来的程序。不需要另外的编译器或解释器来执行，无论浏览器或JavaScript引擎中的原生JavaScript解释器皆可直接运行。所以也可以在控制台上直接运行。</p>
+<p>JSFuck可用于绕过恶意代码检测，且可以被用于跨站脚本攻击。因为缺乏原生JavaScript应有的特征，类似JSFuck的JavaScript混淆技术可帮助恶意代码绕过入侵防御系统或内容过滤器。</p>
+<blockquote>
+<h4 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h4></blockquote>
+<p>消息头Header里面没有信息，抓包之后发现flag在响应头里面。</p>
+<p>很简单的题，但是如何将数据放在响应头里面还不太清楚。</p>
+<blockquote>
+<h4 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h4></blockquote>
+<p>这题我想说的是使用御剑来扫描网址得到更多关于网站其他页面的信息，在此扫描到shell.php。</p>
+<p>之后我们使用burp suit进行密码暴力破解，将拦截到的信息发送到inturder上，positions中选中变量，payloads中加入字典start attack。比较长度，判断信息差别。</p>
+<p>强大的字典扫出密码为hack。</p>
+<blockquote>
+<h4 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h4></blockquote>
+<p>学习javascrip新函数unescape()。其用 Unicode 字符 \u00xx 和 \uxxxx 替换这样的字符序列进行解码。使用escape()进行编码。</p>
+<p>所以源码中被eval()执行的是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkSubmit</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a=<span class="built_in">document</span>.getElementById(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">&quot;undefined&quot;</span>!=<span class="keyword">typeof</span> a)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;67d709b2b54aa2aa648cf6e87a7114f1&quot;</span>==a.value)</span><br><span class="line">        <span class="keyword">return</span>!<span class="number">0</span>;</span><br><span class="line">        alert(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">        a.focus();</span><br><span class="line">        <span class="keyword">return</span>!<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&quot;levelQuest&quot;</span>).onsubmit=checkSubmit;</span><br></pre></td></tr></table></figure>
+<p>在输入框中输入<code>67d709b2b54aa2aa648cf6e87a7114f1</code>之后就得到了flag。但是这个代码没有看很懂，毕竟源码里面没有id为levelQuest和password的标签。</p>
+<p>值得提醒的是，ECMAScript v3 已从标准中删除了 unescape() 函数，并反对使用它，因此应该用 decodeURI() 和 decodeURIComponent() 取而代之。</p>
+<blockquote>
+<h4 id="flag在index里面"><a href="#flag在index里面" class="headerlink" title="flag在index里面"></a>flag在index里面</h4></blockquote>
+<p>学习php://filter协议。</p>
+<p>php://filter 是一种元封装器<br>php:// 是访问各个输入/输出流(I/O streams)。<br>php://input 是个可以访问请求的原始数据的只读流。<br>php://filter 是一种设计用来允许过滤器程序在打开时成为流的封装协议。这对于单独具有完整功能的文件函数非常有用，否则就没有机会在读取内容之前将过滤器应用于流之上。<br>该协议语法为：<code>php://filter:/&lt;action&gt;=&lt;name&gt;</code>。</p>
+<p>对于一些典型的文件包含漏洞。我们可以通过构造含有漏洞的语句，查看想要看的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;index.php</span><br></pre></td></tr></table></figure>
+<p>再将得到的base64码解码即可。<br>所以在此输入，得到base64解码为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Bugku-ctf<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    if(!$_GET[file])&#123;</span><br><span class="line">        echo &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;./index.php?file=show.php&quot;</span>&gt;</span>click me? no<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    $file=$_GET[&#x27;file&#x27;];</span><br><span class="line">    if(strstr($file,&quot;../&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;))&#123;</span><br><span class="line">        echo &quot;Oh no!&quot;;</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">    include($file);</span><br><span class="line">//flag:flag&#123;edulcni_elif_lacol_si_siht&#125;</span><br><span class="line">?&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>flag就在里面。很棒的东西，但是还是具体不知道该怎么用。</p>
+<p>php://filter的参数列表</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">read</td>
+<td align="center">读取</td>
+</tr>
+<tr>
+<td align="center">write</td>
+<td align="center">写入</td>
+</tr>
+<tr>
+<td align="center">resource</td>
+<td align="center">数据来源</td>
+</tr>
+</tbody></table>
+<p>其中附加参数值可为</p>
+<p>string.strip_tags： 将数据流中的所有html标签清除<br>string.toupper： 将数据流中的内容转换为大写<br>string.tolower： 将数据流中的内容转换为小写<br>convert.base64-encode： 将数据流中的内容转换为base64编码<br>convert.base64-decode： 与上面对应解码</p>
+<p>大概的含义就是可以使用这个协议获取到指定url中的文件内容。<br>在php脚本中可以使用readfile()、file_put_contents()等函数与其相关。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cubGVhdmVzb25ncy5jb20vUEVORVRSQVRJT04vcGhwLWZpbHRlci1tYWdpYy5odG1s">参考链接1</span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1J1aGVfa2luZy9hcnRpY2xlL2RldGFpbHMvODI1MDI1ODI=">参考链接2</span></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%BD%91%E5%AE%89/" rel="tag"><i class="ic i-tag"></i> 网安</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2018-11-19 21:16:42" itemprop="dateModified" datetime="2018-11-19T21:16:42+08:00">2018-11-19</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="John Doe WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="John Doe Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="John Doe PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>Hexo
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2018/11/12/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0/" title="信息安全学习记">http://example.com/2018/11/12/信息安全学习记/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitspjpbj20zk0m81ky.jpg" title="Linux下配置服务器环境(lamp和shadowsocks、lnmp)">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Linux下配置服务器环境(lamp和shadowsocks、lnmp)</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxxcb6rj20zk0m8b29.jpg" title="hexo">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>hexo</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">信息安全学习记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AWD%E5%92%8CWAF"><span class="toc-number">1.1.</span> <span class="toc-text">AWD和WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AWD-Attack-With-Defence"><span class="toc-number">1.1.1.</span> <span class="toc-text">AWD(Attack With Defence)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WAF"><span class="toc-number">1.1.2.</span> <span class="toc-text">WAF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bugku%E9%A2%98%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">Bugku题集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web"><span class="toc-number">1.2.1.</span> <span class="toc-text">web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">文件包含</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F1"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">变量1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web5"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Web5</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%B4%E7%AD%89%E8%88%B1"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">头等舱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">网站被黑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web4"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">web4</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flag%E5%9C%A8index%E9%87%8C%E9%9D%A2"><span class="toc-number">1.2.1.7.</span> <span class="toc-text">flag在index里面</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="John Doe"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">John Doe</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">25</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">16</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lvdXJuYW1l" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;yourname"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPXlvdXJpZA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;yourid"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20veW91cm5hbWU=" title="https:&#x2F;&#x2F;weibo.com&#x2F;yourname"><i class="ic i-weibo"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
     </div>
   </div>
 
-{% endblock %}
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/11/12/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0/" title="信息安全学习记">信息安全学习记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" title="大数据涉猎">大数据涉猎</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/04/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E4%B9%8B%E6%89%AB%E6%8F%8Foo/" title="攻防安全之扫描">攻防安全之扫描</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe @ Yume Shoka</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2018/11/12/信息安全学习记/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

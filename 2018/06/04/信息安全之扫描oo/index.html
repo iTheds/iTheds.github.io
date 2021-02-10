@@ -1,37 +1,491 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<link rel="alternate" type="application/rss+xml" title="Hexo" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Hexo" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="Hexo" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="信息安全" />
+
+
+<link rel="canonical" href="http://example.com/2018/06/04/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E4%B9%8B%E6%89%AB%E6%8F%8Foo/">
+
+
+
+  <title>
+攻防安全之扫描 |
+Yume Shoka = Hexo</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">攻防安全之扫描
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2018-06-04 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2018-06-04T00:00:00+08:00">2018-06-04</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Yume Shoka</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/04/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E4%B9%8B%E6%89%AB%E6%8F%8Foo/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="John Doe">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>【实验原理】<br>　　黑客攻击往往分为三个阶段：信息搜集，攻击实施，隐身巩固。在信息搜集阶段中，扫描器发挥着巨大作用。扫描器根据扫描技术来分可以分为：主机扫描技术、端口扫描技术、栈指纹OS识别技术、漏洞扫描技术。<br>1 主机扫描技术<br>　　主机扫描的目的是确定在目标网络上的主机是否可达。这是信息收集的初级阶段，其效果直接影响到后续的扫描。<br>2 端口扫描技术<br>　　确定目标主机可达后，使用端口扫描技术，发现目标主机的开放端口，包括网络协议和各种应用监听的端口。<br>3 栈指纹OS识别技术<br>　　根据各个OS在TCP/IP协议栈实现上的不同特点，采用黑盒测试方法，通过研究其对各种探测的响应形成识别指纹，进而识别目标主机运行的操作系统。<br>4 漏洞扫描技术<br>　　在端口扫描后得知目标主机开启的端口以及端口上的网络服务，将这些相关信息与网络漏洞扫描系统提供的漏洞库进行匹配，查看是否有满足匹配条件的漏洞存在。</p>
+<p>通过模拟黑客的攻击手法，对目标主机系统进行攻击性的安全漏洞扫描，如测试弱势口令等。若模拟攻击成功，则表明目标主机系统存在安全漏洞。</p>
+<p>　　在上述4类扫描技术中，端口扫描是最常用的扫描手段。本次实验要求学生实现一款简单的端口扫描器。对特定的IP地址（范围），特定的端口（范围）进行扫描，以确定端口是否开放，并将结果显示在界面。</p>
+<p>　　通常人们将端口分为如下两类：公认端口和已注册端口。从0到1023，这些端口由IANA分配。有时，相同端口号就分配给TCP和UDP的同一服务。这些端口监听守护进程往往是约定俗成的一些服务，通常只有系统进程可以使用它们；一些入侵者利用了这些端口，则潜在地控制了整个系统。从1024到65535，这些端口不受IANA控制，但由IANA登记并提供其使用情况清单，以方便整个群体，并且不要求在此监听的守护进程具有管理员权限。</p>
+<p>　　端口扫描是向目标主机的TCP/IP服务端口发送探测数据包，并记录目标主机的响应的技术。通过分析响应来判断服务端口是打开还是关闭，就可以得知端口提供的服务或信息。端口扫描技术发展到现在，可以细分为许多类型，按照端口连接的情况，端口扫描可分为TCP connect()扫描、半连接扫描和秘密扫描。</p>
+<p>　　其中TCP connect()扫描是端口扫描最基础的一种扫描方式。TCP SYN扫描在扫描过程中没有建立完整的TCP连接，这和TCP connect()扫描不同，因此又称为半连接扫描。秘密扫描包含有TCP FIN扫描、TCPACK扫描等多种扫描方式。其他端口扫描技术包含有UDP扫描和IP头信息dumb扫描等。<br>1、TCP connect()扫描<br>　　TCP连接扫描是向目标端口发送SYN报文，等待目标端口发送SYN/ACK报文，收到后向目标端口发送ACK报文，即著名的“三次握手”过程。在许多系统中只需调用connect()即可完成。这个技术的一个最大的优点是，你不需要任何权限。系统中的任何用户都有权利使用这个调用。另一个好处就是速度。如果对每个目标端口以线性的方式，使用单独的connect()调用，那么将会花费相当长的时间，你可以通过同时打开多个套接字，从而加速扫描。这种扫描方法的缺点是会在目标主机的日志记录中留下痕迹，易被发现，并且数据包会被过滤掉。目标主机的logs文件会显示一连串的连接和连接出错的服务信息，并且能很快地使它关闭。<br>2、TCP SYN扫描<br>　　TCP通信双方是使用3次握手来建立TCP连接。申请建立连接的客户端需要发送一个SYN数据报文给服务端，服务端会回复ACK数据报文。TCP SYN扫描(半开放扫描)就是利用3次握手的弱点来实现的。通过向远程主机的端口发送一个请求连接的SYN数据报文，如果没有收到目标主机的SYN/ACK确认报文，而是RST数据报文，就说明远程主机的这个端口没有打开。而如果收到远程主机的SYN/ACK应答，则说明远程主机端口开放。在收到远程主机的SYN/ACK后，不再做ACK应答，这样3次握手并没有完成，正常的TCP连接无法建立，因此，这个扫描信息不会被记入系统日志，不会在目标主机上留下记录。<br>3、秘密扫描<br>　　端口扫描容易被在端口处监听的服务记录到日志中：这些服务监听到一个没有任何数据的连接，就记录一个错误。半开放扫描现在已经不是一种秘密，很多防火墙和路由器都有了相应的措施。这些防火墙和路由器会对一些指定的端口进行监视，将对这些端口的连接请求全部进行记录。秘密扫描能躲避IDS、防火墙、包过滤器和日志的审计，从而获取目标端口的开放或关闭的信息。由于没有TCP三次握手的任何部分所以无法被记录下来，比半连接扫描更为隐蔽。但是这种扫描的缺点是扫描结果的不可靠性会增加，而且扫描主机也需要构建自己的IP包。现有的秘密扫描有TCP FIN扫描、TCP ACK扫描、NULL扫描、XMAS扫描和SYN/ACK扫描等。<br>　　(1)TCP FIN扫描<br>　　很多的过滤设备能过滤SYN数据报文，但是允许FIN数据报文通过。因为FIN是中断连接的数据报文，所以很多日志系统都不记录这样的数据报文。利用这一点的扫描就是TCP FIN扫描。TCP FIN扫描的原理是扫描主机向目标主机发送FIN数据包来侦听端口，若FIN数据包到达的是一个打开的端口，数据包则被简单地丢掉，并不返回任何信息，当FIN数据包到达一个关闭的端口，TCP会把它判断成是错误,数据包会被丢掉，并且返回一个RST数据包。这种方法与系统的TCP/IP实现有一定的关系，并不是可以应用所有的系统上，有的系统不管是否打开，都回复RST，这样，这种扫描方法就不适用了。但这种方法可以用来区分操作系统是UNIX还是Windows。</p>
+<p>　　(2)TCP ACK扫描<br>　　这种扫描技术主要用来探测过滤性防火墙的过滤规则，无论目标端口的状态如何，如果发送ACK报文，就只能收到RST响应报文。但是对于防火墙，如果端口被过滤，要么收不到报文，要么收到ICMP(目标不可达)，相反，如果没有被过滤时则收到有关RST报文。</p>
+<p>　　(3)NULL扫描</p>
+<p>　　扫描主机将TCP数据包中的ACK(确认)、FIN(结束连接)、RST(重新设定连接)、SYN(连接同步化要求)、URG(紧急)、PSH(接收端将数据转由应用处理)标志位置空后发送给目标主机。若目标端口开放，目标主机将不返回任何信息。若目标主机返回RST信息，则表示端口关闭。</p>
+<p>　　(4)XMAS扫描<br>　　XMAS扫描和NULL扫描类似，将TCP数据包中的ACK、FIN、RST、SYN、URG、PSH标志位置1后发送给目标主机，在目标端口开放的情况下，目标主机将不返回任何信息，若目标端口关闭，则目标主机将返回RST信息。还需要说明的是，MS Windows、Cisco、BSDI、HP/UX、MVS以及IRIX等操作系统如果采用TCP FIN、XMAS以及NULL扫描等方式进行扫描的话，对于打开的端口也会发送RST数据包，即使所有端口都关闭，也可以进行应答。在这种情况下，就可以进行TCP SYN扫描，如果出现打开的端口，操作系统就会知道是MS Windows、Cisco、BSDI、HP/UX、MVS以及IRIX中哪类了。</p>
+<p>　　(5)SYN/ACK扫描<br>　　这种扫描故意忽略TCP的三次握手：SYN—SYN/ACK—ACK。这里，扫描主机不向目标主机发送SYN数据包，而先发送SYN/ACK数据包。目标主机将报错，并判断为一次错误的连接。若目标端口开放，目标主机将返回RST信息，若目标端口关闭，目标主机将不返回任何信息，数据包会被丢掉。</p>
+<p>　　除了常见的端口扫描技术以外，还有一些其他的端口扫描技术，如UDP扫描、IP头信息dumb扫描、慢速扫描和乱序扫描等，这里不作赘述。</p>
+
+      <div class="tags">
+          <a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" rel="tag"><i class="ic i-tag"></i> 信息安全</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2018-07-14 19:05:07" itemprop="dateModified" datetime="2018-07-14T19:05:07+08:00">2018-07-14</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="John Doe WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="John Doe Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="John Doe PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>Hexo
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2018/06/04/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E4%B9%8B%E6%89%AB%E6%8F%8Foo/" title="攻防安全之扫描">http://example.com/2018/06/04/信息安全之扫描oo/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetfk5zwj20zk0m8e81.jpg" title="计算机组成原理">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>计算机组成原理</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeubcbajj20zk0m8h1h.jpg" title="基于MIPS指令集的32位五级流水线CPU设计">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>基于MIPS指令集的32位五级流水线CPU设计</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="John Doe"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">John Doe</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">25</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">16</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lvdXJuYW1l" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;yourname"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPXlvdXJpZA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;yourid"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20veW91cm5hbWU=" title="https:&#x2F;&#x2F;weibo.com&#x2F;yourname"><i class="ic i-weibo"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
     </div>
   </div>
 
-{% endblock %}
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="Apache系统管理">Apache系统管理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" title="大数据涉猎">大数据涉猎</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/" title="通信原理">通信原理</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe @ Yume Shoka</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2018/06/04/信息安全之扫描oo/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

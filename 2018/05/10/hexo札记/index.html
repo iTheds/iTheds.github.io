@@ -1,37 +1,569 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<link rel="alternate" type="application/rss+xml" title="Hexo" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Hexo" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="Hexo" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="hexo,git" />
+
+
+<link rel="canonical" href="http://example.com/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/">
+
+
+
+  <title>
+hexo |
+Yume Shoka = Hexo</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">hexo
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2018-05-10 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2018-05-10T00:00:00+08:00">2018-05-10</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Yume Shoka</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="John Doe">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="hexo札记"><a href="#hexo札记" class="headerlink" title="hexo札记"></a>hexo札记</h1><p>hexo是一种基于git的实现自动部署的技术。</p>
+<p>搭建博客比较好的有hexo和<span class="exturl" data-url="aHR0cHM6Ly9jbi53b3JkcHJlc3Mub3JnL3N1cHBvcnQvYXJ0aWNsZS9vdmVydmlldy1vZi13b3JkcHJlc3Mv">wordpress</span>，wordpress是基于php和mysql的免费开源内容管理系统(CMS)。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<h2 id="markdown语法案例-详细参见-lt-Markdown语法说明oo-gt"><a href="#markdown语法案例-详细参见-lt-Markdown语法说明oo-gt" class="headerlink" title="markdown语法案例(详细参见&lt;Markdown语法说明oo&gt;)"></a>markdown语法案例(详细参见&lt;Markdown语法说明oo&gt;)</h2><table>
+<thead>
+<tr>
+<th>Options</th>
+<th align="center">Description</th>
+<th align="right">Remarks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>col 3 is</td>
+<td align="center">right-aligned</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td align="center">are neat</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<p><img data-src="img/http.png" alt="test1" title="img/http.png"></p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5iYWlkdS5jb20vJTIy">百度</span></p>
+<h2 id="hexo大环境搭建以及运行，push"><a href="#hexo大环境搭建以及运行，push" class="headerlink" title="hexo大环境搭建以及运行，push"></a>hexo大环境搭建以及运行，push</h2><p>首先要知道需要什么样的环境，git，Node.js。<br>windows上需要Node.js吗。</p>
+<p>hexo凭借git库，进行个人网站的搭建。<br>主要思路是本地一个git库，远程一个git库，两者进行联通。远程库可以是GitHub上的，也可以是个人服务器上的私库。</p>
+<p>需要注意的是，hexo本地与服务端的git库有区别，git库为解析之后的界面，而不是git中的网站文件。</p>
+<p>捋一下，我希望windows作为本地，hexo d到站点，或者到GitHub上也可以。</p>
+<p>$ npm -v<br>6.14.10</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL3poLWNuL2RvY3Mv">hexo文档</span></p>
+<h3 id="hexo搭建"><a href="#hexo搭建" class="headerlink" title="hexo搭建"></a>hexo搭建</h3><h4 id="gt-远程服务器vps建立仓库："><a href="#gt-远程服务器vps建立仓库：" class="headerlink" title="&gt; 远程服务器vps建立仓库："></a>&gt; 远程服务器vps建立仓库：</h4><p>安装git：<br>    yum install git</p>
+<p>实现免密登入。测试，注意测试的时候直接使用<span class="exturl" data-url="bWFpbHRvOiYjMTAzOyYjeDY5OyYjMTE2OyYjeDQwOyYjMTAzOyYjMTA1OyYjMTE2OyYjeDY4OyYjeDc1OyYjOTg7JiN4MmU7JiN4NjM7JiMxMTE7JiN4NmQ7">&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#x6d;</span>即可，不必更换账户。</p>
+<p>ssh-keygen -t rsa -C “<span class="exturl" data-url="bWFpbHRvOiYjeDY5OyYjODQ7JiMxMDQ7JiN4NjU7JiN4NjQ7JiN4NzM7JiM2NDsmIzEwMzsmI3g2OTsmIzExNjsmIzEwNDsmIzExNzsmI3g2MjsmIzQ2OyYjeDYzOyYjMTExOyYjeDZkOw==">&#x69;&#84;&#104;&#x65;&#x64;&#x73;&#64;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#x63;&#111;&#x6d;</span>“</p>
+<p>ssh-copy-id -i C:/Users/lonni/.ssh/id_rsa.pub <span class="exturl" data-url="bWFpbHRvOiYjeDcyOyYjeDZmOyYjMTExOyYjMTE2OyYjNjQ7JiM1NjsmIzQ2OyYjNDk7JiN4MzM7JiN4MzE7JiM0NjsmIzU0OyYjeDMzOyYjeDJlOyYjNDk7JiM1NTsmIzQ4Ow==">&#x72;&#x6f;&#111;&#116;&#64;&#56;&#46;&#49;&#x33;&#x31;&#46;&#54;&#x33;&#x2e;&#49;&#55;&#48;</span><br>之后cat id_rsa.pub &gt;&gt; authorized_keys</p>
+<p>ssh <span class="exturl" data-url="bWFpbHRvOiYjMTAzOyYjMTA1OyYjMTE2OyYjNjQ7JiMxMDM7JiN4Njk7JiN4NzQ7JiMxMDQ7JiN4NzU7JiN4NjI7JiN4MmU7JiN4NjM7JiN4NmY7JiN4NmQ7">&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</span></p>
+<p>ssh <span class="exturl" data-url="bWFpbHRvOiYjMTE0OyYjeDZmOyYjMTExOyYjMTE2OyYjNjQ7JiM1NjsmI3gyZTsmIzQ5OyYjNTE7JiN4MzE7JiM0NjsmI3gzNjsmIzUxOyYjeDJlOyYjeDMxOyYjeDM3OyYjeDMwOw==">&#114;&#x6f;&#111;&#116;&#64;&#56;&#x2e;&#49;&#51;&#x31;&#46;&#x36;&#51;&#x2e;&#x31;&#x37;&#x30;</span></p>
+<p>$ sudo chown -R hexo:hexo hexo.git</p>
+<p>创建仓库：<br>cd ~<br>sudo git init –bare hexo.git</p>
+<p>建立一个仓库内容转移的缓存目录：<br>mkdir -p /home/tmp/hexo_tmp</p>
+<p>然后处理 hexo.git 提交的事件，自动更新内容到 hexo网站目录。在 git 用户下执行：<br>vim hexo.git/hooks/post-receive</p>
+<p>编辑这个 post-receive 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash -l</span><br><span class="line">GIT_REPO&#x3D;&#x2F;root&#x2F;hexo.git</span><br><span class="line">TMP_GIT_CLONE&#x3D;&#x2F;home&#x2F;tmp&#x2F;hexo_tmp</span><br><span class="line">PUBLIC_HEXO&#x3D;&#x2F;var&#x2F;www&#x2F;html&#x2F;hexo</span><br><span class="line">rm -rf $&#123;TMP_GIT_CLONE&#125;</span><br><span class="line">git clone $GIT_REPO $TMP_GIT_CLONE</span><br><span class="line">rm -rf $&#123;PUBLIC_HEXO&#125;&#x2F;*</span><br><span class="line">cp -rf $&#123;TMP_GIT_CLONE&#125;&#x2F;* $&#123;PUBLIC_HEXO&#125;</span><br></pre></td></tr></table></figure>
+<p>给权限：<br>chmod +x /hexo.git/hooks/post-receive</p>
+<h4 id="gt-本地建立仓库："><a href="#gt-本地建立仓库：" class="headerlink" title="&gt; 本地建立仓库："></a>&gt; 本地建立仓库：</h4><p>本地环境需求node.js。</p>
+<p>安装hexo插件。+ <span class="exturl" data-url="bWFpbHRvOiYjMTA0OyYjMTAxOyYjeDc4OyYjeDZmOyYjeDJkOyYjeDYzOyYjMTA4OyYjeDY5OyYjeDQwOyYjeDM0OyYjNDY7JiN4MzI7JiN4MmU7JiM0ODs=">&#104;&#101;&#x78;&#x6f;&#x2d;&#x63;&#108;&#x69;&#x40;&#x34;&#46;&#x32;&#x2e;&#48;</span></p>
+<p>  sudo npm install -g hexo-cli</p>
+<p>初始化，克隆库<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvLXN0YXJ0ZXIuZ2l0">https://github.com/hexojs/hexo-starter.git</span></p>
+<p>  hexo init</p>
+<p>hexo s进行预览。</p>
+<p>初始化后再安装依赖组件和服务组件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-server</span><br></pre></td></tr></table></figure>
+<p>编辑 _config.yml 文件，修改部署 deploy 信息，修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  message: update</span><br><span class="line">  repo: root@ip:hexo.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>如果是链接到GitHub那么 repo: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FiYy9hYmMuZ2l0aHViLmlvLmdpdCVFMyU4MCU4Mg==">https://github.com/abc/abc.github.io.git。</span><br>repo: <span class="exturl" data-url="bWFpbHRvOiYjMTE0OyYjeDZmOyYjeDZmOyYjMTE2OyYjeDQwOyYjNTY7JiN4MmU7JiM0OTsmI3gzMzsmIzQ5OyYjeDJlOyYjeDM2OyYjNTE7JiM0NjsmIzQ5OyYjNTU7JiN4MzA7">&#114;&#x6f;&#x6f;&#116;&#x40;&#56;&#x2e;&#49;&#x33;&#49;&#x2e;&#x36;&#51;&#46;&#49;&#55;&#x30;</span>:/home/hexo/hexo.git</p>
+<p>repo:<br>  github: <span class="exturl" data-url="bWFpbHRvOiYjMTAzOyYjMTA1OyYjeDc0OyYjeDQwOyYjeDY3OyYjeDY5OyYjeDc0OyYjMTA0OyYjeDc1OyYjOTg7JiN4MmU7JiM5OTsmIzExMTsmIzEwOTs=">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;</span>:iTheds/iTheds.github.io.git</p>
+<p>部署多个:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">- type: git</span><br><span class="line">  repo:</span><br><span class="line">- type: heroku</span><br><span class="line">  repo:</span><br></pre></td></tr></table></figure>
+<p>git config –global user.email “<span class="exturl" data-url="bWFpbHRvOiYjMTA4OyYjMTA1OyYjMTEwOyYjeDc0OyYjeDYxOyYjMTExOyYjeDVmOyYjeDc5OyYjOTc7JiMxMTA7JiM2NDsmIzQ5OyYjNTQ7JiN4MzM7JiN4MmU7JiN4NjM7JiN4NmY7JiMxMDk7">&#108;&#105;&#110;&#x74;&#x61;&#111;&#x5f;&#x79;&#97;&#110;&#64;&#49;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;</span>“<br>git config –global user.name “iTheds”</p>
+<p>每次hexo d之后都是正常输出，但是并没有更新，github的相应库内也没有任何文件。<br>难道是写法问题。关键是没有任何报错。<br>写法问题，正常输出是什么。<br>先在自己的本地上建立git库，尝试推送。<br>或者直接将其推送到私库中。<br>推送到私库也是如此，应该是有根本性的问题。<br>输出内容可能是没有任何的反应。<br>按理来说，应该会有显示<code>INFO Deploy done:git</code>才对。<br>管理员身份运行也没有用。<br>找到了。<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcy80NjM0">https://github.com/hexojs/hexo/issues/4634</span><br>npm un hexo-deployer-git<br>npm i hexojs/hexo-deployer-git<br>附属信息是先把原来的hexo-deployer-git插件卸载了，然后直接从 master 分支安装。<br>在执行上述命令时，我是直接<code>hexo init</code>之后执行的，关于hexojs文件未存在博客目录中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Setting up Git deployment...</span><br><span class="line">Initialized empty Git repository in E:&#x2F;hexo&#x2F;.deploy_git&#x2F;.git&#x2F;</span><br><span class="line">[master (root-commit) 6210615] First commit</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 placeholder</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Setting up Git deployment...</span><br><span class="line">Initialized empty Git repository in E:&#x2F;hexo&#x2F;.deploy_git&#x2F;.git&#x2F;</span><br><span class="line">[master (root-commit) 22c659a] First commit</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 placeholder</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">warning: LF will be replaced by CRLF in 2021&#x2F;02&#x2F;10&#x2F;hello-world&#x2F;index.html.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in archives&#x2F;2021&#x2F;02&#x2F;index.html.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in archives&#x2F;2021&#x2F;index.html.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in archives&#x2F;index.html.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in css&#x2F;fonts&#x2F;fontawesome-webfont.svg.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in css&#x2F;style.css.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in fancybox&#x2F;jquery.fancybox.min.js.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in index.html.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in js&#x2F;jquery-3.4.1.min.js.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">warning: LF will be replaced by CRLF in js&#x2F;script.js.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">[master 791dbdf] Site updated: 2021-02-10 20:15:24</span><br><span class="line"> 18 files changed, 5166 insertions(+)</span><br><span class="line"> create mode 100644 2021&#x2F;02&#x2F;10&#x2F;hello-world&#x2F;index.html</span><br><span class="line"> create mode 100644 archives&#x2F;2021&#x2F;02&#x2F;index.html</span><br><span class="line"> create mode 100644 archives&#x2F;2021&#x2F;index.html</span><br><span class="line"> create mode 100644 archives&#x2F;index.html</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;FontAwesome.otf</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;fontawesome-webfont.eot</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;fontawesome-webfont.svg</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;fontawesome-webfont.ttf</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;fontawesome-webfont.woff</span><br><span class="line"> create mode 100644 css&#x2F;fonts&#x2F;fontawesome-webfont.woff2</span><br><span class="line"> create mode 100644 css&#x2F;images&#x2F;banner.jpg</span><br><span class="line"> create mode 100644 css&#x2F;style.css</span><br><span class="line"> create mode 100644 fancybox&#x2F;jquery.fancybox.min.css</span><br><span class="line"> create mode 100644 fancybox&#x2F;jquery.fancybox.min.js</span><br><span class="line"> create mode 100644 index.html</span><br><span class="line"> create mode 100644 js&#x2F;jquery-3.4.1.min.js</span><br><span class="line"> create mode 100644 js&#x2F;script.js</span><br><span class="line"> delete mode 100644 placeholder</span><br><span class="line">Enumerating objects: 34, done.</span><br><span class="line">Counting objects: 100% (34&#x2F;34), done.</span><br><span class="line">Delta compression using up to 8 threads</span><br><span class="line">Compressing objects: 100% (26&#x2F;26), done.</span><br><span class="line">Writing objects: 100% (34&#x2F;34), 882.39 KiB | 2.74 MiB&#x2F;s, done.</span><br><span class="line">Total 34 (delta 3), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (3&#x2F;3), done.</span><br><span class="line">remote:</span><br><span class="line">remote: Create a pull request for &#39;master&#39; on GitHub by visiting:</span><br><span class="line">remote:      https:&#x2F;&#x2F;github.com&#x2F;iTheds&#x2F;iTheds.github.io&#x2F;pull&#x2F;new&#x2F;master</span><br><span class="line">remote:</span><br><span class="line">To github.com:iTheds&#x2F;iTheds.github.io.git</span><br><span class="line"> * [new branch]      HEAD -&gt; master</span><br><span class="line">Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;git@github.com:iTheds&#x2F;iTheds.github.io.git&#39;.</span><br><span class="line">INFO  Deploy done: git</span><br></pre></td></tr></table></figure>
+<h4 id="gt-上传三部曲："><a href="#gt-上传三部曲：" class="headerlink" title="&gt; 上传三部曲："></a>&gt; 上传三部曲：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo server&#x2F;&#x2F;查看网页本地预览，localhost:4000</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>也可以使用hexo g -d</p>
+<p>解决网站子目录问题：<br>本地配置文件_config.yml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## If your site is put in a subdirectory, set url as &#39;http:&#x2F;&#x2F;yoursite.com&#x2F;child&#39; and root as &#39;&#x2F;child&#x2F;&#39;</span><br><span class="line">url: http:&#x2F;&#x2F;65.49.230.206&#x2F;hexo</span><br><span class="line">root: &#x2F;hexo&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="gt-链接GitHub"><a href="#gt-链接GitHub" class="headerlink" title="&gt; 链接GitHub"></a>&gt; 链接GitHub</h4><h3 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h3><p>1.在themes文件夹下，git bush，输入命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;Ben02&#x2F;hexo-theme-Anatole &#x2F;&#x2F;主题链接</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+<p>2.修改博客目录_config.yml中的theme属性，将其设置为主题文件夹名称。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: hexo-theme-Anatole</span><br></pre></td></tr></table></figure>
+<p>3.在主题更新之前，一定要备份好主目录下的_config.yml文件，尤其是到后面修改了很多配置之后。在themes/hexo-theme-Anatole目录下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* branch            master     -&gt; FETCH_HEAD</span><br><span class="line">Already up-to-date.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>布局（Layout）</p>
+</blockquote>
+<p>Hexo 有三种默认布局：post、page 和 draft。在创建这三种不同类型的文件时，它们将会被保存到不同的路径；而您自定义的其他布局和 post 相同，都将储存到 source/_posts 文件夹。</p>
+<p>布局    路径<br>post    source/_posts<br>page    source<br>draft    source/_drafts</p>
+<blockquote>
+<p>文件路径说明</p>
+</blockquote>
+<blockquote>
+<p>配置文件说明</p>
+</blockquote>
+
+      <div class="tags">
+          <a href="/tags/hexo/" rel="tag"><i class="ic i-tag"></i> hexo</a>
+          <a href="/tags/git/" rel="tag"><i class="ic i-tag"></i> git</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2021-02-10 20:43:43" itemprop="dateModified" datetime="2021-02-10T20:43:43+08:00">2021-02-10</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="John Doe WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="John Doe Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="John Doe PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>Hexo
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/" title="hexo">http://example.com/2018/05/10/hexo札记/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="markdown语法">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>markdown语法</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipew8gmvyj20zk0m87wh.jpg" title="数据库中文乱码问题">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>数据库中文乱码问题</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hexo%E6%9C%AD%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">hexo札记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E8%AF%AD%E6%B3%95%E6%A1%88%E4%BE%8B-%E8%AF%A6%E7%BB%86%E5%8F%82%E8%A7%81-lt-Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo-gt"><span class="toc-number">1.1.</span> <span class="toc-text">markdown语法案例(详细参见&lt;Markdown语法说明oo&gt;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo%E5%A4%A7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E8%BF%90%E8%A1%8C%EF%BC%8Cpush"><span class="toc-number">1.2.</span> <span class="toc-text">hexo大环境搭建以及运行，push</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo%E6%90%AD%E5%BB%BA"><span class="toc-number">1.2.1.</span> <span class="toc-text">hexo搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8vps%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93%EF%BC%9A"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">&gt; 远程服务器vps建立仓库：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-%E6%9C%AC%E5%9C%B0%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93%EF%BC%9A"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">&gt; 本地建立仓库：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-%E4%B8%8A%E4%BC%A0%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%9A"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">&gt; 上传三部曲：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-%E9%93%BE%E6%8E%A5GitHub"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">&gt; 链接GitHub</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98"><span class="toc-number">1.2.2.</span> <span class="toc-text">修改主题</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="John Doe"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">John Doe</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">25</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">16</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lvdXJuYW1l" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;yourname"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPXlvdXJpZA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;yourid"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20veW91cm5hbWU=" title="https:&#x2F;&#x2F;weibo.com&#x2F;yourname"><i class="ic i-weibo"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
     </div>
   </div>
 
-{% endblock %}
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe @ Yume Shoka</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2018/05/10/hexo札记/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

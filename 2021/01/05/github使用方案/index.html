@@ -1,37 +1,804 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+<link rel="alternate" type="application/rss+xml" title="Hexo" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Hexo" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="Hexo" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="http://example.com/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/">
+
+
+
+  <title>
+hexo |
+Yume Shoka = Hexo</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">hexo
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2021-01-05 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-01-05T00:00:00+08:00">2021-01-05</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Yume Shoka</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="John Doe">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="git使用方法"><a href="#git使用方法" class="headerlink" title="git使用方法"></a>git使用方法</h1><p>旧提新用，系统整理使用方法</p>
+<p>Git使用C语言开发，分布式版本控制系统。</p>
+<p>CVS及SVN都是集中式的版本控制系统。<br>SVN的全称是Subversion，即版本控制系统。它是最流行的一个开放源代码的版本控制系统。作为一个开源的版本控制系统，Subversion管理着随时间改变的数据。这些数据放置在一个中央资料档案库（Repository）中。这个档案库很像一个普通的文件服务器，不过它会记住每一次文件的变动。这样就可以把档案恢复到旧的版本，或是浏览文件的变动历史。Subversion是一个通用的系统，可用来管理任何类型的文件，其中包括程序源码。偶数编号的小数点版次（1.0、1.2等）被认为是稳定的版次。<br>CVS是一个C/S系统，是一个常用的代码版本控制软件。主要在开源软件管理中使用。与它相类似的代码版本控制软件有subversion。多个开发人员通过一个中心版本控制系统来记录文件版本，从而达到保证文件同步的目的。CVS版本控制系统是一种GNU软件包，主要用于在多人开发环境下的源码的维护。但是由于之前CVS编码的问题，大多数软件开发公司都使用SVN替代了CVS。</p>
+<p>国内的Git托管服务——Gitee（gitee.com）<br>Git有很多图形界面工具，这里我们推荐SourceTree，它是由Atlassian开发的免费Git图形界面工具，可以操作任何Git库。</p>
+<p><span class="exturl" data-url="aHR0cDovL2dpdC1zY20uY29tLw==">Git官网</span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cubGlhb3h1ZWZlbmcuY29tL3dpa2kvODk2MDQzNDg4MDI5NjAw">廖雪峰Git教程</span><br><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmdpdGh1Yi5jb20vY24vZ2l0aHVi">Git官方文档</span></p>
+<h2 id="Recording"><a href="#Recording" class="headerlink" title="Recording"></a>Recording</h2><h2 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h2><table>
+<thead>
+<tr>
+<th>Project Options</th>
+<th align="center">Description</th>
+<th align="right">Remarks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Account settings</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Profile</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Account</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Appearance</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Account security</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Billing &amp; plans</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Security log</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Security &amp; analysis</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Emails</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>SSH and GPG keys</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Repositories</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Organizations</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Saved replies</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Applications</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Developer settings</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>—</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Moderation settings</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Blocked users</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Interaction limits</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Project Options</th>
+<th align="center">Description</th>
+<th align="right">Remarks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Options[选项]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Manage access[访问管理]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Security &amp; analysis[安全&amp;分析]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Branches[树杈]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Webhooks[网络挂钩]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Notifications[通知]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Integrations[整合方式]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Deploy keys[部署密钥]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Actions[动作]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Environments[环境]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Secrets[机密]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Moderation settings[审核机制]</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h2 id="共有命令"><a href="#共有命令" class="headerlink" title="共有命令"></a>共有命令</h2><p>历史指令记录：<br>    git reflog</p>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><p>echo “# Project” &gt;&gt; README.md<br>git init<br>git add README.md<br>git commit -m “first commit”<br>git branch -M master<br>git remote add origin <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcy9Qcm9qZWN0LmdpdA==">https://github.com/iTheds/Project.git</span><br>git push -u origin master</p>
+<p>git reset –hard 1</p>
+<p>apt-get install git</p>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>select components<br>which components should be installed?</p>
+<p>select the components you want to install; clear the components you do not want to install. click next when you are ready to continue.</p>
+<p>additional icon , on the Desktop<br>windows explorer integration<br>Git Bash here<br>git Gui here<br>Git LFS(Large File Support)<br>Associate .git * configuration files with the default text editor.<br>Associate.sh files with the default text editor.<br>Use a TrueType font in all console windows.<br>Check daily for Git for windows updates.</p>
+<p>The Vim editor, while powerfu, can be hard to use.Its user interface is unintuitive and its key bindings are awkward.</p>
+<p>Choose the default behavior of ‘git pull’<br>Default(fast-forward or merge):This is the standard behavior of ‘git pull’:fast-forward the current branch to the fatched branch when possible, otherwise create a merge commit.<br>Rebase: Rebase the current branch onto the fetched branch.If there are no local commits to rebase,this is equivalent to a fast-forward.<br>Only ever fast-forward:Fast-forward to the fetched branch.Fall if that is not possible.</p>
+<p>file:///F:/Git/ReleaseNotes.html</p>
+<p>登录：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<p>git remote add origin <span class="exturl" data-url="bWFpbHRvOiYjMTAzOyYjMTA1OyYjMTE2OyYjeDQwOyYjeDY3OyYjeDY5OyYjMTE2OyYjMTA0OyYjMTE3OyYjOTg7JiN4MmU7JiN4NjM7JiMxMTE7JiMxMDk7">&#103;&#105;&#116;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;</span>:MachinePlay/Gittest.git</p>
+<h3 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h3><p>仓库repository<br>初始化。建立一个新文件之后执行，然后文件下会生成一个.git文件。</p>
+<pre><code>$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+</code></pre>
+<p>添加文件readme.txt。这个文件处于该目录下</p>
+<pre><code>$ git add readme.txt
+</code></pre>
+<p>提交到仓库git commit。-m后面输入的是本次提交的说明，可以输入任意内容，1 file changed：1个文件被改动（我们新添加的readme.txt文件）；2 insertions：插入了两行内容（readme.txt有两行内容）</p>
+<pre><code>$ git commit -m &quot;wrote a readme file&quot;
+[master (root-commit) eaadf4e] wrote a readme file
+1 file changed, 2 insertions(+)
+create mode 100644 readme.txt
+</code></pre>
+<p>命令重叠例子：</p>
+<pre><code>$ git add file1.txt
+$ git add file2.txt file3.txt
+$ git commit -m &quot;add 3 files.&quot;
+</code></pre>
+<p>查看状态。数据修改项。</p>
+<pre><code> git status
+</code></pre>
+<p>查看difference，即查看修改情况</p>
+<pre><code>git diff
+</code></pre>
+<p>查看历史记录，3次提交</p>
+<pre><code>git log
+</code></pre>
+<p>版本回退/还原。HEAD^^表示上上版本，HEAD~100，其中HEAD^也可以写成commit id。</p>
+<pre><code>$ git reset --hard HEAD^
+HEAD is now at e475afc add distributed
+</code></pre>
+<p>git add命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行git commit就可以一次性把暂存区的所有修改提交到分支。</p>
+<p>关于删除修改记录：<br>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout – file。<br>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。</p>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>本地Git仓库和GitHub仓库之间的传输是通过SSH加密的。</p>
+<blockquote>
+<p>创建SSH key – 免密登入</p>
+</blockquote>
+<p>用户目录。生成.ssh目录，里面有id_rsa和id_rsa.pub        ，id_rsa是私钥，id_rsa.pub是公钥<br>    $ ssh-keygen -t rsa -C “<span class="exturl" data-url="bWFpbHRvOiYjeDc5OyYjeDZmOyYjMTE3OyYjMTE0OyYjeDY1OyYjeDZkOyYjeDYxOyYjeDY5OyYjeDZjOyYjeDQwOyYjMTAxOyYjeDc4OyYjeDYxOyYjeDZkOyYjMTEyOyYjMTA4OyYjMTAxOyYjNDY7JiM5OTsmIzExMTsmI3g2ZDs=">&#x79;&#x6f;&#117;&#114;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#101;&#46;&#99;&#111;&#x6d;</span>“</p>
+<blockquote>
+<p>同步GitHub SSH key</p>
+</blockquote>
+<p>GitHub:<br>“Account settings，“SSH Keys”页面：<br>“Add SSH Key”，任意Title，在Key文本框里粘贴id_rsa.pub文件的内容</p>
+<blockquote>
+<p>GitHub上创建仓库</p>
+</blockquote>
+<p>GitHub:<br>Create a new repo.</p>
+<p>本地:</p>
+<pre><code>$ git remote add origin git@github.com:iTheds/Project.git
+</code></pre>
+<blockquote>
+<p>Push</p>
+</blockquote>
+<p>第一次推送并关联：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br><span class="line">Counting objects: <span class="number">20</span>, done.</span><br><span class="line">Delta compression <span class="keyword">using</span> up to <span class="number">4</span> threads.</span><br><span class="line">Compressing objects: <span class="number">100</span>% (<span class="number">15</span>/<span class="number">15</span>), done.</span><br><span class="line">Writing objects: <span class="number">100</span>% (<span class="number">20</span>/<span class="number">20</span>), <span class="number">1.64</span> KiB | <span class="number">560.00</span> KiB/s, done.</span><br><span class="line">Total <span class="number">20</span> (delta <span class="number">5</span>), reused <span class="number">0</span> (delta <span class="number">0</span>)</span><br><span class="line">remote: Resolving deltas: <span class="number">100</span>% (<span class="number">5</span>/<span class="number">5</span>), done.</span><br><span class="line">To github.com:michaelliao/learngit.git</span><br><span class="line"> * [<span class="keyword">new</span> branch]      master -&gt; master</span><br><span class="line">Branch &#x27;master&#x27; set up to track remote branch &#x27;master&#x27; from &#x27;origin&#x27;.</span><br></pre></td></tr></table></figure>
+<p>由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<p>之后使用命令<code>$ git push origin master</code>进行更新</p>
+<p>但是如果remote repository中含有README.md文件那么需要执行<code>git pull --rebase origin master</code>合并代码。</p>
+<blockquote>
+<p>从GitHub上克隆repository</p>
+</blockquote>
+<p>Create with Initialize this repository with a README.</p>
+<p>$ git clone <span class="exturl" data-url="bWFpbHRvOiYjMTAzOyYjMTA1OyYjeDc0OyYjeDQwOyYjeDY3OyYjMTA1OyYjeDc0OyYjMTA0OyYjeDc1OyYjOTg7JiM0NjsmI3g2MzsmI3g2ZjsmIzEwOTs=">&#103;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#x6f;&#109;</span>:michaelliao/gitskills.git<br>Cloning into ‘gitskills’…<br>remote: Counting objects: 3, done.<br>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3<br>Receiving objects: 100% (3/3), done.</p>
+<h3 id="搭建Git服务器"><a href="#搭建Git服务器" class="headerlink" title="搭建Git服务器"></a>搭建Git服务器</h3><blockquote>
+<p>Step1 安装git</p>
+</blockquote>
+<pre><code>$ sudo apt-get install git
+</code></pre>
+<blockquote>
+<p>Step2 创建git用户</p>
+</blockquote>
+<pre><code>$ sudo adduser git
+</code></pre>
+<blockquote>
+<p>Step3 创建证书登录，SSH Key</p>
+</blockquote>
+<p>收集所有需要登录的用户的公钥，<em>id_rsa.pub</em> -&gt; <em>/home/git/.ssh/authorized_keys</em>文件</p>
+<blockquote>
+<p>Step4 初始化Git仓库：</p>
+</blockquote>
+<p>先选定一个目录作为Git仓库，假定是/srv/sample.git，在/srv目录下输入命令：<br>    $ sudo git init –bare sample.git<br>Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。<br>然后，把owner改为git：<br>    $ sudo chown -R git:git sample.git</p>
+<blockquote>
+<p>Step5 克隆远程仓库：</p>
+</blockquote>
+<p>通过git clone命令克隆远程仓库：</p>
+<pre><code>$ git clone git@server:/srv/sample.git
+Cloning into &#39;sample&#39;...
+warning: You appear to have cloned an empty repository.
+</code></pre>
+<blockquote>
+<p>Step6 禁用shell登录：</p>
+</blockquote>
+<p>出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
+<pre><code>git:x:1001:1001:,,,:/home/git:/bin/bash
+</code></pre>
+<p>改为：</p>
+<pre><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+</code></pre>
+<p>这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。</p>
+<blockquote>
+<p>管理公钥</p>
+</blockquote>
+<p>如果团队很小，把每个人的公钥收集起来放到服务器的/home/git/.ssh/authorized_keys文件里就是可行的。如果团队有几百号人，就没法这么玩了，这时，可以用Gitosis来管理公钥。</p>
+<blockquote>
+<p>管理权限</p>
+</blockquote>
+<p>有很多不但视源代码如生命，而且视员工为窃贼的公司，会在版本控制系统里设置一套完善的权限控制，每个人是否有读写权限会精确到每个分支甚至每个目录下。因为Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的精神，不支持权限控制。不过，因为Git支持钩子（hook），所以，可以在服务器端编写一系列脚本来控制提交等操作，达到权限控制的目的。Gitolite就是这个工具。</p>
+<h2 id="Git-other-option"><a href="#Git-other-option" class="headerlink" title="Git other option"></a>Git other option</h2><h3 id="分支管理commit"><a href="#分支管理commit" class="headerlink" title="分支管理commit"></a>分支管理commit</h3><p>查看分支：git branch</p>
+<p>创建分支：git branch <name></p>
+<p>切换分支：git checkout <name>或者git switch <name></p>
+<p>创建+切换分支：git checkout -b <name>或者git switch -c <name></p>
+<p>合并某分支到当前分支：git merge <name></p>
+<p>删除分支：git branch -d <name></p>
+<h3 id="标签管理tag"><a href="#标签管理tag" class="headerlink" title="标签管理tag"></a>标签管理tag</h3><p>tag跟某个commit绑在一起。</p>
+<pre><code>$ git branch
+$ git checkout master
+$ git tag v1.0
+</code></pre>
+<p>查看标签信息:</p>
+<pre><code>git show &lt;tagname&gt;
+</code></pre>
+<p>进行说明：</p>
+<pre><code>$ git tag -a v0.1 -m &quot;version 0.1 released&quot; 1094adb
+</code></pre>
+<p>删除标签：</p>
+<pre><code>$ git tag -d v0.1
+</code></pre>
+<p>推送某个标签到远程</p>
+<pre><code>$ git push origin v1.0
+</code></pre>
+<p>推送所有标签</p>
+<pre><code>$ git push origin --tags
+</code></pre>
+<h3 id="自定义Git"><a href="#自定义Git" class="headerlink" title="自定义Git"></a>自定义Git</h3><p>可以更改代码强显，特殊文件名，关键词，别名等</p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2021-02-09 09:19:17" itemprop="dateModified" datetime="2021-02-09T09:19:17+08:00">2021-02-09</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="John Doe WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="John Doe Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="John Doe PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>Hexo
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="hexo">http://example.com/2021/01/05/github使用方案/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevo9j1jj20zk0m8e81.jpg" title="hexo">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>hexo</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwuom7cj20zk0m8dvn.jpg" title="hexo">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>hexo</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">git使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recording"><span class="toc-number">1.1.</span> <span class="toc-text">Recording</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contents"><span class="toc-number">1.2.</span> <span class="toc-text">Contents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E6%9C%89%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">共有命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Push"><span class="toc-number">1.4.</span> <span class="toc-text">Push</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85git"><span class="toc-number">1.4.1.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">1.4.2.</span> <span class="toc-text">创建版本库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">1.4.3.</span> <span class="toc-text">远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAGit%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.4.4.</span> <span class="toc-text">搭建Git服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-other-option"><span class="toc-number">1.5.</span> <span class="toc-text">Git other option</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86commit"><span class="toc-number">1.5.1.</span> <span class="toc-text">分支管理commit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E7%AE%A1%E7%90%86tag"><span class="toc-number">1.5.2.</span> <span class="toc-text">标签管理tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Git"><span class="toc-number">1.5.3.</span> <span class="toc-text">自定义Git</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="John Doe"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">John Doe</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">25</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">16</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lvdXJuYW1l" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;yourname"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPXlvdXJpZA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;yourid"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20veW91cm5hbWU=" title="https:&#x2F;&#x2F;weibo.com&#x2F;yourname"><i class="ic i-weibo"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
     </div>
   </div>
 
-{% endblock %}
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/" title="hexo">hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="编译原理之预测分析器的设计与实现">编译原理之预测分析器的设计与实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" title="数据库中文乱码问题">数据库中文乱码问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/11/12/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0/" title="信息安全学习记">信息安全学习记</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe @ Yume Shoka</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/01/05/github使用方案/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
