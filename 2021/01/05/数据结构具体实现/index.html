@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -151,26 +151,33 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="数据结构具体实现"><a href="#数据结构具体实现" class="headerlink" title="数据结构具体实现"></a>数据结构具体实现</h1><p>C++语言<br>NYWVH-HT4XC-R2WYW-9Y3CM-X4V3Y</p>
-<h2 id="一、线性表"><a href="#一、线性表" class="headerlink" title="一、线性表"></a>一、线性表</h2><p>基本操作表</p>
+    <h1 id="数据结构具体实现"><a class="markdownIt-Anchor" href="#数据结构具体实现">#</a> 数据结构具体实现</h1>
+<p>C++ 语言</p>
+<h2 id="一-线性表"><a class="markdownIt-Anchor" href="#一-线性表">#</a> 一、线性表</h2>
+<p>基本操作表</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">InitList(&amp;L);</span><br><span class="line">Length(L);</span><br><span class="line">LocateElem(L,e);</span><br><span class="line">GetElem(L,i);</span><br><span class="line">ListInsert(&amp;L,i,e);</span><br><span class="line">ListDelete(&amp;L,i,&amp;e);</span><br><span class="line">PrintList(L);</span><br><span class="line">Empty(L);</span><br><span class="line">DestroyList(&amp;L);</span><br></pre></td></tr></table></figure>
-<h3 id="1-1-顺序表"><a href="#1-1-顺序表" class="headerlink" title="1.1 顺序表"></a>1.1 顺序表</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxSize 50 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">&#125;SqList;</span><br></pre></td></tr></table></figure>
-
+<h3 id="11-顺序表"><a class="markdownIt-Anchor" href="#11-顺序表">#</a> 1.1 顺序表</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxSize 50 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">&#125;SqList;</span><br></pre></td></tr></table></figure>
 <p>动态分配:</p>
 <pre><code>ElemType *data;
 L.data = (ELemType*)malloc(sizeof(ElemType)*InitSize);//C
 L.data = new ElemType[InitSize];//C++
 </code></pre>
-<p>基本操作。基于C++</p>
+<p>基本操作。基于 C++</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入元素,第i个位置插入e</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ListInsert</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> i,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &gt; L.length + <span class="number">1</span> || i &lt; <span class="number">1</span> || L.length &gt;= MaxSize )&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = L.length;j &gt;= i;j--)&#123;</span><br><span class="line">        L.data[j] = L.data[j<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    L.data[i<span class="number">-1</span>] = e;</span><br><span class="line">    L.length ++;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除元素,第i个位置删除e</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ListDelete</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> i,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &gt; L.length + <span class="number">1</span>  )&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ;j &lt;= L.length ;j++)&#123;</span><br><span class="line">        L.data[j] = L.data[j+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    L.length --;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//顺序查找，查找第一个等于e的元素，返回位序</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LocateElem</span><span class="params">(SqList L ,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ;j &lt;= L.length ;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(L.data[j] == e)&#123;</span><br><span class="line">            <span class="keyword">return</span>  j+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-链式表示"><a href="#1-2-链式表示" class="headerlink" title="1.2 链式表示"></a>1.2 链式表示</h3><p>线性表的链式存储又称单链表：数据元素，后续指针。一组任意存储单元来存储线性表中的数据元素。单链表是非随机存取的存储结构，即不能直接找到表中的某个特定的元素节点，查找某个特定的结点时，需要从表头开始遍历，依次查找。</p>
+<h3 id="12-链式表示"><a class="markdownIt-Anchor" href="#12-链式表示">#</a> 1.2 链式表示</h3>
+<p>线性表的链式存储又称单链表：数据元素，后续指针。一组任意存储单元来存储线性表中的数据元素。单链表是非随机存取的存储结构，即不能直接找到表中的某个特定的元素节点，查找某个特定的结点时，需要从表头开始遍历，依次查找。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode,*LinkList;</span><br></pre></td></tr></table></figure>
 <p>头插法建立单链表的算法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">List_HeadInsert</span><span class="params">(LinkList&amp; L)</span> </span>&#123;</span><br><span class="line">    LNode* s; <span class="keyword">int</span> x;</span><br><span class="line">    L = (LinkList)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="number">9999</span>) &#123;<span class="comment">//输入9999表示结束</span></span><br><span class="line">        s = (LNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">        s-&gt;data = x;</span><br><span class="line">        s-&gt;next = L-&gt;next;</span><br><span class="line">        L-&gt;next = s;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>struct ListNode {<br>    int val;<br>    struct ListNode *next;<br>    ListNode(int x) :<br>            val(x), next(NULL) {<br>    }<br>};</p>
+<p>struct ListNode {<br>
+int val;<br>
+struct ListNode *next;<br>
+ListNode(int x) :<br>
+val(x), next(NULL) {<br>
+}<br>
+};</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">right</span>;</span></span><br><span class="line">    TreeNode(<span class="keyword">int</span> x) :</span><br><span class="line">            val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
       <div class="tags">
           <a href="/tags/hexo/" rel="tag"><i class="ic i-tag"></i> hexo</a>
           <a href="/tags/git/" rel="tag"><i class="ic i-tag"></i> git</a>
@@ -185,7 +192,7 @@ L.data = new ElemType[InitSize];//C++
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-02-19 17:04:40" itemprop="dateModified" datetime="2021-02-19T17:04:40+08:00">2021-02-19</time>
+    <time title="修改时间：2021-03-05 19:12:27" itemprop="dateModified" datetime="2021-03-05T19:12:27+08:00">2021-03-05</time>
   </span>
 </div>
 
@@ -235,17 +242,17 @@ L.data = new ElemType[InitSize];//C++
     <div class="item left">
       
 
-  <a href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciryrr3rj20zk0m8nhk.jpg" title="VS C++开发使用笔记">
+  <a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0fdw5cj20zk0m8hdt.jpg" title="php进阶手册">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>VS C++开发使用笔记</h3>
+  <h3>php进阶手册</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipewr8iypj20zk0m8b29.jpg" title="工具总结">
+  <a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitspjpbj20zk0m81ky.jpg" title="工具总结">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>工具总结</h3>
@@ -267,7 +274,7 @@ L.data = new ElemType[InitSize];//C++
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">数据结构具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">一、线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 顺序表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%93%BE%E5%BC%8F%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 链式表示</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text"> 数据结构具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1.1 顺序表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E9%93%BE%E5%BC%8F%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 1.2 链式表示</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -282,7 +289,7 @@ L.data = new ElemType[InitSize];//C++
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">30</span>
+        <span class="count">32</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -341,7 +348,7 @@ L.data = new ElemType[InitSize];//C++
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
@@ -370,7 +377,7 @@ L.data = new ElemType[InitSize];//C++
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
   </li>
 
       
@@ -379,7 +386,7 @@ L.data = new ElemType[InitSize];//C++
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
+    <span><a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="算法学习笔记01">算法学习笔记01</a></span>
   </li>
 
       
@@ -388,52 +395,7 @@ L.data = new ElemType[InitSize];//C++
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="VS C++开发使用笔记">VS C++开发使用笔记</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="工具总结">工具总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/" title="配置Linux环境">配置Linux环境</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="英语学习笔记">英语学习笔记</a></span>
+    <span><a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" title="网页状态提示说明">网页状态提示说明</a></span>
   </li>
 
       
@@ -451,7 +413,52 @@ L.data = new ElemType[InitSize];//C++
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/" title="文件头文件尾总结">文件头文件尾总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="数据结构具体实现">数据结构具体实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
   </li>
 
   </ul>
