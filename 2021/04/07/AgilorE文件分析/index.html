@@ -1,0 +1,757 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="http://example.com/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/">
+
+
+
+  <title>
+AgilorE文件初步分析 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">AgilorE文件初步分析
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-07 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-07T00:00:00+08:00">2021-04-07</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="agilore文件初步分析"><a class="markdownIt-Anchor" href="#agilore文件初步分析">#</a> AgilorE 文件初步分析</h1>
+<h2 id="项目分析"><a class="markdownIt-Anchor" href="#项目分析">#</a> 项目分析</h2>
+<p>数据库搜查分析，嵌入式数据库</p>
+<h2 id="项目结构"><a class="markdownIt-Anchor" href="#项目结构">#</a> 项目结构</h2>
+<p>AgilorE 是成品文件。<br>
+主要编辑的是 AeClLocal.cpp。目前有 1w 行代码。<br>
+eXtremeWrap 文件中是所有的测试用例，用于测试上层进行调用的效率。</p>
+<p>F:\PROJECT\0329 最新版<br>
+├─.vs<br>
+│  └─AgilorE<br>
+│      └─v16<br>
+│          └─ipch<br>
+│              └─AutoPCH<br>
+│                  ├─1b1557754eea2b50<br>
+│                  ├─20a99d3ba4f3080b<br>
+│                  ├─2344b43eabab9140<br>
+│                  ├─273850d1f5e8e69d<br>
+│                  ├─2889d18adea6f6ab<br>
+│                  ├─2d8445dc6929409c<br>
+│                  ├─3316378169c46be4<br>
+│                  ├─50c3df1eaab32a6f<br>
+│                  ├─67c1d4202dc0f410<br>
+│                  ├─7b907de3735dbe19<br>
+│                  ├─8f3bd61ea479c82d<br>
+│                  ├─af6cc22cb1c77b16<br>
+│                  ├─c662359a7b46d175<br>
+│                  ├─d36a02c0c226aa0<br>
+│                  ├─e82e23d1e3b2cb36<br>
+│                  ├─eff52958018fcd50<br>
+│                  └─fdbb7087cb8c586c<br>
+├─Debug<br>
+│  └─AgilorE.tlog<br>
+├─eXtremeWrap<br>
+│  ├─examples<br>
+│  │  ├─CursorTest<br>
+│  │  │  └─Debug<br>
+│  │  │      └─CursorTest.tlog<br>
+│  │  ├─…<br>
+│  │  ├─testMutliThreads<br>
+│  │  └─xml_test<br>
+│  │      └─Debug<br>
+│  │          └─xml_test.tlog<br>
+│  ├─extremeDBAPI<br>
+│  ├─include<br>
+│  │  ├─ha<br>
+│  │  ├─sql<br>
+│  │  │  └─odbc<br>
+│  │  └─ws<br>
+│  ├─src<br>
+│  ├─test<br>
+│  │  └─ConsoleApplication1<br>
+│  └─testMultiThread<br>
+│      └─Debug<br>
+│          └─testMultiThread.tlog<br>
+├─GNTEST<br>
+├─inc<br>
+│  └─include<br>
+│      ├─ha<br>
+│      ├─sql<br>
+│      │  └─odbc<br>
+│      └─ws<br>
+├─obj<br>
+│  └─Win32<br>
+│      └─Debug<br>
+├─Release<br>
+└─src<br>
+└─.deps</p>
+<h2 id="测试用例分析"><a class="markdownIt-Anchor" href="#测试用例分析">#</a> 测试用例分析</h2>
+<p>[CursorTest] 用文件导入导出来测试游标，倒出文件只用了 wringCode.<br>
+[multiIndex_mix] 测试函数 <code>Record_index1_search(t, &amp;csr, MCO_GT, 1, 5, 4.1, &quot;Record H&quot;, 64);</code>  和 <code>Record_index2_search(t, &amp;csr, MCO_GT, 1, 5, 4.1, &quot;Record H&quot;, 64);</code>  等。<br>
+[multiIndex_nostruct] Record 相关<br>
+ [multiIndex_nostruct_desc]<br>
+[multiIndex_struct]<br>
+[multiIndex_struct_desc]<br>
+[multiIndex_unique]<br>
+[Multithread6]<br>
+[mutilindex]<br>
+[MutliThreads]<br>
+[MutliThreads2]<br>
+[MutliThreads3_Transtion]<br>
+[MutliThreads4] 多线程测试用例<br>
+ [MutliThreads5_mutliSessions]<br>
+[oid_test]<br>
+[performanceTest] 基本的用例<br>
+ [singletable]<br>
+[singletable_struct]<br>
+[singletable_structs] 最基本的用例<br>
+ [structArrayTest]<br>
+[struct_xml_test]<br>
+[testMutliThreads]<br>
+[xml_test]</p>
+<h2 id="数据结构"><a class="markdownIt-Anchor" href="#数据结构">#</a> 数据结构</h2>
+<p>MCO_RET： 状态标志符。<br>
+MCO_RET_E_：一个枚举表，存储各种状态。<br>
+MCO_S_OK: 何时改变，改变多少。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mco_db_h db; <span class="comment">//数据库连接</span></span><br><span class="line"><span class="keyword">mco_cursor_t</span> csr; <span class="comment">//游标</span></span><br><span class="line">mco_trans_h t; <span class="comment">//事务</span></span><br><span class="line">MCO_RET rc = MCO_S_OK; <span class="comment">//状态标志</span></span><br></pre></td></tr></table></figure>
+<p>Record:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int1      signed<span class="meta-string">&lt;1&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int2      signed<span class="meta-string">&lt;2&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int4      signed<span class="meta-string">&lt;4&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> uint8   unsigned<span class="meta-string">&lt;8&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> uint4   unsigned<span class="meta-string">&lt;4&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> uint2   unsigned<span class="meta-string">&lt;2&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> uint1   unsigned<span class="meta-string">&lt;1&gt;</span></span></span><br><span class="line"></span><br><span class="line">declare database treedb;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Record</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   uint4 uint4Value;</span><br><span class="line">    int4 int4Value;</span><br><span class="line">   <span class="keyword">float</span> floatValue;</span><br><span class="line">   <span class="built_in">string</span> stringValue;</span><br><span class="line">   tree&lt;uint4Value,int4Value,floatValue,stringValue&gt;index1;</span><br><span class="line">   tree&lt;int4Value,floatValue,stringValue,uint4Value&gt;index2;</span><br><span class="line">   tree&lt;floatValue,stringValue,uint4Value,int4Value&gt;index3;</span><br><span class="line">   tree&lt;stringValue,uint4Value,int4Value,floatValue&gt;index4;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="函数分析"><a class="markdownIt-Anchor" href="#函数分析">#</a> 函数分析</h2>
+<p>dbAeCI：一个 namespace。</p>
+<p>创建数据库：/<em>men 缓存区，128 total size，一般的，缓存区 men 的大小是包含数据库大小和 xml 文件等的大小的</em> /</p>
+<pre><code>rc = mco_db_open(dbname, treedb_get_dictionary(), mem, 128, (uint2)0);//依托于db name(const char * dbname = &quot;SimpleDb&quot;;)
+</code></pre>
+<p>连接数据库：关联已经创建的数据库 dbname 和 db。</p>
+<pre><code>rc = mco_db_connect(dbname, &amp;db);//db连接到dbname。??所以整个系统是根据关键词来进行分配数据库的吗
+</code></pre>
+<p>事务</p>
+<pre><code>rc = mco_trans_start(db, MCO_READ_ONLY, MCO_TRANS_FOREGROUND, &amp;t);//开启一个事务指定到t，事务权限根据第二参数确定。
+rc = mco_trans_commit(t);//提交事务
+mco_trans_rollback(t);//事务回滚
+</code></pre>
+<p>查询</p>
+<pre><code>rc = CurrentWarnDB_CurrentWarn_search(t, &amp;csr, MCO_LT, 50000, 0);//MCO_LT小于
+</code></pre>
+<p>游标位置</p>
+<pre><code>rc = CurrentWarnDB_CurrentWarn_index_cursor(t, &amp;csr);
+</code></pre>
+<p>游标启示位置</p>
+<pre><code>rc = mco_cursor_first(t, &amp;csr);
+</code></pre>
+<p>单条数据删除操作</p>
+<pre><code>CurrentWarnDB_delete(&amp;rec);
+CurrentWarnDB_from_cursor() 
+</code></pre>
+<p>数据删除所有：</p>
+<pre><code>classname_delete_all(t);
+</code></pre>
+<p>获取字段到参数 warningCode</p>
+<pre><code>CurrentWarnDB_warningcode_put(&amp;rec, warningCode);
+</code></pre>
+<p>Record_index1_pattern_search：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">MCO_RET  Record_index1_pattern_search( </span><br><span class="line">	mco_trans_h t, </span><br><span class="line">	mco_cursor_h c, </span><br><span class="line">	&#x2F;*INOUT*&#x2F; void *allocated_pattern, </span><br><span class="line">	mco_size_t memsize , </span><br><span class="line">	uint4 uint4Value_key_, </span><br><span class="line">	int4 int4Value_key_, </span><br><span class="line">	float floatValue_key_, </span><br><span class="line">	const char *stringValue_key_, </span><br><span class="line">	uint2 sizeof_stringValue_key_ )</span><br><span class="line">&#123; mco_external_field_t a_ [5];</span><br><span class="line">  mco_external_field_h pa_ &#x3D; a_;</span><br><span class="line">  pa_-&gt;field_type &#x3D; 3; pa_-&gt;v.u4 &#x3D; uint4Value_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type &#x3D; 6; pa_-&gt;v.i4 &#x3D; int4Value_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type &#x3D; 10; pa_-&gt;v.flt &#x3D; floatValue_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type &#x3D; 8; pa_-&gt;v.ptr_size &#x3D; sizeof_stringValue_key_; pa_-&gt;ptr &#x3D; stringValue_key_; </span><br><span class="line">  (pa_+1)-&gt;field_type&#x3D;0;</span><br><span class="line">  return mco_pattern_search(t, c, allocated_pattern, memsize, a_);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Record_index2_search:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MCO_RET <span class="title">Record_index2_search</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">	mco_trans_h t, </span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="comment">/*INOUT*/</span> mco_cursor_h c, </span></span></span><br><span class="line"><span class="function"><span class="params">	MCO_OPCODE op_, </span></span></span><br><span class="line"><span class="function"><span class="params">	int4 int4Value_key_, </span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">float</span> floatValue_key_, </span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">const</span> <span class="keyword">char</span> *stringValue_key_, </span></span></span><br><span class="line"><span class="function"><span class="params">	uint2 sizeof_stringValue_key_, </span></span></span><br><span class="line"><span class="function"><span class="params">	uint4 uint4Value_key_ )</span></span></span><br><span class="line"><span class="function"></span>&#123; <span class="keyword">mco_external_field_t</span> a_ [<span class="number">4</span>];</span><br><span class="line">  mco_external_field_h pa_ = a_;</span><br><span class="line">  pa_-&gt;field_type = <span class="number">6</span>; pa_-&gt;v.i4 = int4Value_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type = <span class="number">10</span>; pa_-&gt;v.flt = floatValue_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type = <span class="number">8</span>; pa_-&gt;v.ptr_size = sizeof_stringValue_key_; pa_-&gt;ptr = stringValue_key_; pa_++; </span><br><span class="line">  pa_-&gt;field_type = <span class="number">3</span>; pa_-&gt;v.u4 = uint4Value_key_; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> mco_w_tree_find(t,c,op_,a_);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="内存分析"><a class="markdownIt-Anchor" href="#内存分析">#</a> 内存分析</h3>
+<p>删除的时候疑似未有删除内容。</p>
+<p>首先，如果内存是一样的，先执行不同变量的插入操作，再执行后续。<br>
+验证：<br>
+Updata_test();<br>
+ 与：<br>
+insert_test();<br>
+Updata_test();<br>
+ 结果，insert 之后的更新是有数据的。同理执行删除操作亦是如此。<br>
+所以内存是共用的。不过也有可能因为机制问题而改变。</p>
+<h3 id="多线程"><a class="markdownIt-Anchor" href="#多线程">#</a> 多线程</h3>
+<p>65535：两个字节最大值。</p>
+<p>配置依赖包：属性 -&gt; C/C++ -&gt; 常规 -&gt; 附加包含目录：<br>
+(SolutionDir)eXtremeWrap\examples\example;(SolutionDir)eXtremeWrap;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>S</mi><mi>o</mi><mi>l</mi><mi>u</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>D</mi><mi>i</mi><mi>r</mi><mo stretchy="false">)</mo><mi>i</mi><mi>n</mi><mi>c</mi><mo separator="true">;</mo></mrow><annotation encoding="application/x-tex">(SolutionDir)inc;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mpunct">;</span></span></span></span>(SolutionDir)eXtremeWrap\include;(SolutionDir)eXtremeWrap\extremeDBAPI;(SolutionDir)eXtremeWrap\examples\example\testcases;%(AdditionalIncludeDirectories)</p>
+<h2 id="错误处理"><a class="markdownIt-Anchor" href="#错误处理">#</a> 错误处理</h2>
+<h3 id="debug-assertion-failed-expressionstreamvalid"><a class="markdownIt-Anchor" href="#debug-assertion-failed-expressionstreamvalid">#</a> debug assertion failed expression:stream.valid()</h3>
+<p>文件不存在</p>
+<h3 id="error-c4996fopen-this-function-or-variable-may-be-unsafe-consider-using-fopen_s-instead-to-disable-deprecation-use-_crt_secure_no_warnings-see-online-help-for-details"><a class="markdownIt-Anchor" href="#error-c4996fopen-this-function-or-variable-may-be-unsafe-consider-using-fopen_s-instead-to-disable-deprecation-use-_crt_secure_no_warnings-see-online-help-for-details">#</a> error C4996	‘fopen’: This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.</h3>
+<p>项目 --&gt; XX 属性 --&gt; C++  —&gt; 预处理器 --&gt; 在预处理器定义添加 “_CRT_SECURE_NO_WARNINGS”</p>
+<h3 id="c-类型的值不能用于初始化-类型的实体"><a class="markdownIt-Anchor" href="#c-类型的值不能用于初始化-类型的实体">#</a> C++ 类型的值不能用于初始化 类型的实体</h3>
+<p>报错代码如下：<br>
+char* image_window = “Source Image”;<br>
+char* result_window = “Result window”;<br>
+ 查了查资料，可能的原因是在 VS2017 版本中使用这种 char<em> 的表达方式会造成程序崩溃，所以 VS2017 对其进行了控件管理。<br>
+解决方案：<br>
+1、先将字符使用字符数组进行存储，再使用指针<br>
+ char image [] = “Source Image”;<br>
+char result1[] = “Result window”;<br>
+char</em> image_window = image;<br>
+char* result_window = result1;<br>
+2、在前面加上 const<br>
+const char* image_window = “Source Image”;<br>
+const char* result_window = “Result window”;<br>
+3、右键 project -&gt; 属性 -&gt; C/C++ -&gt; 语言 -&gt; 符合模式：否</p>
+<h3 id="mtd"><a class="markdownIt-Anchor" href="#mtd">#</a> MTD</h3>
+<p>C/C++ -&gt; 代码生成 -&gt; 运行库 (多线程 MTD)</p>
+<h3 id="链接问题"><a class="markdownIt-Anchor" href="#链接问题">#</a> 链接问题</h3>
+<p>链接库 -&gt; 常规 -&gt; 附加目录<br>
+ -&gt; 输入 -&gt; 附加依赖项</p>
+<h2 id="代码留存"><a class="markdownIt-Anchor" href="#代码留存">#</a> 代码留存</h2>
+<pre><code>int record = 5000;
+
+ , int data_space = 8 * 1024 * 1024
+</code></pre>
+<h3 id="插入操作"><a class="markdownIt-Anchor" href="#插入操作">#</a> 插入操作</h3>
+<pre><code>/*为xx而进行的生成数据(插入数据动作)*/
+//rc = mco_trans_start(db, MCO_READ_WRITE, MCO_TRANS_FOREGROUND, &amp;t);
+//for (i = 0; i &lt; record &amp;&amp; MCO_S_OK == rc; i++)
+//&#123;
+//	rc = CurrentWarnDB_new(/*t*/t, &amp;rec); //缓冲区分配
+
+//	if (MCO_S_OK == rc) &#123;
+
+//		/*整型数据插入*/
+//		CurrentWarnDB_warningcode_put(&amp;rec, tempint);
+//		CurrentWarnDB_IntWarnCode_put(&amp;rec, tempint + 1);
+//		CurrentWarnDB_Warn_Level_put(&amp;rec, tempint + 2);
+
+//		CurrentWarnDB_date_calendartime_write_handle(&amp;rec, &amp;dch);
+//		DATE_CALENDARTIME_year_put(&amp;dch, 2020);
+//		DATE_CALENDARTIME_month_put(&amp;dch, (tempint % 12) + 1);
+//		DATE_CALENDARTIME_day_put(&amp;dch, (tempint % 31) + 1);
+
+//		CurrentWarnDB_time_calendartime_write_handle(&amp;rec, &amp;tch);
+//		TIME_CALENDARTIME_date_time_put(&amp;tch, (int8)tempint + 1);
+
+//		CurrentWarnDB_acknowledgeMark_put(&amp;rec, tempint % 255 + 1);
+//		CurrentWarnDB_confirmMark_put(&amp;rec, tempint % 255 + 2);
+//		CurrentWarnDB_exist_notexist_put(&amp;rec, tempint % 255 + 3);
+//		CurrentWarnDB_PFL_send_flag_put(&amp;rec, tempint % 255 + 4);
+//		CurrentWarnDB_exist_counter_put(&amp;rec, tempint % 1024 + 1);
+//		CurrentWarnDB_notexist_counter_put(&amp;rec, tempint % 1024 + 2);
+//		CurrentWarnDB_statechange_put(&amp;rec, STATE_CHANGE_TYPE(tempint % 3));
+//		CurrentWarnDB_pfl_statechange_put(&amp;rec, STATE_CHANGE_TYPE((tempint + 1) % 3));
+//		CurrentWarnDB_ms_icaws_flag_put(&amp;rec, tempint % 255 + 5);
+//		CurrentWarnDB_from_vms_flag_put(&amp;rec, ICAWS_FROM_VMS_TYPE(tempint % 4));
+//		CurrentWarnDB_icaws_continue_time_counter_put(&amp;rec, tempint % 255 + 6);
+//		CurrentWarnDB_duration_time_put(&amp;rec, (int8)tempint + 2);
+//		CurrentWarnDB_warn_history_counter_put(&amp;rec, (uint2)tempint + 3);
+//		tempint++;
+//		//printf(&quot;任务1插入%d条数据\n &quot;, tempint);
+
+//	&#125;
+//&#125;
+</code></pre>
+<h3 id="时间计算"><a class="markdownIt-Anchor" href="#时间计算">#</a> 时间计算</h3>
+<p>class stop_watch<br>
+{<br>
+public:<br>
+stop_watch()<br>
+: elapsed_(0)<br>
+{<br>
+QueryPerformanceFrequency(&amp;freq_);<br>
+}<br>
+~stop_watch() {}<br>
+public:<br>
+void start()<br>
+{<br>
+QueryPerformanceCounter(&amp;begin_time_);<br>
+}<br>
+void stop()<br>
+{<br>
+LARGE_INTEGER end_time;<br>
+QueryPerformanceCounter(&amp;end_time);<br>
+elapsed_ += (end_time.QuadPart - begin_time_.QuadPart) * 1000000 / freq_.QuadPart;<br>
+}<br>
+void restart()<br>
+{<br>
+elapsed_ = 0;<br>
+start();<br>
+}<br>
+// 微秒<br>
+ double elapsed ()<br>
+{<br>
+return static_cast<double>(elapsed_);<br>
+}<br>
+// 毫秒<br>
+ double elapsed_ms ()<br>
+{<br>
+return elapsed_ / 1000.0;<br>
+}<br>
+// 秒<br>
+ double elapsed_second ()<br>
+{<br>
+return elapsed_ / 1000000.0;<br>
+}</p>
+<p>private:<br>
+LARGE_INTEGER freq_;<br>
+LARGE_INTEGER begin_time_;<br>
+long long elapsed_;<br>
+};</p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-04-11 09:55:31" itemprop="dateModified" datetime="2021-04-11T09:55:31+08:00">2021-04-11</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">http://example.com/2021/04/07/AgilorE文件分析/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclip4jbpj20zk0m87cv.jpg" title="数据库理论系统学习手册">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>数据库理论系统学习手册</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclx6phq6j20zk0m8e36.jpg" title="CRC循环冗余校验">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>CRC循环冗余校验</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#agilore%E6%96%87%E4%BB%B6%E5%88%9D%E6%AD%A5%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> AgilorE 文件初步分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text"> 项目分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text"> 项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text"> 测试用例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text"> 数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90"><span class="toc-number">1.5.</span> <span class="toc-text"> 函数分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 内存分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 多线程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text"> 错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#debug-assertion-failed-expressionstreamvalid"><span class="toc-number">1.6.1.</span> <span class="toc-text"> debug assertion failed expression:stream.valid()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#error-c4996fopen-this-function-or-variable-may-be-unsafe-consider-using-fopen_s-instead-to-disable-deprecation-use-_crt_secure_no_warnings-see-online-help-for-details"><span class="toc-number">1.6.2.</span> <span class="toc-text"> error C4996	‘fopen’: This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%8E%E5%88%9D%E5%A7%8B%E5%8C%96-%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AE%9E%E4%BD%93"><span class="toc-number">1.6.3.</span> <span class="toc-text"> C++ 类型的值不能用于初始化 类型的实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mtd"><span class="toc-number">1.6.4.</span> <span class="toc-text"> MTD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.5.</span> <span class="toc-text"> 链接问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%95%99%E5%AD%98"><span class="toc-number">1.7.</span> <span class="toc-text"> 代码留存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 插入操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 时间计算</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">59</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">27</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" title="数据库中文乱码问题">数据库中文乱码问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" title="计算机组成原理">计算机组成原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="Ps学习札记">Ps学习札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="VS C++开发使用笔记">VS C++开发使用笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" title="大数据涉猎">大数据涉猎</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/04/07/AgilorE文件分析/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

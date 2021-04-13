@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
         </ul>
       </div>
     </header>
@@ -151,35 +151,111 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="Wiki搭建笔记"><a href="#Wiki搭建笔记" class="headerlink" title="Wiki搭建笔记"></a>Wiki搭建笔记</h1><p>参考教程：<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYWhhaWkvcC82ODY4MDAzLmh0bWw=">https://www.cnblogs.com/ahaii/p/6868003.html</span></p>
-<p>下载地址：<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuYXRsYXNzaWFuLmNvbS9zb2Z0d2FyZS9jb25mbHVlbmNlL2Rvd25sb2Fkcy9iaW5hcnkvYXRsYXNzaWFuLWNvbmZsdWVuY2UtNi42LjcteDY0LmJpbg==">https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-6.6.7-x64.bin</span></p>
-<p>http<br>8090<br>port<br>24023</p>
+    <h1 id="wiki搭建笔记"><a class="markdownIt-Anchor" href="#wiki搭建笔记">#</a> Wiki 搭建笔记</h1>
+<p>参考教程：<br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYWhhaWkvcC82ODY4MDAzLmh0bWw=">https://www.cnblogs.com/ahaii/p/6868003.html</span></p>
+<p>下载地址：<br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuYXRsYXNzaWFuLmNvbS9zb2Z0d2FyZS9jb25mbHVlbmNlL2Rvd25sb2Fkcy9iaW5hcnkvYXRsYXNzaWFuLWNvbmZsdWVuY2UtNi42LjcteDY0LmJpbg==">https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-6.6.7-x64.bin</span></p>
+<p>http<br>
+8090<br>
+port<br>
+24023</p>
 <blockquote>
-<h3 id="打开防火墙8090端口"><a href="#打开防火墙8090端口" class="headerlink" title="打开防火墙8090端口"></a>打开防火墙8090端口</h3></blockquote>
-<p>iptables -I INPUT -p tcp -m state –state NEW -m tcp –dport 8090 -j ACCEPT<br>service iptables save<br>service iptables restart #打开防火墙8090端口</p>
-<p>关闭端口号:<br>iptables -A OUTPUT -p tcp –dport 8090 -j DROP<br>打开端口号：<br>iptables -A INPUT -ptcp –dport 8090 -j ACCEPT<br>iptables -I INPUT -ptcp –dport 8090 -j ACCEPT</p>
+<h3 id="打开防火墙8090端口"><a class="markdownIt-Anchor" href="#打开防火墙8090端口">#</a> 打开防火墙 8090 端口</h3>
+</blockquote>
+<p>iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 8090 -j ACCEPT<br>
+service iptables save<br>
+service iptables restart #打开防火墙 8090 端口</p>
+<p>关闭端口号:<br>
+iptables -A OUTPUT -p tcp --dport 8090 -j DROP<br>
+ 打开端口号：<br>
+iptables -A INPUT -ptcp --dport 8090 -j ACCEPT<br>
+iptables -I INPUT -ptcp --dport 8090 -j ACCEPT</p>
 <p><span class="exturl" data-url="aHR0cDovLzY5LjE3MS42OC4xMjE6ODA5MC8=">http://69.171.68.121:8090/</span></p>
 <p>日志文件: /home/confluence/atlassian/application-data/confluence/logs</p>
 <p>端口文件: etc/hosts</p>
-<p>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1    localhost localhost.localdomain localhost6 localhost6.localdomain6</p>
+<p>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>
+::1    localhost localhost.localdomain localhost6 localhost6.localdomain6</p>
 <p>127.0.0.1   69.171.68.121</p>
 <p>防火墙文件 /etc/sysconfig/iptables</p>
 <blockquote>
-<h3 id="主要端口处与进程理方法"><a href="#主要端口处与进程理方法" class="headerlink" title="主要端口处与进程理方法"></a>主要端口处与进程理方法</h3></blockquote>
-<p>查看定义规则的详细信息：<br>iptables -L -n -v<br>iptables -t filter -L<br>显示所有服务<br>ps -aux<br>ps -x<br>指定端口的情况<br>netstat -tnl<br>netstat -tnl |grep 8090<br>netstat -antp | grep 8090<br>netstat -a<br>防火墙状态<br>service iptables status<br>关闭防火墙<br>service iptables stop<br>systemctl stop firewalld.service<br>systemctl start firewalld.service<br>测试端口是否打开<br>telnet 69.171.68.121 8090<br>nc  -z 69.171.68.121 8090<br>telnet localhost 8090</p>
-<p>多方网页测试，证明8090端口其实不可用的，使用命令netstat -tnl不能扫描出来。使用telnet 69.171.68.121 8090命令没有任何反应，即使使用127.0.0.1和localhost也是如此。而且8000端口则可以任意连接(断开连接方式ctrl+]，然后进入了telnet界面后使用quit退出)。</p>
-<p>[root@host my-project]# netstat -tnl<br>Active Internet connections (only servers)<br>Proto Recv-Q Send-Q Local Address           Foreign Address         State<br>tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN<br>tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN<br>tcp        7      0 0.0.0.0:8000            0.0.0.0:*               LISTEN<br>tcp        0      0 0.0.0.0:27621           0.0.0.0:*               LISTEN<br>tcp        0      0 127.0.0.1:9000          0.0.0.0:*               LISTEN<br>tcp6       0      0 :::22                   :::*                    LISTEN<br>tcp6       0      0 ::1:25                  :::*                    LISTEN<br>tcp6       0      0 :::3306                 :::*                    LISTEN<br>tcp6       0      0 :::80                   :::*                    LISTEN</p>
+<h3 id="主要端口处与进程理方法"><a class="markdownIt-Anchor" href="#主要端口处与进程理方法">#</a> 主要端口处与进程理方法</h3>
+</blockquote>
+<p>查看定义规则的详细信息：<br>
+iptables -L -n -v<br>
+iptables -t filter -L<br>
+ 显示所有服务<br>
+ ps -aux<br>
+ps -x<br>
+ 指定端口的情况<br>
+ netstat -tnl<br>
+netstat -tnl |grep 8090<br>
+netstat -antp | grep 8090<br>
+netstat -a<br>
+ 防火墙状态<br>
+ service iptables status<br>
+ 关闭防火墙<br>
+ service iptables stop<br>
+systemctl stop firewalld.service<br>
+systemctl start firewalld.service<br>
+ 测试端口是否打开<br>
+ telnet 69.171.68.121 8090<br>
+nc  -z 69.171.68.121 8090<br>
+telnet localhost 8090</p>
+<p>多方网页测试，证明 8090 端口其实不可用的，使用命令 netstat -tnl 不能扫描出来。使用 telnet 69.171.68.121 8090 命令没有任何反应，即使使用 127.0.0.1 和 localhost 也是如此。而且 8000 端口则可以任意连接 (断开连接方式 ctrl+]，然后进入了 telnet 界面后使用 quit 退出)。</p>
+<p>[root@host my-project]# netstat -tnl<br>
+Active Internet connections (only servers)<br>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State<br>
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN<br>
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN<br>
+tcp        7      0 0.0.0.0:8000            0.0.0.0:*               LISTEN<br>
+tcp        0      0 0.0.0.0:27621           0.0.0.0:*               LISTEN<br>
+tcp        0      0 127.0.0.1:9000          0.0.0.0:*               LISTEN<br>
+tcp6       0      0 :::22                   ::😗                    LISTEN<br>
+tcp6       0      0 ::1:25                  ::😗                    LISTEN<br>
+tcp6       0      0 :::3306                 ::😗                    LISTEN<br>
+tcp6       0      0 :::80                   ::😗                    LISTEN</p>
 <p>防火墙文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@host my-project]# cat &#x2F;etc&#x2F;sysconfig&#x2F;iptables</span><br><span class="line"># Generated by iptables-save v1.4.21 on Tue Jul 31 05:20:40 2018</span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [3:256]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [4:528]</span><br><span class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 8090 -j ACCEPT</span><br><span class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 13156 -j ACCEPT</span><br><span class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 8090 -j ACCEPT</span><br><span class="line">COMMIT</span><br><span class="line"># Completed on Tue Jul 31 05:20:40 2018</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h3 id="主要信息记录"><a href="#主要信息记录" class="headerlink" title="主要信息记录"></a>主要信息记录</h3></blockquote>
+<h3 id="主要信息记录"><a class="markdownIt-Anchor" href="#主要信息记录">#</a> 主要信息记录</h3>
+</blockquote>
 <p>iptables -L</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source          destination</span><br><span class="line">ACCEPT     tcp  --  anywhere        anywhere        state NEW tcp dpt:8090</span><br><span class="line">ACCEPT     tcp  --  anywhere        anywhere        state NEW tcp dpt:8090</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt source          destination</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source          destination</span><br></pre></td></tr></table></figure>
-<p>[root@master resourses]# iptables -L<br>Chain INPUT (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     udp  –  anywhere        anywhere        udp dpt:domain<br>ACCEPT     tcp  –  anywhere        anywhere        tcp dpt:domain<br>ACCEPT     udp  –  anywhere        anywhere        udp dpt:bootps<br>ACCEPT     tcp  –  anywhere        anywhere        tcp dpt:bootps</p>
-<p>Chain FORWARD (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     all  –  anywhere        192.168.122.0/24     ctstate RELATED,ESTABLISHED<br>ACCEPT     all  –  192.168.122.0/24     anywhere<br>ACCEPT     all  –  anywhere        anywhere<br>REJECT     all  –  anywhere        anywhere        reject-with icmp-port-unreachable<br>REJECT     all  –  anywhere        anywhere        reject-with icmp-port-unreachable</p>
-<p>Chain OUTPUT (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     udp  –  anywhere        anywhere        udp dpt:bootpc<br>[root@master sysconfig]# /sbin/iptables -L -n<br>Chain INPUT (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:53<br>ACCEPT     tcp  –  0.0.0.0/0       0.0.0.0/0       tcp dpt:53<br>ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:67<br>ACCEPT     tcp  –  0.0.0.0/0       0.0.0.0/0       tcp dpt:67</p>
-<p>Chain FORWARD (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     all  –  0.0.0.0/0       192.168.122.0/24     ctstate RELATED,ESTABLISHED<br>ACCEPT     all  –  192.168.122.0/24     0.0.0.0/0<br>ACCEPT     all  –  0.0.0.0/0       0.0.0.0/0<br>REJECT     all  –  0.0.0.0/0       0.0.0.0/0       reject-with icmp-port-unreachable<br>REJECT     all  –  0.0.0.0/0       0.0.0.0/0       reject-with icmp-port-unreachable</p>
-<p>Chain OUTPUT (policy ACCEPT)<br>target     prot opt source          destination<br>ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:68</p>
+<p>[root@master resourses]# iptables -L<br>
+Chain INPUT (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     udp  –  anywhere        anywhere        udp dpt:domain<br>
+ACCEPT     tcp  –  anywhere        anywhere        tcp dpt:domain<br>
+ACCEPT     udp  –  anywhere        anywhere        udp dpt:bootps<br>
+ACCEPT     tcp  –  anywhere        anywhere        tcp dpt:bootps</p>
+<p>Chain FORWARD (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     all  –  anywhere        192.168.122.0/24     ctstate RELATED,ESTABLISHED<br>
+ACCEPT     all  –  192.168.122.0/24     anywhere<br>
+ACCEPT     all  –  anywhere        anywhere<br>
+REJECT     all  –  anywhere        anywhere        reject-with icmp-port-unreachable<br>
+REJECT     all  –  anywhere        anywhere        reject-with icmp-port-unreachable</p>
+<p>Chain OUTPUT (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     udp  –  anywhere        anywhere        udp dpt:bootpc<br>
+[root@master sysconfig]# /sbin/iptables -L -n<br>
+Chain INPUT (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:53<br>
+ACCEPT     tcp  –  0.0.0.0/0       0.0.0.0/0       tcp dpt:53<br>
+ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:67<br>
+ACCEPT     tcp  –  0.0.0.0/0       0.0.0.0/0       tcp dpt:67</p>
+<p>Chain FORWARD (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     all  –  0.0.0.0/0       192.168.122.0/24     ctstate RELATED,ESTABLISHED<br>
+ACCEPT     all  –  192.168.122.0/24     0.0.0.0/0<br>
+ACCEPT     all  –  0.0.0.0/0       0.0.0.0/0<br>
+REJECT     all  –  0.0.0.0/0       0.0.0.0/0       reject-with icmp-port-unreachable<br>
+REJECT     all  –  0.0.0.0/0       0.0.0.0/0       reject-with icmp-port-unreachable</p>
+<p>Chain OUTPUT (policy ACCEPT)<br>
+target     prot opt source          destination<br>
+ACCEPT     udp  –  0.0.0.0/0       0.0.0.0/0       udp dpt:68</p>
 
       <div class="tags">
           <a href="/tags/wiki/" rel="tag"><i class="ic i-tag"></i> wiki</a>
@@ -244,17 +320,17 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
     <div class="item left">
       
 
-  <a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclh3brzpj20zk0m8ann.jpg" title="项目小憩">
+  <a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetv6p75j20zk0m8x6p.jpg" title="大数据涉猎">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>项目小憩</h3>
+  <h3>大数据涉猎</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfb3vzhj20zk0m8wny.jpg" title="Linux下配置服务器环境(lamp和shadowsocks、lnmp)">
+  <a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicis081o9j20zk0m8dmr.jpg" title="Linux下配置服务器环境(lamp和shadowsocks、lnmp)">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Linux下配置服务器环境(lamp和shadowsocks、lnmp)</h3>
@@ -276,7 +352,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Wiki搭建笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%998090%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">打开防火墙8090端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%AB%AF%E5%8F%A3%E5%A4%84%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.2.</span> <span class="toc-text">主要端口处与进程理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text">主要信息记录</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> Wiki 搭建笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%998090%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 打开防火墙 8090 端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%AB%AF%E5%8F%A3%E5%A4%84%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 主要端口处与进程理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 主要信息记录</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -291,13 +367,13 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">32</span>
+        <span class="count">59</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">14</span>
+        <span class="count">27</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -350,7 +426,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
@@ -388,7 +464,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" title="网页状态提示说明">网页状态提示说明</a></span>
+    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
   </li>
 
       
@@ -397,7 +473,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="php学习概要">php学习概要</a></span>
+    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
   </li>
 
       
@@ -406,7 +482,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/" title="各软件及windows操作快捷键总集">各软件及windows操作快捷键总集</a></span>
+    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
   </li>
 
       
@@ -415,7 +491,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" title="Linux下配置服务器环境(lamp和shadowsocks、lnmp)">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a></span>
+    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
   </li>
 
       
@@ -424,7 +500,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
   </li>
 
       
@@ -433,7 +509,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" title="DOS命令扫描指定端口并查看端口号">DOS命令扫描指定端口并查看端口号</a></span>
+    <span><a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="算法学习笔记01">算法学习笔记01</a></span>
   </li>
 
       
@@ -442,7 +518,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="工具总结">工具总结</a></span>
+    <span><a href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/" title="WebCollector爬虫与Hbase">WebCollector爬虫与Hbase</a></span>
   </li>
 
       
@@ -451,7 +527,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+    <span><a href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/" title="hexo搭建部署">hexo搭建部署</a></span>
   </li>
 
       
@@ -460,7 +536,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="英语学习笔记">英语学习笔记</a></span>
+    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
   </li>
 
   </ul>

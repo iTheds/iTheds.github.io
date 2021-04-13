@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
         </ul>
       </div>
     </header>
@@ -151,36 +151,54 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="Linux下数据库管理与建库"><a href="#Linux下数据库管理与建库" class="headerlink" title="Linux下数据库管理与建库"></a>Linux下数据库管理与建库</h1><p>搭建好mysql后的操作与相关问题，关于搭建参见LAMP搭建文章。</p>
-<h2 id="登入mysql"><a href="#登入mysql" class="headerlink" title="登入mysql"></a>登入mysql</h2><p>mysql [-u username] [-h host] [-p password] [dbname]</p>
-<h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><p>show databases;</p>
-<h2 id="SQL命令"><a href="#SQL命令" class="headerlink" title="SQL命令"></a>SQL命令</h2><p>SQL命令篇参照&lt;SQL语句札记&gt;</p>
-<h2 id="兼容phpmyadmin"><a href="#兼容phpmyadmin" class="headerlink" title="兼容phpmyadmin"></a>兼容phpmyadmin</h2><blockquote>
-<p>报错：</p>
-</blockquote>
-<p>mysqli_real_connect(): Headers and client library minor version mismatch. Headers:50560 Library:100014<br>mysqli_real_connect(): (HY000/2002): Can’t connect to local MySQL server through socket ‘/var/run/mysql/mysql.sock’ (2 &quot;No such file or directory&quot;)</p>
-<p>版本问题，解决方法：</p>
-<p>yum remove php-mysql<br>yum install php-mysqlnd</p>
+    <h1 id="linux下数据库管理与建库"><a class="markdownIt-Anchor" href="#linux下数据库管理与建库">#</a> Linux 下数据库管理与建库</h1>
+<p>搭建好 mysql 后的操作与相关问题，关于搭建参见 LAMP 搭建文章。</p>
+<h2 id="登入mysql"><a class="markdownIt-Anchor" href="#登入mysql">#</a> 登入 mysql</h2>
+<p>mysql [-u username] [-h host] [-p password] [dbname]</p>
+<h2 id="查看数据库"><a class="markdownIt-Anchor" href="#查看数据库">#</a> 查看数据库</h2>
+<p>show databases;</p>
+<h2 id="sql命令"><a class="markdownIt-Anchor" href="#sql命令">#</a> SQL 命令</h2>
+<p>SQL 命令篇参照 &lt;SQL 语句札记&gt;</p>
+<h2 id="兼容phpmyadmin"><a class="markdownIt-Anchor" href="#兼容phpmyadmin">#</a> 兼容 phpmyadmin</h2>
 <blockquote>
 <p>报错：</p>
 </blockquote>
-<p>mysqli_real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]<br>mysqli_real_connect(): (HY000/2054): The server requested authentication method unknown to the client</p>
-<p>解决方案：<br>方案1：无效</p>
-<p>use mysql；<br>ALTER USER ‘root’@’localhost’ IDENTIFIED WITH mysql_native_password BY ‘Linda710#’;<br>FLUSH PRIVILEGES;</p>
-<p>方案2：<br>修改/etc/my.cnf,<code>default_authentication_plugin= mysql_native_password</code>。</p>
+<p>mysqli_real_connect(): Headers and client library minor version mismatch. Headers:50560 Library:100014<br>
+mysqli_real_connect(): (HY000/2002): Can’t connect to local MySQL server through socket ‘/var/run/mysql/mysql.sock’ (2 “No such file or directory”)</p>
+<p>版本问题，解决方法：</p>
+<p>yum remove php-mysql<br>
+yum install php-mysqlnd</p>
+<blockquote>
+<p>报错：</p>
+</blockquote>
+<p>mysqli_real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]<br>
+mysqli_real_connect(): (HY000/2054): The server requested authentication method unknown to the client</p>
+<p>解决方案：<br>
+方案 1：无效</p>
+<p>use mysql；<br>
+ALTER USER ‘root’@‘localhost’ IDENTIFIED WITH mysql_native_password BY ‘Linda710#’;<br>
+FLUSH PRIVILEGES;</p>
+<p>方案 2：<br>
+修改 /etc/my.cnf, <code>default_authentication_plugin= mysql_native_password</code> 。</p>
 <blockquote>
 <p>乱码问题：</p>
 </blockquote>
-<p>全屏都是。但是基本的操作界面可以看到。(很有意思的是，以下的这段经过hexo解析时，进行了报错，直到标注了了代码块才停止。)</p>
+<p>全屏都是。但是基本的操作界面可以看到。(很有意思的是，以下的这段经过 hexo 解析时，进行了报错，直到标注了了代码块才停止。)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;# Console toolbar #&#125; &#123;% include &#39;console&#x2F;toolbar.twig&#39; with &#123; &#39;parent_div_classes&#39;: &#39;collapsed&#39;, &#39;content_array&#39;: [ &#123;0: &#39;switch_button console_switch&#39;, 1: &#39;Console&#39;|trans, &#39;image&#39;: image&#125;, [&#39;button clear&#39;, &#39;Clear&#39;|trans], [&#39;button history&#39;, &#39;History&#39;|trans], [&#39;button options&#39;, &#39;Options&#39;|trans], cfg_bookmark is defined ? [&#39;button bookmarks&#39;, &#39;Bookmarks&#39;|trans] : null, [&#39;button debug hide&#39;, &#39;Debug SQL&#39;|trans] ] &#125; only %&#125; &#123;# Console messages #&#125; &#123;# Drak the console with other cards over it #&#125; &#123;# Debug SQL card #&#125; &#123;% include &#39;console&#x2F;toolbar.twig&#39; with &#123; &#39;parent_div_classes&#39;: &#39;&#39;, &#39;content_array&#39;: [ [&#39;button order order_asc&#39;, &#39;ascending&#39;|trans], [&#39;button order order_desc&#39;, &#39;descending&#39;|trans], [&#39;text&#39;, &#39;Order:&#39;|trans], [&#39;switch_button&#39;, &#39;Debug SQL&#39;|trans], [&#39;button order_by sort_count&#39;, &#39;Count&#39;|trans], [&#39;button order_by sort_exec&#39;, &#39;Execution order&#39;|trans], [&#39;button order_by sort_time&#39;, &#39;Time taken&#39;|trans], [&#39;text&#39;, &#39;Order by:&#39;|trans], [&#39;button group_queries&#39;, &#39;Group queries&#39;|trans], [&#39;button ungroup_queries&#39;, &#39;Ungroup queries&#39;|trans] ] &#125; only %&#125;</span><br><span class="line">Some error occurred while getting SQL debug info.</span><br><span class="line">&#123;% if cfg_bookmark %&#125; &#123;% include &#39;console&#x2F;toolbar.twig&#39; with &#123; &#39;parent_div_classes&#39;: &#39;&#39;, &#39;content_array&#39;: [ [&#39;switch_button&#39;, &#39;Bookmarks&#39;|trans], [&#39;button refresh&#39;, &#39;Refresh&#39;|trans], [&#39;button add&#39;, &#39;Add&#39;|trans] ] &#125; only %&#125;</span><br><span class="line">&#123;&#123; bookmark_content|raw &#125;&#125;</span><br><span class="line">&#123;% include &#39;console&#x2F;toolbar.twig&#39; with &#123; &#39;parent_div_classes&#39;: &#39;&#39;, &#39;content_array&#39;: [ [&#39;switch_button&#39;, &#39;Add bookmark&#39;|trans] ] &#125; only %&#125;</span><br><span class="line">&#123;% trans &#39;Label&#39; %&#125;: </span><br><span class="line">&#123;% trans &#39;Target database&#39; %&#125;: </span><br><span class="line">&#123;% trans &#39;Share this bookmark&#39; %&#125; &#123;% trans &#39;OK&#39; %&#125;</span><br></pre></td></tr></table></figure>
-<p>报错：A fatal JavaScript error has occurred. Would you like to send an error report?，怀疑是js问题。</p>
-<p>一开始是进入了<code>http://8.131.63.170/phpMyAdmin/8.131.63.170/phpMyAdmin/index.php</code>。<br>那么很明显，Apache也有问题。<br>不对，解析方式，是php的问题。之前经过多次的rpm手动倒包，可能之间出现了问题。<br>显示出了php的代码，说明是解析出错。<br>尝试升级php。</p>
+<p>报错：A fatal JavaScript error has occurred. Would you like to send an error report?，怀疑是 js 问题。</p>
+<p>一开始是进入了 <code>http://8.131.63.170/phpMyAdmin/8.131.63.170/phpMyAdmin/index.php</code> 。<br>
+那么很明显，Apache 也有问题。<br>
+不对，解析方式，是 php 的问题。之前经过多次的 rpm 手动倒包，可能之间出现了问题。<br>
+显示出了 php 的代码，说明是解析出错。<br>
+尝试升级 php。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">&#x2F;* vim: set expandtab sw&#x3D;4 ts&#x3D;4 sts&#x3D;4: *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * Logout script</span><br><span class="line"> *</span><br><span class="line"> * @package PhpMyAdmin</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">use PhpMyAdmin\Core;</span><br><span class="line"></span><br><span class="line">require_once &#39;libraries&#x2F;common.inc.php&#39;;</span><br><span class="line"></span><br><span class="line">if ($_SERVER[&#39;REQUEST_METHOD&#39;] !&#x3D; &#39;POST&#39; || $token_mismatch) &#123;</span><br><span class="line">    Core::sendHeaderLocation(&#39;.&#x2F;index.php&#39;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    $auth_plugin-&gt;logOut();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="关键目录"><a href="#关键目录" class="headerlink" title="关键目录"></a>关键目录</h2><h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><ol>
-<li>i386 适用于intel和AMD所有32位的cpu.以及via采用X86架构的32的cpu.intel平台包括8086,80286,80386,80486,奔腾系列(1.2.3.4)、赛扬系列,Pentium D系列以及centrino P-M,core duo 等.</li>
-<li>X86_64 适用于intel的Core 2 Duo, Centrino Core 2 Duo, and Xeon 和AMD Athlon64/x2, Sempron64/x2, Duron64等采用X86架构的64位cpu.</li>
-<li>I686 只是i386的一个子集,支持的cpu从Pentium 2 (686)开始,之前的型号不支持.</li>
+<h2 id="关键目录"><a class="markdownIt-Anchor" href="#关键目录">#</a> 关键目录</h2>
+<h2 id="权限管理"><a class="markdownIt-Anchor" href="#权限管理">#</a> 权限管理</h2>
+<h2 id="内核"><a class="markdownIt-Anchor" href="#内核">#</a> 内核</h2>
+<ol>
+<li>i386 适用于 intel 和 AMD 所有 32 位的 cpu. 以及 via 采用 X86 架构的 32 的 cpu.intel 平台包括 8086,80286,80386,80486, 奔腾系列 (1.2.3.4)、赛扬系列，Pentium D 系列以及 centrino P-M,core duo 等.</li>
+<li>X86_64 适用于 intel 的 Core 2 Duo, Centrino Core 2 Duo, and Xeon 和 AMD Athlon64/x2, Sempron64/x2, Duron64 等采用 X86 架构的 64 位 cpu.</li>
+<li>I686 只是 i386 的一个子集，支持的 cpu 从 Pentium 2 (686) 开始，之前的型号不支持.</li>
 </ol>
 
       <div class="tags">
@@ -247,7 +265,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
     <div class="item left">
       
 
-  <a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclh3brzpj20zk0m8ann.jpg" title="Linux命令总集与系统">
+  <a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciundwu5j20zk0m8n9e.jpg" title="Linux命令总集与系统">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Linux命令总集与系统</h3>
@@ -257,7 +275,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
     <div class="item right">
       
 
-  <a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeu7txpzj20zk0m81kx.jpg" title="Apache系统管理">
+  <a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesx5fdwj20zk0m81kx.jpg" title="Apache系统管理">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Apache系统管理</h3>
@@ -279,7 +297,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">Linux下数据库管理与建库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%85%A5mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登入mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">查看数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">SQL命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9phpmyadmin"><span class="toc-number">1.4.</span> <span class="toc-text">兼容phpmyadmin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%9B%AE%E5%BD%95"><span class="toc-number">1.5.</span> <span class="toc-text">关键目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text">权限管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8"><span class="toc-number">1.7.</span> <span class="toc-text">内核</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text"> Linux 下数据库管理与建库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%85%A5mysql"><span class="toc-number">1.1.</span> <span class="toc-text"> 登入 mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 查看数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text"> SQL 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9phpmyadmin"><span class="toc-number">1.4.</span> <span class="toc-text"> 兼容 phpmyadmin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%9B%AE%E5%BD%95"><span class="toc-number">1.5.</span> <span class="toc-text"> 关键目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text"> 权限管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8"><span class="toc-number">1.7.</span> <span class="toc-text"> 内核</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -294,13 +312,13 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">32</span>
+        <span class="count">59</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">14</span>
+        <span class="count">27</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -382,7 +400,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
   </li>
 
       
@@ -391,7 +409,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
+    <span><a href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/" title="编译原理之语法分析程序">编译原理之语法分析程序</a></span>
   </li>
 
       
@@ -400,7 +418,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
+    <span><a href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/" title="正则表达式">正则表达式</a></span>
   </li>
 
       
@@ -409,7 +427,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
   </li>
 
       
@@ -418,7 +436,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" title="计算机入门路线(应用篇)">计算机入门路线(应用篇)</a></span>
+    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
   </li>
 
       
@@ -427,7 +445,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
+    <span><a href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/" title="Linux下配置服务器环境(lamp和shadowsocks、lnmp)">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a></span>
   </li>
 
       
@@ -436,16 +454,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="工具总结">工具总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/" title="YII框架笔记">YII框架笔记</a></span>
+    <span><a href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/" title="各软件及windows操作快捷键总集">各软件及windows操作快捷键总集</a></span>
   </li>
 
       
@@ -463,7 +472,16 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="英语学习笔记">英语学习笔记</a></span>
+    <span><a href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/" title="WebCollector爬虫与Hbase">WebCollector爬虫与Hbase</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/" title="文件类型以及分析手册">文件类型以及分析手册</a></span>
   </li>
 
   </ul>

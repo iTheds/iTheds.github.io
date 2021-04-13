@@ -1,0 +1,1326 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="CPU" />
+
+
+<link rel="canonical" href="http://example.com/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">
+
+
+
+  <title>
+基于MIPS指令集的32位五级流水线CPU设计 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">基于MIPS指令集的32位五级流水线CPU设计
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2018-06-11 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2018-06-11T00:00:00+08:00">2018-06-11</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="基于mips指令集的32位五级流水线cpu设计"><a class="markdownIt-Anchor" href="#基于mips指令集的32位五级流水线cpu设计">#</a> 基于 MIPS 指令集的 32 位五级流水线 CPU 设计</h1>
+<h2 id="理论篇"><a class="markdownIt-Anchor" href="#理论篇">#</a> 理论篇</h2>
+<blockquote>
+<h3 id="概念理解"><a class="markdownIt-Anchor" href="#概念理解">#</a> 概念理解</h3>
+</blockquote>
+<ul>
+<li>
+<p>什么是 MIPS？</p>
+</li>
+<li>
+<p>什么是五位流水线？</p>
+</li>
+<li>
+<p>32 位是什么？</p>
+</li>
+</ul>
+<blockquote>
+<h3 id="模块说明"><a class="markdownIt-Anchor" href="#模块说明">#</a> 模块说明</h3>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>模块型号</th>
+<th style="text-align:center">包含模块</th>
+<th style="text-align:left">模块功能</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>regfile</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">寄存器模块</td>
+<td style="text-align:left">初始值为 0。</td>
+</tr>
+<tr>
+<td>mux2x32</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">32 位二选一</td>
+</tr>
+<tr>
+<td>pipecu</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">控制单元，产生控制信号</td>
+<td style="text-align:left">设计关键所在</td>
+</tr>
+<tr>
+<td>Compare</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">比较电路，相等输出 0</td>
+</tr>
+<tr>
+<td>Pcinstmem</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">指令存储寄存器</td>
+</tr>
+<tr>
+<td>Pcpemem</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">数据存储寄存器</td>
+<td style="text-align:left">调用系统模块编出来的</td>
+</tr>
+<tr>
+<td>Pipemwreg</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">mem 和 wb 阶段中间的信号寄存器，见图土黄色长条</td>
+</tr>
+<tr>
+<td>Pipeemreg</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">exe 和 mem 阶段中间的信号寄存器，见图土黄色长条</td>
+</tr>
+<tr>
+<td>Pipedereg</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">id 和 exe 阶段中间的信号寄存器，见图土黄色长条</td>
+</tr>
+<tr>
+<td>Pipeir</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">if 和 id 阶段中间的信号寄存器，见图土黄色长条</td>
+</tr>
+<tr>
+<td>Pipeif</td>
+<td style="text-align:center">Cla32<br>Pcinstmem Mux4x32</td>
+<td style="text-align:left">If 阶段，pc+4，取指令</td>
+</tr>
+<tr>
+<td>Pipeid</td>
+<td style="text-align:center">Cla32 Compare Pipecu Mux2x32 Mux2x5 Mux4x32 Regfile</td>
+<td style="text-align:left">在 id 阶段，输出控制信号并将下一步运算需要的数据取好。</td>
+<td style="text-align:left">这里编写程序很繁琐连电路图快点</td>
+</tr>
+<tr>
+<td>Pipeexe</td>
+<td style="text-align:center">Cla32 Mux2x32</td>
+<td style="text-align:left">Alu        Exe 阶段，执行计算</td>
+</tr>
+<tr>
+<td>Alu</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">根据 cu 输出的 ALUC 信号进行计算</td>
+</tr>
+<tr>
+<td>Cla32</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">加减法器</td>
+<td style="text-align:left">一般只用来做加法了</td>
+</tr>
+<tr>
+<td>Dff32</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">不带使能的 D 触发器</td>
+</tr>
+<tr>
+<td>Dffe32</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">带使能的 D 触发器</td>
+</tr>
+<tr>
+<td>Mux2x5</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">5 位二选一电路</td>
+</tr>
+<tr>
+<td>Mux4x32</td>
+<td style="text-align:center">无</td>
+<td style="text-align:left">32 位四选一电路</td>
+</tr>
+<tr>
+<td>Pipecpu</td>
+<td style="text-align:center">Dffe32 Pipeif Pipeir Pipeid Pipedereg Pipeexe Pipeemreg Pipemem Pipemwreg Mux2x32</td>
+<td style="text-align:left">最外层电路，综合了所有前面模块</td>
+<td style="text-align:left">用电路图连接比较简单</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="指令"><a class="markdownIt-Anchor" href="#指令">#</a> 指令</h3>
+</blockquote>
+<p>输入线路：</p>
+<ul>
+<li>clock</li>
+<li>memclock</li>
+<li>resetn</li>
+</ul>
+<p>输出线路</p>
+<table>
+<thead>
+<tr>
+<th>输出线路名</th>
+<th style="text-align:center">线长</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ealu</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td>inst</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td>malu</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td>pc</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td>walu</td>
+<td style="text-align:center">32</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="参数说明"><a class="markdownIt-Anchor" href="#参数说明">#</a> 参数说明</h3>
+</blockquote>
+<p>仿真时间 1μs，</p>
+<hr>
+<h2 id="辨证篇"><a class="markdownIt-Anchor" href="#辨证篇">#</a> 辨证篇</h2>
+<p>论文参见文件</p>
+<hr>
+<h2 id="实践篇"><a class="markdownIt-Anchor" href="#实践篇">#</a> 实践篇</h2>
+<blockquote>
+<h3 id="所有文件框架"><a class="markdownIt-Anchor" href="#所有文件框架">#</a> 所有文件框架</h3>
+</blockquote>
+<p>alu.v<br>
+cla32.v<br>
+compare.v<br>
+cpu.v<br>
+dff32.v<br>
+dffe32.v<br>
+mux2x5.v<br>
+mux2x32.v<br>
+mux4x32.v<br>
+pcinstmem.v<br>
+pipecpu.v<br>
+pipecu.v<br>
+pipedereg.v<br>
+pipeemreg.v<br>
+pipeexe.v<br>
+pipeid.v<br>
+pipeif.v<br>
+pipeir.v<br>
+pipemem.v<br>
+pipemwreg.v<br>
+pipepc.v<br>
+regfile.v</p>
+<blockquote>
+<h3 id="功能"><a class="markdownIt-Anchor" href="#功能">#</a> 功能</h3>
+</blockquote>
+<h4 id="aluv运算器"><a class="markdownIt-Anchor" href="#aluv运算器">#</a> alu.v (运算器)</h4>
+<p>输入 a [31:0],b [31:0],aluc [3:0]</p>
+<p>输出 result [31:0]</p>
+<p>方程 result = aluc (a,b)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">aluc</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ADD</td>
+<td style="text-align:center">4’bx000</td>
+<td style="text-align:left">加法</td>
+</tr>
+<tr>
+<td style="text-align:center">SUB</td>
+<td style="text-align:center">4’bx100</td>
+<td style="text-align:left">减法</td>
+</tr>
+<tr>
+<td style="text-align:center">AND</td>
+<td style="text-align:center">4’bx001</td>
+<td style="text-align:left">a&amp;b</td>
+</tr>
+<tr>
+<td style="text-align:center">OR</td>
+<td style="text-align:center">4’bx101</td>
+<td style="text-align:left">a or b</td>
+</tr>
+<tr>
+<td style="text-align:center">XOR</td>
+<td style="text-align:center">4’bx010</td>
+<td style="text-align:left">a^b</td>
+</tr>
+<tr>
+<td style="text-align:center">SLL</td>
+<td style="text-align:center">4’b0011</td>
+<td style="text-align:left">b&lt;&lt;a,if b is binary ,that means b * 2^a</td>
+</tr>
+<tr>
+<td style="text-align:center">SRL</td>
+<td style="text-align:center">4’b0111</td>
+<td style="text-align:left">b&gt;&gt;a,b / 2^a</td>
+</tr>
+<tr>
+<td style="text-align:center">SRA</td>
+<td style="text-align:center">4’b1111</td>
+<td style="text-align:left">b&gt;&gt;&gt;a,without the operation</td>
+</tr>
+<tr>
+<td style="text-align:center">LUI</td>
+<td style="text-align:center">4’bx110</td>
+<td style="text-align:left">b&lt;&lt;16</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cla32v加减法选择运算器"><a class="markdownIt-Anchor" href="#cla32v加减法选择运算器">#</a> cla32.v (加减法选择运算器)</h4>
+<p>输入 a [31:0],b [31:0],sub</p>
+<p>输出 s [31:0]</p>
+<p>方程 s = sub ? a - b : a + b</p>
+<h4 id="comparev判断是否相等"><a class="markdownIt-Anchor" href="#comparev判断是否相等">#</a> compare.v (判断是否相等)</h4>
+<p>输入 a [31:0],b [31:0]</p>
+<p>输出 zero</p>
+<p>方程 zero=(a==b)</p>
+<h4 id="cpuv"><a class="markdownIt-Anchor" href="#cpuv">#</a> cpu.v</h4>
+<p>输入 clock,resetn,inst,mem,pc,wmem,alu,data</p>
+<p>输出</p>
+<p>方程</p>
+<h4 id="dff32v双线路三态门"><a class="markdownIt-Anchor" href="#dff32v双线路三态门">#</a> dff32.v (双线路三态门)</h4>
+<p>输入 d [31:0],clk,clrn</p>
+<p>输出 q [31:0]</p>
+<p>方程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while(negedge clrn or posedge clk)</span><br><span class="line">    if(clrn &#x3D;&#x3D; 0) q &#x3D; 0;</span><br><span class="line">    else q &#x3D; d;</span><br></pre></td></tr></table></figure>
+<h4 id="dffe32v附加线路双线路三态门"><a class="markdownIt-Anchor" href="#dffe32v附加线路双线路三态门">#</a> dffe32.v (附加线路双线路三态门)</h4>
+<p>输入 d [31:0],clk,clrn,e</p>
+<p>输出 q [31:0]</p>
+<p>方程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(negedge clrn or posedge clk)</span><br><span class="line">    if(clrn &#x3D;&#x3D; 0 )</span><br><span class="line">        q &#x3D; 0 ;</span><br><span class="line">    else if(e &#x3D;&#x3D; 1) q &#x3D; d;</span><br></pre></td></tr></table></figure>
+<h4 id="mux2x5v5位两线选择输出"><a class="markdownIt-Anchor" href="#mux2x5v5位两线选择输出">#</a> mux2x5.v (5 位两线选择输出)</h4>
+<p>输入 a0 [4:0],a1 [4:0],s</p>
+<p>输出 y [4:0]</p>
+<p>方程 y = s ? a1 : a0</p>
+<h4 id="mux2x32v32位两线选择输出"><a class="markdownIt-Anchor" href="#mux2x32v32位两线选择输出">#</a> mux2x32.v (32 位两线选择输出)</h4>
+<p>输入 a0 [31:0],a1 [31:0],s</p>
+<p>输出 y [31:0]</p>
+<p>方程 y = s ? a1 : a0</p>
+<h4 id="mux4x32v32位4线选择输出"><a class="markdownIt-Anchor" href="#mux4x32v32位4线选择输出">#</a> mux4x32.v (32 位 4 线选择输出)</h4>
+<p>输入 a0 [31:0],a1 [31:0],a2 [31:0],a3 [31:0],s [1:0]</p>
+<p>输出 y [31:0]</p>
+<p>方程 y = s (a0,a1,a2,a3)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2’b00</td>
+<td style="text-align:center">y = a0</td>
+</tr>
+<tr>
+<td style="text-align:center">2’b01</td>
+<td style="text-align:center">y = a1</td>
+</tr>
+<tr>
+<td style="text-align:center">2’b10</td>
+<td style="text-align:center">y = a2</td>
+</tr>
+<tr>
+<td style="text-align:center">2’b11</td>
+<td style="text-align:center">y = a3</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pcinstmemv-重要的指令文件"><a class="markdownIt-Anchor" href="#pcinstmemv-重要的指令文件">#</a> pcinstmem.v 重要的指令文件</h4>
+<p>输入 a [5:0]</p>
+<p>输出 inst [31:0]<br>
+ inst 为寄存器<br>
+方程</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">a</th>
+<th style="text-align:center">ram</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6’b000000: inst &lt;= ram[ 0];</td>
+<td style="text-align:center">ram[ 0]=32’h3c010000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000001: inst &lt;= ram[ 1];</td>
+<td style="text-align:center">ram[ 1]=32’h34240050;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000010: inst &lt;= ram[ 2];</td>
+<td style="text-align:center">ram[ 2]=32’h0c00001b;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000011: inst &lt;= ram[ 3];</td>
+<td style="text-align:center">ram[ 3]=32’h20050004;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000100: inst &lt;= ram[ 4];</td>
+<td style="text-align:center">ram[ 4]=32’hac820000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000101: inst &lt;= ram[ 5];</td>
+<td style="text-align:center">ram[ 5]=32’h8c890000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000110: inst &lt;= ram[ 6];</td>
+<td style="text-align:center">ram[ 6]=32’h01244022;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b000111: inst &lt;= ram[ 7];</td>
+<td style="text-align:center">ram[ 7]=32’h20050003;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001000: inst &lt;= ram[ 8];</td>
+<td style="text-align:center">ram[ 8]=32’h20a5ffff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001001: inst &lt;= ram[ 9];</td>
+<td style="text-align:center">ram[ 9]=32’h34a8ffff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001010: inst &lt;= ram[10];</td>
+<td style="text-align:center">ram[10]=32’h39085555;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001011: inst &lt;= ram[11];</td>
+<td style="text-align:center">ram[11]=32’h2009ffff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001100: inst &lt;= ram[12];</td>
+<td style="text-align:center">ram[12]=32’h312affff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001101: inst &lt;= ram[13];</td>
+<td style="text-align:center">ram[13]=32’h01493025;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001110: inst &lt;= ram[14];</td>
+<td style="text-align:center">ram[14]=32’h01494026;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b001111: inst &lt;= ram[15];</td>
+<td style="text-align:center">ram[15]=32’h01463824;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010000: inst &lt;= ram[16];</td>
+<td style="text-align:center">ram[16]=32’h10a00003;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010001: inst &lt;= ram[17];</td>
+<td style="text-align:center">ram[17]=32’h00000000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010010: inst &lt;= ram[18];</td>
+<td style="text-align:center">ram[18]=32’h08000008;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010011: inst &lt;= ram[19];</td>
+<td style="text-align:center">ram[19]=32’h00000000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010100: inst &lt;= ram[20];</td>
+<td style="text-align:center">ram[20]=32’h2005ffff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010101: inst &lt;= ram[21];</td>
+<td style="text-align:center">ram[21]=32’h000543c0;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010110: inst &lt;= ram[22];</td>
+<td style="text-align:center">ram[22]=32’h00084400;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b010111: inst &lt;= ram[23];</td>
+<td style="text-align:center">ram[23]=32’h00084403;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011000: inst &lt;= ram[24];</td>
+<td style="text-align:center">ram[24]=32’h000843c2;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011001: inst &lt;= ram[25];</td>
+<td style="text-align:center">ram[25]=32’h08000019;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011010: inst &lt;= ram[26];</td>
+<td style="text-align:center">ram[26]=32’h00000000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011011: inst &lt;= ram[27];</td>
+<td style="text-align:center">ram[27]=32’h00004020;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011100: inst &lt;= ram[28];</td>
+<td style="text-align:center">ram[28]=32’h8c890000;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011101: inst &lt;= ram[29];</td>
+<td style="text-align:center">ram[29]=32’h01094020;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011110: inst &lt;= ram[30];</td>
+<td style="text-align:center">ram[30]=32’h20a5ffff;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b011111: inst &lt;= ram[31];</td>
+<td style="text-align:center">ram[31]=32’h14a0fffc;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b100000: inst &lt;= ram[32];</td>
+<td style="text-align:center">ram[32]=32’h20840004;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b100001: inst &lt;= ram[33];</td>
+<td style="text-align:center">ram[33]=32’h03e00008;</td>
+</tr>
+<tr>
+<td style="text-align:center">6’b100010: inst &lt;= ram[34];</td>
+<td style="text-align:center">ram[34]=32’h00081000;</td>
+</tr>
+<tr>
+<td style="text-align:center">other</td>
+<td style="text-align:center">inst &lt;= 32’b0;</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pipecpuv"><a class="markdownIt-Anchor" href="#pipecpuv">#</a> pipecpu.v</h4>
+<h4 id="pipecuv"><a class="markdownIt-Anchor" href="#pipecuv">#</a> pipecu.v</h4>
+<h4 id="pipederegv"><a class="markdownIt-Anchor" href="#pipederegv">#</a> pipedereg.v</h4>
+<h4 id="pipeemregv"><a class="markdownIt-Anchor" href="#pipeemregv">#</a> pipeemreg.v</h4>
+<h4 id="pipeexev"><a class="markdownIt-Anchor" href="#pipeexev">#</a> pipeexe.v</h4>
+<h4 id="pipeidv"><a class="markdownIt-Anchor" href="#pipeidv">#</a> pipeid.v</h4>
+<h4 id="pipeifv"><a class="markdownIt-Anchor" href="#pipeifv">#</a> pipeif.v</h4>
+<h4 id="pipeirv"><a class="markdownIt-Anchor" href="#pipeirv">#</a> pipeir.v</h4>
+<p>输入 pc4 [31:0],ins [31:0],wpcir,clock,resetn</p>
+<p>输出 pcfour [31:0],inst [31:0]</p>
+<p>方程</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span>@(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        pcfour&lt;=<span class="number">0</span>;</span><br><span class="line">                        inst&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">if</span>(wpcir==<span class="number">1</span>)<span class="keyword">begin</span></span><br><span class="line">                        pcfour&lt;=pc4;</span><br><span class="line">                        inst&lt;=ins;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="pipememv"><a class="markdownIt-Anchor" href="#pipememv">#</a> pipemem.v</h4>
+<p>输入 mwmem,malu [31:0],mb [31:0],clock,memclock</p>
+<p>输出 mmo [31:0]</p>
+<p>方程</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lpm_ram_dq ram (<span class="variable">.data</span>(mb),<span class="variable">.address</span>(malu[<span class="number">6</span>:<span class="number">2</span>]),</span><br><span class="line">                                        <span class="variable">.inclock</span>(memclock),<span class="variable">.outclock</span>(memclock),<span class="variable">.we</span>(write_enable),<span class="variable">.q</span>(mmo));</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_width</span> = <span class="number">32</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_widthad</span> = <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_indata</span> = <span class="string">&quot;registered&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_outdata</span> = <span class="string">&quot;registered&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_file</span> = <span class="string">&quot;pcdatamem.mif&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_address_control</span> = <span class="string">&quot;registered&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="pipemwregv"><a class="markdownIt-Anchor" href="#pipemwregv">#</a> pipemwreg.v</h4>
+<p>输入 mwreg,mm2reg,mmo [31:0],malu [31:0],mdesr [4:0],clock,resetn</p>
+<p>输出 wwreg,wm2reg,wmo [31:0],walu [31:0],wdesr [4:0]</p>
+<p>方程</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        wwreg&lt;=<span class="number">0</span>;</span><br><span class="line">                        wm2reg&lt;=<span class="number">0</span>;</span><br><span class="line">                        wdesr&lt;=<span class="number">0</span>;</span><br><span class="line">                        wmo&lt;=<span class="number">0</span>;</span><br><span class="line">                        walu&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                        wwreg&lt;=mwreg;</span><br><span class="line">                        wm2reg&lt;=mm2reg;</span><br><span class="line">                        wdesr&lt;=mdesr;</span><br><span class="line">                        wmo&lt;=mmo;</span><br><span class="line">                        walu&lt;=malu;</span><br></pre></td></tr></table></figure>
+<h4 id="pipepcv"><a class="markdownIt-Anchor" href="#pipepcv">#</a> pipepc.v</h4>
+<p>输入<br>
+ input [5:0] op,func;<br>
+input [4:0] rs,rt,mrn,ern;<br>
+input z,mm2reg,mwreg,em2reg,ewreg;<br>
+ 输出<br>
+ output wreg,regrt,call,m2reg,shift,aluimm,sext,wmem,wpcir;<br>
+output [3:0] aluc;<br>
+output [1:0] pcsource,fwda,fwdb;<br>
+ 方程<br>
+此器件比较复杂，op 和 func 大概为数据线，然后 aluc 为 op 和 func 处理后的结果。<br>
+所有的数据几乎都涉及到 op 和 func。</p>
+<h4 id="regfilev选择输出更新数据"><a class="markdownIt-Anchor" href="#regfilev选择输出更新数据">#</a> regfile.v (选择输出更新数据)</h4>
+<p>输入 rna [4:0],rnb [4:0],wn [4:0],d [31:0],we,clk,clrn</p>
+<p>输出 qa [31:0],qb [31:0]</p>
+<p>方程<br>
+ clk 时钟信号，clokc 内部线，clock = ~clk。<br>
+clrn 为复位信号。clrn 或者 clk 为下降沿时开始操作。<br>
+如果 clrn == 0，开始清零操作。<br>
+如果不是，判断 (wn != 0) &amp;&amp; (we == 1)，register [wn] &lt;= d。<br>
+其中 rna 和 rnb 是选择信号，选择将寄存器中的哪些数据赋值给 qa、qb 输出。<br>
+we 控制是否要更新寄存器 register 中的数据，wn 控制更新哪些数据。<br>
+rna 和 rnb 及 wn 可以认为是地址。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> qa = (rna == <span class="number">0</span>)? <span class="number">0</span> : register[rna]; <span class="comment">// read</span></span><br><span class="line"><span class="keyword">assign</span> qb = (rnb == <span class="number">0</span>)? <span class="number">0</span> : register[rnb]; <span class="comment">// read</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clock <span class="keyword">or</span> <span class="keyword">negedge</span> clrn) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (clrn == <span class="number">0</span>) <span class="keyword">begin</span> <span class="comment">// reset</span></span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>; i&lt;<span class="number">32</span>; i=i+<span class="number">1</span>)</span><br><span class="line">        register[i] &lt;= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> ((wn != <span class="number">0</span>) &amp;&amp; (we == <span class="number">1</span>)) <span class="comment">// write</span></span><br><span class="line">    register[wn] &lt;= d;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="跟线总结"><a class="markdownIt-Anchor" href="#跟线总结">#</a> 跟线总结</h3>
+</blockquote>
+<p>主要器件 pipecpu 用到了以下线路：<br>
+input clock,memclock,resetn;<br>
+output [31:0] pc,inst,ealu,malu,walu;<br>
+wire [31:0] bpc,jpc,npc,pc4,ins,pcfour,inst,dimm,ea,eb,eimm;<br>
+wire [31:0] epcfour,mb,mmo,wmo,wrfdi,malu,walu,da,db,alua,alub;<br>
+wire [4:0] ddesr,edesr0,edesr,mdesr,wdesr;<br>
+wire [3:0] daluc,ealuc;<br>
+wire [1:0] pcsource;<br>
+wire wpcir,wregrt;<br>
+wire dwreg,dm2reg,dwmem,daluimm,dshift,djal;<br>
+wire ewreg,em2reg,ewmem,ealuimm,eshift,ejal;<br>
+wire mwreg,mm2reg,mwmem;<br>
+wire wwreg,wm2reg;</p>
+<p>clock 用于控制大部分的上层器件。<br>
+resten 用于控制许多器件的复位。<br>
+memclock 只对 pipemem mem_stage 做控制。<br>
+在此仿真中 clock 一个周期 50ns，而 memclock 为一个周期 10ns，频率是 clock 的 5 倍</p>
+<h4 id="if取指令阶段-pipeif-if_stage"><a class="markdownIt-Anchor" href="#if取指令阶段-pipeif-if_stage">#</a> if 取指令阶段 pipeif if_stage</h4>
+<p>pipeif if_stage (pcsource,pc,bpc,da,jpc,npc,pc4,ins)<br>
+ 输入 pcsource,pc,bpc,da,jpc,npc, 输出 pc4,ins<br>
+ 此阶段为从 ROM 中取指令。执行器件是 pipeif if_stage。<br>
+输入线有 pcsource [1:0],pc [31:0],bpc [31:0],da [31:0],jpc [31:0]；输出线有 npc [31:0],pc4 [31:0],ins [31:0]。<br>
+从第一眼中可以看到 pcsource 为类似于控制信号，而其余的为数据或指令。<br>
+三个部件如下：<br>
+pcinstmem instmem (pc[7:2],ins);<br>
+cla32 pcplus4 (pc,32’h4,1’b0,pc4);<br>
+mux4x32 nextpc (pc4,bpc,da,jpc,pcsource,npc);<br>
+ 其中 pcinstmem 为指令存储器，有 35 条指令。其中 <code>pc[7:2]</code>  为指令存取的代码，5 根线 2^6=64，有 32 条指令。<br>
+然后再看 cla32 (加减法选择运算器) 第三个参数决定是加还是减，1 减 0 加，在这里执行加的操作，将 pc 和 4 (d) 相加，得到内部线 pc4。<br>
+mux4x32.v (32 位 4 线选择输出)，由输入线 pcsource 决定输出那一根线，其十进制 x 代表第 x 个参数输出。</p>
+<p>依靠 pc [7:2] 取相对应指令，输出为 inst。pc4 为加 4 后的 pc，直接到 if 和 id 阶段的存储器内部。npc 则送到 dffe32 prog_cnt 选择输出。</p>
+<p>这个仿真中我们验证是否按照我们的要求取指令成功。仿真成功。</p>
+<p>所以在这个阶段中，pcsource 为控制信号选择输出 pc4、bpc、da、jpc 这四根线中的某一根到 npc。<br>
+而 pc，其中的 [7:2] 决定将数据的那一条指令放入寄存器中传输到 ins。<br>
+而 pc 加 4 的原因～看后续中输出所发出的信号 ins 是什么意思。<br>
+此处有一种解释是，在单元编址中，单元如果是字节，指令是 32 位，那么久每次加 4。不知正确与否。</p>
+<h4 id="if和id阶段的寄存器-pipeir-inst_reg"><a class="markdownIt-Anchor" href="#if和id阶段的寄存器-pipeir-inst_reg">#</a> if 和 id 阶段的寄存器 pipeir inst_reg</h4>
+<p>输入为 pc4 [31:0],ins [31:0],wpcir,clock,resetn。输出为 pcfour [31:0],inst [31:0]。<br>
+其中的 clock 和 resetn 来自系统输入线 clock 和 resetn。<br>
+而 pc4 和 ins 来自于上一个器件 if 阶段器件 pipeif if_stage 的输出线路。<br>
+而 wpcir 来自于 id 阶段的输出 wpcir。怀疑此为反馈线路。</p>
+<p>当 resetn 为下降沿，或者说 clock 为上升沿时，开始进行判断，如果说 resetn 为下降沿，就将 pcfour 和 inst 清零。<br>
+如果 resetn 不为下降沿，那么再判断，如果 wpcir 为上升沿，就将 pc4 给 pcfour、ins 给 inst 输出这两个线路。<br>
+这样一来就好理解了。当 id 阶段要用到 if 阶段的数据时，发送信号 wpcir 给这个器件，然后将结果提取出来。</p>
+<p>值得探讨的是，关于寄存器的问题。在这里，pcfour 和 inst 两个为寄存器。在 resetn 下降沿时清零。wpcir 为 1 时将输入输出。那么这样一来 if 阶段的数据并不是一直存储在这个寄存器的。当然这只是一个猜想。在 if 阶段查找，发现并没有寄存器存在。<br>
+那么这个寄存器是这么执行存储功能的呢？我们一般会设想，一个阶段 if 处理完数据后直接存在这里。这里为什么直接就使用？这就是为什么 clock 存在的理由吧。</p>
+<h4 id="id译码阶段pipeid-id_stage"><a class="markdownIt-Anchor" href="#id译码阶段pipeid-id_stage">#</a> id 译码阶段 pipeid id_stage</h4>
+<p>输入有<br>
+ pcfour [31:0],inst [31:0],wrfdi [31:0],<br>
+ealu[31:0],malu[31:0],mmo[31:0],<br>
+wwreg,mm2reg,mwreg,em2reg,ewreg,<br>
+clock,resetn,<br>
+wdesr[4:0],mrn[4:0],ern[4:0],</p>
+<p>输出有<br>
+ bpc [31:0],jpc [31:0],<br>
+da[31:0],db[31:0],<br>
+pcsource[1:0],wpcir,<br>
+daluc[3:0],dimm[31:0],<br>
+ddesr[4:0],dwreg,dm2reg,dwmem,daluimm,dshift,djal,</p>
+<p>其中 pcfour 和 inst 来自于 if 和 id 阶段的寄存器。其它大致来自于反馈线路和控制线路。<br>
+clock 和 resetn 为系统输入。<br>
+wwreg 可以回溯到各个中间寄存器部件，但是没有到 if 和 id 间的寄存器，并且它只受 id 译码阶段控制输出，所以未指令控制信号。不进入阶段寄存器中处理数据，却在中间寄存器中游走，所以可以大致判别为解决冲突的控制线路。<br>
+wdesr “在某种情况下” 来自于上个周期的输出 ddser。<br>
+wrfdi [31:0] 来 wb 写回阶段。<br>
+mm2reg、mwreg 来自 exe 和 mem 阶段的中间寄存器。也连接在 mem 和 wb 阶段的中间寄存器做为输入。<br>
+em2eg、ewreg 则来自 id 和 exe 阶段的寄存器，也连接在 exe 和 mem 阶段的中间寄存器做为输入。<br>
+ealu 和 mmo 直接旁路技术。</p>
+<p>bpc 为 pcfour 加上 { <code>&#123;16&#123;dsext&amp;inst[15]&#125;</code> },inst [15:0]}&lt;&lt;2，其中的 dsex 来自器件 pipecu。<br>
+jpc 为 {pcfour [31:28],inst [25:0],1’b0,1’b0}。<br>
+da、db 为依靠 pipecu 中器件输出的 fwda、fwdb 四选一选择出的 ra、data 或者 ealu,malu,mmo。<br>
+其中 ra、data 来自于 regfile，代表读出地址为 inst [25:21],inst [20:16] 中 wrfdi 中的数据。<br>
+dimm 为依靠 dshift 选择 immediate,sa 二选一。其中 sa 为 {27’b0,inst [10:6]}。</p>
+<p>内部线 zero，用于器件 compare vs (da,db,zero)，判断 da 和 db 是否相等，如果相等则为 1. 反之为 0。<br>
+zero 输入到 pipecu 中控制 pcsource 输出。pcsource [0] = z&amp;i_beq | (~z&amp;i_bne)  | i_j | i_jal ;</p>
+<p>cla32 br_adr (pcfour,offset,1’b0,bpc) 将 pcfour 和 offest 相加后输出到 bpc。<br>
+mux2x32 lin (immediate,sa,dshift,dimm) 根据 dshift 来将 immediate 或者 sa 输出到 dimm，如果为 1 输出 sa。<br>
+mux2x5  reg_wm (inst [15:11],inst [20:16],dregrt,ddesr) 根据 dregrt 判断输出。为 1 输出 inst [20:16]。源操作寄存器 inst [15:11] 和目的操作寄存器 inst [20:16]。<br>
+mux4x32 fwa (ra,ealu,malu,mmo,fwda,da)<br>
+mux4x32 fwb (data,ealu,malu,mmo,fwdb,db)<br>
+ 后两者不必说</p>
+<p>主要看<br>
+ regfile rf (inst [25:21],inst [20:16],wrfdi,wdesr,wwreg,clock,resetn,ra,data)(选择输出更新数据)<br>
+ 依靠 inst [25:21] 和 inst [20:16] 来判断是输出哪些数据，将 wrfdi 中的数据更新到内部寄存器 register [wdser] 中，<br>
+ra=register[inst[25:21]],<br>
+data=register[inst[20:16]],<br>
+ 在 clock 和 resetn 为下降沿时有效，wwreg=1 时，regisetn [wdser]=wrfid。<br>
+其为寄存器组。</p>
+<p>器件<br>
+ pipecu cu (<br>
+inst[31:26],inst[5:0],inst[25:21],inst[20:16],zero,<br>
+mm2reg,mwreg,mrn,em2reg,ewreg,ern,dwmem,dwreg,dregrt,dm2reg,daluc,dshift,daluimm,pcsource,djal,dsext,wpcir) 这个器件主要的前四个参数都有 inst 提供。这里只有 22 个参数，而原器件有 24 个参数。</p>
+<p>纵观整个器件 inst 显然是指令可能包括数据在内，完成整个译码过程。<br>
+其中 inst [25:21] 和 inst [20:16] 为控制信号，将 wrfdi [31:0] 中部分数据输出道 ra 和 data。<br>
+inst [31:26] 为操作码，inst [5:0] 为数据控制信号，输出一组控制信号，主要信号为 daluc [31:0]。<br>
+其中 pcfour 为程序计数器。</p>
+<p>仿真未理解。</p>
+<p>报错处理：<br>
+在 Quartus II 中 Assignments-&gt;Assignment Editor，在 Category 栏选择 logic options，到列表中 To 列下添加要设置的引脚接口，将 Assignment Name 设置为 Virtual Pin，将 Value 设置为 On，Enabled 设置为 Yes， 如果需要设置的很多，可以通过在 Pin Planner 中将引脚复制过来。<br>
+打开 Pin Planner (快捷键: CTRL + Shift + N)</p>
+<h4 id="id和exe阶段的寄存器-pipedereg-de_reg"><a class="markdownIt-Anchor" href="#id和exe阶段的寄存器-pipedereg-de_reg">#</a> id 和 exe 阶段的寄存器 pipedereg de_reg</h4>
+<p>pipedereg de_reg (<br>
+dwreg,dm2reg,dwmem,daluc,daluimm,da,db,dimm,ddesr,dshift,djal,pcfour,clock,resetn,<br>
+ewreg,em2reg,ewmem,ealuc,ealuimm,ea,eb,eimm,edesr0,eshift,ejal,epcfour<br>
+)<br>
+ 我们首先从 pipedereg de_reg 来看，一开始的时候至少是第一个周期，按照三个线路 clock、resten、memclock 仅 7 有的控制信号输入，很明显，第一个周期的所有输出为 0。<br>
+一组控制信号的传递。<br>
+ewreg&lt;=dwreg;<br>
+em2reg&lt;=dm2reg;<br>
+ewmem&lt;=dwmem;<br>
+ealuimm&lt;=daluimm;<br>
+eshift&lt;=dshift;<br>
+ejal&lt;=djal;<br>
+ealuc&lt;=daluc;<br>
+edesr0&lt;=ddesr;<br>
+ea&lt;=da;<br>
+eb&lt;=db;<br>
+eimm&lt;=dimm;<br>
+epcfour&lt;=pcfour;<br>
+ 其中 ewreg、em2reg、ewmen 没有输出到 exe 阶段的 pipeexe 器件，而是输出到 id 阶段的 pipeidd 的 ewreg、em2reg。</p>
+<h4 id="exe执行阶段-pipeexe-exe_stage"><a class="markdownIt-Anchor" href="#exe执行阶段-pipeexe-exe_stage">#</a> exe 执行阶段 pipeexe exe_stage</h4>
+<p>pipeexe exe_stage (ealuc,ealuimm,ea,eb,eimm,eshift,edesr0,epcfour,ejal,edesr,ealu)<br>
+ 输入为 ealuc [3:0],ealuimm,ea [31:0],eb [31:0],eimm [31:0],eshift,edesr0 [4:0],epcfour [31:0],ejal,<br>
+ 输出为 edesr [4:0],ealu [31:0]。</p>
+<p>在此器件中，将 epcfour 加 4。<br>
+依靠 ealuimm 选择输出 eb (0) 或者 eimm 到 alub，依靠 eshift 选择输出 ea (0) 或者 eimm 到 alua。<br>
+之后依靠 ejal 选择输出 alue 或者加 4 后的 epcfour 输出到 ealu。<br>
+依靠 ealuc 选择操作方式对 alua 和 alub 进行相关操作后输出到 ealu。<br>
+此处没有寄存器。</p>
+<p>最后输出的 alue 不一定是当前看来的结果，有可能是 “上一个结果”。<br>
+em2reg,w2reg,mm2reg 疑似解决冲突问题，使用定向方法。<br>
+如果是 “当前” 的结果，应该是 eb 和 ea 经过 ealuc 执行之后的结果。</p>
+<p>eimm 立即数，四种操作指令之一。<br>
+ealuimm 和 eshift 为立即数开启条件。当为 1 时开启立即数，计算变成了立即数相计算。</p>
+<p>ejal 无条件跳转，如果为 1，则将 epcfour 加 4 后的数据输出到 ealu 进行寻址计算。</p>
+<p>edesr = edesr0 | {5{ejal} <code>&#125;</code> ，，此数据为。</p>
+<h4 id="exe和mem阶段中间的信号寄存器-pipeemreg-em_reg"><a class="markdownIt-Anchor" href="#exe和mem阶段中间的信号寄存器-pipeemreg-em_reg">#</a> exe 和 mem 阶段中间的信号寄存器 pipeemreg em_reg</h4>
+<p>pipeemreg em_reg (ewreg,em2reg,ewmem,ealu,eb,edesr,clock,resetn,mwreg,mm2reg,mwmem,malu,mb,mdesr)<br>
+ 输入线路 ewreg,em2reg,ewmem,<br>
+ealu[31:0],eb[31:0],edesr[4:0],<br>
+clock,resetn.<br>
+ 输出线路 mwreg,mm2reg,mwmem,malu [31:0],mb [31:0],mdesr [4:0]</p>
+<p>其中的 ewreg,em2reg,ewmem 来自于 id 和 exe 阶段的寄存器 pipedereg de_reg，clock 和 resetn 来自于系统输入。<br>
+eb 也是来自于 id 和 exe 阶段的寄存器，和 exe 阶段的 eb 是一样的。ealu 为 “结果”。</p>
+<p>内部几乎也没有修改任何数据，在 posedge resetn and posedge clock 时直接将数据输出：<br>
+mwreg&lt;=ewreg;<br>
+mm2reg&lt;=em2reg;<br>
+mwmem&lt;=ewmem;<br>
+mdesr&lt;=edesr;<br>
+mb&lt;=eb;<br>
+malu&lt;=ealu;</p>
+<h4 id="mem访存阶段-pipemem-mem_stage"><a class="markdownIt-Anchor" href="#mem访存阶段-pipemem-mem_stage">#</a> mem 访存阶段 pipemem mem_stage</h4>
+<p>pipemem mem_stage (mwmem,malu,mb,clock,memclock,mmo)<br>
+ 输入为 malu [31:0],mb [31:0],mwmem,clock,memclock<br>
+ 输出为 mmo [31:0]</p>
+<p>其中涉及到一个文件，pcdatamem.mif。<br>
+以及器件 lpm_ram_dq，其为输入输出分开的参数化 RAM。<br>
+defparam 的作用是改变底层器件、重定义参数。</p>
+<p>其中很重要的一个器件是 lpm_ram_dq ram (.data (mb),.address (malu [6:2]),.inclock (memclock),.outclock (memclock),.we (write_enable),.q (mmo))<br>
+ 这个器件中 inclock 控制写操作，outclock 控制读操作，we 是写使能。q 线为输出 address 中的数据；还可以将 data 中的数据写入 address。<br>
+当 outclock 为 1 时，将 address 中数据输出到 q。<br>
+当 we 为 1、oinclock 为 1 时，将 data 中数据写入 address。</p>
+<p>这样一来就功能明了了，地址就是 malu [6:2] 中，mb 是数据线。<br>
+memclock 即为读取控制。mmo 可以读取地址中的数据。<br>
+mwmem，在此器件中似乎没有任何作用。恰好的，write_enable，没有被赋值。<br>
+在此将 write_enable 改成 mwmem，作为写入控制线。<br>
+memclock 是访存，连接 inclock，而其中的 clock 则改为连接 outclock。<br>
+所以这样 clock 为读控制；memclock 为写控制，在写使能 mwmen 为 1 时有效。</p>
+<p>其中很奇怪的是，mif 文件，256 个单元。每个单元为 ASCII 码，8 根线，0~255。<br>
+而地址线 5 根，2^5=32，那么读取的时候应该是指向 8 个单元。<br>
+而数据线 32 根，无法容纳 8X8=64 根线的数据量。这里是不合理的。<br>
+但是我们不能忽略两个数据：<br>
+器件中声明:<br>
+defparam ram.lpm_width = 32;<br>
+defparam ram.lpm_widthad = 5;<br>
+mif 文件声明：<br>
+WIDTH=8;<br>
+DEPTH=256;<br>
+ 资料中显示<br>
+ LPM_WIDTH = 4 (模块信号宽度为 4 位)<br>
+ LPM_WIDTH = 输出数据宽度<br>
+ LPM_WIDTHAD = 寻址的地址宽度<br>
+那么猜想 5 个单元为 1 条记录，输出在 32 位线上。<br>
+32x5=160 个单元可用。</p>
+<p>文件仿真不太彻底，但是总归读不出来了，但是没有写出来。</p>
+<h4 id="mem和wb阶段寄存器-pipemwreg-mw_reg"><a class="markdownIt-Anchor" href="#mem和wb阶段寄存器-pipemwreg-mw_reg">#</a> mem 和 wb 阶段寄存器 pipemwreg mw_reg</h4>
+<p>pipemwreg mw_reg (mwreg,mm2reg,mmo,malu,mdesr,clock,resetn,wwreg,wm2reg,wmo,walu,wdesr)<br>
+ 输入 mwreg,mm2reg,mmo,malu,mdesr,clock,resetn<br>
+ 输出 wwreg,wm2reg,wmo,walu,wdesr</p>
+<p>当 negedge resetn or posedge clock 时有<br>
+ wwreg&lt;=mwreg;<br>
+wm2reg&lt;=mm2reg;<br>
+wdesr&lt;=mdesr;<br>
+wmo&lt;=mmo;<br>
+walu&lt;=malu;</p>
+<p>输入 mwmen 来自 exe 和 mem 阶段中间的信号寄存器的 mdesr，也就是 exe 阶段的 edesr = edesr0 | {5 {ejal} <code>&#125;</code> ，这根线能跟到 id 阶段，无解。</p>
+<h4 id="wb回写阶段-mux2x32-wb_stage"><a class="markdownIt-Anchor" href="#wb回写阶段-mux2x32-wb_stage">#</a> wb 回写阶段 mux2x32 wb_stage</h4>
+<p>mux2x32 wb_stage (walu,wmo,wm2reg,wrfdi)<br>
+ 32 位 2 线选择，依靠 wm2reg 选择将 walu 或者 wmo 输出到 wrfdi</p>
+<p>em2reg,w2reg,mm2reg 疑似解决冲突问题，使用定向方法。</p>
+<blockquote>
+<h3 id="布局总概"><a class="markdownIt-Anchor" href="#布局总概">#</a> 布局总概</h3>
+</blockquote>
+<p>五个阶段：<br>
+if 取指令阶段<br>
+ id 译码阶段<br>
+ exe 执行有效地址计算阶段<br>
+ mem 访存阶段<br>
+ wb 回写阶段</p>
+<p>顶层器件：</p>
+<h4 id="pipeif-if_stage-if阶段pc4取指令"><a class="markdownIt-Anchor" href="#pipeif-if_stage-if阶段pc4取指令">#</a> pipeif if_stage If 阶段，pc+4，取指令</h4>
+<p>pcinstmem instmem 指令存储寄存器，其中有 35 条指令<br>
+ cla32 pcplus4 加减法器<br>
+ mux4x32 nextpc 32 位 4 线选择输出，是由当前输出，还是由上一条流水写回的数据。解决竞争问题。</p>
+<h4 id="pipeir-inst_reg-if和id阶段中间的信号寄存器"><a class="markdownIt-Anchor" href="#pipeir-inst_reg-if和id阶段中间的信号寄存器">#</a> pipeir inst_reg if 和 id 阶段中间的信号寄存器</h4>
+<h4 id="pipeid-id_stage-id阶段"><a class="markdownIt-Anchor" href="#pipeid-id_stage-id阶段">#</a> pipeid id_stage id 阶段</h4>
+<p>cla32 br_adr<br>
+compare vs<br>
+pipecu cu 控制单元<br>
+ mux2x32 lin<br>
+mux2x5  reg_wm<br>
+mux4x32 fwa<br>
+mux4x32 fwb<br>
+regfile rf</p>
+<h4 id="pipedereg-de_reg-id和exe阶段中间的信号寄存器"><a class="markdownIt-Anchor" href="#pipedereg-de_reg-id和exe阶段中间的信号寄存器">#</a> pipedereg de_reg id 和 exe 阶段中间的信号寄存器</h4>
+<h4 id="pipeexe-exe_stage-exe阶段执行计算"><a class="markdownIt-Anchor" href="#pipeexe-exe_stage-exe阶段执行计算">#</a> pipeexe exe_stage Exe 阶段，执行计算</h4>
+<p>cla32 pcplus8 加减法器<br>
+ mux2x32 alu_b<br>
+mux2x32 alu_a<br>
+mux2x32 link 解决竞争<br>
+ alu al_unit 根据 cu 输出的 ALUC 信号进行计算</p>
+<h4 id="pipeemreg-em_reg-exe和mem阶段中间的信号寄存器"><a class="markdownIt-Anchor" href="#pipeemreg-em_reg-exe和mem阶段中间的信号寄存器">#</a> pipeemreg em_reg exe 和 mem 阶段中间的信号寄存器</h4>
+<h4 id="pipemem-mem_stage-mem阶段"><a class="markdownIt-Anchor" href="#pipemem-mem_stage-mem阶段">#</a> pipemem mem_stage mem 阶段</h4>
+<p>lpm_ram_dq ram</p>
+<h4 id="pipemwreg-mw_reg-mem和wb阶段寄存器"><a class="markdownIt-Anchor" href="#pipemwreg-mw_reg-mem和wb阶段寄存器">#</a> pipemwreg mw_reg mem 和 wb 阶段寄存器</h4>
+<h4 id="mux2x32-wb_stage-wb阶段"><a class="markdownIt-Anchor" href="#mux2x32-wb_stage-wb阶段">#</a> mux2x32 wb_stage wb 阶段</h4>
+<h4 id="dffe32-prog_cnt-带使能的d触发器选择输出"><a class="markdownIt-Anchor" href="#dffe32-prog_cnt-带使能的d触发器选择输出">#</a> dffe32 prog_cnt 带使能的 D 触发器，选择输出</h4>
+<blockquote>
+<h3 id="整体框架中输入线路的作用"><a class="markdownIt-Anchor" href="#整体框架中输入线路的作用">#</a> 整体框架中输入线路的作用</h3>
+</blockquote>
+<p>表格，指令代码</p>
+<blockquote>
+<h3 id="文件代码"><a class="markdownIt-Anchor" href="#文件代码">#</a> 文件代码</h3>
+</blockquote>
+<h4 id="aluv"><a class="markdownIt-Anchor" href="#aluv">#</a> alu.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> alu(a,b,aluc,result);</span><br><span class="line"><span class="keyword">input</span>[<span class="number">3</span>:<span class="number">0</span>] aluc;</span><br><span class="line"><span class="keyword">input</span>[<span class="number">31</span>:<span class="number">0</span>] a, b;</span><br><span class="line"><span class="keyword">output</span>  [<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line"><span class="comment">//output z;</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line"><span class="keyword">wire</span>[<span class="number">31</span>:<span class="number">0</span>] ADD,SUB,AND,OR,XOR,SLL,SRL,SRA,LUI;</span><br><span class="line"><span class="keyword">assign</span> ADD=a+b;</span><br><span class="line"><span class="keyword">assign</span> SUB=a-b;</span><br><span class="line"><span class="keyword">assign</span> AND=a&amp;b;</span><br><span class="line"><span class="keyword">assign</span> OR=a|b;</span><br><span class="line"><span class="keyword">assign</span> XOR = a^b;</span><br><span class="line"><span class="keyword">assign</span> SLL = b&lt;&lt;a;</span><br><span class="line"><span class="keyword">assign</span> SRL = b&gt;&gt;a;</span><br><span class="line"><span class="keyword">assign</span> SRA = b&gt;&gt;&gt;a;</span><br><span class="line"><span class="keyword">assign</span> LUI = b&lt;&lt;<span class="number">16</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(aluc)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">casex</span> (aluc)</span><br><span class="line">                <span class="number">4&#x27;bx000</span>: result&lt;=ADD;</span><br><span class="line">                <span class="number">4&#x27;bx100</span>: result&lt;=SUB;</span><br><span class="line">                <span class="number">4&#x27;bx001</span>: result&lt;=AND;</span><br><span class="line">                <span class="number">4&#x27;bx101</span>: result&lt;=OR;</span><br><span class="line">                <span class="number">4&#x27;bx010</span>: result&lt;= XOR;</span><br><span class="line">                <span class="number">4&#x27;b0011</span>: result&lt;=SLL;</span><br><span class="line">                <span class="number">4&#x27;b0111</span>: result&lt;=SRL;</span><br><span class="line">                <span class="number">4&#x27;b1111</span>: result&lt;=SRA;</span><br><span class="line">                <span class="number">4&#x27;bx110</span>: result&lt;=LUI;</span><br><span class="line">                <span class="keyword">default</span>:result&lt;=<span class="number">32&#x27;b0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="cla32v"><a class="markdownIt-Anchor" href="#cla32v">#</a> cla32.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> cla32 (a,b,sub,s);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] a,b;</span><br><span class="line">        <span class="keyword">input</span> sub;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] s;</span><br><span class="line">        <span class="keyword">assign</span> s = sub ? a - b : a + b;</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="comparev"><a class="markdownIt-Anchor" href="#comparev">#</a> compare.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> compare (a,b,zero);<span class="comment">//</span></span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] a,b;</span><br><span class="line">        <span class="keyword">output</span> zero;</span><br><span class="line">        <span class="keyword">wire</span> zero;</span><br><span class="line">        <span class="keyword">assign</span> zero=(a==b);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="cpuv-2"><a class="markdownIt-Anchor" href="#cpuv-2">#</a> cpu.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> cpu (clock,resetn,inst,mem,pc,wmem,alu,data);</span><br><span class="line">        <span class="keyword">input</span>  [<span class="number">31</span>:<span class="number">0</span>] inst,mem;</span><br><span class="line">        <span class="keyword">input</span>                   clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] pc,alu,data;</span><br><span class="line">        <span class="keyword">output</span>        wmem;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] p4,bpc,npc,adr,ra,alua,alub,res,alu_mem;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">3</span>:<span class="number">0</span>]  aluc;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">4</span>:<span class="number">0</span>]  reg_dest,wn;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">1</span>:<span class="number">0</span>]  pcsource;</span><br><span class="line">        <span class="keyword">wire</span>          zero,wmem,wreg,regrt,m2reg,shift,aluimm,jal,sext;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] sa = &#123;<span class="number">27&#x27;b0</span>,inst[<span class="number">10</span>:<span class="number">6</span>]&#125;;</span><br><span class="line">        <span class="keyword">wire</span>          e = sext&amp;inst[<span class="number">15</span>];</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">15</span>:<span class="number">0</span>] imm = &#123;<span class="number">16</span>&#123;e&#125;<span class="meta">`&#125;`;</span></span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] immediate = &#123;imm,inst[<span class="number">15</span>:<span class="number">0</span>]&#125;;</span><br><span class="line">        dff32 ip (npc,clock,resetn,pc);</span><br><span class="line">        cla32 pcplus4 (pc,<span class="number">32&#x27;h4</span>,<span class="number">1&#x27;b0</span>,p4);</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] offset = immediate&lt;&lt;<span class="number">2</span>;</span><br><span class="line">        cla32 br_adr (p4,offset,<span class="number">1&#x27;b0</span>,adr);</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] jpc = &#123;p4[<span class="number">31</span>:<span class="number">28</span>],inst[<span class="number">25</span>:<span class="number">0</span>],<span class="number">1&#x27;b0</span>,<span class="number">1&#x27;b0</span>&#125;;</span><br><span class="line">        sccu cu (inst[<span class="number">31</span>:<span class="number">26</span>],inst[<span class="number">5</span>:<span class="number">0</span>],zero,wmem,wreg,regrt,m2reg,</span><br><span class="line">                        aluc,shift,aluimm,pcsource,jal,sext);</span><br><span class="line">        mux2x32 alu_b (data,immediate,aluimm,alub);</span><br><span class="line">        mux2x32 alu_a (ra,sa,shift,alua);</span><br><span class="line">        mux2x32 result (alu,mem,m2reg,alu_mem);</span><br><span class="line">        mux2x32 link (alu_mem,p4,jal,res);</span><br><span class="line">        mux2x5  reg_wm (inst[<span class="number">15</span>:<span class="number">11</span>],inst[<span class="number">20</span>:<span class="number">16</span>],regrt,reg_dest);</span><br><span class="line">        <span class="keyword">assign</span>  wn = reg_dest | &#123;<span class="number">5</span>&#123;jal&#125;<span class="meta">`&#125;`;</span></span><br><span class="line">        mux4x32 nextpc (p4,adr,ra,jpc,pcsource,npc);</span><br><span class="line">        regfile rf (inst[<span class="number">25</span>:<span class="number">21</span>],inst[<span class="number">20</span>:<span class="number">16</span>],res,wn,wreg,clock,resetn,ra,data);</span><br><span class="line">        alu al_unit (alua,alub,aluc,alu);</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h4 id="dff32v"><a class="markdownIt-Anchor" href="#dff32v">#</a> dff32.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> dff32 (d,clk,clrn,q);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] d;</span><br><span class="line">        <span class="keyword">input</span>                 clk,clrn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] q;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] d;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] q;</span><br><span class="line">        <span class="keyword">always</span>@(<span class="keyword">negedge</span> clrn <span class="keyword">or</span> <span class="keyword">posedge</span> clk)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (clrn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        q&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                        q&lt;=d;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h4 id="dffe32v"><a class="markdownIt-Anchor" href="#dffe32v">#</a> dffe32.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> dffe32 (d,clk,clrn,e,q);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] d;</span><br><span class="line">        <span class="keyword">input</span> clk,clrn,e;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] q;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] q;</span><br><span class="line">        <span class="keyword">always</span> @ (<span class="keyword">negedge</span> clrn <span class="keyword">or</span> <span class="keyword">posedge</span> clk)</span><br><span class="line">                <span class="keyword">if</span> (clrn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                q &lt;= <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (e == <span class="number">1</span>) q &lt;= d;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h4 id="mux2x5v"><a class="markdownIt-Anchor" href="#mux2x5v">#</a> mux2x5.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> mux2x5 (a0,a1,s,y);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] a0,a1; <span class="comment">// a0,a1: 32-bit</span></span><br><span class="line">        <span class="keyword">input</span> s; <span class="comment">// s: 1-bit</span></span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] y; <span class="comment">// y: 32-bit</span></span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] a0,a1;</span><br><span class="line">        <span class="keyword">assign</span> y = s ? a1 : a0; <span class="comment">// like C</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="mux2x32v"><a class="markdownIt-Anchor" href="#mux2x32v">#</a> mux2x32.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> mux2x32 (a0,a1,s,y);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] a0,a1; <span class="comment">// a0,a1: 32-bit</span></span><br><span class="line">        <span class="keyword">input</span> s; <span class="comment">// s: 1-bit</span></span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] y; <span class="comment">// y: 32-bit</span></span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] a0,a1;</span><br><span class="line">        <span class="keyword">assign</span> y = s ? a1 : a0; <span class="comment">// like C</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="mux4x32v"><a class="markdownIt-Anchor" href="#mux4x32v">#</a> mux4x32.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> mux4x32(a0,a1,a2,a3,s,y);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] a0,a1,a2,a3; <span class="comment">// a0,a1: 32-bit</span></span><br><span class="line">        <span class="keyword">input</span> [<span class="number">1</span>:<span class="number">0</span>] s; <span class="comment">// s: 1-bit</span></span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] y; <span class="comment">// y: 32-bit</span></span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] a0,a1,a2,a3;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] y;</span><br><span class="line">        <span class="keyword">always</span> @(s)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">case</span>(s)</span><br><span class="line">                <span class="number">2&#x27;b00</span>: y = a0;</span><br><span class="line">                <span class="number">2&#x27;b01</span>: y = a1;</span><br><span class="line">                <span class="number">2&#x27;b10</span>: y = a2;</span><br><span class="line">                <span class="number">2&#x27;b11</span>: y = a3;</span><br><span class="line">                <span class="keyword">endcase</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pcinstmemv"><a class="markdownIt-Anchor" href="#pcinstmemv">#</a> pcinstmem.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pcinstmem(a,inst);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">0</span>] a;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] inst;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] inst;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] ram[<span class="number">34</span>:<span class="number">0</span>];</span><br><span class="line"><span class="comment">//assign inst=ram[a];</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">0</span>]=<span class="number">32&#x27;h3c010000</span>;  <span class="comment">//addi r2 r1 + 2;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">1</span>]=<span class="number">32&#x27;h34240050</span>;  <span class="comment">//addi r3 r1 + 2;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">2</span>]=<span class="number">32&#x27;h0c00001b</span>;  <span class="comment">//add r4 r2 + r3;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">3</span>]=<span class="number">32&#x27;h20050004</span>;  <span class="comment">//sub r13 r4-r2;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">4</span>]=<span class="number">32&#x27;hac820000</span>;  <span class="comment">//lui  r9 1&lt;&lt;16;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">5</span>]=<span class="number">32&#x27;h8c890000</span>;  <span class="comment">//andi r2&amp; h0056</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">6</span>]=<span class="number">32&#x27;h01244022</span>;  <span class="comment">//beq r5 r7 -4;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">7</span>]=<span class="number">32&#x27;h20050003</span>;  <span class="comment">//sw r2 r4 1;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">8</span>]=<span class="number">32&#x27;h20a5ffff</span>;  <span class="comment">//lw r2 r8 1;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">9</span>]=<span class="number">32&#x27;h34a8ffff</span>;  <span class="comment">// ori r11 r2|5500;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">10</span>]=<span class="number">32&#x27;h39085555</span>; <span class="comment">// addi r12 r8+1;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">11</span>]=<span class="number">32&#x27;h2009ffff</span>; <span class="comment">//jal 2</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">12</span>]=<span class="number">32&#x27;h312affff</span>; <span class="comment">//jr s4 </span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">13</span>]=<span class="number">32&#x27;h01493025</span>; <span class="comment">//j 1</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">14</span>]=<span class="number">32&#x27;h01494026</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">15</span>]=<span class="number">32&#x27;h01463824</span>;   <span class="comment">//beq r5 r7 -4;</span></span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">16</span>]=<span class="number">32&#x27;h10a00003</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">17</span>]=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">18</span>]=<span class="number">32&#x27;h08000008</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">19</span>]=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">20</span>]=<span class="number">32&#x27;h2005ffff</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">21</span>]=<span class="number">32&#x27;h000543c0</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">22</span>]=<span class="number">32&#x27;h00084400</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">23</span>]=<span class="number">32&#x27;h00084403</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">24</span>]=<span class="number">32&#x27;h000843c2</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">25</span>]=<span class="number">32&#x27;h08000019</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">26</span>]=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">27</span>]=<span class="number">32&#x27;h00004020</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">28</span>]=<span class="number">32&#x27;h8c890000</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">29</span>]=<span class="number">32&#x27;h01094020</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">30</span>]=<span class="number">32&#x27;h20a5ffff</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">31</span>]=<span class="number">32&#x27;h14a0fffc</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">32</span>]=<span class="number">32&#x27;h20840004</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">33</span>]=<span class="number">32&#x27;h03e00008</span>;</span><br><span class="line"><span class="keyword">assign</span> ram[<span class="number">34</span>]=<span class="number">32&#x27;h00081000</span>;</span><br><span class="line"><span class="keyword">always</span>@(a)                </span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(a)</span><br><span class="line">        </span><br><span class="line">                <span class="number">6&#x27;b000000</span>: inst &lt;= ram[<span class="number">0</span>];</span><br><span class="line">                <span class="number">6&#x27;b000001</span>: inst &lt;= ram[<span class="number">1</span>];</span><br><span class="line">                <span class="number">6&#x27;b000010</span>: inst &lt;= ram[<span class="number">2</span>];</span><br><span class="line">                <span class="number">6&#x27;b000011</span>: inst &lt;= ram[<span class="number">3</span>];</span><br><span class="line">                <span class="number">6&#x27;b000100</span>: inst &lt;= ram[<span class="number">4</span>];</span><br><span class="line">                <span class="number">6&#x27;b000101</span>: inst &lt;= ram[<span class="number">5</span>];</span><br><span class="line">                <span class="number">6&#x27;b000110</span>: inst &lt;= ram[<span class="number">6</span>];</span><br><span class="line">                <span class="number">6&#x27;b000111</span>: inst &lt;= ram[<span class="number">7</span>];</span><br><span class="line">                <span class="number">6&#x27;b001000</span>: inst &lt;= ram[<span class="number">8</span>];</span><br><span class="line">                <span class="number">6&#x27;b001001</span>: inst &lt;= ram[<span class="number">9</span>];</span><br><span class="line">                <span class="number">6&#x27;b001010</span>: inst &lt;= ram[<span class="number">10</span>];</span><br><span class="line">                <span class="number">6&#x27;b001011</span>: inst &lt;= ram[<span class="number">11</span>];</span><br><span class="line">                <span class="number">6&#x27;b001100</span>: inst &lt;= ram[<span class="number">12</span>];</span><br><span class="line">                <span class="number">6&#x27;b001101</span>: inst &lt;= ram[<span class="number">13</span>];</span><br><span class="line">                <span class="number">6&#x27;b001110</span>: inst &lt;= ram[<span class="number">14</span>];</span><br><span class="line">                <span class="number">6&#x27;b001111</span>: inst &lt;= ram[<span class="number">15</span>];</span><br><span class="line">                <span class="number">6&#x27;b010000</span>: inst &lt;= ram[<span class="number">16</span>];</span><br><span class="line">                <span class="number">6&#x27;b010001</span>: inst &lt;= ram[<span class="number">17</span>];</span><br><span class="line">                <span class="number">6&#x27;b010010</span>: inst &lt;= ram[<span class="number">18</span>];</span><br><span class="line">                <span class="number">6&#x27;b010011</span>: inst &lt;= ram[<span class="number">19</span>];</span><br><span class="line">                <span class="number">6&#x27;b010100</span>: inst &lt;= ram[<span class="number">20</span>];</span><br><span class="line">                <span class="number">6&#x27;b010101</span>: inst &lt;= ram[<span class="number">21</span>];</span><br><span class="line">                <span class="number">6&#x27;b010110</span>: inst &lt;= ram[<span class="number">22</span>];</span><br><span class="line">                <span class="number">6&#x27;b010111</span>: inst &lt;= ram[<span class="number">23</span>];</span><br><span class="line">                <span class="number">6&#x27;b011000</span>: inst &lt;= ram[<span class="number">24</span>];</span><br><span class="line">                <span class="number">6&#x27;b011001</span>: inst &lt;= ram[<span class="number">25</span>];</span><br><span class="line">                <span class="number">6&#x27;b011010</span>: inst &lt;= ram[<span class="number">26</span>];</span><br><span class="line">                <span class="number">6&#x27;b011011</span>: inst &lt;= ram[<span class="number">27</span>];</span><br><span class="line">                <span class="number">6&#x27;b011100</span>: inst &lt;= ram[<span class="number">28</span>];</span><br><span class="line">                <span class="number">6&#x27;b011101</span>: inst &lt;= ram[<span class="number">29</span>];</span><br><span class="line">                <span class="number">6&#x27;b011110</span>: inst &lt;= ram[<span class="number">30</span>];</span><br><span class="line">                <span class="number">6&#x27;b011111</span>: inst &lt;= ram[<span class="number">31</span>];</span><br><span class="line">                <span class="number">6&#x27;b100000</span>: inst &lt;= ram[<span class="number">32</span>];</span><br><span class="line">                <span class="number">6&#x27;b100001</span>: inst &lt;= ram[<span class="number">33</span>];</span><br><span class="line">                <span class="number">6&#x27;b100010</span>: inst &lt;= ram[<span class="number">34</span>];</span><br><span class="line">                <span class="keyword">default</span>: inst &lt;= <span class="number">32&#x27;b0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipecpuv-2"><a class="markdownIt-Anchor" href="#pipecpuv-2">#</a> pipecpu.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipecpu (clock,memclock,resetn,pc,inst,ealu,malu,walu);</span><br><span class="line">        <span class="keyword">input</span> clock,memclock,resetn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] pc,inst,ealu,malu,walu;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] bpc,jpc,npc,pc4,ins,pcfour,inst,dimm,ea,eb,eimm;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] epcfour,mb,mmo,wmo,wrfdi,malu,walu,da,db,alua,alub;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] ddesr,edesr0,edesr,mdesr,wdesr;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] daluc,ealuc;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] pcsource;</span><br><span class="line">        <span class="keyword">wire</span> wpcir,wregrt;</span><br><span class="line">        <span class="keyword">wire</span> dwreg,dm2reg,dwmem,daluimm,dshift,djal;</span><br><span class="line">        <span class="keyword">wire</span> ewreg,em2reg,ewmem,ealuimm,eshift,ejal;</span><br><span class="line">        <span class="keyword">wire</span> mwreg,mm2reg,mwmem;</span><br><span class="line">        <span class="keyword">wire</span> wwreg,wm2reg;</span><br><span class="line">        dffe32 prog_cnt (npc,clock,resetn,wpcir,pc);</span><br><span class="line">        pipeif if_stage (pcsource,pc,bpc,da,jpc,npc,pc4,ins);</span><br><span class="line">        pipeir inst_reg (pc4,ins,wpcir,clock,resetn,pcfour,inst);</span><br><span class="line">        pipeid id_stage (mm2reg,mwreg,mdesr,em2reg,ewreg,edesr0,pcfour,inst,wdesr,wrfdi,wwreg,ealu,malu,mmo,clock,resetn,</span><br><span class="line">                                        bpc,jpc,pcsource,wpcir,dwreg,dm2reg,dwmem,daluc,</span><br><span class="line">                                        daluimm,da,db,dimm,ddesr,dshift,djal);</span><br><span class="line">        pipedereg de_reg (dwreg,dm2reg,dwmem,daluc,daluimm,da,db,dimm,ddesr,</span><br><span class="line">                                        dshift,djal,pcfour,clock,resetn,ewreg,em2reg,ewmem,</span><br><span class="line">                                        ealuc,ealuimm,ea,eb,eimm,edesr0,eshift,ejal,epcfour);</span><br><span class="line">        pipeexe exe_stage (ealuc,ealuimm,ea,eb,eimm,eshift,edesr0,epcfour,ejal,</span><br><span class="line">                                        edesr,ealu);</span><br><span class="line">        pipeemreg em_reg (ewreg,em2reg,ewmem,ealu,eb,edesr,clock,resetn,</span><br><span class="line">                                        mwreg,mm2reg,mwmem,malu,mb,mdesr);</span><br><span class="line">        pipemem mem_stage (mwmem,malu,mb,clock,memclock,mmo);</span><br><span class="line">        pipemwreg mw_reg (mwreg,mm2reg,mmo,malu,mdesr,clock,resetn,</span><br><span class="line">                                        wwreg,wm2reg,wmo,walu,wdesr);</span><br><span class="line">        mux2x32 wb_stage (walu,wmo,wm2reg,wrfdi);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipecuv-2"><a class="markdownIt-Anchor" href="#pipecuv-2">#</a> pipecu.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipecu (op, func,rs,rt,z,mm2reg,mwreg,mrn,em2reg,ewreg,ern, wmem, wreg, regrt, m2reg, aluc, shift,</span><br><span class="line">                                aluimm, pcsource, call, sext,wpcir,fwda,fwdb);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">0</span>] op,func;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] rs,rt,mrn,ern;</span><br><span class="line">        <span class="keyword">input</span> z,mm2reg,mwreg,em2reg,ewreg;</span><br><span class="line">        <span class="keyword">output</span> wreg,regrt,call,m2reg,shift,aluimm,sext,wmem,wpcir;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] aluc;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">1</span>:<span class="number">0</span>] pcsource,fwda,fwdb;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">1</span>:<span class="number">0</span>] fwda,fwdb;</span><br><span class="line">        <span class="keyword">wire</span> i_rs,i_rt;</span><br><span class="line">        <span class="keyword">wire</span> r_type = ~|op;</span><br><span class="line">        <span class="keyword">wire</span> i_add = r_type &amp; func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; ~func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_sub = r_type &amp; func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_and = r_type &amp; func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                func[<span class="number">2</span>] &amp; ~func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_or = r_type &amp; func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                func[<span class="number">2</span>] &amp; ~func[<span class="number">1</span>] &amp; func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_xor = r_type &amp; func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                func[<span class="number">2</span>] &amp; func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_sll = r_type &amp; ~func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; ~func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_srl = r_type &amp; ~func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_sra = r_type &amp; ~func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; ~func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; func[<span class="number">1</span>] &amp; func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_jr = r_type &amp; ~func[<span class="number">5</span>] &amp; ~func[<span class="number">4</span>] &amp; func[<span class="number">3</span>] &amp;</span><br><span class="line">                                ~func[<span class="number">2</span>] &amp; ~func[<span class="number">1</span>] &amp; ~func[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_addi = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; ~op[<span class="number">2</span>] &amp; ~op[<span class="number">1</span>] &amp; ~op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_andi = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; ~op[<span class="number">1</span>] &amp; ~op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_ori = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; ~op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_xori = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; ~op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_lw = op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; ~op[<span class="number">3</span>] &amp; ~op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_sw = op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; ~op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_beq = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; ~op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; ~op[<span class="number">1</span>] &amp; ~op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_bne = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; ~op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; ~op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_lui = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; op[<span class="number">3</span>] &amp; op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_j = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; ~op[<span class="number">3</span>] &amp; ~op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; ~op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">wire</span> i_jal = ~op[<span class="number">5</span>] &amp; ~op[<span class="number">4</span>] &amp; ~op[<span class="number">3</span>] &amp; ~op[<span class="number">2</span>] &amp; op[<span class="number">1</span>] &amp; op[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">always</span>@*<span class="keyword">begin</span></span><br><span class="line">        fwda = <span class="number">2&#x27;b00</span>; <span class="comment">// default forward a: no hazards</span></span><br><span class="line">        <span class="keyword">if</span> (ewreg &amp; (ern != <span class="number">0</span>) &amp; (ern == rs) &amp; ~em2reg) <span class="keyword">begin</span></span><br><span class="line">                fwda = <span class="number">2&#x27;b01</span>; <span class="comment">// select exe_alu</span></span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (mwreg &amp; (mrn != <span class="number">0</span>) &amp; (mrn == rs) &amp; ~mm2reg) <span class="keyword">begin</span></span><br><span class="line">                        fwda = <span class="number">2&#x27;b10</span>; <span class="comment">// select mem_alu</span></span><br><span class="line">                        <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (mwreg &amp; (mrn != <span class="number">0</span>) &amp; (mrn == rs) &amp; mm2reg) <span class="keyword">begin</span></span><br><span class="line">                        fwda = <span class="number">2&#x27;b11</span>; <span class="comment">// select mem_lw</span></span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        fwdb = <span class="number">2&#x27;b00</span>; <span class="comment">// default forward b: no hazards</span></span><br><span class="line">        <span class="keyword">if</span> (ewreg &amp; (ern != <span class="number">0</span>) &amp; (ern == rt) &amp; ~em2reg) <span class="keyword">begin</span></span><br><span class="line">                fwdb = <span class="number">2&#x27;b01</span>; <span class="comment">// select exe_alu</span></span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (mwreg &amp; (mrn != <span class="number">0</span>) &amp; (mrn == rt) &amp; ~mm2reg) <span class="keyword">begin</span></span><br><span class="line">                        fwdb = <span class="number">2&#x27;b10</span>; <span class="comment">// select mem_alu</span></span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (mwreg &amp; (mrn != <span class="number">0</span>) &amp; (mrn == rt) &amp; mm2reg) <span class="keyword">begin</span></span><br><span class="line">                        fwdb = <span class="number">2&#x27;b11</span>; <span class="comment">// select mem_lw</span></span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">assign</span> wpcir = ~(ewreg &amp; em2reg &amp; (ern != <span class="number">0</span>) &amp;</span><br><span class="line">                                        (i_rs &amp; (ern == rs) | i_rt &amp; (ern == rt)));</span><br><span class="line">        <span class="keyword">assign</span> i_rs = i_add | i_sub | i_and | i_or | i_xor |</span><br><span class="line">                                        i_jr | i_addi | i_andi | i_ori | i_xori |</span><br><span class="line">                                        i_lw | i_sw | i_beq | i_bne;</span><br><span class="line">        <span class="keyword">assign</span> i_rt = i_add | i_sub | i_and | i_or | i_xor |</span><br><span class="line">                                        i_sll | i_srl | i_sra | i_sw | i_beq |</span><br><span class="line">                                        i_bne;</span><br><span class="line">        <span class="keyword">assign</span> wreg = (i_add | i_sub | i_and | i_or | i_xor |</span><br><span class="line">                                        i_sll | i_srl | i_sra | i_addi | i_andi |</span><br><span class="line">                                        i_ori | i_xori | i_lw | i_lui | i_jal) &amp;</span><br><span class="line">                                        wpcir; <span class="comment">// prevent from executing twice</span></span><br><span class="line">        <span class="keyword">assign</span> wmem = i_sw &amp; wpcir; <span class="comment">// prevent from executing twice</span></span><br><span class="line">        <span class="keyword">assign</span> sext = i_addi | i_andi | i_ori | </span><br><span class="line">                                        i_xori | i_lui | i_lw | i_sw |i_beq | i_bne;</span><br><span class="line">        <span class="keyword">assign</span> aluc[<span class="number">0</span>] = i_and | i_or |i_sll |i_srl |i_sra |i_andi |i_ori;</span><br><span class="line">        <span class="keyword">assign</span> aluc[<span class="number">1</span>] = i_xor | i_sll |i_srl |i_sra |i_xori |i_lui;</span><br><span class="line">        <span class="keyword">assign</span> aluc[<span class="number">2</span>] = i_sub | i_or | i_srl |i_sra | i_ori </span><br><span class="line">                                        |i_beq | i_bne |i_lui;</span><br><span class="line">        <span class="keyword">assign</span> aluc[<span class="number">3</span>] = i_sra ;</span><br><span class="line">        <span class="keyword">assign</span> pcsource[<span class="number">0</span>] = z&amp;i_beq | (~z&amp;i_bne)  | i_j | i_jal ;</span><br><span class="line">        <span class="keyword">assign</span> pcsource[<span class="number">1</span>] = i_jr | i_j | i_jal;</span><br><span class="line">        <span class="keyword">assign</span> regrt = i_lui | i_addi | i_andi | i_ori | i_xori  | i_lw | i_sw;</span><br><span class="line">        <span class="keyword">assign</span> aluimm = i_lui | i_addi | i_andi | i_ori | i_xori  | i_lw | i_sw;</span><br><span class="line">        <span class="keyword">assign</span> shift = i_sll | i_srl | i_sra;</span><br><span class="line">        <span class="keyword">assign</span> m2reg = i_lw;</span><br><span class="line">        <span class="keyword">assign</span> call = i_jal;</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipederegv-2"><a class="markdownIt-Anchor" href="#pipederegv-2">#</a> pipedereg.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipedereg (dwreg,dm2reg,dwmem,daluc,daluimm,da,db,dimm,ddesr,</span><br><span class="line">                                dshift,djal,pcfour,clock,resetn,ewreg,em2reg,ewmem,</span><br><span class="line">                                ealuc,ealuimm,ea,eb,eimm,edesr0,eshift,ejal,epcfour);</span><br><span class="line">        <span class="keyword">input</span> dwreg,dm2reg,dwmem,daluimm,dshift,djal;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] da,db, dimm,pcfour;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] daluc;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] ddesr;</span><br><span class="line">        <span class="keyword">input</span> clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> ewreg,em2reg,ewmem,ealuimm,eshift,ejal;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ea,eb, eimm,epcfour;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] ealuc;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] edesr0;</span><br><span class="line">        <span class="keyword">reg</span> ewreg,em2reg,ewmem,ealuimm,eshift,ejal;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] ea,eb, eimm,epcfour;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] ealuc;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">4</span>:<span class="number">0</span>] edesr0;</span><br><span class="line">        <span class="keyword">always</span>@(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        ewreg&lt;=<span class="number">0</span>;</span><br><span class="line">                        em2reg&lt;=<span class="number">0</span>;</span><br><span class="line">                        ewmem&lt;=<span class="number">0</span>;</span><br><span class="line">                        ealuimm&lt;=<span class="number">0</span>;</span><br><span class="line">                        eshift&lt;=<span class="number">0</span>;</span><br><span class="line">                        ejal&lt;=<span class="number">0</span>;</span><br><span class="line">                        ealuc&lt;=<span class="number">0</span>;</span><br><span class="line">                        edesr0&lt;=<span class="number">0</span>;</span><br><span class="line">                        ea&lt;=<span class="number">0</span>;</span><br><span class="line">                        eb&lt;=<span class="number">0</span>;</span><br><span class="line">                        eimm&lt;=<span class="number">0</span>;</span><br><span class="line">                        epcfour&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                        ewreg&lt;=dwreg;</span><br><span class="line">                        em2reg&lt;=dm2reg;</span><br><span class="line">                        ewmem&lt;=dwmem;</span><br><span class="line">                        ealuimm&lt;=daluimm;</span><br><span class="line">                        eshift&lt;=dshift;</span><br><span class="line">                        ejal&lt;=djal;</span><br><span class="line">                        ealuc&lt;=daluc;</span><br><span class="line">                        edesr0&lt;=ddesr;</span><br><span class="line">                        ea&lt;=da;</span><br><span class="line">                        eb&lt;=db;</span><br><span class="line">                        eimm&lt;=dimm;</span><br><span class="line">                        epcfour&lt;=pcfour;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h4 id="pipeemregv-2"><a class="markdownIt-Anchor" href="#pipeemregv-2">#</a> pipeemreg.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipeemreg (ewreg,em2reg,ewmem,ealu,eb,edesr,clock,resetn,</span><br><span class="line">                                        mwreg,mm2reg,mwmem,malu,mb,mdesr);</span><br><span class="line">        <span class="keyword">input</span> ewreg,em2reg,ewmem;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] ealu,eb;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] edesr;</span><br><span class="line">        <span class="keyword">input</span> clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> mwreg,mm2reg,mwmem;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] malu,mb;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] mdesr;</span><br><span class="line">        <span class="keyword">reg</span> mwreg,mm2reg,mwmem;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] malu,mb;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">4</span>:<span class="number">0</span>] mdesr;</span><br><span class="line">        <span class="keyword">always</span>@(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        mwreg&lt;=<span class="number">0</span>;</span><br><span class="line">                        mm2reg&lt;=<span class="number">0</span>;</span><br><span class="line">                        mwmem&lt;=<span class="number">0</span>;</span><br><span class="line">                        mdesr&lt;=<span class="number">0</span>;</span><br><span class="line">                        mb&lt;=<span class="number">0</span>;</span><br><span class="line">                        malu&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                        mwreg&lt;=ewreg;</span><br><span class="line">                        mm2reg&lt;=em2reg;</span><br><span class="line">                        mwmem&lt;=ewmem;</span><br><span class="line">                        mdesr&lt;=edesr;</span><br><span class="line">                        mb&lt;=eb;</span><br><span class="line">                        malu&lt;=ealu;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h4 id="pipeexev-2"><a class="markdownIt-Anchor" href="#pipeexev-2">#</a> pipeexe.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipeexe (ealuc,ealuimm,ea,eb,eimm,eshift,edesr0,epcfour,ejal,</span><br><span class="line">                                edesr,ealu);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] ealuc;</span><br><span class="line">        <span class="keyword">input</span> ealuimm,eshift,ejal;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] edesr0;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] ea,eb,eimm,epcfour;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] edesr;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ealu;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] alua,alub,p4,alue;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] edesr0;</span><br><span class="line">        cla32 pcplus8 (epcfour,<span class="number">32&#x27;h4</span>,<span class="number">1&#x27;b0</span>,p4);</span><br><span class="line">        mux2x32 alu_b (eb,eimm,ealuimm,alub);</span><br><span class="line">        mux2x32 alu_a (ea,eimm,eshift,alua);</span><br><span class="line">        mux2x32 link (alue,p4,ejal,ealu);</span><br><span class="line">        <span class="keyword">assign</span>  edesr = edesr0 | &#123;<span class="number">5</span>&#123;ejal&#125;<span class="meta">`&#125;`;</span></span><br><span class="line">        alu al_unit (alua,alub,ealuc,alue);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipeidv-2"><a class="markdownIt-Anchor" href="#pipeidv-2">#</a> pipeid.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipeid(mm2reg,mwreg,mrn,em2reg,ewreg,ern,pcfour,inst,wdesr,wrfdi,wwreg,ealu,malu,mmo,clock,resetn,</span><br><span class="line">                        bpc,jpc,pcsource,wpcir,dwreg,dm2reg,dwmem,daluc,</span><br><span class="line">                        daluimm,da,db,dimm,ddesr,dshift,djal);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] pcfour,inst,wrfdi,ealu,malu,mmo;</span><br><span class="line">        <span class="keyword">input</span> wwreg,mm2reg,mwreg,em2reg,ewreg;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] wdesr,mrn,ern;</span><br><span class="line">        <span class="keyword">input</span>                   clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] bpc,jpc,da,db,dimm;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">1</span>:<span class="number">0</span>] pcsource;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] ddesr;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] daluc;</span><br><span class="line">        <span class="keyword">output</span>        wpcir,dwreg,dm2reg,dwmem,daluimm,dshift,djal;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] ddest;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] bpc,pcfour,da,db,ra,data,ealu,malu,mmo,inst;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">1</span>:<span class="number">0</span>]  pcsource,fwda,fwdb;</span><br><span class="line">        <span class="keyword">wire</span>          zero,dwmem,dwreg,dregrt,dm2reg,dshift,daluimm,djal,dsext,wpcir;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] sa = &#123;<span class="number">27&#x27;b0</span>,inst[<span class="number">10</span>:<span class="number">6</span>]&#125;;</span><br><span class="line">        <span class="keyword">wire</span>          e = dsext&amp;inst[<span class="number">15</span>];</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] daluc;</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">15</span>:<span class="number">0</span>] imm = &#123;<span class="number">16</span>&#123;e&#125;<span class="meta">`&#125;`;</span></span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] immediate = &#123;imm,inst[<span class="number">15</span>:<span class="number">0</span>]&#125;;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] offset = immediate&lt;&lt;<span class="number">2</span>;</span><br><span class="line">        cla32 br_adr (pcfour,offset,<span class="number">1&#x27;b0</span>,bpc);</span><br><span class="line">        <span class="keyword">wire</span>   [<span class="number">31</span>:<span class="number">0</span>] jpc = &#123;pcfour[<span class="number">31</span>:<span class="number">28</span>],inst[<span class="number">25</span>:<span class="number">0</span>],<span class="number">1&#x27;b0</span>,<span class="number">1&#x27;b0</span>&#125;;</span><br><span class="line">        compare vs (da,db,zero);</span><br><span class="line">        pipecu cu (inst[<span class="number">31</span>:<span class="number">26</span>],inst[<span class="number">5</span>:<span class="number">0</span>],inst[<span class="number">25</span>:<span class="number">21</span>],inst[<span class="number">20</span>:<span class="number">16</span>],zero,mm2reg,mwreg,mrn,em2reg,ewreg,ern,</span><br><span class="line">                        dwmem,dwreg,dregrt,dm2reg,daluc,dshift,daluimm,pcsource,djal,dsext,wpcir);</span><br><span class="line">        mux2x32 lin (immediate,sa,dshift,dimm);</span><br><span class="line">        mux2x5  reg_wm (inst[<span class="number">15</span>:<span class="number">11</span>],inst[<span class="number">20</span>:<span class="number">16</span>],dregrt,ddesr);</span><br><span class="line">        mux4x32 fwa (ra,ealu,malu,mmo,fwda,da);</span><br><span class="line">        mux4x32 fwb (data,ealu,malu,mmo,fwdb,db);</span><br><span class="line">        regfile rf (inst[<span class="number">25</span>:<span class="number">21</span>],inst[<span class="number">20</span>:<span class="number">16</span>],wrfdi,wdesr,wwreg,clock,resetn,ra,data);</span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+<h4 id="pipeifv-2"><a class="markdownIt-Anchor" href="#pipeifv-2">#</a> pipeif.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipeif (pcsource,pc,bpc,da,jpc,npc,pc4,ins);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">1</span>:<span class="number">0</span>] pcsource;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] pc,bpc,da,jpc;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] npc,pc4,ins;</span><br><span class="line">        pcinstmem instmem (pc[<span class="number">7</span>:<span class="number">2</span>],ins);</span><br><span class="line">        cla32 pcplus4 (pc,<span class="number">32&#x27;h4</span>,<span class="number">1&#x27;b0</span>,pc4);</span><br><span class="line">        mux4x32 nextpc (pc4,bpc,da,jpc,pcsource,npc);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipeirv-2"><a class="markdownIt-Anchor" href="#pipeirv-2">#</a> pipeir.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipeir (pc4,ins,wpcir,clock,resetn,pcfour,inst);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] pc4,ins;</span><br><span class="line">        <span class="keyword">input</span> wpcir;</span><br><span class="line">        <span class="keyword">input</span> clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] pcfour,inst;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] pcfour,inst;</span><br><span class="line">        <span class="keyword">always</span>@(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        pcfour&lt;=<span class="number">0</span>;</span><br><span class="line">                        inst&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">if</span>(wpcir==<span class="number">1</span>)<span class="keyword">begin</span></span><br><span class="line">                        pcfour&lt;=pc4;</span><br><span class="line">                        inst&lt;=ins;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipememv-2"><a class="markdownIt-Anchor" href="#pipememv-2">#</a> pipemem.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipemem (mwmem,malu,mb,clock,memclock,mmo);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] malu;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] mb;</span><br><span class="line">        <span class="keyword">input</span> mwmem,clock,memclock;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] mmo;</span><br><span class="line">        <span class="keyword">wire</span> write_enable;</span><br><span class="line">        <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] mmo;</span><br><span class="line">lpm_ram_dq ram (<span class="variable">.data</span>(mb),<span class="variable">.address</span>(malu[<span class="number">6</span>:<span class="number">2</span>]),</span><br><span class="line">                                        <span class="variable">.inclock</span>(memclock),<span class="variable">.outclock</span>(memclock),<span class="variable">.we</span>(write_enable),<span class="variable">.q</span>(mmo));</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_width</span> = <span class="number">32</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_widthad</span> = <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_indata</span> = <span class="string">&quot;registered&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_outdata</span> = <span class="string">&quot;registered&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_file</span> = <span class="string">&quot;pcdatamem.mif&quot;</span>;</span><br><span class="line">        <span class="keyword">defparam</span> ram<span class="variable">.lpm_address_control</span> = <span class="string">&quot;registered&quot;</span>;</span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipemwregv-2"><a class="markdownIt-Anchor" href="#pipemwregv-2">#</a> pipemwreg.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> pipemwreg (mwreg,mm2reg,mmo,malu,mdesr,clock,resetn,</span><br><span class="line">                                        wwreg,wm2reg,wmo,walu,wdesr);</span><br><span class="line">        <span class="keyword">input</span> mwreg,mm2reg;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] mdesr;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] mmo,malu;</span><br><span class="line">        <span class="keyword">input</span> clock,resetn;</span><br><span class="line">        <span class="keyword">output</span> wwreg,wm2reg;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] wdesr;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] wmo,walu;</span><br><span class="line">        <span class="keyword">reg</span> wwreg,wm2reg;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">4</span>:<span class="number">0</span>] wdesr;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] wmo,walu;</span><br><span class="line">        <span class="keyword">always</span>@(<span class="keyword">negedge</span> resetn <span class="keyword">or</span> <span class="keyword">posedge</span> clock)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(resetn == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">                        wwreg&lt;=<span class="number">0</span>;</span><br><span class="line">                        wm2reg&lt;=<span class="number">0</span>;</span><br><span class="line">                        wdesr&lt;=<span class="number">0</span>;</span><br><span class="line">                        wmo&lt;=<span class="number">0</span>;</span><br><span class="line">                        walu&lt;=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                        wwreg&lt;=mwreg;</span><br><span class="line">                        wm2reg&lt;=mm2reg;</span><br><span class="line">                        wdesr&lt;=mdesr;</span><br><span class="line">                        wmo&lt;=mmo;</span><br><span class="line">                        walu&lt;=malu;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span> </span><br></pre></td></tr></table></figure>
+<h4 id="pipepcv-2"><a class="markdownIt-Anchor" href="#pipepcv-2">#</a> pipepc.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="regfilev"><a class="markdownIt-Anchor" href="#regfilev">#</a> regfile.v</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> regfile (rna,rnb,d,wn,we,clk,clrn,qa,qb);</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] rna,rnb,wn;</span><br><span class="line">        <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] d;</span><br><span class="line">        <span class="keyword">input</span> we,clk,clrn;</span><br><span class="line">        <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] qa,qb;</span><br><span class="line">        <span class="keyword">wire</span> clock = ~clk;</span><br><span class="line">        <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] register [<span class="number">1</span>:<span class="number">31</span>]; <span class="comment">// r1 - r31</span></span><br><span class="line">        <span class="keyword">assign</span> qa = (rna == <span class="number">0</span>)? <span class="number">0</span> : register[rna]; <span class="comment">// read</span></span><br><span class="line">        <span class="keyword">assign</span> qb = (rnb == <span class="number">0</span>)? <span class="number">0</span> : register[rnb]; <span class="comment">// read</span></span><br><span class="line">        <span class="keyword">always</span> @(<span class="keyword">posedge</span> clock <span class="keyword">or</span> <span class="keyword">negedge</span> clrn) <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> (clrn == <span class="number">0</span>) <span class="keyword">begin</span> <span class="comment">// reset</span></span><br><span class="line">                        <span class="keyword">integer</span> i;</span><br><span class="line">                        <span class="keyword">for</span> (i=<span class="number">1</span>; i&lt;<span class="number">32</span>; i=i+<span class="number">1</span>)</span><br><span class="line">                                register[i] &lt;= <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span> ((wn != <span class="number">0</span>) &amp;&amp; (we == <span class="number">1</span>)) <span class="comment">// write</span></span><br><span class="line">                        register[wn] &lt;= d;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+      <div class="tags">
+          <a href="/tags/CPU/" rel="tag"><i class="ic i-tag"></i> CPU</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2018-09-19 16:24:08" itemprop="dateModified" datetime="2018-09-19T16:24:08+08:00">2018-09-19</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">http://example.com/2018/06/11/基于MIPS指令集的32位五级流水线CPU设计oo/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciukx8a7j20zk0m8aio.jpg" title="计算机组成原理">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>计算机组成原理</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevarprfj20zk0m8npd.jpg" title="SQL语句札记">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>SQL语句札记</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Emips%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFcpu%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text"> 基于 MIPS 指令集的 32 位五级流水线 CPU 设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E7%AF%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 理论篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 概念理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 模块说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 参数说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%A8%E8%AF%81%E7%AF%87"><span class="toc-number">1.2.</span> <span class="toc-text"> 辨证篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E7%AF%87"><span class="toc-number">1.3.</span> <span class="toc-text"> 实践篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 所有文件框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#aluv%E8%BF%90%E7%AE%97%E5%99%A8"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> alu.v (运算器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cla32v%E5%8A%A0%E5%87%8F%E6%B3%95%E9%80%89%E6%8B%A9%E8%BF%90%E7%AE%97%E5%99%A8"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> cla32.v (加减法选择运算器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#comparev%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89"><span class="toc-number">1.3.2.3.</span> <span class="toc-text"> compare.v (判断是否相等)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cpuv"><span class="toc-number">1.3.2.4.</span> <span class="toc-text"> cpu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dff32v%E5%8F%8C%E7%BA%BF%E8%B7%AF%E4%B8%89%E6%80%81%E9%97%A8"><span class="toc-number">1.3.2.5.</span> <span class="toc-text"> dff32.v (双线路三态门)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dffe32v%E9%99%84%E5%8A%A0%E7%BA%BF%E8%B7%AF%E5%8F%8C%E7%BA%BF%E8%B7%AF%E4%B8%89%E6%80%81%E9%97%A8"><span class="toc-number">1.3.2.6.</span> <span class="toc-text"> dffe32.v (附加线路双线路三态门)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux2x5v5%E4%BD%8D%E4%B8%A4%E7%BA%BF%E9%80%89%E6%8B%A9%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.2.7.</span> <span class="toc-text"> mux2x5.v (5 位两线选择输出)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux2x32v32%E4%BD%8D%E4%B8%A4%E7%BA%BF%E9%80%89%E6%8B%A9%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.2.8.</span> <span class="toc-text"> mux2x32.v (32 位两线选择输出)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux4x32v32%E4%BD%8D4%E7%BA%BF%E9%80%89%E6%8B%A9%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.2.9.</span> <span class="toc-text"> mux4x32.v (32 位 4 线选择输出)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pcinstmemv-%E9%87%8D%E8%A6%81%E7%9A%84%E6%8C%87%E4%BB%A4%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.2.10.</span> <span class="toc-text"> pcinstmem.v 重要的指令文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipecpuv"><span class="toc-number">1.3.2.11.</span> <span class="toc-text"> pipecpu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipecuv"><span class="toc-number">1.3.2.12.</span> <span class="toc-text"> pipecu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipederegv"><span class="toc-number">1.3.2.13.</span> <span class="toc-text"> pipedereg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeemregv"><span class="toc-number">1.3.2.14.</span> <span class="toc-text"> pipeemreg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeexev"><span class="toc-number">1.3.2.15.</span> <span class="toc-text"> pipeexe.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeidv"><span class="toc-number">1.3.2.16.</span> <span class="toc-text"> pipeid.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeifv"><span class="toc-number">1.3.2.17.</span> <span class="toc-text"> pipeif.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeirv"><span class="toc-number">1.3.2.18.</span> <span class="toc-text"> pipeir.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipememv"><span class="toc-number">1.3.2.19.</span> <span class="toc-text"> pipemem.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipemwregv"><span class="toc-number">1.3.2.20.</span> <span class="toc-text"> pipemwreg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipepcv"><span class="toc-number">1.3.2.21.</span> <span class="toc-text"> pipepc.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#regfilev%E9%80%89%E6%8B%A9%E8%BE%93%E5%87%BA%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.2.22.</span> <span class="toc-text"> regfile.v (选择输出更新数据)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%9F%E7%BA%BF%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 跟线总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if%E5%8F%96%E6%8C%87%E4%BB%A4%E9%98%B6%E6%AE%B5-pipeif-if_stage"><span class="toc-number">1.3.3.1.</span> <span class="toc-text"> if 取指令阶段 pipeif if_stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#if%E5%92%8Cid%E9%98%B6%E6%AE%B5%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8-pipeir-inst_reg"><span class="toc-number">1.3.3.2.</span> <span class="toc-text"> if 和 id 阶段的寄存器 pipeir inst_reg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#id%E8%AF%91%E7%A0%81%E9%98%B6%E6%AE%B5pipeid-id_stage"><span class="toc-number">1.3.3.3.</span> <span class="toc-text"> id 译码阶段 pipeid id_stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#id%E5%92%8Cexe%E9%98%B6%E6%AE%B5%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8-pipedereg-de_reg"><span class="toc-number">1.3.3.4.</span> <span class="toc-text"> id 和 exe 阶段的寄存器 pipedereg de_reg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exe%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5-pipeexe-exe_stage"><span class="toc-number">1.3.3.5.</span> <span class="toc-text"> exe 执行阶段 pipeexe exe_stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exe%E5%92%8Cmem%E9%98%B6%E6%AE%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%AF%84%E5%AD%98%E5%99%A8-pipeemreg-em_reg"><span class="toc-number">1.3.3.6.</span> <span class="toc-text"> exe 和 mem 阶段中间的信号寄存器 pipeemreg em_reg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mem%E8%AE%BF%E5%AD%98%E9%98%B6%E6%AE%B5-pipemem-mem_stage"><span class="toc-number">1.3.3.7.</span> <span class="toc-text"> mem 访存阶段 pipemem mem_stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mem%E5%92%8Cwb%E9%98%B6%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8-pipemwreg-mw_reg"><span class="toc-number">1.3.3.8.</span> <span class="toc-text"> mem 和 wb 阶段寄存器 pipemwreg mw_reg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#wb%E5%9B%9E%E5%86%99%E9%98%B6%E6%AE%B5-mux2x32-wb_stage"><span class="toc-number">1.3.3.9.</span> <span class="toc-text"> wb 回写阶段 mux2x32 wb_stage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E6%80%BB%E6%A6%82"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 布局总概</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeif-if_stage-if%E9%98%B6%E6%AE%B5pc4%E5%8F%96%E6%8C%87%E4%BB%A4"><span class="toc-number">1.3.4.1.</span> <span class="toc-text"> pipeif if_stage If 阶段，pc+4，取指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeir-inst_reg-if%E5%92%8Cid%E9%98%B6%E6%AE%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.3.4.2.</span> <span class="toc-text"> pipeir inst_reg if 和 id 阶段中间的信号寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeid-id_stage-id%E9%98%B6%E6%AE%B5"><span class="toc-number">1.3.4.3.</span> <span class="toc-text"> pipeid id_stage id 阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipedereg-de_reg-id%E5%92%8Cexe%E9%98%B6%E6%AE%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.3.4.4.</span> <span class="toc-text"> pipedereg de_reg id 和 exe 阶段中间的信号寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeexe-exe_stage-exe%E9%98%B6%E6%AE%B5%E6%89%A7%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-number">1.3.4.5.</span> <span class="toc-text"> pipeexe exe_stage Exe 阶段，执行计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeemreg-em_reg-exe%E5%92%8Cmem%E9%98%B6%E6%AE%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.3.4.6.</span> <span class="toc-text"> pipeemreg em_reg exe 和 mem 阶段中间的信号寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipemem-mem_stage-mem%E9%98%B6%E6%AE%B5"><span class="toc-number">1.3.4.7.</span> <span class="toc-text"> pipemem mem_stage mem 阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipemwreg-mw_reg-mem%E5%92%8Cwb%E9%98%B6%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.3.4.8.</span> <span class="toc-text"> pipemwreg mw_reg mem 和 wb 阶段寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux2x32-wb_stage-wb%E9%98%B6%E6%AE%B5"><span class="toc-number">1.3.4.9.</span> <span class="toc-text"> mux2x32 wb_stage wb 阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dffe32-prog_cnt-%E5%B8%A6%E4%BD%BF%E8%83%BD%E7%9A%84d%E8%A7%A6%E5%8F%91%E5%99%A8%E9%80%89%E6%8B%A9%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.4.10.</span> <span class="toc-text"> dffe32 prog_cnt 带使能的 D 触发器，选择输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6%E4%B8%AD%E8%BE%93%E5%85%A5%E7%BA%BF%E8%B7%AF%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 整体框架中输入线路的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 文件代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#aluv"><span class="toc-number">1.3.6.1.</span> <span class="toc-text"> alu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cla32v"><span class="toc-number">1.3.6.2.</span> <span class="toc-text"> cla32.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#comparev"><span class="toc-number">1.3.6.3.</span> <span class="toc-text"> compare.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cpuv-2"><span class="toc-number">1.3.6.4.</span> <span class="toc-text"> cpu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dff32v"><span class="toc-number">1.3.6.5.</span> <span class="toc-text"> dff32.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dffe32v"><span class="toc-number">1.3.6.6.</span> <span class="toc-text"> dffe32.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux2x5v"><span class="toc-number">1.3.6.7.</span> <span class="toc-text"> mux2x5.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux2x32v"><span class="toc-number">1.3.6.8.</span> <span class="toc-text"> mux2x32.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mux4x32v"><span class="toc-number">1.3.6.9.</span> <span class="toc-text"> mux4x32.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pcinstmemv"><span class="toc-number">1.3.6.10.</span> <span class="toc-text"> pcinstmem.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipecpuv-2"><span class="toc-number">1.3.6.11.</span> <span class="toc-text"> pipecpu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipecuv-2"><span class="toc-number">1.3.6.12.</span> <span class="toc-text"> pipecu.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipederegv-2"><span class="toc-number">1.3.6.13.</span> <span class="toc-text"> pipedereg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeemregv-2"><span class="toc-number">1.3.6.14.</span> <span class="toc-text"> pipeemreg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeexev-2"><span class="toc-number">1.3.6.15.</span> <span class="toc-text"> pipeexe.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeidv-2"><span class="toc-number">1.3.6.16.</span> <span class="toc-text"> pipeid.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeifv-2"><span class="toc-number">1.3.6.17.</span> <span class="toc-text"> pipeif.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeirv-2"><span class="toc-number">1.3.6.18.</span> <span class="toc-text"> pipeir.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipememv-2"><span class="toc-number">1.3.6.19.</span> <span class="toc-text"> pipemem.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipemwregv-2"><span class="toc-number">1.3.6.20.</span> <span class="toc-text"> pipemwreg.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipepcv-2"><span class="toc-number">1.3.6.21.</span> <span class="toc-text"> pipepc.v</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#regfilev"><span class="toc-number">1.3.6.22.</span> <span class="toc-text"> regfile.v</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">59</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">27</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="Apache系统管理">Apache系统管理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" title="大数据涉猎">大数据涉猎</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Nodejs学习笔记">Nodejs学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2018/06/11/基于MIPS指令集的32位五级流水线CPU设计oo/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

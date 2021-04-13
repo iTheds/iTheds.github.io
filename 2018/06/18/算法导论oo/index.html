@@ -1,0 +1,1039 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="C/C++,算法,JAVA" />
+
+
+<link rel="canonical" href="http://example.com/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">
+
+
+
+  <title>
+算法导论 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">算法导论
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2018-06-18 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2018-06-18T00:00:00+08:00">2018-06-18</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="算法导论"><a class="markdownIt-Anchor" href="#算法导论">#</a> 算法导论</h1>
+<h2 id="理论方式"><a class="markdownIt-Anchor" href="#理论方式">#</a> 理论方式</h2>
+<p>算法是一种计算方式，而其合理性的与否则需要我们单独的论证。</p>
+<blockquote>
+<h3 id="子集树和排列树-两种问题解空间树的常用类型"><a class="markdownIt-Anchor" href="#子集树和排列树-两种问题解空间树的常用类型">#</a> 子集树和排列树 两种问题解空间树的常用类型</h3>
+</blockquote>
+<blockquote>
+<h3 id="显示图-显示图的穷举搜索有两种方式深度优先和广度优先-用邻接表存储具有n个顶点和e条边的显示图图的搜索算法的时间复杂度为one"><a class="markdownIt-Anchor" href="#显示图-显示图的穷举搜索有两种方式深度优先和广度优先-用邻接表存储具有n个顶点和e条边的显示图图的搜索算法的时间复杂度为one">#</a> 显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有 n 个顶点和 e 条边的显示图，图的搜索算法的时间复杂度为 o (n+e)</h3>
+</blockquote>
+<h2 id="算法思想"><a class="markdownIt-Anchor" href="#算法思想">#</a> 算法思想</h2>
+<blockquote>
+<h3 id="二分查找法-算法的时间复杂度是olog2n"><a class="markdownIt-Anchor" href="#二分查找法-算法的时间复杂度是olog2n">#</a> 二分查找法 算法的时间复杂度是 O (log2n)</h3>
+</blockquote>
+<blockquote>
+<h3 id="递归算法"><a class="markdownIt-Anchor" href="#递归算法">#</a> 递归算法</h3>
+</blockquote>
+<p>关键在于找出， <code>边界条件</code> 和 <code>递归方程</code> 。</p>
+<blockquote>
+<h3 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划">#</a> 动态规划</h3>
+</blockquote>
+<p>自底向上求解</p>
+<p>基本要素:</p>
+<ul>
+<li>最优子结构  当问题的最优解包含了其子问题的最优解时，称该问题具有最优子结构性质。问题的最优子结构性质提供了该问题可用动态规划算法求解的重要线索。在动态规划算法中，利用问题的最优子结构性质，以自底向上的方式递归地从子问题的最优解逐步构造出整个问题的最优解。</li>
+<li>重叠子问题  可用动态规划算法求解的问题应具备的另一个基本要素是子问题的重叠性质。在用递归算法自顶向下求解问题时，每次产生的子问题并不总是新问题，有些子问题被反复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只解一次，而后将 <code>其解保存在一个表格中</code> ，当再次需要此子问题时，只要简单地用 <code>常数时间</code> 查看一下结果。通常，不同的子问题个数随问题的大小呈多项式增长。因此，用动态规划算法通常只需要多项式时间，从而获得较高的解题效率。</li>
+</ul>
+<p>重叠子问题则表明动态规划不需要满足被分解成的小问题彼此独立。</p>
+<blockquote>
+<h3 id="分治算法"><a class="markdownIt-Anchor" href="#分治算法">#</a> 分治算法</h3>
+</blockquote>
+<p>子问题不能重复<br>
+子问题可以合并<br>
+原问题和子问题使用相同方法求解</p>
+<blockquote>
+<h3 id="贪心算法"><a class="markdownIt-Anchor" href="#贪心算法">#</a> 贪心算法</h3>
+</blockquote>
+<ul>
+<li><code>概念</code></li>
+</ul>
+<p>顾名思义，贪心算法总是作出在当前看来最好的选择。也就是说贪心算法并不从整体最优考虑，它所作出的选择只是在某种意义上的局部最优选择。当然，希望贪心算法得到的最终结果也是整体最优的。虽然贪心算法不能对所有问题都得到整体最优解，但对许多问题它能产生整体最优解。如单源最短路经问题，最小生成树问题等。在一些情况下，即使贪心算法不能得到整体最优解，其最终结果却是最优解的很好近似。</p>
+<p>贪心算法中最重要的核心就在于证明在一种当前情况下最好的选择对于总体来说是最好的选择。<br>
+一般会设计一个递归算法来实现贪心策略。然后将递归算法转换为迭代算法。</p>
+<ul>
+<li><code>基本要素</code></li>
+</ul>
+<ol>
+<li><code>贪心选择性质</code>     所谓贪心选择性质是指所求问题的整体最优解可以通过一系列局部最优的选择，即贪心选择来达到。这是贪心算法可行的第一个基本要素，也是贪心算法与动态规划算法的主要区别。</li>
+</ol>
+<p>动态规划算法通常以自底向上的方式解各子问题，而贪心算法则通常以自顶向下的方式进行，以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题。</p>
+<p>对于一个具体问题，要确定它是否具有贪心选择性质，必须证明每一步所作的贪心选择最终导致问题的整体最优解。</p>
+<ol start="2">
+<li><code>最优子结构性质</code>     当一个问题的最优解包含其子问题的最优解时，称此问题具有最优子结构性质。问题的最优子结构性质是该问题可用动态规划算法或贪心算法求解的关键特征。</li>
+</ol>
+<ul>
+<li><code>基本思路</code></li>
+</ul>
+<p>从问题的某一个初始解出发逐步逼近给定的目标，以尽可能快的地求得更好的解。当达到算法中的某一步不能再继续前进时，算法停止。</p>
+<p>该算法存在问题：</p>
+<ol>
+<li>
+<p>不能保证求得的最后解是最佳的；</p>
+</li>
+<li>
+<p>不能用来求最大或最小解问题；</p>
+</li>
+<li>
+<p>只能求满足某些约束条件的可行解的范围。</p>
+</li>
+</ol>
+<p>实现该算法的过程：</p>
+<p>从问题的某一初始解出发；</p>
+<p>while 能朝给定总目标前进一步 do</p>
+<p>求出可行解的一个解元素；</p>
+<p>由所有解元素组合成问题的一个可行解；</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2VmZmVjdGl2ZV9jb2Rlci9hcnRpY2xlL2RldGFpbHMvODczNjcxOA==">参考网站</span></p>
+<blockquote>
+<h3 id="分支限界法"><a class="markdownIt-Anchor" href="#分支限界法">#</a> 分支限界法</h3>
+</blockquote>
+<p>搜索方式：<br>
+广度优先<br>
+最小消耗有限</p>
+<blockquote>
+<h3 id="舍伍德算法"><a class="markdownIt-Anchor" href="#舍伍德算法">#</a> 舍伍德算法</h3>
+</blockquote>
+<p>这是一种随机化算法</p>
+<hr>
+<blockquote>
+<h3 id="辨析"><a class="markdownIt-Anchor" href="#辨析">#</a> 辨析</h3>
+</blockquote>
+<ul>
+<li>回溯法和分支限界法</li>
+</ul>
+<p>相同点：二者都是一种在问题的解空间树 T 上搜索问题解的算法。<br>
+不同点：1. 在一般情况下，分支限界法与回溯法的求解目标不同。<br>
+回溯法的求解目标是找出 T 中满足约束条件的所有解，而分支限界法的求解目标则是找出满足约束条件的一个解，或是在满足约束条件的解中找出使某一目标函数值达到极大或极小的解，即在某种意义下的最优解。<br>
+2. 回溯法与分支 - 限界法对解空间的搜索方式不同，回溯法通常采用尝试深度优先搜索，而分支限界法则通常采用广度优先搜索。<br>
+3. 对节点存储的常用数据结构以及节点存储特性也各不相同，除由搜索方式决定的不同的存储结构外，分支限界法通常需要存储一些额外的信息以利于进一步地展开搜索。</p>
+<hr>
+<h2 id="具体问题"><a class="markdownIt-Anchor" href="#具体问题">#</a> 具体问题</h2>
+<blockquote>
+<h3 id="哈弗曼编码huffman编码"><a class="markdownIt-Anchor" href="#哈弗曼编码huffman编码">#</a> 哈弗曼编码 (Huffman 编码)</h3>
+</blockquote>
+<p>用于压缩数据，使用贪心算法来解决。主要是使用 Full 二叉树来求解出最优的编码方案。最优方案是变长编码。<br>
+如何证明其有贪心选择性，是使用此算法的关键所在。<br>
+首先比较的是变长编码和定长编码的优劣，使频率最高的长度最小自然是最好的方法。</p>
+<blockquote>
+<h3 id="最小生成树minimum-spanning-tree"><a class="markdownIt-Anchor" href="#最小生成树minimum-spanning-tree">#</a> 最小生成树 (Minimum-spanning-tree)</h3>
+</blockquote>
+<p>使用贪心算法求解</p>
+<blockquote>
+<h3 id="最长公共子序列问题longest-common-subsequence-problem"><a class="markdownIt-Anchor" href="#最长公共子序列问题longest-common-subsequence-problem">#</a> 最长公共子序列问题 (Longest-common-subsequence problem)</h3>
+</blockquote>
+<p>使用动态规划来解决，主要构造了一个表格。</p>
+<blockquote>
+<h3 id="最优二叉搜索树optimal-binary-search"><a class="markdownIt-Anchor" href="#最优二叉搜索树optimal-binary-search">#</a> 最优二叉搜索树 (Optimal binary search)</h3>
+</blockquote>
+<p>使用动态规划来解决问题。</p>
+<blockquote>
+<h3 id="0-1背包问题"><a class="markdownIt-Anchor" href="#0-1背包问题">#</a> 0-1 背包问题</h3>
+</blockquote>
+<p>0-1 背包可以用两种方法解决</p>
+<ul>
+<li>贪心算法</li>
+</ul>
+<p>时间复杂度：</p>
+<ul>
+<li>动态规划</li>
+</ul>
+<p>动态规划法求解 0/1 背包问题的时间复杂度为：n*C，即是 O (n)。</p>
+<ul>
+<li>回溯法求解</li>
+</ul>
+<p>时间复杂度为 O (n2^n)</p>
+<ul>
+<li>分支限界</li>
+</ul>
+<p>时间复杂度为 O (2^n)</p>
+<blockquote>
+<h3 id="最小生成树prime算法和kruskal算法区别程序演示"><a class="markdownIt-Anchor" href="#最小生成树prime算法和kruskal算法区别程序演示">#</a> 最小生成树，Prime 算法和 Kruskal 算法区别程序演示</h3>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 求图最小生成树的PRIM算法</span></span><br><span class="line"><span class="comment">     * 基本思想：假设N=(V,&#123;E&#125;)是联通网，TE是N上的最想生成树中的变得集合。算法从U=&#123;u0&#125;(u0属于V)，</span></span><br><span class="line"><span class="comment">     * TE=&#123;&#125;开始，重复执行下述操作：在所有的u属于U，v属于V-U的边（u，v）属于E中找到一条代价最小</span></span><br><span class="line"><span class="comment">     * 的边（u0，v0）并入集合TE，同事v0并入U，直至U=V为止。此时TE中必有n-1条边，则T=(V,&#123;TE&#125;)</span></span><br><span class="line"><span class="comment">     * 为N的最小生成树。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  graph  图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> start 开始节点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n     图中节点数</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="最大团问题"><a class="markdownIt-Anchor" href="#最大团问题">#</a> 最大团问题</h3>
+</blockquote>
+<p>分支限界，活结点表的组织形式使用最大堆</p>
+<blockquote>
+<h3 id="旅行售货员问题"><a class="markdownIt-Anchor" href="#旅行售货员问题">#</a> 旅行售货员问题</h3>
+</blockquote>
+<ul>
+<li>分支限界，活结点表的组织形式使用最小堆</li>
+</ul>
+<p>回溯法 ，时间复杂度为 O (n!)</p>
+<blockquote>
+<h3 id="随机生成10000个1-10000内的随机整数分别使用冒泡法选择法插入排序方法排序并且输出每种算法的运行时间"><a class="markdownIt-Anchor" href="#随机生成10000个1-10000内的随机整数分别使用冒泡法选择法插入排序方法排序并且输出每种算法的运行时间">#</a> 随机生成 10000 个 1-10000 内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</h3>
+</blockquote>
+<p>sort_compare.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已经调试</span></span><br><span class="line"><span class="comment">//随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">sort_compare</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">10000</span>; </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> M = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成随机数组，长度为N</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getRand() &#123;</span><br><span class="line">        <span class="keyword">int</span> [] tmpList = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;N;i++) &#123;</span><br><span class="line">            tmpList[i] = (<span class="keyword">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tmpList;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//冒泡法排序 从大到小 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] bubbleSort(<span class="keyword">int</span> [] target ) &#123;</span><br><span class="line">        <span class="keyword">int</span> i =<span class="number">0</span> ,k =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)</span><br><span class="line">            <span class="keyword">for</span>(k=i+<span class="number">1</span>;k&lt;N;k++)</span><br><span class="line">                <span class="keyword">if</span>(target[k]&gt;target[i])&#123;</span><br><span class="line">                    tmp=target[k];</span><br><span class="line">                    target[k]=target[i];</span><br><span class="line">                    target[i]=tmp;</span><br><span class="line">                &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//选择法排序 从大到小 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] selectSort(<span class="keyword">int</span> [] target)&#123;</span><br><span class="line">        <span class="keyword">int</span> i,k,j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)&#123;<span class="comment">//注意控制范围 </span></span><br><span class="line">          <span class="keyword">for</span>(k=i+<span class="number">1</span>,j=i;k&lt;N;k++)</span><br><span class="line">            <span class="keyword">if</span>(target[k]&gt;target[j]) j=k;</span><br><span class="line">              <span class="keyword">if</span>(j!=i)&#123;</span><br><span class="line">                  target[j]=target[j]+target[i];</span><br><span class="line">                  target[i]=target[j]-target[i];</span><br><span class="line">                  target[j]=target[j]-target[i];</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//插入法排序 从大到小</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] insertSort(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> key = a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">            <span class="keyword">int</span> i = j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &gt; a[i])&#123;</span><br><span class="line">                a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            a[i + <span class="number">1</span>] = key;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//检查方输出函数 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print_f</span><span class="params">(<span class="keyword">int</span> <span class="keyword">var</span>[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            System.out.print(<span class="keyword">var</span>[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="keyword">if</span>((i+<span class="number">1</span>)%<span class="number">10</span> ==<span class="number">0</span>) System.out.println();</span><br><span class="line">            <span class="keyword">if</span>(i == N-<span class="number">1</span>) System.out.print(<span class="string">&quot;end\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实验方使用的从小到大的排序 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] Reverse(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> key = a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">            <span class="keyword">int</span> i = j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &lt; a[i])&#123;</span><br><span class="line">                a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            a[i + <span class="number">1</span>] = key;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//重组随机数组，长度为N </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] makeRand(<span class="keyword">int</span> s[])&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            s[i] = (<span class="keyword">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//实验方模拟产生含大量重复元素的数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] repeatIn(<span class="keyword">int</span> <span class="keyword">var</span>[])&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span>[i] = (<span class="keyword">int</span>)(Math.random()*M+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">var</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//实验方模拟 产生接近于排列完全的数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] closeTo(<span class="keyword">int</span> <span class="keyword">var</span>[])&#123;</span><br><span class="line">        insertSort(<span class="keyword">var</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=M;i=i+<span class="number">10</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span>[i] = (<span class="keyword">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">var</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//时间计算函数 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getTimetoSort</span><span class="params">(<span class="keyword">int</span> pf,<span class="keyword">int</span> []<span class="keyword">var</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">double</span> time=<span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">long</span> startTime=System.nanoTime();   <span class="comment">//获取开始时间</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">//            beVary(pf,var);</span></span><br><span class="line">            onSorting(pf,<span class="keyword">var</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">long</span> endTime=System.nanoTime(); <span class="comment">//获取结束时间 </span></span><br><span class="line">            time=(<span class="keyword">double</span>)(endTime-startTime)/(<span class="number">10e9</span>);<span class="comment">//计算程序执行时间单位为s</span></span><br><span class="line"><span class="comment">//            print_f(var);</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> time;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//预处理变化函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beVary</span><span class="params">(<span class="keyword">int</span> pf,<span class="keyword">int</span> []<span class="keyword">var</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(pf) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> :makeRand(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> :closeTo(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> :Reverse(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> :repeatIn(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//排序方法选择函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">onSorting</span><span class="params">(<span class="keyword">int</span> pf,<span class="keyword">int</span> []<span class="keyword">var</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(pf)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> :bubbleSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> :selectSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> :insertSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//主函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> []<span class="keyword">var</span> = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">double</span> [][]time=<span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">4</span>][<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">var</span> = getRand();</span><br><span class="line">        <span class="keyword">int</span> pt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> pf=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> : pt=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> : pt=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> : pt=<span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span> : pt=<span class="number">3</span>;<span class="keyword">break</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span> :pf = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span> :pf = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span> :pf = <span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                beVary(pt,<span class="keyword">var</span>);</span><br><span class="line">                time[i][j]=getTimetoSort(pf,<span class="keyword">var</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        time = getTimetoSort(var);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> : System.out.print(<span class="string">&quot;\n\t第一种情况：数组完全随机：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> : System.out.print(<span class="string">&quot;\n\t第二种情况：接近排序完成：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> : System.out.print(<span class="string">&quot;\n\t第三种情况：数组倒序排列：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span> : System.out.print(<span class="string">&quot;\n\t第四种情况：相似元素居多：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">                    <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span> :System.out.print(<span class="string">&quot;\t冒泡法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span> :System.out.print(<span class="string">&quot;\t\t选择法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span> :System.out.print(<span class="string">&quot;\t\t插入法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                    System.out.print(time[i][j]+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;\n说明：此排序为从大到小排序，随机生成10000个1-10000内的随机数，时间单位为s，仅用于三个排序方法对比使用，具体时间由于函数调用于配置问题有差异。完全代码由iTheds书写&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="整数划分问题"><a class="markdownIt-Anchor" href="#整数划分问题">#</a> 整数划分问题</h3>
+</blockquote>
+<p>将正整数 n 表示成一系列正整数之和：n= + …+  ，其中，k≥1。正整数 n 的这种表示称为正整数 n 的划分。求正整数 n 的不同划分的个数。例如正整数 6 有如下 11 种不同的划分：</p>
+<p>6；<br>
+5+1；<br>
+4+2，4+1+1；<br>
+3+3，3+2+1，3+1+1+1；<br>
+2+2+2，2+2+1+1，2+1+1+1+1；<br>
+1+1+1+1+1+1。</p>
+<p>使用递归算法实现</p>
+<p>Integer_division.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已经经过调试，该程序不做保留数据，只负责输出正确集，作者iTheds</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 将正整数n表示成一系列正整数之和：n= + ...+  ，其中  ,k≥1</span></span><br><span class="line"><span class="comment">正整数n的这种表示称为正整数n的划分。求正整数n的不同划分的个数。例如正整数6有如下11种不同的划分：</span></span><br><span class="line"><span class="comment">6；</span></span><br><span class="line"><span class="comment">5+1；</span></span><br><span class="line"><span class="comment">4+2，4+1+1；</span></span><br><span class="line"><span class="comment">3+3，3+2+1，3+1+1+1；</span></span><br><span class="line"><span class="comment">2+2+2，2+2+1+1，2+1+1+1+1；</span></span><br><span class="line"><span class="comment">1+1+1+1+1+1。</span></span><br><span class="line"><span class="comment">使用递归算法实现</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Integer_division</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> target =<span class="number">0</span> ;</span><br><span class="line">    <span class="comment">//主要执行函数</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">divid</span><span class="params">(<span class="keyword">int</span> tmp,<span class="keyword">int</span> x, String s)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        System.out.println(s);//调试方</span></span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = x ; i &gt; <span class="number">0</span> ; i --) &#123;</span><br><span class="line">            <span class="keyword">if</span>(tmp - i == <span class="number">0</span>) divid( tmp - i ,i,s +         String.valueOf(i));</span><br><span class="line">            <span class="keyword">else</span> divid( tmp - i,i&gt;(tmp - i)?(tmp -<span class="number">1</span>):i,s + String.valueOf(i)+ <span class="string">&quot;+&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> </span>&#123;</span><br><span class="line">        Scanner input = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        target = input.nextInt();</span><br><span class="line">        divid(target,target,<span class="string">&quot;&quot;</span>);</span><br><span class="line">        input.close();</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="strassen矩阵乘法"><a class="markdownIt-Anchor" href="#strassen矩阵乘法">#</a> Strassen 矩阵乘法</h3>
+</blockquote>
+<p>使用分治算法实现</p>
+<p><span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nXzdlOWE4OGY3MDEwMHpqMmguaHRtbA==">参考链接</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="八皇后问题"><a class="markdownIt-Anchor" href="#八皇后问题">#</a> 八皇后问题</h3>
+</blockquote>
+<p>使用回溯算法实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="走迷宫问题"><a class="markdownIt-Anchor" href="#走迷宫问题">#</a> 走迷宫问题</h3>
+</blockquote>
+<p>有一个 m*n 格的迷宫（表示有 m 行、n 列），其中有可走的也有不可走的，如果用 1 表示可以走，0 表示不可以走，文件读入这 m*n 个数据和起始点、结束点（起始点和结束点都是用两个数据来描述的，分别表示这个点的行号和列号）。编程找出所有可行的道路，要求所走的路中没有重复的点，走时只能是上下左右四个方向（搜索顺寻：左上右下）。如果一条路都不可行，则输出相应信息（用 - 1 表示无路）。</p>
+<p>使用回溯法实现</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTM0NzQ0MzYvYXJ0aWNsZS9kZXRhaWxzLzQ3OTc3ODY3">参考链接</span></p>
+<h2 id="-code5-"><a class="markdownIt-Anchor" href="#-code5-">#</a> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## 问题代码C/C++实现</span><br><span class="line"></span><br><span class="line">&gt; ### 随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span><br><span class="line"></span><br><span class="line">```C++</span><br><span class="line"><span class="comment">//仅为模板，由于一开始时发现一些逻辑错误重写，未经调试运行</span></span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;time.h&gt;</span><br><span class="line">#include&lt;windows.h&gt;   </span><br><span class="line">using namespace std;</span><br><span class="line">#define N 10000</span><br><span class="line">#define M 1000</span><br><span class="line"><span class="comment">//typedef double(int[])* PF;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成随机数组，长度为N</span></span><br><span class="line"><span class="keyword">int</span>*  getRand()&#123;</span><br><span class="line"><span class="comment">//    int i;</span></span><br><span class="line"><span class="comment">//    srand((unsigned)time(NULL));</span></span><br><span class="line">    srand(<span class="number">5</span>);</span><br><span class="line"><span class="comment">//    int s[10000];</span></span><br><span class="line">    <span class="keyword">int</span> *s= <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        s[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//冒泡法排序 从大到小 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;<span class="keyword">int</span> i,k;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)</span><br><span class="line">        <span class="keyword">for</span>(k=i+<span class="number">1</span>;k&lt;N;k++)</span><br><span class="line">         <span class="keyword">if</span>(a[k]&gt;a[i])&#123;a[k]=a[k]+a[i];</span><br><span class="line">                       a[i]=a[k]-a[i];</span><br><span class="line">                       a[k]=a[k]-a[i];&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//选择法排序 从大到小 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;<span class="keyword">int</span> i,k,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)&#123;<span class="comment">//注意控制范围 </span></span><br><span class="line">      <span class="keyword">for</span>(k=i+<span class="number">1</span>,j=i;k&lt;N;k++)</span><br><span class="line">        <span class="keyword">if</span>(a[k]&gt;a[j]) j=k;</span><br><span class="line">      <span class="keyword">if</span>(j!=i)&#123;a[j]=a[j]+a[i];</span><br><span class="line">               a[i]=a[j]-a[i];</span><br><span class="line">               a[j]=a[j]-a[i];&#125;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//插入法排序 从大到小</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">        <span class="keyword">int</span> key = a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">        <span class="keyword">int</span> i = j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &gt; a[i])&#123;</span><br><span class="line">            a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i + <span class="number">1</span>] = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检查方输出函数 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">print_f</span><span class="params">(<span class="keyword">int</span> <span class="keyword">var</span>[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="keyword">var</span>[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>((i+<span class="number">1</span>)%<span class="number">10</span> ==<span class="number">0</span>) cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(i == N-<span class="number">1</span>) cout&lt;&lt;<span class="string">&quot;end&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实验方使用的从小到大的排序 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Reverse</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">        <span class="keyword">int</span> key = a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">        <span class="keyword">int</span> i = j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &lt; a[i])&#123;</span><br><span class="line">            a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i + <span class="number">1</span>] = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//重组随机数组，长度为N </span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">makeRand</span><span class="params">(<span class="keyword">int</span> s[])</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        s[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    return s;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实验方模拟产生含大量重复元素的数组 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">repeatIn</span><span class="params">(<span class="keyword">int</span> <span class="keyword">var</span>[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span>[i] = rand()%M+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实验方模拟 产生接近于排列完全的数组 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">closeTo</span><span class="params">(<span class="keyword">int</span> <span class="keyword">var</span>[])</span></span>&#123;</span><br><span class="line">    insertSort(<span class="keyword">var</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=M;i=i+<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span>[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//时间计算函数 </span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">getTimetoSort</span><span class="params">(<span class="keyword">void</span> (*pf)</span><span class="params">(<span class="keyword">int</span>[])</span>,<span class="keyword">int</span> <span class="keyword">var</span>[])</span>&#123;</span><br><span class="line">        <span class="keyword">double</span> time=<span class="number">0</span>; </span><br><span class="line"><span class="comment">//      double counts=0;  </span></span><br><span class="line">        LARGE_INTEGER nFreq;  </span><br><span class="line">        LARGE_INTEGER nBeginTime;  </span><br><span class="line">        LARGE_INTEGER nEndTime;  </span><br><span class="line">        QueryPerformanceFrequency(&amp;nFreq);  </span><br><span class="line">        </span><br><span class="line"><span class="comment">//        bubbleSort(var);</span></span><br><span class="line">        </span><br><span class="line">        QueryPerformanceCounter(&amp;nBeginTime);<span class="comment">//开始计时  </span></span><br><span class="line">        (*pf)(<span class="keyword">var</span>);</span><br><span class="line">           QueryPerformanceCounter(&amp;nEndTime);<span class="comment">//停止计时  </span></span><br><span class="line">        time=(<span class="keyword">double</span>)(nEndTime.QuadPart-nBeginTime.QuadPart)/(<span class="keyword">double</span>)nFreq.QuadPart;<span class="comment">//计算程序执行时间单位为s  </span></span><br><span class="line"><span class="comment">//        print_f(var);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *<span class="keyword">var</span>;</span><br><span class="line">    <span class="keyword">double</span> time[<span class="number">4</span>][<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">var</span> = getRand();</span><br><span class="line"><span class="comment">//    cout&lt;&lt;var[N]&lt;&lt;endl;</span></span><br><span class="line">    <span class="keyword">void</span> (*pf)(<span class="keyword">int</span>[]);</span><br><span class="line">    <span class="keyword">void</span> (*pt)(<span class="keyword">int</span>[]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> : pt=makeRand;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> : pt=closeTo;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> : pt=Reverse;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> : pt=repeatIn;<span class="keyword">break</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> :pf = bubbleSort;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> :pf = selectSort;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> :pf = insertSort;<span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pt(<span class="keyword">var</span>);</span><br><span class="line">            time[i][j]=getTimetoSort(pf,<span class="keyword">var</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//    time = getTimetoSort(var);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> : cout&lt;&lt;<span class="string">&quot;\n\t第一种情况：数组完全随机：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> : cout&lt;&lt;<span class="string">&quot;\n\t第二种情况：接近排序完成：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> : cout&lt;&lt;<span class="string">&quot;\n\t第三种情况：数组倒序排列：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> : cout&lt;&lt;<span class="string">&quot;\n\t第四种情况：相似元素居多：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> :cout&lt;&lt;<span class="string">&quot;\t冒泡法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> :cout&lt;&lt;<span class="string">&quot;\t\t选择法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> :cout&lt;&lt;<span class="string">&quot;\t\t插入法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cout&lt;&lt;time[i][j]&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n说明：此排序为从大到小排序，随机生成10000个1-10000内的随机数，时间单位为s&quot;</span>&lt;&lt;endl; </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
+<p>以下代码含金量比较低，仅用于自我参考，读者不必深究</p>
+<hr>
+<blockquote>
+<h3 id="strassen矩阵乘法-2"><a class="markdownIt-Anchor" href="#strassen矩阵乘法-2">#</a> Strassen 矩阵乘法</h3>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//Strassen矩阵乘法，时间复杂度O(n^log_2_7) </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> **<span class="title">Strassen</span><span class="params">(<span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>],<span class="keyword">int</span> b[<span class="number">2</span>][<span class="number">2</span>])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> **c=<span class="keyword">new</span> <span class="keyword">int</span>*[<span class="number">2</span>];</span><br><span class="line">    c[<span class="number">0</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    c[<span class="number">1</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> m[<span class="number">7</span>];</span><br><span class="line">    m[<span class="number">0</span>]=a[<span class="number">0</span>][<span class="number">0</span>]*(b[<span class="number">0</span>][<span class="number">1</span>]-b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">1</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]+a[<span class="number">0</span>][<span class="number">1</span>])*b[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">    m[<span class="number">2</span>]=(a[<span class="number">1</span>][<span class="number">0</span>]+a[<span class="number">1</span>][<span class="number">1</span>])*b[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    m[<span class="number">3</span>]=a[<span class="number">1</span>][<span class="number">1</span>]*(b[<span class="number">1</span>][<span class="number">0</span>]-b[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line">    m[<span class="number">4</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]+a[<span class="number">1</span>][<span class="number">1</span>])*(b[<span class="number">0</span>][<span class="number">0</span>]+b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">5</span>]=(a[<span class="number">0</span>][<span class="number">1</span>]-a[<span class="number">1</span>][<span class="number">1</span>])*(b[<span class="number">1</span>][<span class="number">0</span>]+b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">6</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]-a[<span class="number">1</span>][<span class="number">0</span>])*(b[<span class="number">0</span>][<span class="number">0</span>]+b[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    c[<span class="number">0</span>][<span class="number">0</span>]=m[<span class="number">4</span>]+m[<span class="number">3</span>]-m[<span class="number">1</span>]+m[<span class="number">5</span>];</span><br><span class="line">    c[<span class="number">0</span>][<span class="number">1</span>]=m[<span class="number">0</span>]+m[<span class="number">1</span>];</span><br><span class="line">    c[<span class="number">1</span>][<span class="number">0</span>]=m[<span class="number">2</span>]+m[<span class="number">3</span>];</span><br><span class="line">    c[<span class="number">1</span>][<span class="number">1</span>]=m[<span class="number">4</span>]+m[<span class="number">0</span>]-m[<span class="number">2</span>]-m[<span class="number">6</span>];</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> b[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Please input matrix a:&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;a[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Please input matrix b:&quot;</span>&lt;&lt;<span class="built_in">endl</span>;    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;b[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Output matrix a:&quot;</span>&lt;&lt;<span class="built_in">endl</span>;    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;a[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Output matrix b:&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;b[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> **c = Strassen(a,b);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Output matrix c:&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;c[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="八皇后问题-2"><a class="markdownIt-Anchor" href="#八皇后问题-2">#</a> 八皇后问题</h3>
+</blockquote>
+<p>代码来自网络，如有侵权，请联系作者。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// queen.cpp: 定义控制台应用程序的入口点。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> gEightQueen[<span class="number">8</span>] = &#123; <span class="number">0</span> &#125;, gCount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span><span class="comment">//输出每一种情况下棋盘中皇后的摆放情况</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> inner;</span><br><span class="line">        <span class="keyword">for</span> (inner = <span class="number">0</span>; inner &lt; gEightQueen[i]; inner++)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;#&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (inner = gEightQueen[i] + <span class="number">1</span>; inner &lt; <span class="number">8</span>; inner++)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;==========================\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check_pos_valid</span><span class="params">(<span class="keyword">int</span> loop, <span class="keyword">int</span> value)</span><span class="comment">//检查是否存在有多个皇后在同一行/列/对角线的情况</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; loop; index++)</span><br><span class="line">    &#123;</span><br><span class="line">        data = gEightQueen[index];</span><br><span class="line">        <span class="keyword">if</span> (value == data)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ((index + data) == (loop + value))</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ((index - data) == (loop - value))</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">eight_queen</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> loop;</span><br><span class="line">    <span class="keyword">for</span> (loop = <span class="number">0</span>; loop &lt; <span class="number">8</span>; loop++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (check_pos_valid(index, loop))</span><br><span class="line">        &#123;</span><br><span class="line">            gEightQueen[index] = loop;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">7</span> == index)</span><br><span class="line">            &#123;</span><br><span class="line">                gCount++, print();</span><br><span class="line">                gEightQueen[index] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            eight_queen(index + <span class="number">1</span>);</span><br><span class="line">            gEightQueen[index] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>*argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    eight_queen(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;total=&quot;</span> &lt;&lt; gCount &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <div class="tags">
+          <a href="/tags/C-C/" rel="tag"><i class="ic i-tag"></i> C/C++</a>
+          <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/tags/JAVA/" rel="tag"><i class="ic i-tag"></i> JAVA</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2018-09-19 15:51:39" itemprop="dateModified" datetime="2018-09-19T15:51:39+08:00">2018-09-19</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">http://example.com/2018/06/18/算法导论oo/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhfehz7j20zk0m8u0x.jpg" title="SQL语句札记">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>SQL语句札记</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicit4jrvuj20zk0m8785.jpg" title="项目小憩">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>项目小憩</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text"> 算法导论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text"> 理论方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E9%9B%86%E6%A0%91%E5%92%8C%E6%8E%92%E5%88%97%E6%A0%91-%E4%B8%A4%E7%A7%8D%E9%97%AE%E9%A2%98%E8%A7%A3%E7%A9%BA%E9%97%B4%E6%A0%91%E7%9A%84%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 子集树和排列树 两种问题解空间树的常用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%9B%BE-%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%9A%84%E7%A9%B7%E4%B8%BE%E6%90%9C%E7%B4%A2%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E5%92%8C%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88-%E7%94%A8%E9%82%BB%E6%8E%A5%E8%A1%A8%E5%AD%98%E5%82%A8%E5%85%B7%E6%9C%89n%E4%B8%AA%E9%A1%B6%E7%82%B9%E5%92%8Ce%E6%9D%A1%E8%BE%B9%E7%9A%84%E6%98%BE%E7%A4%BA%E5%9B%BE%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%BAone"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有 n 个顶点和 e 条边的显示图，图的搜索算法的时间复杂度为 o (n+e)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">1.2.</span> <span class="toc-text"> 算法思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95-%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFolog2n"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 二分查找法 算法的时间复杂度是 O (log2n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 递归算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 分治算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 贪心算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C%E6%B3%95"><span class="toc-number">1.2.6.</span> <span class="toc-text"> 分支限界法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%88%8D%E4%BC%8D%E5%BE%B7%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.7.</span> <span class="toc-text"> 舍伍德算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%A8%E6%9E%90"><span class="toc-number">1.2.8.</span> <span class="toc-text"> 辨析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text"> 具体问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%BC%97%E6%9B%BC%E7%BC%96%E7%A0%81huffman%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 哈弗曼编码 (Huffman 编码)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91minimum-spanning-tree"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 最小生成树 (Minimum-spanning-tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98longest-common-subsequence-problem"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 最长公共子序列问题 (Longest-common-subsequence problem)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91optimal-binary-search"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 最优二叉搜索树 (Optimal binary search)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 0-1 背包问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91prime%E7%AE%97%E6%B3%95%E5%92%8Ckruskal%E7%AE%97%E6%B3%95%E5%8C%BA%E5%88%AB%E7%A8%8B%E5%BA%8F%E6%BC%94%E7%A4%BA"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 最小生成树，Prime 算法和 Kruskal 算法区别程序演示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E5%9B%A2%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 最大团问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.8.</span> <span class="toc-text"> 旅行售货员问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%9010000%E4%B8%AA1-10000%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B4%E6%95%B0%E5%88%86%E5%88%AB%E4%BD%BF%E7%94%A8%E5%86%92%E6%B3%A1%E6%B3%95%E9%80%89%E6%8B%A9%E6%B3%95%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E6%8E%92%E5%BA%8F%E5%B9%B6%E4%B8%94%E8%BE%93%E5%87%BA%E6%AF%8F%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-number">1.3.9.</span> <span class="toc-text"> 随机生成 10000 个 1-10000 内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%88%92%E5%88%86%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.10.</span> <span class="toc-text"> 整数划分问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strassen%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-number">1.3.11.</span> <span class="toc-text"> Strassen 矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.12.</span> <span class="toc-text"> 八皇后问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B0%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.13.</span> <span class="toc-text"> 走迷宫问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-code5-"><span class="toc-number">1.4.</span> <span class="toc-text"> 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+&#96;&#96;&#96;
+
+---
+
+## 问题代码C&#x2F;C++实现
+
+&gt; ### 随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间
+
+&#96;&#96;&#96;C++
+&#x2F;&#x2F;仅为模板，由于一开始时发现一些逻辑错误重写，未经调试运行
+#include&lt;iostream&gt;
+#include&lt;time.h&gt;
+#include&lt;windows.h&gt;   
+using namespace std;
+#define N 10000
+#define M 1000
+&#x2F;&#x2F;typedef double(int[])* PF;
+
+&#x2F;&#x2F;生成随机数组，长度为N
+int*  getRand()&amp;#123;
+&#x2F;&#x2F;    int i;
+&#x2F;&#x2F;    srand((unsigned)time(NULL));
+    srand(5);
+&#x2F;&#x2F;    int s[10000];
+    int *s&#x3D; new int[N];
+
+    for(int i&#x3D;0;i&lt;&#x3D;N-1;i++)&amp;#123;
+        s[i] &#x3D; rand()%N+1;
+    &amp;#125;
+    return s;
+&amp;#125;
+&#x2F;&#x2F;冒泡法排序 从大到小 
+void bubbleSort(int a[])&amp;#123;int i,k;
+    for(i&#x3D;0;i&lt;N-1;i++)
+        for(k&#x3D;i+1;k&lt;N;k++)
+         if(a[k]&gt;a[i])&amp;#123;a[k]&#x3D;a[k]+a[i];
+                       a[i]&#x3D;a[k]-a[i];
+                       a[k]&#x3D;a[k]-a[i];&amp;#125;
+&amp;#125;
+&#x2F;&#x2F;选择法排序 从大到小 
+void selectSort(int a[])&amp;#123;int i,k,j;
+    for(i&#x3D;0;i&lt;N-1;i++)&amp;#123;&#x2F;&#x2F;注意控制范围 
+      for(k&#x3D;i+1,j&#x3D;i;k&lt;N;k++)
+        if(a[k]&gt;a[j]) j&#x3D;k;
+      if(j!&#x3D;i)&amp;#123;a[j]&#x3D;a[j]+a[i];
+               a[i]&#x3D;a[j]-a[i];
+               a[j]&#x3D;a[j]-a[i];&amp;#125;&amp;#125;
+&amp;#125;
+&#x2F;&#x2F;插入法排序 从大到小
+void insertSort(int a[])&amp;#123;
+    for (int j &#x3D; 1; j &lt;N; j++)&amp;#123;
+        int key &#x3D; a[j]; &#x2F;&#x2F;待排序第一个元素
+        int i &#x3D; j - 1;  &#x2F;&#x2F;代表已经排过序的元素最后一个索引数
+        while (i &gt;&#x3D; 0 &amp;&amp; key &gt; a[i])&amp;#123;
+            a[i + 1] &#x3D; a[i];
+            i--;
+        &amp;#125;
+        a[i + 1] &#x3D; key;
+    &amp;#125;
+&amp;#125;
+&#x2F;&#x2F;检查方输出函数 
+int print_f(int var[])&amp;#123;
+    for(int i &#x3D;0;i&lt;&#x3D;N-1;i++)&amp;#123;
+        cout&lt;&lt;var[i]&lt;&lt;&quot; &quot;;
+        if((i+1)%10 &#x3D;&#x3D;0) cout&lt;&lt;&quot;\n&quot;;
+        if(i &#x3D;&#x3D; N-1) cout&lt;&lt;&quot;end&quot;&lt;&lt;endl;
+    &amp;#125;
+&amp;#125;
+
+&#x2F;&#x2F;实验方使用的从小到大的排序 
+void Reverse(int a[])&amp;#123;
+    for (int j &#x3D; 1; j &lt;N; j++)&amp;#123;
+        int key &#x3D; a[j]; &#x2F;&#x2F;待排序第一个元素
+        int i &#x3D; j - 1;  &#x2F;&#x2F;代表已经排过序的元素最后一个索引数
+        while (i &gt;&#x3D; 0 &amp;&amp; key &lt; a[i])&amp;#123;
+            a[i + 1] &#x3D; a[i];
+            i--;
+        &amp;#125;
+        a[i + 1] &#x3D; key;
+    &amp;#125;
+&amp;#125;
+&#x2F;&#x2F;重组随机数组，长度为N 
+void  makeRand(int s[])&amp;#123;
+    
+    for(int i&#x3D;0;i&lt;&#x3D;N-1;i++)&amp;#123;
+        s[i] &#x3D; rand()%N+1;
+    &amp;#125;
+&#x2F;&#x2F;    return s;
+&amp;#125;
+&#x2F;&#x2F;实验方模拟产生含大量重复元素的数组 
+void repeatIn(int var[])&amp;#123;
+    for(int i&#x3D;0;i&lt;&#x3D;N-1;i++)&amp;#123;
+        var[i] &#x3D; rand()%M+1;
+    &amp;#125;
+&amp;#125;
+&#x2F;&#x2F;实验方模拟 产生接近于排列完全的数组 
+void closeTo(int var[])&amp;#123;
+    insertSort(var);
+    for(int i&#x3D;0;i&lt;&#x3D;M;i&#x3D;i+10)&amp;#123;
+        var[i] &#x3D; rand()%N+1;
+    &amp;#125;
+&amp;#125;
+
+&#x2F;&#x2F;时间计算函数 
+double getTimetoSort(void (*pf)(int[]),int var[])&amp;#123;
+        double time&#x3D;0; 
+&#x2F;&#x2F;      double counts&#x3D;0;  
+        LARGE_INTEGER nFreq;  
+        LARGE_INTEGER nBeginTime;  
+        LARGE_INTEGER nEndTime;  
+        QueryPerformanceFrequency(&amp;nFreq);  
+        
+&#x2F;&#x2F;        bubbleSort(var);
+        
+        QueryPerformanceCounter(&amp;nBeginTime);&#x2F;&#x2F;开始计时  
+        (*pf)(var);
+           QueryPerformanceCounter(&amp;nEndTime);&#x2F;&#x2F;停止计时  
+        time&#x3D;(double)(nEndTime.QuadPart-nBeginTime.QuadPart)&#x2F;(double)nFreq.QuadPart;&#x2F;&#x2F;计算程序执行时间单位为s  
+&#x2F;&#x2F;        print_f(var);
+
+        return time;
+&amp;#125;
+
+int main()&amp;#123;
+    int *var;
+    double time[4][3];
+    var &#x3D; getRand();
+&#x2F;&#x2F;    cout&lt;&lt;var[N]&lt;&lt;endl;
+    void (*pf)(int[]);
+    void (*pt)(int[]);
+    
+    for(int i&#x3D;0;i&lt;4;i++)&amp;#123;
+        switch(i)&amp;#123;
+            case 0 : pt&#x3D;makeRand;break;
+            case 1 : pt&#x3D;closeTo;break;
+            case 2 : pt&#x3D;Reverse;break;
+            case 3 : pt&#x3D;repeatIn;break;
+        &amp;#125; 
+        for(int j &#x3D;0;j&lt;3;j++)&amp;#123;
+            switch(j)&amp;#123;
+                case 0 :pf &#x3D; bubbleSort;break;
+                case 1 :pf &#x3D; selectSort;break;
+                case 2 :pf &#x3D; insertSort;break;
+            &amp;#125;
+            pt(var);
+            time[i][j]&#x3D;getTimetoSort(pf,var);
+        &amp;#125;
+    &amp;#125;
+    
+&#x2F;&#x2F;    time &#x3D; getTimetoSort(var);
+
+    for(int i&#x3D;0;i&lt;4;i++)&amp;#123;
+        switch(i)&amp;#123;
+            case 0 : cout&lt;&lt;&quot;\n\t第一种情况：数组完全随机：\n\t&quot;;    break; 
+            case 1 : cout&lt;&lt;&quot;\n\t第二种情况：接近排序完成：\n\t&quot;;    break; 
+            case 2 : cout&lt;&lt;&quot;\n\t第三种情况：数组倒序排列：\n\t&quot;;    break; 
+            case 3 : cout&lt;&lt;&quot;\n\t第四种情况：相似元素居多：\n\t&quot;;    break; 
+        &amp;#125; 
+        for(int j &#x3D;0;j&lt;3;j++)&amp;#123;
+            switch(j)&amp;#123;
+                case 0 :cout&lt;&lt;&quot;\t冒泡法排序时间： &quot;;    break;
+                case 1 :cout&lt;&lt;&quot;\t\t选择法排序时间： &quot;;    break;
+                case 2 :cout&lt;&lt;&quot;\t\t插入法排序时间： &quot;;    break;
+            &amp;#125;
+            cout&lt;&lt;time[i][j]&lt;&lt;endl;
+        &amp;#125;
+    &amp;#125;
+    cout&lt;&lt;&quot;\n说明：此排序为从大到小排序，随机生成10000个1-10000内的随机数，时间单位为s&quot;&lt;&lt;endl; 
+    
+    
+&amp;#125;
+</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#strassen%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95-2"><span class="toc-number">1.4.1.</span> <span class="toc-text"> Strassen 矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-2"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 八皇后问题</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">59</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">27</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" title="网页状态提示说明">网页状态提示说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="工具总结">工具总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/" title="各软件及windows操作快捷键总集">各软件及windows操作快捷键总集</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">AgilorE文件初步分析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入札记">SQL注入札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/" title="文件类型以及分析手册">文件类型以及分析手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="编译原理之预测分析器的设计与实现">编译原理之预测分析器的设计与实现</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2018/06/18/算法导论oo/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

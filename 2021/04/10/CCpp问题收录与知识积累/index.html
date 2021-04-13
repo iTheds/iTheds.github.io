@@ -1,0 +1,595 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="-- C/C++ -- C/C++问题收录" />
+
+
+<link rel="canonical" href="http://example.com/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">
+
+
+
+  <title>
+C/C++问题收录与知识积累 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">C/C++问题收录与知识积累
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-10 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-10T00:00:00+08:00">2021-04-10</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="cc问题收录与知识积累"><a class="markdownIt-Anchor" href="#cc问题收录与知识积累">#</a> C/C++ 问题收录与知识积累</h1>
+<h2 id="知识积累"><a class="markdownIt-Anchor" href="#知识积累">#</a> 知识积累</h2>
+<h3 id="c-extern用法"><a class="markdownIt-Anchor" href="#c-extern用法">#</a> C extern 用法</h3>
+<p>extern int a;<br>
+ 说明了 a 的存储空间是在程序的其他地方分配的，在文件中其他位置或者其他文件中寻找 a 这个变量</p>
+<p>用法<br>
+一个 c 文件需要调用另一个 c 文件里的变量或者函数，而不能从.h 文件中调用变量。<br>
+extern int a = 5 与 int a = 5 意义是一样的，都是定义。而 extern int a; 是声明。但会产生一条警告。<br>
+对于函数而言，和引用变量是一样的，如果需要调用其他.c 文件中的函数，在文件中的函数声明前加 extern 即可，不加 extern 而直接声明函数也可以，因为声明全局函数默认前面带有 extern。<br>
+如果不想让其他.c 文件引用本文件中的变量，加上 static 即可。</p>
+<h3 id="时间获取"><a class="markdownIt-Anchor" href="#时间获取">#</a> 时间获取</h3>
+<p>三种时间计算方法</p>
+<h4 id="gettimeofday-微秒1e-6-s量级"><a class="markdownIt-Anchor" href="#gettimeofday-微秒1e-6-s量级">#</a> gettimeofday | 微秒 (1e-6 s) 量级</h4>
+<p>头文件：#include &lt;sys/time.h&gt;    #include &lt;unistd.h&gt;<br>
+ 定义函数：int gettimeofday (struct timeval * tv, struct timezone * tz);<br>
+ 函数说明：gettimeofday () 会把目前的时间有 tv 所指的结构返回，当地时区的信息则放到 tz 所指的结构中。</p>
+<p>timeval 结构定义为：</p>
+<pre><code>struct timeval&#123;
+    long tv_sec;  //秒
+    long tv_usec;  //微秒
+&#125;;
+</code></pre>
+<p>timezone 结构定义为：</p>
+<pre><code>struct timezone
+&#123;
+    int tz_minuteswest;  //和Greenwich 时间差了多少分钟
+    int tz_dsttime;  //日光节约时间的状态
+&#125;;
+</code></pre>
+<p>上述两个结构都定义在 /usr/include/sys/time.h. tz_dsttime 所代表的状态如下</p>
+<pre><code>DST_NONE  //不使用
+DST_USA  //美国
+DST_AUST  //澳洲
+DST_WET  //西欧
+DST_MET  //中欧
+DST_EET  //东欧
+DST_CAN  //加拿大
+DST_GB  //大不列颠
+DST_RUM  //罗马尼亚
+DST_TUR  //土耳其
+DST_AUSTALT  //澳洲(1986 年以后)
+</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line">main()&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">tv</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timezone</span> <span class="title">tz</span>;</span></span><br><span class="line">    gettimeofday (&amp;tv, &amp;tz);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;tv_sec; %d\n&quot;</span>, tv.tv_sec);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;tv_usec; %d\n&quot;</span>, tv.tv_usec);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;tz_minuteswest; %d\n&quot;</span>, tz.tz_minuteswest);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;tz_dsttime, %d\n&quot;</span>, tz.tz_dsttime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="gettickcount-毫秒"><a class="markdownIt-Anchor" href="#gettickcount-毫秒">#</a> GetTickCount () | 毫秒</h4>
+<p>依赖文件少</p>
+<h4 id="基于晶振的时间计算queryperformancecounter-微秒"><a class="markdownIt-Anchor" href="#基于晶振的时间计算queryperformancecounter-微秒">#</a> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">stop_watch</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	stop_watch()</span><br><span class="line">		: elapsed_(<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		QueryPerformanceFrequency(&amp;freq_);</span><br><span class="line">	&#125;</span><br><span class="line">	~stop_watch() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		QueryPerformanceCounter(&amp;begin_time_);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		LARGE_INTEGER end_time;</span><br><span class="line">		QueryPerformanceCounter(&amp;end_time);</span><br><span class="line">		elapsed_ += (end_time.QuadPart - begin_time_.QuadPart) * <span class="number">1000000</span> / freq_.QuadPart;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">restart</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		elapsed_ = <span class="number">0</span>;</span><br><span class="line">		start();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//微秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(elapsed_);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//毫秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed_ms</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> elapsed_ / <span class="number">1000.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed_second</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> elapsed_ / <span class="number">1000000.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	LARGE_INTEGER freq_;</span><br><span class="line">	LARGE_INTEGER begin_time_;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> elapsed_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题索引"><a class="markdownIt-Anchor" href="#问题索引">#</a> 问题索引</h2>
+<p>智能指针</p>
+<p>进程和线程的互斥</p>
+<p>JDP，程序崩溃</p>
+<p>设计模式</p>
+<p>为什么要使用纯虚函数</p>
+<h3 id="无法解析的外部符号发生在哪一个时期"><a class="markdownIt-Anchor" href="#无法解析的外部符号发生在哪一个时期">#</a> 无法解析的外部符号发生在哪一个时期</h3>
+<h3 id="subordinates-是什么"><a class="markdownIt-Anchor" href="#subordinates-是什么">#</a> Subordinates 是什么</h3>
+<h3 id="dynamic_cast和static_cast"><a class="markdownIt-Anchor" href="#dynamic_cast和static_cast">#</a> dynamic_cast 和 static_cast</h3>
+<p>当我们从派生类向基类转换时，不管用传统的 c 语言还是 c<ins> 转换方式都可以百分百转换成功。但是可怕是<em>向下转换类型</em>，也就是我们从基类向派生类转换，当我们采用传统的 C 语言和 c</ins> 转换时，就会出现意想不到的情况，因为<em>转换后派生类自己的方法和属性</em>丢失了，<em>一旦我们去调用派生类的方法和属性</em>那就糟糕了，这就是对类继承关系和内存分配理解不清晰导致的。好在 c++ 增加了 static_cast 和 dynamic_cast 运用于继承关系类间的强制转化。</p>
+<p>static_cast&lt; new_type &gt;(expression)<br>
+dynamic_cast&lt; new_type &gt;(expression)<br>
+ 备注：new_type 为目标数据类型，expression 为原始数据类型变量或者表达式。</p>
+<p>static_cast 相当于传统的 C 语言里的强制转换，该运算符把 expression 转换为 new_type 类型，用来强迫隐式转换如 non-const 对象转为 const 对象，编译时检查，用于非多态的转换，可以转换指针及其他，但没有<em>运行时类型检查来保证转换的安全性</em>。它主要有如下几种用法：<br>
+①用于类层次结构中基类（父类）和派生类（子类）之间指针或引用的转换。<br>
+进行上行转换（把派生类的指针或引用转换成基类表示）是安全的；<br>
+进行下行转换（把基类指针或引用转换成派生类表示）时，由于没有动态类型检查，所以是不安全的。<br>
+②用于基本数据类型之间的转换，如把 int 转换成 char，把 int 转换成 enum。<br>
+③把空指针转换成目标类型的空指针。<br>
+④把任何类型的表达式转换成 void 类型。<br>
+注意：static_cast 不能转换掉 expression 的 const、volatile、或者__unaligned 属性</p>
+<p>dynamic_cast&lt; type* &gt;(e)<br>
+　type 必须是一个类类型且必须是一个有效的指针<br>
+ dynamic_cast&lt;type&amp;&gt;(e)<br>
+ type 必须是一个类类型且必须是一个左值<br>
+ dynamic_cast&lt;type&amp;&amp;&gt;(e)<br>
+ type 必须是一个类类型且必须是一个右值</p>
+<p>e 的类型必须符合以下三个条件中的任何一个：<br>
+1、e 的类型是目标类型 type 的公有派生类<br>
+ 2、e 的类型是目标 type 的共有基类<br>
+ 3、e 的类型就是目标 type 的类型。</p>
+<p>如果一条 dynamic_cast 语句的转换目标是指针类型并且失败了，则结果为 0。如果转换目标是引用类型并且失败了，则 dynamic_cast 运算符将抛出一个 std::bad_cast 异常 (该异常定义在 typeinfo 标准库头文件中)。e 也可以是一个空指针，结果是所需类型的空指针。</p>
+<p>dynamic_cast 主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换（cross cast）。</p>
+<p>在类层次间进行上行转换时，dynamic_cast 和 static_cast 的效果是一样的；在进行下行转换时，dynamic_cast 具有类型检查的功能，比 static_cast 更安全。dynamic_cast 是唯一无法由旧式语法执行的动作，也是唯一可能耗费重大运行成本的转型动作。</p>
+<p>（1）指针类型<br>
+举例，Base 为包含至少一个虚函数的基类，Derived 是 Base 的共有派生类，如果有一个指向 Base 的指针 bp，我们可以在运行时将它转换成指向 Derived 的指针，代码如下：</p>
+<pre><code>if(Derived *dp = dynamic_cast&lt;Derived *&gt;(bp))&#123;
+//使用dp指向的Derived对象  
+&#125;
+else&#123;
+//使用bp指向的Base对象  
+&#125;
+</code></pre>
+<p>值得注意的是，在上述代码中，if 语句中定义了 dp，这样做的好处是可以在一个操作中同时完成类型转换和条件检查两项任务。<br>
+（2）引用类型<br>
+因为不存在所谓空引用，所以引用类型的 dynamic_cast 转换与指针类型不同，在引用转换失败时，会抛出 std::bad_cast 异常，该异常定义在头文件 typeinfo 中。</p>
+<h3 id="nullptr和null"><a class="markdownIt-Anchor" href="#nullptr和null">#</a> nullptr 和 NULL</h3>
+<p>NULL 是一个宏定义，在 c 和 c<ins> 中的定义不同，c 中 NULL 为（void*) 0, 而 c</ins> 中 NULL 为整数 0；所以在 c<ins> 中 int *p=NULL; 实际表示将指针 P 的值赋为 0，而 c</ins> 中当一个指针的值为 0 时，认为指针为空指针。</p>
+<p>nullptr 是一个字面值常量，类型为 std::nullptr_t, 空指针常数可以转换为任意类型的指针类型。<br>
+在 c<ins> 中（void *）不能转化为任意类型的指针，即 int *p=(void*) 是错误的，但 int *p=nullptr 是正确的，原因<br>
+对于函数重载：若 c</ins> 中 （void *）支持任意类型转换，函数重载时将出现问题下列代码中 fun (NULL) 将不能判断调用哪个函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;1&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">char</span> *p)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fun(<span class="literal">NULL</span>);  <span class="comment">//输出1，c++中NULL为整数0</span></span><br><span class="line">    fun(<span class="literal">nullptr</span>);<span class="comment">//输出2，nullptr 为空指针常量。是指针类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <div class="tags">
+          <a href="/tags/C-C-C-C-%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95/" rel="tag"><i class="ic i-tag"></i> -- C/C++ -- C/C++问题收录</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-04-10 19:41:05" itemprop="dateModified" datetime="2021-04-10T19:41:05+08:00">2021-04-10</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" title="C&#x2F;C++问题收录与知识积累">http://example.com/2021/04/10/CCpp问题收录与知识积累/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeuv80yoj20zk0m8kjl.jpg" title="CRC循环冗余校验">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>CRC循环冗余校验</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="开发者手册">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>开发者手册</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 问题收录与知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#c-extern%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text"> C extern 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%8E%B7%E5%8F%96"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 时间获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gettimeofday-%E5%BE%AE%E7%A7%921e-6-s%E9%87%8F%E7%BA%A7"><span class="toc-number">1.1.2.1.</span> <span class="toc-text"> gettimeofday | 微秒 (1e-6 s) 量级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gettickcount-%E6%AF%AB%E7%A7%92"><span class="toc-number">1.1.2.2.</span> <span class="toc-text"> GetTickCount () | 毫秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%99%B6%E6%8C%AF%E7%9A%84%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97queryperformancecounter-%E5%BE%AE%E7%A7%92"><span class="toc-number">1.1.2.3.</span> <span class="toc-text"> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.2.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">1.2.3.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">1.2.4.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">59</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">27</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/" title="软件总集以及网站">软件总集以及网站</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">AgilorE文件初步分析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/" title="打印机问题及使用方法">打印机问题及使用方法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="php学习概要">php学习概要</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/" title="系统管理之重装系统记">系统管理之重装系统记</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/04/10/CCpp问题收录与知识积累/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
