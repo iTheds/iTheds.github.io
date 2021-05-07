@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -153,6 +153,137 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 
     <h1 id="cc问题收录与知识积累"><a class="markdownIt-Anchor" href="#cc问题收录与知识积累">#</a> C/C++ 问题收录与知识积累</h1>
 <h2 id="知识积累"><a class="markdownIt-Anchor" href="#知识积累">#</a> 知识积累</h2>
+<h3 id="stl库函数返回值问题"><a class="markdownIt-Anchor" href="#stl库函数返回值问题">#</a> STL 库函数返回值问题</h3>
+<p>返回一个 char*，那么这个空间能保留的时间有多久呢。<br>
+如果用一个 char<em> 去接收，而这个 char * 没有 malloc 或者初始化一个 const char*，那么我们存储的就是一个地址。<br>
+而 char</em>，被返回，无论函数中是如何定义的，malloc 或者初始化，或者数组，都是有一个空间。<br>
+在某条件下，空间会被释放。<br>
+疑似使用引用次数？或者智能指针？</p>
+<h3 id="char-和-unsigned-char"><a class="markdownIt-Anchor" href="#char-和-unsigned-char">#</a> char 和 unsigned char</h3>
+<p>int 和 unsigned int 好理解，一个是有符号位，一个是没有符号位，两者能表示的数据范围都是一样的。<br>
+同理，ASCII 码中，有效位数是 [0, 127]，最高位可用于作为奇偶校验。双字节标识中文时，使用了负数范围。<br>
+一般情况下，使用正数 [0, 127]， unsigned 和 signed 没有什么区别，但是在转换为 int 的时候，如果是 signed ， 那么因为补码负数将会在高位补 1，进行扩展。<br>
+但是如果时 unsigned ， 即使时负数，也不会进行扩展，仍然补 0。</p>
+<h3 id="关于使用char-转成int型"><a class="markdownIt-Anchor" href="#关于使用char-转成int型">#</a> 关于使用 char 转成 int 型</h3>
+<h4 id="1-异或法范围与int型同"><a class="markdownIt-Anchor" href="#1-异或法范围与int型同">#</a> 1. 异或法，范围与 int 型同</h4>
+<p>最初的想法是直接通过位移的方式进行低位换算，存到 char 中；接收之后转换同理。</p>
+<ol>
+<li>strcat，会将’\0’的数直接代替。出现位数遗失，即截断， char 型不完整。<br>
+解决方式，使用异或 ^，并且从 1 开始。解决该问题。这样就可以减少 0 的次数。</li>
+<li>异或之后，反转的时候一直出现错误，想来可能是补码和原码的问题。一直纠结。也看不到二进制数。<br>
+最后才想到使用 <code>十六进制</code> 输出来查看。<br>
+查看之后才发现，异或的时候数据类型已经进行了改变。取出的是 1 字节，但是已经转换成 int， 所以前三个字节也进行了异或？<br>
+该方法计数，从 127，之后就是 - 128，7f 到 7e，</li>
+<li>重新梳理一下，我想要找到什么：第一，buffer [i] 从开头开始，发生了什么变化；第二，buffer [i] 转换后变成了什么。一律使用 hex 查看。发现，buffer [i] 变化的过程接收到的是 ffffff80 的 80，到 7e 的 7e。都是没有经过异或的。所以有时候高位是 1，但是有时候高位却是在补 0。</li>
+<li>其实这就是原码的问题，原码整数不变，但是 x 的复数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">2^{n}-x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.747722em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>。所以才会有高位补 1 的情况。唯一方法是进行高位取 0。先和 0x80000ff 相与，去除高位。<br>
+最后再和下一位 buffer [i++] 相或。最后得到的整体数据与 0xffffffff 进行异或。取出数据。</li>
+<li>仍然存在截断问题。只是截断的频率变低。</li>
+<li>直接使用 memcpy, 空间直接拷贝，不用担心截断问题.</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//异或代码</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">buffer_fetch</span><span class="params">(<span class="keyword">char</span>* buffer)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;dec &lt;&lt; (<span class="keyword">int</span>)(buffer[i]) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;hex &lt;&lt; (<span class="keyword">int</span>)(buffer[i]) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;dec &lt;&lt; (<span class="keyword">int</span>)(buffer[i] ^ <span class="number">0xff</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;hex &lt;&lt; (<span class="keyword">int</span>)(buffer[i] ^ <span class="number">0xff</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		count += (buffer[i] ^ <span class="number">0xffffffff</span>) &lt;&lt; (i * <span class="number">8</span>);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;dec &lt;&lt; (<span class="keyword">int</span>)((buffer[i] ^ <span class="number">0xff</span>) &lt;&lt; (i * <span class="number">8</span>)) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt;hex &lt;&lt; (<span class="keyword">int</span>)((buffer[i] ^ <span class="number">0xff</span>) &lt;&lt; (i * <span class="number">8</span>)) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;count | &quot;</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> buffer[<span class="number">4</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) &#123;</span><br><span class="line">		buffer[i] = count &gt;&gt; (i * <span class="number">8</span>) ^ <span class="number">0xFF</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Count | &quot;</span> &lt;&lt;hex &lt;&lt; (count &gt;&gt; (i * <span class="number">8</span>) ^ <span class="number">0xFF</span>) &lt;&lt;dec &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Count | &quot;</span> &lt;&lt; (count &gt;&gt; (i * <span class="number">8</span>)) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;buffer | &quot;</span> &lt;&lt; buffer &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;++++++++++++++++++++++++++++++++++++++++++++++&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	buffer_fetch(buffer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-memcpy进行空间复制"><a class="markdownIt-Anchor" href="#2-memcpy进行空间复制">#</a> 2. memcpy 进行空间复制</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编码，不会出现截断，可以发送&#x27;\0&#x27;字符串。</span></span><br><span class="line">	<span class="keyword">char</span> tmp[<span class="number">40</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="built_in">memcpy</span>(tmp, &amp;count, <span class="number">4</span>);</span><br><span class="line">	<span class="built_in">memcpy</span>(&amp;tmp[<span class="number">4</span>], <span class="string">&quot;$--VHW,2.2,T,3.endl\0&quot;</span> , <span class="number">20</span>);</span><br><span class="line"><span class="comment">//完全没有问题，但是怀疑sendto函数是否可以符合</span></span><br><span class="line">	<span class="built_in">memcpy</span>(&amp;count, buffer, <span class="number">4</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">20</span>;i++) &#123; </span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; : &quot;</span> &lt;&lt; buffer[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这三种方法毫无疑问，memcpy 是最直接效率最高的。异或的方法可以做为加密的遗留。ASCII 码存储没什么参考性，要扩展上限需要通过标识符切割获取更大的数据。</p>
+<h4 id="3-存储ascii码范围9999"><a class="markdownIt-Anchor" href="#3-存储ascii码范围9999">#</a> 3. 存储 ASCII 码，范围 9999</h4>
+<p>逐步设置代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编码，因为幂运算pow函数对math.h的依赖，自编程需要额外函数，故直接转换。</span></span><br><span class="line">	data[<span class="number">3</span>] = count % <span class="number">10</span> + <span class="number">48</span>;</span><br><span class="line">	data[<span class="number">2</span>] = count/<span class="number">10</span> % <span class="number">10</span> + <span class="number">48</span>;</span><br><span class="line">	data[<span class="number">1</span>] = count/<span class="number">100</span> % <span class="number">10</span> + <span class="number">48</span>;</span><br><span class="line">	data[<span class="number">0</span>] = count/<span class="number">1000</span> % <span class="number">10</span> + <span class="number">48</span>;</span><br><span class="line"><span class="comment">//解码，直接使用atoi函数。</span></span><br><span class="line">	<span class="keyword">char</span>* tmp = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	count = atoi(<span class="built_in">strncpy</span>( tmp, buffer, <span class="number">4</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="c-cout利用控制符dec-hex和oct分别输出十进制-十六进制和八进制显示整数"><a class="markdownIt-Anchor" href="#c-cout利用控制符dec-hex和oct分别输出十进制-十六进制和八进制显示整数">#</a> C++ cout 利用控制符 dec、hex 和 oct，分别输出十进制、十六进制和八进制显示整数</h3>
+<h3 id="strcat"><a class="markdownIt-Anchor" href="#strcat">#</a> strcat()</h3>
+<p>该函数查找到第一个为’\0’的字符，并且从该字符开始将参数二复制到该字符串中。</p>
+<h3 id="int64"><a class="markdownIt-Anchor" href="#int64">#</a> int64</h3>
+<h3 id="c中的c_str用法"><a class="markdownIt-Anchor" href="#c中的c_str用法">#</a> c++ 中的 c_str () 用法</h3>
+<p>c_str () 函数返回一个指向正规 C 字符串的指针，内容与本 string 串相同.<br>
+ 这是为了与 c 语言兼容，在 c 语言中没有 string 类型，故必须通过 string 类对象的成员函数 c_str () 把 string 对象转换成 c 中的字符串样式。<br>
+返回之后最好使用 strcpy，因为 string 对象会被析构。</p>
+<h3 id="atof"><a class="markdownIt-Anchor" href="#atof">#</a> atof()</h3>
+<p>atof () 是 C 语言标准库中的一个字符串处理函数，功能是把字符串转换成浮点数，所使用的头文件为 &lt; stdlib.h&gt;。该函数名是 “ascii to floating point numbers” 的缩写。语法格式为：<br>
+double atof(const char *nptr);</p>
+<h3 id="itoa"><a class="markdownIt-Anchor" href="#itoa">#</a> itoa()</h3>
+<pre><code>char* itoa(int value,char*string,int radix);//value: 要转换的整数，string: 转换后的字符串,radix: 转换进制数，如2,8,10,16 进制等。
+</code></pre>
+<h3 id="获取指针所指向的地址中的空间大小"><a class="markdownIt-Anchor" href="#获取指针所指向的地址中的空间大小">#</a> 获取指针所指向的地址中的空间大小</h3>
+<p>aeci_field_descriptor： 结构体<br>
+ ais_descriptor：结构体变量<br>
+ descriptor：aeci_field_descriptor*</p>
+<pre><code>int tmp = sizeof(ais_descriptor);//1100
+int tmp2 = sizeof(aeci_field_descriptor);//440
+des_size = sizeof((*descriptor));//440
+</code></pre>
+<p>无论指针在什么地方指向结构体变量，测量出来的值仍然是该结构体的长度。如果结构体中带有指针并且赋值，那么实际的长度会大于结构体的 “表面” 大小。</p>
+<p>其中 sizeof 是编译阶段完成的。</p>
+<h3 id="迭代器-iterator"><a class="markdownIt-Anchor" href="#迭代器-iterator">#</a> 迭代器 iterator</h3>
+<p>两种方式<br>
+ set:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">set</span> &lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	s.insert(<span class="number">5</span>);</span><br><span class="line">	s.insert(<span class="number">7</span>);</span><br><span class="line">	<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span>(it = s.begin(); it != s.end(); it++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;容器中第一个元素是：&quot;</span> &lt;&lt; *s.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;容器中最后一个元素是：&quot;</span> &lt;&lt; *(--s.end()) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>vector:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	v.push_back(<span class="number">5</span>);</span><br><span class="line">	v.push_back(<span class="number">7</span>);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span>(it = v.begin(); it != v.end(); it++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;容器中第一个元素是：&quot;</span> &lt;&lt; *v.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;容器中最后一个元素是：&quot;</span> &lt;&lt; *(--v.end()) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dqczkzNTIxOS9hcnRpY2xlL2RldGFpbHMvODE2MDk3NDY=">摘自</span></p>
+<h3 id="assert函数"><a class="markdownIt-Anchor" href="#assert函数">#</a> assert () 函数</h3>
+<p>作用是如果它的条件返回错误，则终止程序执行</p>
+<pre><code>#include &lt;assert.h&gt;
+void assert( int expression );
+</code></pre>
+<p>assert 的作用是先计算表达式 expression ，如果其值为假（即为 0），那么它先向 stderr 打印一条出错信息，然后通过调用 abort 来终止程序运行。</p>
+<h3 id="ispunct"><a class="markdownIt-Anchor" href="#ispunct">#</a> ispunct()</h3>
+<pre><code>int ispunct(int c) 
+</code></pre>
+<p>检查所传的字符是否是标点符号字符。标点符号字符可以是非字母数字（正如 isalnum 中的一样）的任意图形字符（正如 isgraph 中的一样）</p>
+<p>C 标准库的 ctype.h 头文件提供了一些函数，可用于测试和映射字符。<br>
+这些函数接受 int 作为参数，它的值必须是 EOF 或表示为一个无符号字符。<br>
+如果参数 c 满足描述的条件，则这些函数返回非零（true）。如果参数 c 不满足描述的条件，则这些函数返回零。</p>
+<h3 id="assign"><a class="markdownIt-Anchor" href="#assign">#</a> assign()</h3>
+<p>C++ string assign () 赋值常用方法</p>
+<p>函数 assign () 常用在给 string 类变量赋值.</p>
+<p>常用方法有:</p>
+<ol>
+<li>直接用另一个字符串赋值.<br>
+ 如 str2.assign (str1); 即用 str1 给 str2 赋值.</li>
+<li>用另一个字符串的一个子串赋值<br>
+如 str3.assign (str1, 2, 3);</li>
+<li>用一个字符串的前一段子串赋值；<br>
+ 如 str4.assign (“World”, 5);</li>
+<li>用几个相同的字符，赋值.<br>
+ 如 str5.assign (10, ‘c’);</li>
+</ol>
+<h3 id="string-c_str和data"><a class="markdownIt-Anchor" href="#string-c_str和data">#</a> string c_str () 和 data ()</h3>
+<p>const char* c_str ( ) const;<br>
+Get C string equivalent<br>
+Generates a null-terminated sequence of characters (c-string) with the same content as the string object and returns it as a pointer to an array of characters.<br>
+A terminating null character is automatically appended.</p>
+<p>const char* data() const;<br>
+Get string data<br>
+Returns a pointer to an array of characters with the same content as the string.<br>
+Notice that no terminating null character is appended (see member c_str for such a functionality).</p>
+<p>第一点：c_str () 字符串后有’\0’，而 data () 没有。<br>
+第二点： data 能解决 string 串中 包含 ‘\0’ 情况的问题。结合 size 方法就能随意访问返回的数据了。注意他返回的是 array 数组.</p>
+<h3 id="menset"><a class="markdownIt-Anchor" href="#menset">#</a> menset()</h3>
+<pre><code>void *memset(void *s, int ch, size_t n)
+</code></pre>
+<p>函数说明：将 s 中前 n 个字节 （typedef unsigned int size_t ）用 ch 替换并返回 s 。<br>
+经典的置空函数。其中 s 可以是 char* ，也可以是数组，可以是字符串。</p>
+<h3 id="__stdcall"><a class="markdownIt-Anchor" href="#__stdcall">#</a> __stdcall</h3>
+<p>__stdcall 是函数调用约定的一种，函数调用约定主要约束了两件事：<br>
+1. 参数传递顺序<br>
+ 2. 调用堆栈由谁（调用函数或被调用函数）清理<br>
+常见的函数调用约定：stdcall cdecl fastcall thiscall naked call<br>
+__stdcall 表示<br>
+ 1. 参数从右向左压入堆栈<br>
+ 2. 函数被调用者修改堆栈<br>
+ 3. 函数名 (在编译器这个层次) 自动加前导的下划线，后面紧跟一个 @符号，其后紧跟着参数的尺寸<br>
+在 win32 应用程序里，宏 APIENTRY，WINAPI，都表示_stdcall，非常常见。</p>
+<h3 id="不固定函数参数int-testvoid-x"><a class="markdownIt-Anchor" href="#不固定函数参数int-testvoid-x">#</a> 不固定函数参数 int test (void* x,…)</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> 〈stdarg.h〉\\头文件</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">demo</span><span class="params">( <span class="keyword">char</span>, ... )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">　　demo(<span class="string">&quot;DEMO&quot;</span>, <span class="string">&quot;This&quot;</span>, <span class="string">&quot;is&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;demo!&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*ANSI标准形式的声明方式，括号内的省略号表示可选参数*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">demo</span><span class="params">( <span class="keyword">char</span> msg, ... )</span></span></span><br><span class="line"><span class="function"></span>&#123;       </span><br><span class="line">　　<span class="comment">/*定义保存函数参数的结构*/</span>   </span><br><span class="line">　　va_list argp;   </span><br><span class="line">　　<span class="keyword">int</span> argno = <span class="number">0</span>;   </span><br><span class="line">　　<span class="keyword">char</span> para; 　　   <span class="comment">/*argp指向传入的第一个可选参数，msg是最后一个确定的参数*/</span>   </span><br><span class="line">　　va_start( argp, msg );   </span><br><span class="line">　　<span class="keyword">while</span> (<span class="number">1</span>)       </span><br><span class="line">　　&#123;        </span><br><span class="line">　　　　para = va_arg( argp, <span class="keyword">char</span>);</span><br><span class="line">　　　　<span class="keyword">if</span> ( <span class="built_in">strcmp</span>( para, <span class="string">&quot;&quot;</span>) == <span class="number">0</span> )               </span><br><span class="line">    　　　　<span class="keyword">break</span>;</span><br><span class="line">　　　　<span class="built_in">printf</span>(<span class="string">&quot;Parameter #%d is: %s\n&quot;</span>, argno, para);           </span><br><span class="line">　　　　argno++;</span><br><span class="line">　　&#125;</span><br><span class="line">　　va_end( argp ); <span class="comment">/*将argp置为NULL*/</span></span><br><span class="line">　　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="cc中near和far的区别"><a class="markdownIt-Anchor" href="#cc中near和far的区别">#</a> C/C++ 中 near 和 far 的区别</h3>
+<p>near 关键字创建一个指向可寻址内存低端部分的目标指针。这些指针占用内存的单一字节，并且他们能够指向的内存单元被限制到 256 个位置，通常是在 0x0000~0x00ff 范围中。</p>
+<pre><code>  int near * ptr；
+
+  far关键字创建一个能够指向内存中任何数据的指针：
+
+  char far * ptr；
+</code></pre>
+<p>near   (近) 指针：16 位段内偏移地址</p>
+<p>far (远) 指针：16 位段地址＋16 位段内偏移地址</p>
+<p>huge (巨) 指针：32 位规格化的具有唯一性的内存地址</p>
 <h3 id="c-extern用法"><a class="markdownIt-Anchor" href="#c-extern用法">#</a> C extern 用法</h3>
 <p>extern int a;<br>
  说明了 a 的存储空间是在程序的其他地方分配的，在文件中其他位置或者其他文件中寻找 a 这个变量</p>
@@ -198,13 +329,26 @@ DST_AUSTALT  //澳洲(1986 年以后)
 <p>依赖文件少</p>
 <h4 id="基于晶振的时间计算queryperformancecounter-微秒"><a class="markdownIt-Anchor" href="#基于晶振的时间计算queryperformancecounter-微秒">#</a> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">stop_watch</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	stop_watch()</span><br><span class="line">		: elapsed_(<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		QueryPerformanceFrequency(&amp;freq_);</span><br><span class="line">	&#125;</span><br><span class="line">	~stop_watch() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		QueryPerformanceCounter(&amp;begin_time_);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		LARGE_INTEGER end_time;</span><br><span class="line">		QueryPerformanceCounter(&amp;end_time);</span><br><span class="line">		elapsed_ += (end_time.QuadPart - begin_time_.QuadPart) * <span class="number">1000000</span> / freq_.QuadPart;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">restart</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		elapsed_ = <span class="number">0</span>;</span><br><span class="line">		start();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//微秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(elapsed_);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//毫秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed_ms</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> elapsed_ / <span class="number">1000.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//秒</span></span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">elapsed_second</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> elapsed_ / <span class="number">1000000.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	LARGE_INTEGER freq_;</span><br><span class="line">	LARGE_INTEGER begin_time_;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> elapsed_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="问题索引"><a class="markdownIt-Anchor" href="#问题索引">#</a> 问题索引</h2>
-<p>智能指针</p>
-<p>进程和线程的互斥</p>
+<h4 id="得到格式化的时间"><a class="markdownIt-Anchor" href="#得到格式化的时间">#</a> 得到格式化的时间</h4>
+<pre><code>#include &lt;time.h&gt;
+
+time_t rawtime;
+struct tm *info;
+char buffer[80];
+
+time( &amp;rawtime );
+
+info = localtime( &amp;rawtime );
+
+strftime(buffer, 80, &quot;%Y-%m-%d %H:%M:%S&quot;, info);
+</code></pre>
+<h3 id="进程和线程的互斥"><a class="markdownIt-Anchor" href="#进程和线程的互斥">#</a> 进程和线程的互斥</h3>
 <p>JDP，程序崩溃</p>
 <p>设计模式</p>
 <p>为什么要使用纯虚函数</p>
-<h3 id="无法解析的外部符号发生在哪一个时期"><a class="markdownIt-Anchor" href="#无法解析的外部符号发生在哪一个时期">#</a> 无法解析的外部符号发生在哪一个时期</h3>
+<h3 id="-和-的区别"><a class="markdownIt-Anchor" href="#-和-的区别">#</a> “-&gt;” 和 “.” 的区别</h3>
+<p>a.b: a 为结构体或者类，里面有名为 b 的参数<br>
+ a-&gt;b：a 为指针，指向一个内部的数据。</p>
 <h3 id="subordinates-是什么"><a class="markdownIt-Anchor" href="#subordinates-是什么">#</a> Subordinates 是什么</h3>
 <h3 id="dynamic_cast和static_cast"><a class="markdownIt-Anchor" href="#dynamic_cast和static_cast">#</a> dynamic_cast 和 static_cast</h3>
 <p>当我们从派生类向基类转换时，不管用传统的 c 语言还是 c<ins> 转换方式都可以百分百转换成功。但是可怕是<em>向下转换类型</em>，也就是我们从基类向派生类转换，当我们采用传统的 C 语言和 c</ins> 转换时，就会出现意想不到的情况，因为<em>转换后派生类自己的方法和属性</em>丢失了，<em>一旦我们去调用派生类的方法和属性</em>那就糟糕了，这就是对类继承关系和内存分配理解不清晰导致的。好在 c++ 增加了 static_cast 和 dynamic_cast 运用于继承关系类间的强制转化。</p>
@@ -250,6 +394,41 @@ else&#123;
 在 c<ins> 中（void *）不能转化为任意类型的指针，即 int *p=(void*) 是错误的，但 int *p=nullptr 是正确的，原因<br>
 对于函数重载：若 c</ins> 中 （void *）支持任意类型转换，函数重载时将出现问题下列代码中 fun (NULL) 将不能判断调用哪个函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;1&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">char</span> *p)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fun(<span class="literal">NULL</span>);  <span class="comment">//输出1，c++中NULL为整数0</span></span><br><span class="line">    fun(<span class="literal">nullptr</span>);<span class="comment">//输出2，nullptr 为空指针常量。是指针类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="问题索引"><a class="markdownIt-Anchor" href="#问题索引">#</a> 问题索引</h2>
+<h3 id="winsockh和winsock2h重定义问题"><a class="markdownIt-Anchor" href="#winsockh和winsock2h重定义问题">#</a> winsock.h 和 winsock2.h 重定义问题</h3>
+<p>1. 查找 winsock.h winsock2.h windows.h 调用的地方<br>
+ 2. 确保 windows.h 包含的地方同时包含 winsock2.h (先包含 winsock2.h)<br>
+ 3. 将包含 winsock.h 的地方修改为包含 winsock2.h</p>
+<h3 id="关于变量重复定义"><a class="markdownIt-Anchor" href="#关于变量重复定义">#</a> 关于变量重复定义</h3>
+<p>一个变量<br>
+ int x;<br>
+ 传递到函数以指针的方式<br>
+ void tmp (int *x);<br>
+tmp(&amp;x);<br>
+*x = i; 即可改变参数。</p>
+<p>但是如果在函数中重复定义：<br>
+x = (int*)malloc(sizeof(int));<br>
+*x = i;<br>
+ 则无法获得其值，将是乱码。</p>
+<h3 id="0xc0000374-堆已损坏"><a class="markdownIt-Anchor" href="#0xc0000374-堆已损坏">#</a> 0xC0000374: 堆已损坏</h3>
+<p>一般是由 malloc (size) 引起的。反复调用函数太多次，内存中存在溢出或者 size 动态不明确导致。</p>
+<h3 id="异常0xcccccccc-0xcdcdcdcd与指针初始化问题"><a class="markdownIt-Anchor" href="#异常0xcccccccc-0xcdcdcdcd与指针初始化问题">#</a> 异常 0xcccccccc、0xcdcdcdcd 与指针初始化问题</h3>
+<p>程序在调试时，可能会报 &quot;写入位置 0xcccccccc 时发生访问冲突&quot;，或者 “写入位置 0xcdcdcdcd 时发生访问冲突”，这些问题可能是由于使用了未初始化的指针引起的。<br>
+候编译发现存在没有初始化的指针，因此就会对该内存赋值 0xcdcdcdcd 或者 0xcccccccc，体现在程序中就是 “屯屯屯屯……” 和 “烫烫烫烫……&quot;，另外，如果是将指针设为空指针，即为指针赋值 NULL，出现错误时是 0x00000000</p>
+<p>debug 时 VS 为了更快得帮程序员检测出内存问题，因此对初始化后的内存和释放后的内存做了一些处理，有:<br>
+0xcdcdcdcd - Created but not initialised (malloc 了，但是没初始化比如说刷成 0, 没调用构造函数)<br>
+ 0xdddddddd - Deleted (你调用了已经 delete 的内存…)<br>
+0xfeeefeee - Freed memory set by NT’s heap manager<br>
+0xcccccccc - Uninitialized locals in VC6 when you compile w/ /GZ0xabababab - Memory following a block allocated by LocalAlloc()</p>
+<p>一个单独的指针，char *p，未经过初始化时，其是 0xcccccccc，是无法读取内存的，也不能进行比较 (p == NULL)。但是如果是一个结构体中的指针，虽然也是 0xcccccccc，但可以进行比较，此处疑似是已经对其进行了初始化。<br>
+所以在使用指针时，最好进行初始化 char *p = NULL; 方便后续进行判断，释放指针内存后也应该进行置空 (NULL)，防止其访问内存片段。</p>
+<h3 id="无法解析的外部符号发生在哪一个时期"><a class="markdownIt-Anchor" href="#无法解析的外部符号发生在哪一个时期">#</a> 无法解析的外部符号发生在哪一个时期</h3>
+<p>链接过程.<br>
+ 无法解析的外部符号 LNK2019:<br>
+#pragma comment(lib,“ws2_32.lib”)</p>
+<h3 id="-92559631349317830736831783200707727132248687965119994463780864000000"><a class="markdownIt-Anchor" href="#-92559631349317830736831783200707727132248687965119994463780864000000">#</a> -92559631349317830736831783200707727132248687965119994463780864.000000</h3>
+<p>输出的时候类型不对。比如 flot 类型，使用 % d 输出。</p>
+
       <div class="tags">
           <a href="/tags/C-C-C-C-%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95/" rel="tag"><i class="ic i-tag"></i> -- C/C++ -- C/C++问题收录</a>
       </div>
@@ -263,7 +442,7 @@ else&#123;
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-04-10 19:41:05" itemprop="dateModified" datetime="2021-04-10T19:41:05+08:00">2021-04-10</time>
+    <time title="修改时间：2021-05-07 19:00:01" itemprop="dateModified" datetime="2021-05-07T19:00:01+08:00">2021-05-07</time>
   </span>
 </div>
 
@@ -313,20 +492,20 @@ else&#123;
     <div class="item left">
       
 
-  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeuv80yoj20zk0m8kjl.jpg" title="CRC循环冗余校验">
+  <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevuctzzj20zk0m84qp.jpg" title="AgilorE文件初步分析">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>CRC循环冗余校验</h3>
+  <h3>AgilorE文件初步分析</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="开发者手册">
+  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitcxhpij20zk0m8hdt.jpg" title="CRC循环冗余校验">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>开发者手册</h3>
+  <h3>CRC循环冗余校验</h3>
   </a>
 
     </div>
@@ -345,7 +524,7 @@ else&#123;
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 问题收录与知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#c-extern%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text"> C extern 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%8E%B7%E5%8F%96"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 时间获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gettimeofday-%E5%BE%AE%E7%A7%921e-6-s%E9%87%8F%E7%BA%A7"><span class="toc-number">1.1.2.1.</span> <span class="toc-text"> gettimeofday | 微秒 (1e-6 s) 量级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gettickcount-%E6%AF%AB%E7%A7%92"><span class="toc-number">1.1.2.2.</span> <span class="toc-text"> GetTickCount () | 毫秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%99%B6%E6%8C%AF%E7%9A%84%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97queryperformancecounter-%E5%BE%AE%E7%A7%92"><span class="toc-number">1.1.2.3.</span> <span class="toc-text"> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.2.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">1.2.3.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">1.2.4.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 问题收录与知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stl%E5%BA%93%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.1.</span> <span class="toc-text"> STL 库函数返回值问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char-%E5%92%8C-unsigned-char"><span class="toc-number">1.1.2.</span> <span class="toc-text"> char 和 unsigned char</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8char-%E8%BD%AC%E6%88%90int%E5%9E%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 关于使用 char 转成 int 型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%82%E6%88%96%E6%B3%95%E8%8C%83%E5%9B%B4%E4%B8%8Eint%E5%9E%8B%E5%90%8C"><span class="toc-number">1.1.3.1.</span> <span class="toc-text"> 1. 异或法，范围与 int 型同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-memcpy%E8%BF%9B%E8%A1%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E5%88%B6"><span class="toc-number">1.1.3.2.</span> <span class="toc-text"> 2. memcpy 进行空间复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AD%98%E5%82%A8ascii%E7%A0%81%E8%8C%83%E5%9B%B49999"><span class="toc-number">1.1.3.3.</span> <span class="toc-text"> 3. 存储 ASCII 码，范围 9999</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-cout%E5%88%A9%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AC%A6dec-hex%E5%92%8Coct%E5%88%86%E5%88%AB%E8%BE%93%E5%87%BA%E5%8D%81%E8%BF%9B%E5%88%B6-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%92%8C%E5%85%AB%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E6%95%B4%E6%95%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text"> C++ cout 利用控制符 dec、hex 和 oct，分别输出十进制、十六进制和八进制显示整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strcat"><span class="toc-number">1.1.5.</span> <span class="toc-text"> strcat()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int64"><span class="toc-number">1.1.6.</span> <span class="toc-text"> int64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E4%B8%AD%E7%9A%84c_str%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.7.</span> <span class="toc-text"> c++ 中的 c_str () 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atof"><span class="toc-number">1.1.8.</span> <span class="toc-text"> atof()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#itoa"><span class="toc-number">1.1.9.</span> <span class="toc-text"> itoa()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E9%92%88%E6%89%80%E6%8C%87%E5%90%91%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.1.10.</span> <span class="toc-text"> 获取指针所指向的地址中的空间大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="toc-number">1.1.11.</span> <span class="toc-text"> 迭代器 iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assert%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.12.</span> <span class="toc-text"> assert () 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ispunct"><span class="toc-number">1.1.13.</span> <span class="toc-text"> ispunct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assign"><span class="toc-number">1.1.14.</span> <span class="toc-text"> assign()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string-c_str%E5%92%8Cdata"><span class="toc-number">1.1.15.</span> <span class="toc-text"> string c_str () 和 data ()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#menset"><span class="toc-number">1.1.16.</span> <span class="toc-text"> menset()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#__stdcall"><span class="toc-number">1.1.17.</span> <span class="toc-text"> __stdcall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%9B%BA%E5%AE%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0int-testvoid-x"><span class="toc-number">1.1.18.</span> <span class="toc-text"> 不固定函数参数 int test (void* x,…)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cc%E4%B8%ADnear%E5%92%8Cfar%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.19.</span> <span class="toc-text"> C&#x2F;C++ 中 near 和 far 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-extern%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.20.</span> <span class="toc-text"> C extern 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%8E%B7%E5%8F%96"><span class="toc-number">1.1.21.</span> <span class="toc-text"> 时间获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gettimeofday-%E5%BE%AE%E7%A7%921e-6-s%E9%87%8F%E7%BA%A7"><span class="toc-number">1.1.21.1.</span> <span class="toc-text"> gettimeofday | 微秒 (1e-6 s) 量级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gettickcount-%E6%AF%AB%E7%A7%92"><span class="toc-number">1.1.21.2.</span> <span class="toc-text"> GetTickCount () | 毫秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%99%B6%E6%8C%AF%E7%9A%84%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97queryperformancecounter-%E5%BE%AE%E7%A7%92"><span class="toc-number">1.1.21.3.</span> <span class="toc-text"> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%97%E5%88%B0%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-number">1.1.21.4.</span> <span class="toc-text"> 得到格式化的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%92%E6%96%A5"><span class="toc-number">1.1.22.</span> <span class="toc-text"> 进程和线程的互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.23.</span> <span class="toc-text"> “-&gt;” 和 “.” 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.24.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">1.1.25.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">1.1.26.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#winsockh%E5%92%8Cwinsock2h%E9%87%8D%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.1.</span> <span class="toc-text"> winsock.h 和 winsock2.h 重定义问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F%E9%87%8D%E5%A4%8D%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 关于变量重复定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0xc0000374-%E5%A0%86%E5%B7%B2%E6%8D%9F%E5%9D%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 0xC0000374: 堆已损坏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B80xcccccccc-0xcdcdcdcd%E4%B8%8E%E6%8C%87%E9%92%88%E5%88%9D%E5%A7%8B%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 异常 0xcccccccc、0xcdcdcdcd 与指针初始化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-92559631349317830736831783200707727132248687965119994463780864000000"><span class="toc-number">1.2.6.</span> <span class="toc-text"> -92559631349317830736831783200707727132248687965119994463780864.000000</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -360,13 +539,13 @@ else&#123;
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">59</span>
+        <span class="count">65</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">27</span>
+        <span class="count">30</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -419,12 +598,12 @@ else&#123;
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -448,43 +627,7 @@ else&#123;
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/" title="软件总集以及网站">软件总集以及网站</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">AgilorE文件初步分析</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
+    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
   </li>
 
       
@@ -502,7 +645,7 @@ else&#123;
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/" title="打印机问题及使用方法">打印机问题及使用方法</a></span>
+    <span><a href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/" title="正则表达式">正则表达式</a></span>
   </li>
 
       
@@ -511,7 +654,7 @@ else&#123;
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
   </li>
 
       
@@ -520,7 +663,7 @@ else&#123;
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="php学习概要">php学习概要</a></span>
+    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
   </li>
 
       
@@ -529,7 +672,43 @@ else&#123;
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/" title="系统管理之重装系统记">系统管理之重装系统记</a></span>
+    <span><a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" title="DOS命令扫描指定端口并查看端口号">DOS命令扫描指定端口并查看端口号</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/String%E5%87%BD%E6%95%B0/" title="C&#x2F;C++ String函数">C/C++ String函数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" title="开发者手册">开发者手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
   </li>
 
   </ul>

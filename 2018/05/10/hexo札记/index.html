@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
         </ul>
       </div>
     </header>
@@ -203,6 +203,10 @@ windows 上需要 Node.js 吗。需要。</p>
 <p>本地环境需求 node.js。</p>
 <p>安装 hexo 插件。+ hexo-cli@4.2.0</p>
 <p>sudo npm install -g hexo-cli</p>
+<div class="note info">
+<p>使用命令:npm config set registry <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5Lm5wbWpzLm9yZy8=">http://registry.npmjs.org/</span><br>
+ 修改为原 npm 地址</p>
+</div>
 <p>准备免密登入。ssh 安全壳协议以私钥访问公钥。该命令会生成私钥和公钥，然后将公钥上传至服务器和 GitHub。</p>
 <p>ssh-keygen -t rsa -C “<span class="exturl" data-url="bWFpbHRvOmlUaGVkc0BnaXRodWIuY29t">iTheds@github.com</span>”</p>
 <p>测试，注意测试的时候直接使用 git@github.com 即可，不必更换账户。</p>
@@ -309,14 +313,17 @@ draft	source/_drafts</p>
 <h4 id="主题shoka"><a class="markdownIt-Anchor" href="#主题shoka">#</a> &gt; 主题 shoka</h4>
 <p><span class="exturl" data-url="aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWUv">https://shoka.lostyu.me/</span><br>
 git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYS5naXQ=">https://github.com/amehime/hexo-theme-shoka.git</span></p>
+<p>需要安装插件:</p>
+<p>hexo-renderer-multi-markdown-it<br>
+hexo-autoprefixer</p>
+<p>hexo-algoliasearch<br>
+hexo-symbols-count-time<br>
+hexo-feed</p>
 <ol>
 <li>隐藏文字，基于 <code>markdown-it-spoiler</code>  和 <code> markdown-it-attrs</code></li>
 </ol>
 <p>使用 <code>!x!</code> !x! 的形式进行隐藏涂黑。</p>
 <h4 id="几款比较好的推荐"><a class="markdownIt-Anchor" href="#几款比较好的推荐">#</a> &gt; 几款比较好的推荐</h4>
-<p>有些需要安装插件。<br>
-hexo-renderer-multi-markdown-it<br>
-hexo-autoprefixer</p>
 <p>几款比较有竞争力的主题：</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWUv">https://shoka.lostyu.me/</span><br>
 git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYS5naXQ=">https://github.com/amehime/hexo-theme-shoka.git</span><br>
@@ -360,7 +367,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-04-10 17:05:09" itemprop="dateModified" datetime="2021-04-10T17:05:09+08:00">2021-04-10</time>
+    <time title="修改时间：2021-04-13 08:52:31" itemprop="dateModified" datetime="2021-04-13T08:52:31+08:00">2021-04-13</time>
   </span>
 </div>
 
@@ -410,7 +417,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
     <div class="item left">
       
 
-  <a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyonbf9j20zk0m8e81.jpg" title="DOS命令扫描指定端口并查看端口号">
+  <a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="DOS命令扫描指定端口并查看端口号">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>DOS命令扫描指定端口并查看端口号</h3>
@@ -420,7 +427,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
     <div class="item right">
       
 
-  <a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuja1j1j20zk0m8kjl.jpg" title="网页状态提示说明">
+  <a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfw2t96j20zk0m8x6p.jpg" title="网页状态提示说明">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>网页状态提示说明</h3>
@@ -457,13 +464,13 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">59</span>
+        <span class="count">65</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">27</span>
+        <span class="count">30</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -545,7 +552,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="数据结构具体实现">数据结构具体实现</a></span>
+    <span><a href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" title="智能指针">智能指针</a></span>
   </li>
 
       
@@ -554,7 +561,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+    <span><a href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/" title="YII框架笔记">YII框架笔记</a></span>
   </li>
 
       
@@ -563,7 +570,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/" title="编译原理之语法分析程序">编译原理之语法分析程序</a></span>
+    <span><a href="/2021/04/25/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">ODBC编程</a></span>
   </li>
 
       
@@ -572,43 +579,7 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">AgilorE文件初步分析</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/" title="系统管理之重装系统记">系统管理之重装系统记</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="Apache系统管理">Apache系统管理</a></span>
+    <span><a href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入札记">SQL注入札记</a></span>
   </li>
 
       
@@ -626,7 +597,43 @@ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="英语学习笔记">英语学习笔记</a></span>
+    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" title="计算机入门路线(应用篇)">计算机入门路线(应用篇)</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
   </li>
 
   </ul>

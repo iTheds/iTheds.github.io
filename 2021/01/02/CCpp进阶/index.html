@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
         </ul>
       </div>
     </header>
@@ -176,6 +176,15 @@ true if the container size is 0, false otherwise.</li>
 <h2 id="基本原理"><a class="markdownIt-Anchor" href="#基本原理">#</a> 基本原理</h2>
 <h3 id="编译连接"><a class="markdownIt-Anchor" href="#编译连接">#</a> 编译连接</h3>
 <p>将代码书写到.cpp 文件之后，进行编译成目标文件.obj，链接其他的库文件和目标程序生成可执行文件.exe 文件。</p>
+<p>g++ test.cpp<br>
+-o demo<br>
+-o 可以指定执行文件命名。</p>
+<p>在 VS 中，使用 Developer Command Prompt for VS. 执行命令</p>
+<pre><code>cl server.cpp
+cl client.cpp
+start cmd /k server
+start cmd /k client
+</code></pre>
 <h1 id="程序结构"><a class="markdownIt-Anchor" href="#程序结构">#</a> 程序结构</h1>
 <ol>
 <li>预处理指令</li>
@@ -298,8 +307,23 @@ i_pointer = &amp;i;
 <p><code>const int *p;</code> const 指针，不能通过指针 p 来改变指针所指向的变量的值，但是可以改变指针的指向。<br>
  <code>char * const p;</code>  表示指针指向的变量是不能改变的。<br>
  <code>const int * const p;</code>  表示指向不能改变并且指向的变量值也不能改变。</p>
-<p><code>void *p;</code>  指针 p 指向空类型或不指向确定的类型，简而言之就是不能指向任何变量，如果要指向变量必须通过类型强制转换 <code>p1 = (char\*)p2</code> 。</p>
-<p>究极问题是指针能不能存放数组呢？？？</p>
+<h3 id="指针中存放数组"><a class="markdownIt-Anchor" href="#指针中存放数组">#</a> 指针中存放数组</h3>
+<p>这里的数组可以是结构体数组。<br>
+按理来说，一个指针。<br>
+Emty * x;<br>
+ 如果新定义一个数组：<br>
+Emty y[5];<br>
+ 由于数组的命名即是地址，所以：<br>
+x = y;<br>
+ 之后，x [2] 则可以正常存储数据。</p>
+<p>但是，直接使用 <code>Emty * x</code>  来存储数组结构是不切实际的。<br>
+一种想法是如上文一般定义。一种是一开始就定义好</p>
+<pre><code>socket_tmp = (SOCKET_INFO*)malloc(sizeof(SOCKET_INFO) * 8);
+</code></pre>
+<p>这样也可以使用。<br>
+但当使用其作为指针实参传递到函数的时候，新的程序如果没有声明方式 (实际上也没有找到)，那则无法识别为数组。</p>
+<h3 id="void-p"><a class="markdownIt-Anchor" href="#void-p">#</a> void *p;</h3>
+<p>指针 p 指向空类型或不指向确定的类型，简而言之就是不能指向任何变量，如果要指向变量必须通过类型强制转换 <code>p1 = (char\*)p2</code> 。</p>
 <h3 id="引用"><a class="markdownIt-Anchor" href="#引用">#</a> 引用</h3>
 <p>引用声明符和取地址符都是 &amp;。引用声明符只出现在数据类型名后面。</p>
 <pre><code>int &amp;b = a;
@@ -309,6 +333,14 @@ i_pointer = &amp;i;
 而传递变量和传递指针，本质上都是传值方式。</p>
 <p>形参 parameter 是在定义函数名和函数体的时候使用的参数，目的是用来接收调用该函数时传入的参数<br>
 实参 argument：在调用有参函数时，主调函数和被调函数之间有数据传递关系。在主调函数中调用一个函数时，函数名后面括号中的参数称为 “实际参数”（简称 “实参”）。</p>
+<h3 id="charp"><a class="markdownIt-Anchor" href="#charp">#</a> char**p</h3>
+<pre><code>char p = 49;
+char *p1 = &amp;p;
+char **p2 = &amp;p1;
+**p2 == *p1 == p;
+</code></pre>
+<p>指向指针的指针。一般不会用这么复杂。<br>
+如果变量全局需要，并且知道长度，那么宁愿使用固定长度的数组。</p>
 <h3 id="函数和指针"><a class="markdownIt-Anchor" href="#函数和指针">#</a> 函数和指针</h3>
 <p>int (*p)(int,int); 表示函数指针，指针指向函数<br>
  int *p (int x,int y); 表示返回函数的指针</p>
@@ -328,7 +360,15 @@ template <class T></p>
 <h3 id="有默认参数的函数"><a class="markdownIt-Anchor" href="#有默认参数的函数">#</a> 有默认参数的函数</h3>
 <p>float area(float r=6.5)<br>
  可以赋值也可以不赋值。默认是从左到右赋值，所以有默认值的参数尽量放在右边。</p>
+<h2 id="变量"><a class="markdownIt-Anchor" href="#变量">#</a> 变量</h2>
+<h3 id="全局变量"><a class="markdownIt-Anchor" href="#全局变量">#</a> 全局变量</h3>
+<p>需要在 h 头文件中声明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXTERN extern</span></span><br><span class="line">EXTERN <span class="keyword">char</span> log_filename[ERROR_FILE_NAME_SIZE];</span><br></pre></td></tr></table></figure>
+<p>然后在 cpp 文件中初始化：如果没有这一步，那么将会报错无法解析的外部符号</p>
+<pre><code>char log_filename[ERROR_FILE_NAME_SIZE] = &#123; 0 &#125;;
+</code></pre>
 <h2 id="结构体"><a class="markdownIt-Anchor" href="#结构体">#</a> 结构体</h2>
+<p>结构体直接作为参数被传递的时候是不会改变值的，只有作为指针传递的时候才会改变值。</p>
 <p>struct Student{<br>
 int num;<br>
 Student *next;// 构成链表<br>
@@ -340,9 +380,8 @@ Student *next;// 构成链表<br>
 (*p).num;
 p-&gt;num;
 </code></pre>
-<p>枚举<br>
- enum weekday {sun,mon,tue,wed,thu,fri,sat};<br>
-weekdat a;</p>
+<h3 id="枚举"><a class="markdownIt-Anchor" href="#枚举">#</a> 枚举</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">DAY</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">      MON=<span class="number">1</span>, TUE, WED, THU, FRI, SAT, SUN</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">DAY</span> <span class="title">day</span>;</span></span><br><span class="line">    day = WED;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,day);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="数据"><a class="markdownIt-Anchor" href="#数据">#</a> 数据</h2>
 <p>常量对应的是变量。</p>
 <p>常量分为数值型常量和字符型常量。<br>
@@ -378,6 +417,10 @@ Auto 和 Static 都是存放在内存中的，使用的时候由控制器发出�
 如果有 float 或者 double，统一转换为 double 进行运算。<br>
 此过程一般是自动转换。<br>
 也可以使用强制转换进行。</p>
+<h4 id="逻辑运算"><a class="markdownIt-Anchor" href="#逻辑运算">#</a> 逻辑运算</h4>
+<p>&amp;= ：按位与后赋值<br>
+ ^= ：按位异或后赋值<br>
+ |= ：按位或后赋值</p>
 <h3 id="数组"><a class="markdownIt-Anchor" href="#数组">#</a> 数组</h3>
 <p>返回数组函数是怎么样的呢，首先数组中的元素作为参数传递的时候与普通的数据是一样的，形式参数是无法改变的，整个函数作为参数传递的时候是可以改变的，因为本质上是传递的地址。</p>
 <pre><code>int max_value(int arrray[][])
@@ -395,31 +438,17 @@ cout &lt;&lt; str;
 <h2 id="语法recarding"><a class="markdownIt-Anchor" href="#语法recarding">#</a> 语法 Recarding</h2>
 <p>基本语句，循环语句，选择语句等略。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setdata</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;num; </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">Student stud1,stud2;</span><br></pre></td></tr></table></figure>
-<h2 id="问题索引"><a class="markdownIt-Anchor" href="#问题索引">#</a> 问题索引</h2>
-<p>智能指针</p>
-<p>进程和线程的互斥</p>
-<p>JDP，程序崩溃</p>
-<p>设计模式</p>
-<p>为什么要使用纯虚函数</p>
-<h3 id="无法解析的外部符号发生在哪一个时期"><a class="markdownIt-Anchor" href="#无法解析的外部符号发生在哪一个时期">#</a> 无法解析的外部符号发生在哪一个时期</h3>
-<h3 id="subordinates-是什么"><a class="markdownIt-Anchor" href="#subordinates-是什么">#</a> Subordinates 是什么</h3>
-<h3 id="dynamic_cast和static_cast"><a class="markdownIt-Anchor" href="#dynamic_cast和static_cast">#</a> dynamic_cast 和 static_cast</h3>
-<h3 id="nullptr和null"><a class="markdownIt-Anchor" href="#nullptr和null">#</a> nullptr 和 NULL</h3>
-<p>NULL 是一个宏定义，在 c 和 c<ins> 中的定义不同，c 中 NULL 为（void*) 0, 而 c</ins> 中 NULL 为整数 0；所以在 c<ins> 中 int *p=NULL; 实际表示将指针 P 的值赋为 0，而 c</ins> 中当一个指针的值为 0 时，认为指针为空指针。</p>
-<p>nullptr 是一个字面值常量，类型为 std::nullptr_t, 空指针常数可以转换为任意类型的指针类型。<br>
-在 c<ins> 中（void *）不能转化为任意类型的指针，即 int *p=(void*) 是错误的，但 int *p=nullptr 是正确的，原因<br>
-对于函数重载：若 c</ins> 中 （void *）支持任意类型转换，函数重载时将出现问题下列代码中 fun (NULL) 将不能判断调用哪个函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;1&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">char</span> *p)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fun(<span class="literal">NULL</span>);  <span class="comment">//输出1，c++中NULL为整数0</span></span><br><span class="line">    fun(<span class="literal">nullptr</span>);<span class="comment">//输出2，nullptr 为空指针常量。是指针类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="malloc"><a class="markdownIt-Anchor" href="#malloc">#</a> malloc</h3>
-<p>malloc 是属于 C 语言的。包含在头文件 #include &lt;stdlib.h&gt; 中。</p>
-<h3 id="逗号运算符"><a class="markdownIt-Anchor" href="#逗号运算符">#</a> 逗号运算符</h3>
-<p>从左到右依次执行，返回最后的表达式值。</p>
-<h3 id="开辟空间new-delete-mallocfree"><a class="markdownIt-Anchor" href="#开辟空间new-delete-mallocfree">#</a> 开辟空间，new ,delete ,malloc,free</h3>
+<h3 id="new-delete-mallocfree"><a class="markdownIt-Anchor" href="#new-delete-mallocfree">#</a> new ,delete ,malloc,free</h3>
 <p>new int (100);// 开辟一个存放整型数的空间，初值为 100，返回地址<br>
  new char [10];<br>
-delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</p>
-<p>new 也可以是对象</p>
-<h2 id="附录"><a class="markdownIt-Anchor" href="#附录">#</a> 附录</h2>
+delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。<br>
+new 也可以是对象</p>
+<pre><code>void *malloc(long NumBytes)
+</code></pre>
+<p>该函数分配了 NumBytes 个字节，并返回了指向这块内存的指针。如果分配失败，则返回一个空指针（NULL）。<br>
+使用该方法需要用 free 释放空间。内存分配在堆中。<br>
+但是在函数中的用法需要测试。</p>
+<h1 id="附录"><a class="markdownIt-Anchor" href="#附录">#</a> 附录</h1>
 <p>C++ 中必须的附属信息</p>
 <h3 id="数值型和字符型数据的字节数和数值范围"><a class="markdownIt-Anchor" href="#数值型和字符型数据的字节数和数值范围">#</a> 数值型和字符型数据的字节数和数值范围</h3>
 <p>数据如果指定时 unsigned，那么将会以补码的方式进行存放。最高位 bit 表示数值符号。二进制存放。<br>
@@ -673,7 +702,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-04-10 17:26:30" itemprop="dateModified" datetime="2021-04-10T17:26:30+08:00">2021-04-10</time>
+    <time title="修改时间：2021-05-07 09:02:16" itemprop="dateModified" datetime="2021-05-07T09:02:16+08:00">2021-05-07</time>
   </span>
 </div>
 
@@ -723,7 +752,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
     <div class="item left">
       
 
-  <a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuv0socj20zk0m8qes.jpg" title="算法学习笔记01">
+  <a href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipey0a334j20zk0m8qpt.jpg" title="算法学习笔记01">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>算法学习笔记01</h3>
@@ -733,7 +762,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
     <div class="item right">
       
 
-  <a href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicit31ffoj20zk0m8naf.jpg" title="各软件及windows操作快捷键总集">
+  <a href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyonbf9j20zk0m8e81.jpg" title="各软件及windows操作快捷键总集">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>各软件及windows操作快捷键总集</h3>
@@ -755,7 +784,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E8%BF%9B%E9%98%B6"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text"> 基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector"><span class="toc-number">1.2.</span> <span class="toc-text"> Vector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text"> 基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 编译连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> 程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text"> 基于对象的程序设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F"><span class="toc-number">2.2.</span> <span class="toc-text"> 继承与派生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81%E4%B8%8E%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 多态与虚函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-number">2.3.1.</span> <span class="toc-text"> 纯虚函数与抽象类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text"> 文件操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-number">2.5.</span> <span class="toc-text"> 运算符重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number">2.6.</span> <span class="toc-text"> 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">2.6.1.</span> <span class="toc-text"> 引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%8C%87%E9%92%88"><span class="toc-number">2.6.2.</span> <span class="toc-text"> 函数和指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.</span> <span class="toc-text"> 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.1.</span> <span class="toc-text"> 内置函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%87%8D%E8%BD%BD-function-overloading"><span class="toc-number">2.7.2.</span> <span class="toc-text"> 函数的重载 function overloading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.7.3.</span> <span class="toc-text"> 函数模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.4.</span> <span class="toc-text"> 有默认参数的函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">2.8.</span> <span class="toc-text"> 结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">2.9.</span> <span class="toc-text"> 数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8"><span class="toc-number">2.9.1.</span> <span class="toc-text"> 数据的存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.9.2.</span> <span class="toc-text"> 1. 数据的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">2.9.3.</span> <span class="toc-text"> 2. 数据的运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">2.9.4.</span> <span class="toc-text"> 数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95recarding"><span class="toc-number">2.10.</span> <span class="toc-text"> 语法 Recarding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">2.11.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">2.11.1.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.11.2.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">2.11.3.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">2.11.4.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc"><span class="toc-number">2.11.5.</span> <span class="toc-text"> malloc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">2.11.6.</span> <span class="toc-text"> 逗号运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E8%BE%9F%E7%A9%BA%E9%97%B4new-delete-mallocfree"><span class="toc-number">2.11.7.</span> <span class="toc-text"> 开辟空间，new ,delete ,malloc,free</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">2.12.</span> <span class="toc-text"> 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%9E%8B%E5%92%8C%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%97%E8%8A%82%E6%95%B0%E5%92%8C%E6%95%B0%E5%80%BC%E8%8C%83%E5%9B%B4"><span class="toc-number">2.12.1.</span> <span class="toc-text"> 数值型和字符型数据的字节数和数值范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%E5%8F%8A%E5%85%B6%E5%90%AB%E4%B9%89"><span class="toc-number">2.12.2.</span> <span class="toc-text"> 转义字符及其含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8"><span class="toc-number">2.12.3.</span> <span class="toc-text"> 运算符优先级表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ascii"><span class="toc-number">2.12.4.</span> <span class="toc-text"> ASCII</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81%E7%9A%84%E6%8E%A7%E5%88%B6%E7%AC%A6"><span class="toc-number">2.12.5.</span> <span class="toc-text"> 标准输入输出流的控制符</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E8%BF%9B%E9%98%B6"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text"> 基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector"><span class="toc-number">1.2.</span> <span class="toc-text"> Vector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text"> 基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 编译连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> 程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text"> 基于对象的程序设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F"><span class="toc-number">2.2.</span> <span class="toc-text"> 继承与派生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81%E4%B8%8E%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 多态与虚函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-number">2.3.1.</span> <span class="toc-text"> 纯虚函数与抽象类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text"> 文件操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-number">2.5.</span> <span class="toc-text"> 运算符重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number">2.6.</span> <span class="toc-text"> 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E4%B8%AD%E5%AD%98%E6%94%BE%E6%95%B0%E7%BB%84"><span class="toc-number">2.6.1.</span> <span class="toc-text"> 指针中存放数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#void-p"><span class="toc-number">2.6.2.</span> <span class="toc-text"> void *p;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">2.6.3.</span> <span class="toc-text"> 引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#charp"><span class="toc-number">2.6.4.</span> <span class="toc-text"> char**p</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%8C%87%E9%92%88"><span class="toc-number">2.6.5.</span> <span class="toc-text"> 函数和指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.</span> <span class="toc-text"> 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.1.</span> <span class="toc-text"> 内置函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%87%8D%E8%BD%BD-function-overloading"><span class="toc-number">2.7.2.</span> <span class="toc-text"> 函数的重载 function overloading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.7.3.</span> <span class="toc-text"> 函数模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">2.7.4.</span> <span class="toc-text"> 有默认参数的函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.8.</span> <span class="toc-text"> 变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">2.8.1.</span> <span class="toc-text"> 全局变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">2.9.</span> <span class="toc-text"> 结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE"><span class="toc-number">2.9.1.</span> <span class="toc-text"> 枚举</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">2.10.</span> <span class="toc-text"> 数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8"><span class="toc-number">2.10.1.</span> <span class="toc-text"> 数据的存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.10.2.</span> <span class="toc-text"> 1. 数据的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">2.10.3.</span> <span class="toc-text"> 2. 数据的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="toc-number">2.10.3.1.</span> <span class="toc-text"> 逻辑运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">2.10.4.</span> <span class="toc-text"> 数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95recarding"><span class="toc-number">2.11.</span> <span class="toc-text"> 语法 Recarding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#new-delete-mallocfree"><span class="toc-number">2.11.1.</span> <span class="toc-text"> new ,delete ,malloc,free</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text"> 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%9E%8B%E5%92%8C%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%97%E8%8A%82%E6%95%B0%E5%92%8C%E6%95%B0%E5%80%BC%E8%8C%83%E5%9B%B4"><span class="toc-number">3.0.1.</span> <span class="toc-text"> 数值型和字符型数据的字节数和数值范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%E5%8F%8A%E5%85%B6%E5%90%AB%E4%B9%89"><span class="toc-number">3.0.2.</span> <span class="toc-text"> 转义字符及其含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8"><span class="toc-number">3.0.3.</span> <span class="toc-text"> 运算符优先级表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ascii"><span class="toc-number">3.0.4.</span> <span class="toc-text"> ASCII</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81%E7%9A%84%E6%8E%A7%E5%88%B6%E7%AC%A6"><span class="toc-number">3.0.5.</span> <span class="toc-text"> 标准输入输出流的控制符</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -770,13 +799,13 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">59</span>
+        <span class="count">65</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">27</span>
+        <span class="count">30</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -858,33 +887,6 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" title="DOS命令扫描指定端口并查看端口号">DOS命令扫描指定端口并查看端口号</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="php学习概要">php学习概要</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="Apache系统管理">Apache系统管理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/" title="大数据涉猎">大数据涉猎</a></span>
   </li>
 
@@ -894,7 +896,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
+    <span><a href="/2021/04/25/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">ODBC编程</a></span>
   </li>
 
       
@@ -903,7 +905,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="英语学习笔记">英语学习笔记</a></span>
+    <span><a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" title="开发者手册">开发者手册</a></span>
   </li>
 
       
@@ -912,7 +914,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/" title="软件总集以及网站">软件总集以及网站</a></span>
+    <span><a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" title="计算机入门路线(应用篇)">计算机入门路线(应用篇)</a></span>
   </li>
 
       
@@ -921,7 +923,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" title="数据结构具体实现">数据结构具体实现</a></span>
+    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
   </li>
 
       
@@ -930,7 +932,7 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/" title="系统管理之重装系统记">系统管理之重装系统记</a></span>
+    <span><a href="/2021/01/02/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="Linux网络编程笔记">Linux网络编程笔记</a></span>
   </li>
 
       
@@ -939,7 +941,34 @@ delete [] p;// 在指针变量前加一个 []，表示是对数组的操作。</
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
+    <span><a href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/" title="网页状态提示说明">网页状态提示说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" title="C++基本项目开发思路">C++基本项目开发思路</a></span>
   </li>
 
   </ul>
