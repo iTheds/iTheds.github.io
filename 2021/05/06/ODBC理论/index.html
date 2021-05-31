@@ -1,0 +1,694 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="-- C/C++ -- ODBC" />
+
+
+<link rel="canonical" href="http://example.com/2021/05/06/ODBC%E7%90%86%E8%AE%BA/">
+
+
+
+  <title>
+ODBC理论 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">ODBC理论
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-05-06 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-05-06T00:00:00+08:00">2021-05-06</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/06/ODBC%E7%90%86%E8%AE%BA/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="odbc理论"><a class="markdownIt-Anchor" href="#odbc理论">#</a> ODBC 理论</h1>
+<p>开放数据库连接（Open Database Connectivity，ODBC）<br>
+ODBC 是一个概念级的抽象理论化形态，是一中接口一种规范。</p>
+<p>解决异构数据库间的数据共享而产生的，现已成为 WOSA (The Windows Open System Architecture (Windows 开放系统体系结构)) 的主要部分和基于 Windows 环境的一种 <code>数据库访问接口标准</code> 。</p>
+<p>ODBC 为异构数据库访问提供统一接口，允许应用程序以 SQL 为数据存取标准，存取不同 DBMS 管理的数据；<br>
+使应用程序直接操纵 DB 中的数据，免除随 DB 的改变而改变。<br>
+用 ODBC 可以访问各类计算机上的 DB 文件，甚至访问如 Excel 表和 ASCII 数据文件这类非数据库对象。</p>
+<hr>
+<p>开放式数据库连接 (ODBC) 是一种广泛接受的应用程序编程接口 (API)，适用于数据库访问。 它基于 <code>调用级别接口 (CLI) 规范从开放组，ISO/IEC </code> 用于数据库 Api，并使用结构化查询语言 (SQL) 作为其数据库访问语言。</p>
+<p>标准： 基于 CLI，ISO/IEC。</p>
+<p>ODBC 旨在实现最大 互操作性 ，即单个应用程序使用相同的源代码访问不同数据库管理系统 (dbms) 的能力。 数据库应用程序在 ODBC 接口中调用函数，这些函数在名为 驱动程序的数据库特定模块中实现。 驱动程序的使用将应用程序与数据库特定的调用隔离开来，与打印机驱动程序将 word 处理程序与打印机特定的命令隔离的方式相同。 由于驱动程序在运行时加载，因此用户只需要添加新的驱动程序来访问新 DBMS; 无需重新编译或重新链接应用程序。</p>
+<hr>
+<p>首先，ODBC 是数据库 API 的规范。 此 API 独立于任何一个 DBMS 或操作系统；尽管本手册使用 C，但 ODBC API 是独立于语言的。 ODBC API 基于开放组和 ISO/IEC 中的 CLI 规范。 ODBC 3.x 完全实现了这两个规范 - 早期版本的 ODBC 基于这些规范的初始版本，但未完全实现它们，并添加了基于屏幕的数据库应用程序开发人员通常需要的功能，如可滚动游标。</p>
+<hr>
+<p>需要做什么：</p>
+<p>ODBC API 中的函数是由 DBMS 特定驱动程序的开发人员实现的。 应用程序调用这些驱动程序中的函数以与 DBMS  <code>无关的方式访问数据</code> 。  <code>驱动程序管理器管理应用程序与驱动程序之间的通信</code> 。</p>
+<p>虽然 Microsoft 为运行 Microsoft Windows®95 及更高版本的计算机提供了驱动程序管理器，编写了多个 ODBC 驱动程序，并从其某些应用程序调用了 ODBC 函数，但任何人都可以编写 ODBC 应用程序和驱动程序。事实上，当今可用的绝大部分 ODBC 应用程序和驱动程序都是由 Microsoft 以外的公司编写的。 此外，ODBC 驱动程序和应用程序存在于 Macintosh® 和多种 UNIX 平台上。</p>
+<p>必须了解，ODBC 旨在公开数据库功能，而不是对其进行补充。 因此，应用程序编写者不应指望使用 ODBC 会突然将简单数据库转换为功能完备的关系数据库引擎。 驱动程序编写器和驱动程序编写器都不需要实现在基础数据库中找不到的功能。 但这种情况的一个例外是，编写直接访问文件 (数据的驱动程序的开发人员（如 Xbase) 文件中的数据）需要编写至少支持最少 SQL 功能的数据库引擎。 另一种例外情况是，Windows SDK 的 ODBC 组件（以前包含在 Microsoft 数据访问组件 (MDAC) SDK 中）提供了一个游标库，用于模拟实现某一级别功能的驱动程序的可滚动游标。</p>
+<p>使用 ODBC 的应用程序负责任何跨数据库功能。 例如，ODBC 不是异类联接引擎，也不是分布式事务处理处理器。 但是，因为它与 DBMS 无关，所以它可用于生成此类跨数据库工具。</p>
+<h2 id="odbc是什么"><a class="markdownIt-Anchor" href="#odbc是什么">#</a> ODBC 是什么？</h2>
+<p>First and foremost, ODBC is a specification for a database API.</p>
+<h2 id="标准"><a class="markdownIt-Anchor" href="#标准">#</a> 标准</h2>
+<p>ODBC 符合以下规范和标准，它们处理 (CLI) 的调用级别接口。 (ODBC 功能是每种标准的超集。 )</p>
+<ul>
+<li>开放式组 CAE 规范 &quot;数据管理： SQL 调用级接口 (CLI)&quot;</li>
+<li>ISO/IEC 9075-3:1995 (E) (SQL/CLI 的调用级别接口)</li>
+</ul>
+<p>核心接口一致性级别包含了 ISO CLI 中的所有功能和开放组 CLI 中的所有 nonoptional 功能。 打开的组 CLI 的可选功能以更高的接口一致性级别显示。 由于支持核心接口一致性级别的功能需要 所有 ODBC 1.x 驱动程序，因此满足以下条件：</p>
+<ul>
+<li>ODBC 2.x 驱动程序将支持符合标准的 应用程序所 使用的所有功能。</li>
+<li>仅使用 ISO CLI 中的功能和开放组 CLI 的 nonoptional 功能的 ODBC 1.x 应用程序将适用于任何符合标准的驱动程序。</li>
+</ul>
+<p>除了 ISO/IEC 和开放组 CLI 标准中包含的调用级别接口规范外，ODBC 还实现以下功能。 (在 odbc 3.x 之前的 odbc 版本中存在其中一些功能)</p>
+<ul>
+<li>单个函数调用的多行提取</li>
+<li>绑定到参数数组</li>
+<li>书签支持包括按书签、可变长度书签进行提取，以及通过对不连续行使用书签操作进行批量更新和删除</li>
+<li>按行绑定</li>
+<li>绑定偏移量</li>
+<li>支持批处理 SQL 语句，无论是在存储过程中还是通过 SQLExecute 或 SQLExecDirect 执行的一系列 sql 语句。</li>
+<li>确切或大致的游标行计数</li>
+<li>定位更新和删除操作以及通过函数调用 (SQLSetPos) 的批处理更新和删除</li>
+<li>目录函数，从信息架构中提取信息，无需支持信息架构视图</li>
+<li>外部联接、标量函数、日期时间文本、间隔文本和存储过程的转义序列<br>
+代码页翻译库</li>
+<li>报告驱动程序的 ANSI 一致性级别和 SQL 支持</li>
+<li>实现参数描述符的按需自动填充</li>
+<li>增强的诊断和行和参数状态阵列</li>
+<li>Datetime、interval、numeric/decimal 和 64 位整数应用程序缓冲区类型<br>
+异步执行</li>
+<li>存储过程支持，包括转义序列、输出参数绑定机制和目录函数</li>
+<li>连接增强功能，包括对连接属性和属性浏览的支持</li>
+</ul>
+<p>## 解决方案</p>
+<h2 id="软件架构"><a class="markdownIt-Anchor" href="#软件架构">#</a> 软件架构</h2>
+<p>ODBC 体系结构具有四个组件：</p>
+<ul>
+<li>应用程序 执行处理并调用 ODBC 函数以提交 SQL 语句并检索结果。</li>
+<li>驱动程序管理器 代表应用程序加载和卸载驱动程序。 处理 ODBC 函数调用或将其传递给驱动程序。</li>
+<li>驱动程序 处理 ODBC 函数调用，将 SQL 请求提交到特定数据源，并将结果返回到应用程序。 如有必要，驱动程序会修改应用程序的请求，以便请求符合关联 DBMS 支持的语法。</li>
+<li>数据源 包含用户要访问的数据及其关联的操作系统、DBMS 和网络平台 (如果任何) 用于访问 DBMS。</li>
+</ul>
+<h3 id="应用程序"><a class="markdownIt-Anchor" href="#应用程序">#</a> 应用程序</h3>
+<p>应用程序对外提供使用者交谈界面， 同时对内执行资料时准备工作数据库系统所传回来的结果再显示给使用者看。应用程序即 ODBC 界面执行下列主要工作：<br>
+1. Request a connection（i.e.session） with a data source.<br>
+ 接收一个请求连接和数据源<br>
+ 2. Send SQL requests to the data source.<br>
+ 发送一个 SQL 请求给数据源<br>
+ 3. Define storage areas and data formats for the result of SQL requests.<br>
+ 定义数据库的作用域和数据格式以响应 SQL 请求结果集。<br>
+4. Request results.<br>
+ 请求一个结果<br>
+ 5. Process errors.<br>
+ 处理错误<br>
+ 6. Request a commit or rollback of operations for transcation control.<br>
+ 请求一个提交事务或者回滚操作以进行事务控制。<br>
+7. Terminate a connection a data source.<br>
+ 终止一个连接数据源</p>
+<h3 id="驱动管理器"><a class="markdownIt-Anchor" href="#驱动管理器">#</a> 驱动管理器</h3>
+<p>驱动程序管理器是一个动态链接库 (DLL) 。</p>
+<p>驱动程序管理器的存在主要是为应用程序编写器提供便利，并解决了所有应用程序通用的一些问题。 其中包括根据数据源名称确定要加载的驱动程序、加载和卸载驱动程序以及在驱动程序中调用函数。</p>
+<p>大多数情况下，驱动程序管理器只是将函数调用从应用程序传递到正确的驱动程序。 但是，它还实现了一些函数 (SQLDataSources、 SQLDrivers 和 SQLGetFunctions) 并执行了基本的错误检查。 例如，驱动程序管理器检查处理不是 null 指针，函数按正确的顺序调用，并且某些函数参数是有效的。 有关驱动程序管理器检查的错误的完整说明，请参阅每个函数的参考部分和 附录 B： ODBC 状态转换表。</p>
+<p>驱动程序管理器的最终主要角色是加载和卸载驱动程序。 应用程序仅加载并卸载驱动程序管理器。 当它要使用特定的驱动程序时，它将调用驱动程序管理器中 (SQLConnect、 SQLDriverConnect 或 SQLBrowseConnect) 的连接函数，并指定特定数据源或驱动程序的名称，例如 “会计” 或 “SQL Server”。 使用此名称，驱动程序管理器会在数据源信息中搜索驱动程序的文件名，如 Sqlsrvr.dll。 然后，它将加载 (假设尚未加载的驱动程序) ，将每个函数的地址存储在驱动程序中，并在驱动程序中调用连接函数，然后该驱动程序将初始化自身并连接到数据源。</p>
+<hr>
+<p>驱动管理器本身是 MS Windows 中一个动态连接链接库文件 (ODBC.DLL)。应用程序通过驱动管理器去加载并连接数据源的驱动程序 (driver) 并连接数据源。驱动管理器主要工作如下：</p>
+<ol>
+<li>
+<p>Uses ODBC INI file to map a data source name to a specific driver DLL.<br>
+ 根据 ODBC 配置文件将数据源名称映射到特定的驱动程序 DLL。</p>
+</li>
+<li>
+<p>Processes server ODBC initialization calls.<br>
+ 处理服务器 ODBC 初始化调用。</p>
+</li>
+<li>
+<p>Provides entry points to ODBC functions for each driver.</p>
+</li>
+<li>
+<p>Provides parameter validation and sequence validation for ODBC calls.</p>
+</li>
+</ol>
+<h3 id="驱动程序"><a class="markdownIt-Anchor" href="#驱动程序">#</a> 驱动程序</h3>
+<p>驱动程序 是在 ODBC API 中实现函数的库。</p>
+<p>驱动程序也是一个动态链接库文件，当应用程序呼叫 ODBC 函数，SQLConnect 或者 SQLDriverCOnnect 时，驱动管理器就会加载相对的驱动程序于应用程序呼应。驱动程序主要是执行 ODBC 之相对函数，并与对应的数据源做沟通。<br>
+驱动程序工作如下：</p>
+<ol>
+<li>Establishes a connect to a data source.<br>
+ 建立一个连接到数据源的链接。</li>
+<li>Submits requests to a data sources.<br>
+ 提交一个请求。</li>
+<li>Translates data to or from other formats,if requested by the application.<br>
+ 根据应用程序要求，将数据与其他格式进行转换。</li>
+<li>Return results to the application.<br>
+ 返回一个结果给应用程序。</li>
+<li>Formats errors into standard error codes and returns them to the application.<br>
+ 将错误格式化为标准错误代码，返回给应用程序。</li>
+<li>Declares and manipulates cursors if necessary （invisible to the application）.<br>
+ 声明和操作游标，如果必要。</li>
+<li>Initiates transactions if the data source requires explicit transaction initiation（invisible to the app）.<br>
+ 如果数据源需要显式的事务启动（对于应用程序是不可见的），则启动事务。</li>
+</ol>
+<h3 id="数据源"><a class="markdownIt-Anchor" href="#数据源">#</a> 数据源</h3>
+<p>数据源的用途是将访问数据所需的所有技术信息（驱动程序名称、网络地址、网络软件等）收集到一个位置，并将其从用户隐藏。 用户应能够查看包括工资单、库存和人员的列表，从列表中选择工资单，并使应用程序连接到工资单数据，所有这些都不会知道工资单数据的驻留位置或应用程序的来源。</p>
+<p>数据源唯一数据库系统 (DBMS) 或是数据库操作系统的一个组合：</p>
+<ol>
+<li>A DBMaker DBMS running on a Microsoft Windows NT accessed by NTaccessed by TCP/IP.<br>
+ 通过 TCP/IP 访问的 NT 访问的 Microsoft Windows NT 上运行的 DBMaker DBMS。</li>
+<li>A Tandem NonStop SQL DBMS running on the Guardian 90 accessed via a gateway.<br>
+ 通过网关访问在 Guardian 90 上运行的串联式 NonStop SQL DBMS。</li>
+</ol>
+<h2 id="附属理论"><a class="markdownIt-Anchor" href="#附属理论">#</a> 附属理论</h2>
+<p>什么是 ADO？<br>
+ADO 是一项微软的技术<br>
+ ADO 指 ActiveX 数据对象（ActiveX Data Objects）<br>
+ADO 是一个微软的 Active-X 组件<br>
+ ADO 会随微软的 IIS 被自动安装<br>
+ ADO 是一个访问数据库中数据的编程接口</p>
+<p>DAO 是一种设计模式，使用这个模式来访问数据库，其实是写好的代码按照一定的规范来组织。是 MVC 出现后逻辑分层处理的结果。<br>
+而 ODBC 是开放式数据库连接的缩写，是微软的一种连接数据库的技术。它们两个没有可比性。<br>
+DAO 可以访问 ODBC。</p>
+<p>ODBC 俗称桥连 是 java 程序与数据库连接的一种形式<br>
+另外还有直连 (JDBC)<br>
+ 还有数据连接池 (JNDI) 等等<br>
+ DAO 是数据访问的接口 也就是 MVC 结构的数据访问类的 接口</p>
+<p>MFC 微软基础类库（英语：Microsoft Foundation Classes，简称 MFC）是微软公司提供的一个类库（class libraries），以 C++ 类的形式封装了 Windows API，并且包含一个应用程序框架，以减少应用程序开发人员的工作量。其中包含大量 Windows 句柄封装类和很多 Windows 的内建控件和组件的封装类</p>
+<p>ODBC 是数据库一般都支持的通用协议。<br>
+OLEDB 是微软实现的一套通用协议，包括微软的一些非数据库也支持比如 EXCEL<br>
+ 同时每个数据库还实现一些特有的协议这些特有的协议性能更好，功能更强。<br>
+.net 自带的 sqlserver 连接和 oracle 的 Oracle.DataAccess.dll 都是调用更高级的协议。</p>
+<p>一般如果有专门的协议都是用专门的，有好的当然优先使用，没有选择情况下才用 ODBC 或者 OLEDB</p>
+<h2 id="qa"><a class="markdownIt-Anchor" href="#qa">#</a> Q&amp;A</h2>
+<ol>
+<li>
+<p>ODBC 是什么？是一个接口一个 API，是一个标准。<br>
+接口（硬件类接口）是指同一计算机不同功能层之间的通信规则称为接口。<br>
+接口的表现形式就是一个函数或着一个类，其中可以涵盖很多的结构体和参数，从而形成了一个标准。</p>
+</li>
+<li>
+<p>ODBC 可以连接 mysql 等吗？<br>
+ODBC 是 micosoft 旗下的，配合 sql 使用时毫无疑问的。<br>
+mysql 也可以访问，如果在本机以添加数据源的方式 (因为已经有 ODBC)，如果是 linux 则需要增加 ODBC 驱动程序。</p>
+</li>
+</ol>
+<h2 id="思考-part1"><a class="markdownIt-Anchor" href="#思考-part1">#</a> 思考 Part1</h2>
+<p>还是分为四个大块来理解。<br>
+应用程序、驱动管理器、驱动程序、数据源。<br>
+其中应用程序是上层，数据源是下层，工作点是驱动管理器和驱动程序。</p>
+<p>应用程序向驱动管理器发出请求；<br>
+驱动管理器负责通信连接并管理，调动驱动程序；<br>
+驱动程序向下建立连接，格式化转换，请求数据，处理并返回；<br>
+数据源即 “数据来源”，包括数据库，DBMS，提供一个接口调用数据。</p>
+<p>初步想法：<br>
+驱动管理器：响应客户端 (应用程序)，保持通信，并且调用驱动程序模块。管理连接池，。<br>
+驱动程序：进行格式转换，安全调用数据库接口取出数据并返回。</p>
+<h2 id="思考-part2"><a class="markdownIt-Anchor" href="#思考-part2">#</a> 思考 Part2</h2>
+<p>现在目前需要的是看一下源码比较好。<br>
+源码好像也不是很好找，有函数的声明，但是没有函数的具体写法。这样就没办法从源码了解底层。</p>
+<p>我觉得需要重新整理一下思路，目前是处于探索期：</p>
+<ol>
+<li>编写调用 micosoft ODBC API 连接 sql server 的 C++ 程序.</li>
+<li>尝试寻找源码，未找到。</li>
+<li>搜索 ODBC 是否可以连接到 mysql 以验证 ODBC 是对不同数据库还是只是对单一数据库。可以连接到 mysql ，同时本机也可以使用 mysql 官方的代码进行连接 (该代码中也没有源码)。</li>
+<li>深化对 ODBC 的了解。</li>
+</ol>
+<h2 id="思考-part3"><a class="markdownIt-Anchor" href="#思考-part3">#</a> 思考 Part3</h2>
+<p>即刻调研：</p>
+<ol>
+<li>关于 ODCB Date source 程序里面存在的文件。一开始的设想是 ODCB Date source 是包含数据解析的，不然不会承载文件，虽然有 Sql server 的选项，仍然是提供类似数据源。但是有一种是基于文件的驱动程序。<br>
+基于文件的驱动程序与数据源（如 dBASE）一起使用，这些数据源不提供独立的数据库引擎供驱动程序使用。<br>
+比较基于文件的驱动程序和基于 DBMS 的驱动程序时，因为在数据引擎模块上的原因基于文件的驱动程序更难编写，因为其没有网络组件所以没有多样的配置，又因为很少的人有时间编写出像数据库公司所生产的一样强大的数据库引擎所以功能较弱。</li>
+<li>DBMS-based drivers are used with data sources such as Oracle or SQL Server that provide a stand-alone database engine for the driver to use<br>
+ 这说明什么，还有一层，数据库引擎 (stand-alone database engine)。这样就好理解了，ODCB Date source 程序提供两种，基于文件和基于 DBMS。基于文件的驱动程序，数据源是文件，比如 txt、.dbf；基于 DBMS，比如 sql server 和 mysql，提供数据引擎 (至少包含 sql 解析)，供 ODBC 使用。<br>
+而我们要做的驱动程序，如果是以壳的方式，那么相当于实现基于 DBMS 的驱动程序。因为 DB 系统已经带有 sql 语法解析等，可以看作一个 DBMS 或者说就是。</li>
+<li>基于 DBMS 的 ODBC 驱动程序：<br>
+尽管可以通过将 ODBC 调用转换为本机 API 调用来轻松实现基于 DBMS 的驱动程序，但这会导致驱动程序速度变慢。 实现基于 DBMS 的驱动程序的更好方法是使用底层数据流协议，这通常是本机 API 的作用。 例如，SQL Server 驱动程序应使用 TDS (用于 SQL Server) 的数据流协议，而不是 (SQL Server 的本机 API 的 DB 库。 此规则的例外情况是 ODBC 是本机 API。 例如，Watcom SQL 是与应用程序驻留在同一台计算机上的独立引擎，并直接作为驱动程序加载。</li>
+</ol>
+<h1 id="eof"><a class="markdownIt-Anchor" href="#eof">#</a> EOF</h1>
+
+      <div class="tags">
+          <a href="/tags/C-C-ODBC/" rel="tag"><i class="ic i-tag"></i> -- C/C++ -- ODBC</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-05-26 13:56:00" itemprop="dateModified" datetime="2021-05-26T13:56:00+08:00">2021-05-26</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" title="ODBC理论">http://example.com/2021/05/06/ODBC理论/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevuctzzj20zk0m84qp.jpg" title="智能指针">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>智能指针</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="ODBC编程">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>ODBC编程</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E7%90%86%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 理论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#odbc%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text"> ODBC 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86"><span class="toc-number">1.2.</span> <span class="toc-text"> 标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text"> 软件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 驱动管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 数据源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%B1%9E%E7%90%86%E8%AE%BA"><span class="toc-number">1.4.</span> <span class="toc-text"> 附属理论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qa"><span class="toc-number">1.5.</span> <span class="toc-text"> Q&amp;A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83-part1"><span class="toc-number">1.6.</span> <span class="toc-text"> 思考 Part1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83-part2"><span class="toc-number">1.7.</span> <span class="toc-text"> 思考 Part2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83-part3"><span class="toc-number">1.8.</span> <span class="toc-text"> 思考 Part3</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eof"><span class="toc-number">2.</span> <span class="toc-text"> EOF</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">69</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">31</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/" title="WebCollector爬虫与Hbase">WebCollector爬虫与Hbase</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/" title="hexo搭建部署">hexo搭建部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" title="计算机组成原理">计算机组成原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/09/05/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo/" title="高频词汇表">高频词汇表</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" title="SQL语句札记">SQL语句札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" title="数据库中文乱码问题">数据库中文乱码问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/String%E5%87%BD%E6%95%B0/" title="C&#x2F;C++ String函数">C/C++ String函数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入札记">SQL注入札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">ODBC编程</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/05/06/ODBC理论/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

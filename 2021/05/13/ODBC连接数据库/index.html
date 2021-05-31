@@ -27,12 +27,12 @@
   <meta name="keywords" content="-- C/C++ -- ODBC" />
 
 
-<link rel="canonical" href="http://example.com/2021/04/25/ODBC%E7%BC%96%E7%A8%8B/">
+<link rel="canonical" href="http://example.com/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
 
 
   <title>
-ODBC编程 |
+ODBC连接数据库 |
 iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,16 +60,16 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">ODBC编程
+  <h1 itemprop="name headline">ODBC连接数据库
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2021-04-25 00:00:00">
+  <span class="item" title="创建时间：2021-05-13 00:00:00">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2021-04-25T00:00:00+08:00">2021-04-25</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-05-13T00:00:00+08:00">2021-05-13</time>
   </span>
 </div>
 
@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -136,7 +136,7 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/ODBC%E7%BC%96%E7%A8%8B/">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -151,76 +151,16 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="odbc编程"><a class="markdownIt-Anchor" href="#odbc编程">#</a> ODBC 编程</h1>
-<p>开放数据库连接（Open Database Connectivity，ODBC）</p>
-<p>解决异构数据库间的数据共享而产生的，现已成为 WOSA (The Windows Open System Architecture (Windows 开放系统体系结构)) 的主要部分和基于 Windows 环境的一种数据库访问接口标准。</p>
-<p>ODBC 为异构数据库访问提供统一接口，允许应用程序以 SQL 为数据存取标准，存取不同 DBMS 管理的数据；<br>
-使应用程序直接操纵 DB 中的数据，免除随 DB 的改变而改变。<br>
-用 ODBC 可以访问各类计算机上的 DB 文件，甚至访问如 Excel 表和 ASCII 数据文件这类非数据库对象。</p>
-<h2 id="软件架构"><a class="markdownIt-Anchor" href="#软件架构">#</a> 软件架构</h2>
-<h3 id="应用程序"><a class="markdownIt-Anchor" href="#应用程序">#</a> 应用程序</h3>
-<p>应用程序对外提供使用者交谈界面， 同时对内执行资料时准备工作数据库系统所传回来的结果再显示给使用者看。应用程序即 ODBC 界面执行下列主要工作：<br>
-1. Request a connection（i.e.session） with a data source.<br>
- 接收一个请求连接和数据源<br>
- 2. Send SQL requests to the data source.<br>
- 发送一个 SQL 请求给数据源<br>
- 3. Define storage areas and data formats for the result of SQL requests.<br>
- 定义数据库的作用域和数据格式以响应 SQL 请求结果集。<br>
-4. Request results.<br>
- 请求一个结果<br>
- 5. Process errors.<br>
- 处理错误<br>
- 6. Request a commit or rollback of operations for transcation control.<br>
- 请求一个提交事务或者回滚操作以进行事务控制。<br>
-7. Terminate a connection a data source.<br>
- 终止一个连接数据源</p>
-<h3 id="驱动管理器"><a class="markdownIt-Anchor" href="#驱动管理器">#</a> 驱动管理器</h3>
-<p>驱动管理器本身是 MS Windows 中一个动态连接链接库文件 (ODBC.DLL)。应用程序通过驱动管理器去加载并连接数据源的驱动程序 (driver) 并连接数据源。驱动管理器主要工作如下：<br>
-1． Uses ODBC INI file to map a data source name to a specific driver DLL.<br>
- 根据 ODBC 配置文件将数据源名称映射到特定的驱动程序 DLL。<br>
-2． Processes server ODBC initialization calls.<br>
- 处理服务器 ODBC 初始化调用。<br>
-3． Provides entry points to ODBC functions for each driver.<br>
-4． Provides parameter validation and sequence validation for ODBC calls.</p>
-<h3 id="驱动程序"><a class="markdownIt-Anchor" href="#驱动程序">#</a> 驱动程序</h3>
-<p>驱动程序也是一个动态链接库文件，当应用程序呼叫 ODBC 函数，SQLConnect 或者 SQLDriverCOnnect 时，驱动管理器就会加载相对的驱动程序于应用程序呼应。驱动程序主要是执行 ODBC 之相对函数，并与对应的数据源做沟通。<br>
-驱动程序工作如下：<br>
-1． Establishes a connect to a data source.<br>
- 建立一个连接到数据源的链接。<br>
-2． Submits requests to a data sources.<br>
- 提交一个请求。<br>
-3． Translates data to or from other formats,if requested by the application.<br>
- 根据应用程序要求，将数据与其他格式进行转换。<br>
-4． Return results to the application.<br>
- 返回一个结果给应用程序。<br>
-5． Formats errors into standard error codes and returns them to the application.<br>
- 将错误格式化为标准错误代码，返回给应用程序。<br>
-6． Declares and manipulates cursors if necessary （invisible to the application）.<br>
- 声明和操作游标，如果必要。<br>
-7． Initiates transactions if the data source requires explicit transaction initiation（invisible to the app）.<br>
- 如果数据源需要显式的事务启动（对于应用程序是不可见的），则启动事务。</p>
-<h3 id=""><a class="markdownIt-Anchor" href="#">#</a> </h3>
-<h2 id="功能点"><a class="markdownIt-Anchor" href="#功能点">#</a> 功能点</h2>
-<h2 id="兼容点"><a class="markdownIt-Anchor" href="#兼容点">#</a> 兼容点</h2>
-<h2 id="接口方案"><a class="markdownIt-Anchor" href="#接口方案">#</a> 接口方案</h2>
-<h2 id="拟定"><a class="markdownIt-Anchor" href="#拟定">#</a> 拟定</h2>
-<h2 id="模块化思想"><a class="markdownIt-Anchor" href="#模块化思想">#</a> 模块化思想</h2>
-<p>编写一个程序，能够响应外部的 ODBC 请求连接，并且与其有对等的协议，从而对数据库进行操作，以返回外部请求的数据或执行相关的操作。</p>
-<ol>
-<li>
-<p>解析模块<br>
-包括 connect 连接中的数据解析。<br>
-TCP 协议解析。</p>
-</li>
-<li>
-<p>连接池模块<br>
-对多个连接进行管理。因为连接是有时间的？</p>
-</li>
-<li>
-<p>请求事务模块<br>
-对请求进行返回数据。对数据库进行操作</p>
-</li>
-</ol>
+    <h1 id="odbc连接数据库"><a class="markdownIt-Anchor" href="#odbc连接数据库">#</a> ODBC 连接数据库</h1>
+<h2 id="连接本地数据库sql-server"><a class="markdownIt-Anchor" href="#连接本地数据库sql-server">#</a> 连接本地数据库 sql server</h2>
+<p>如果是直接使用函数 SQLConnect， 则将需要配置数据库源。<br>
+参照连接<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhcnJpb3JfMS9hcnRpY2xlL2RldGFpbHMvMTA2NTE3OTQ5">在 VS 中用 C 语言连接 sql server</span></p>
+<p>大概意思就是，sql server mangement 中配置 SQL 验证。<br>
+数据库属性，安全性， SQL server 和 windwos 身份验证。数据库，安全性，登录名，sa，密码，状态，启用。<br>
+之后控制面板，系统安全，管理工具，ODBC Data Sources (32-bit)，系统 DSN，添加，SQL server ，名称自己命名，服务器本机，登入名与配置的数据库登入名一致。</p>
+<p>其他的数据库连接也是这样，只是如果在本机配置时添加的类型不一。</p>
+<h2 id="远程连接数据库"><a class="markdownIt-Anchor" href="#远程连接数据库">#</a> 远程连接数据库</h2>
+<h1 id="eof"><a class="markdownIt-Anchor" href="#eof">#</a> EOF</h1>
 
       <div class="tags">
           <a href="/tags/C-C-ODBC/" rel="tag"><i class="ic i-tag"></i> -- C/C++ -- ODBC</a>
@@ -235,7 +175,7 @@ TCP 协议解析。</p>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-05-07 20:03:20" itemprop="dateModified" datetime="2021-05-07T20:03:20+08:00">2021-05-07</time>
+    <time title="修改时间：2021-05-14 08:38:46" itemprop="dateModified" datetime="2021-05-14T08:38:46+08:00">2021-05-14</time>
   </span>
 </div>
 
@@ -266,7 +206,7 @@ TCP 协议解析。</p>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2021/04/25/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">http://example.com/2021/04/25/ODBC编程/</a>
+    <a href="http://example.com/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" title="ODBC连接数据库">http://example.com/2021/05/13/ODBC连接数据库/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -285,20 +225,20 @@ TCP 协议解析。</p>
     <div class="item left">
       
 
-  <a href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxfdlttj20zk0m8npd.jpg" title="C++基本项目开发思路">
+  <a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetv6p75j20zk0m8x6p.jpg" title="ODBC编程">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>C++基本项目开发思路</h3>
+  <h3>ODBC编程</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclj61ylzj20zk0m8b29.jpg" title="B树学习札记">
+  <a href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhpw3lwj20zk0m8gvw.jpg" title="C&#x2F;C++windows服务">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>B树学习札记</h3>
+  <h3>C/C++windows服务</h3>
   </a>
 
     </div>
@@ -317,7 +257,7 @@ TCP 协议解析。</p>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 软件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 驱动管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.4.</span> <span class="toc-text"> </span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 功能点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text"> 兼容点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.</span> <span class="toc-text"> 接口方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%9F%E5%AE%9A"><span class="toc-number">1.5.</span> <span class="toc-text"> 拟定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E6%80%9D%E6%83%B3"><span class="toc-number">1.6.</span> <span class="toc-text"> 模块化思想</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 连接数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93sql-server"><span class="toc-number">1.1.</span> <span class="toc-text"> 连接本地数据库 sql server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 远程连接数据库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eof"><span class="toc-number">2.</span> <span class="toc-text"> EOF</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -332,13 +272,13 @@ TCP 协议解析。</p>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">65</span>
+        <span class="count">69</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">30</span>
+        <span class="count">31</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -391,12 +331,12 @@ TCP 协议解析。</p>
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -420,7 +360,7 @@ TCP 协议解析。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/" title="数据库中文乱码问题">数据库中文乱码问题</a></span>
+    <span><a href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/" title="SQL语句札记">SQL语句札记</a></span>
   </li>
 
       
@@ -429,52 +369,7 @@ TCP 协议解析。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" title="C&#x2F;C++问题收录与知识积累">C/C++问题收录与知识积累</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/" title="系统管理之重装系统记">系统管理之重装系统记</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/05/25/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="创新创业项目库管理系统">创新创业项目库管理系统</a></span>
+    <span><a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" title="ODBC理论">ODBC理论</a></span>
   </li>
 
       
@@ -492,7 +387,7 @@ TCP 协议解析。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
+    <span><a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" title="计算机组成原理">计算机组成原理</a></span>
   </li>
 
       
@@ -501,7 +396,52 @@ TCP 协议解析。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/" title="配置Linux环境">配置Linux环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="VS C++开发使用笔记">VS C++开发使用笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" title="Linux命令总集与系统">Linux命令总集与系统</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/" title="数据库理论系统学习手册">数据库理论系统学习手册</a></span>
   </li>
 
   </ul>
@@ -532,7 +472,7 @@ TCP 协议解析。</p>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2021/04/25/ODBC编程/',
+    path: '2021/05/13/ODBC连接数据库/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"

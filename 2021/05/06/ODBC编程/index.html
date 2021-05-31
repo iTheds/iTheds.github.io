@@ -1,0 +1,605 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="人生长勤" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="人生长勤" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="人生长勤" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="-- C/C++ -- ODBC" />
+
+
+<link rel="canonical" href="http://example.com/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/">
+
+
+
+  <title>
+ODBC编程 |
+iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">ODBC编程
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-05-06 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-05-06T00:00:00+08:00">2021-05-06</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">iTheds</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="iTheds">
+    <meta itemprop="description" content="唯渴学而已，热烈肆溢，孤心坚韧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="人生长勤">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="odbc编程"><a class="markdownIt-Anchor" href="#odbc编程">#</a> ODBC 编程</h1>
+<h2 id="句柄"><a class="markdownIt-Anchor" href="#句柄">#</a> 句柄</h2>
+<p>句柄是用于标识特定项的不透明、32 位的值；在 ODBC 中，此项可以是环境、连接、语句或描述符。 当应用程序调用  <code>SQLAllocHandle</code>  时，驱动程序管理器或驱动程序将创建指定类型的新项，并将其句柄返回到应用程序。 稍后，应用程序使用该句柄在调用 ODBC 函数时标识该项。 驱动程序管理器和驱动程序使用该句柄来查找有关项的信息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">SQLHSTMT      hstmtOrder, hstmtLine; <span class="comment">// Statement handles.  </span></span><br><span class="line">SQLUINTEGER   OrderID;  </span><br><span class="line">SQLINTEGER    OrderIDInd = <span class="number">0</span>;  </span><br><span class="line">SQLRETURN     rc;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Prepare the statement that retrieves line number information.  </span></span><br><span class="line">SQLPrepare(hstmtLine, <span class="string">&quot;SELECT * FROM Lines WHERE OrderID = ?&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind OrderID to the parameter in the preceding statement.  </span></span><br><span class="line">SQLBindParameter(hstmtLine, <span class="number">1</span>, SQL_PARAM_INPUT, SQL_C_ULONG, SQL_INTEGER, <span class="number">5</span>, <span class="number">0</span>,  </span><br><span class="line">               &amp;OrderID, <span class="number">0</span>, &amp;OrderIDInd);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind the result sets for the Order table and the Lines table. Bind  </span></span><br><span class="line"><span class="comment">// OrderID to the OrderID column in the Orders table. When each row is  </span></span><br><span class="line"><span class="comment">// fetched, OrderID will contain the current order ID, which will then be  </span></span><br><span class="line"><span class="comment">// passed as a parameter to the statement tofetch line number  </span></span><br><span class="line"><span class="comment">// information. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">// Create a result set of sales orders.  </span></span><br><span class="line">SQLExecDirect(hstmtOrder, <span class="string">&quot;SELECT * FROM Orders&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Fetch and display the sales order data. Code to check if rc equals  </span></span><br><span class="line"><span class="comment">// SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line"><span class="keyword">while</span> ((rc = SQLFetch(hstmtOrder)) != SQL_NO_DATA) &#123;  </span><br><span class="line">   <span class="comment">// Display the sales order data. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Create a result set of line numbers for the current sales order.  </span></span><br><span class="line">   SQLExecute(hstmtLine);  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Fetch and display the sales order line number data. Code to check  </span></span><br><span class="line">   <span class="comment">// if rc equals SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line">   <span class="keyword">while</span> ((rc = SQLFetch(hstmtLine)) != SQL_NO_DATA) &#123;  </span><br><span class="line">      <span class="comment">// Display the sales order line number data. Code not shown.  </span></span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Close the sales order line number result set.  </span></span><br><span class="line">   SQLCloseCursor(hstmtLine);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Close the sales order result set.  </span></span><br><span class="line">SQLCloseCursor(hstmtOrder);</span><br></pre></td></tr></table></figure>
+<h3 id="环境句柄environment-handles"><a class="markdownIt-Anchor" href="#环境句柄environment-handles">#</a> 环境句柄 (Environment Handles)</h3>
+<p>环境是用于访问数据的全局上下文；与环境相关联的任何信息都是全局性的，例如：</p>
+<ul>
+<li>环境状态</li>
+<li>当前环境级别诊断</li>
+<li>当前在环境中分配的连接的句柄</li>
+<li>每个环境属性的当前设置<br>
+在 (驱动程序管理器或驱动程序) 实现 ODBC 的一段代码中，环境句柄标识了包含此信息的结构。<br>
+在 ODBC 应用程序中不经常使用环境句柄。 它们始终用于对 SQLDataSources 和 SQLDrivers 的调用，有时用于调用 SQLAllocHandle、 SQLEndTran、 SQLFreeHandle、 SQLGetDiagField 和 SQLGetDiagRec。<br>
+实现 ODBC (驱动程序管理器或驱动程序) 的每个代码段都包含一个或多个环境句柄。 例如，驱动程序管理器为连接到它的每个应用程序维护单独的环境句柄。 环境句柄通过 SQLAllocHandle 分配，并与 SQLFreeHandle 一起释放。</li>
+</ul>
+<h3 id="连接句柄"><a class="markdownIt-Anchor" href="#连接句柄">#</a> 连接句柄</h3>
+<p>连接包含驱动程序和数据源。 连接句柄标识每个连接。 连接句柄不仅定义要使用的驱动程序，而且还定义了要与该驱动程序一起使用的数据源。 在 (驱动程序管理器或驱动程序) 实现 ODBC 的代码段中，连接句柄标识包含连接信息的结构，如下所示：</p>
+<ul>
+<li>连接的状态</li>
+<li>当前连接级别诊断</li>
+<li>连接上当前分配的语句和描述符的句柄</li>
+<li>每个连接属性的当前设置<br>
+如果驱动程序支持多个连接，ODBC 不会阻止这些连接。 因此，在特定 ODBC 环境中，多个连接句柄可能指向各种驱动程序和数据源、同一驱动程序和不同的数据源，甚至是与同一驱动程序和数据源的多个连接。 某些驱动程序会限制它们支持的活动连接数；SQLGetInfo 中的 SQL_MAX_DRIVER_CONNECTIONS 选项指定特定驱动程序支持的活动连接数。<br>
+连接句柄主要用于连接到数据源 (SQLConnect、 SQLDriverConnect 或 SQLBrowseConnect) 、断开与数据源的连接 (SQLDisconnect) 、获取有关驱动程序和数据源的信息 (SQLGetInfo) 、检索诊断 (SQLGetDiagField 和 SQLGetDiagRec) ，以及 (SQLEndTran) 执行事务。 在设置和获取 (SQLSetConnectAttr 和) SQLGetConnectAttr 的连接属性时，以及在获取 SQL 语句 (SQLNativeSql) 的本机格式时，它们也使用它们。<br>
+连接句柄通过 SQLAllocHandle 分配，并与 SQLFreeHandle 一起释放。</li>
+</ul>
+<h3 id="语句句柄"><a class="markdownIt-Anchor" href="#语句句柄">#</a> 语句句柄</h3>
+<p>语句句柄似乎是解析其中语句和语义的。在编写驱动程序和驱动管理程序这部分应该是不需要包含对 sql 语句的解析。</p>
+<p>语句最容易被视为一种 SQL 语句，例如 SELECT * FROM Employee。 但是，语句不只是 SQL 语句，而是包含与该 SQL 语句相关联的所有信息，如语句所创建的所有结果集和执行语句时使用的参数。 语句甚至不需要具有应用程序定义的 SQL 语句。 例如，在语句上执行目录函数（如 SQLTables ）时，它会执行返回表名列表的预定义 SQL 语句。<br>
+每个语句由语句句柄标识。 语句与单个连接相关联，并且该连接上可能有多个语句。 某些驱动程序会限制它们支持的活动语句的数量；SQLGetInfo 中的 SQL_MAX_CONCURRENT_ACTIVITIES 选项指定驱动程序在单个连接上支持的活动语句的数量。 如果语句具有挂起的结果，则将其定义为 活动状态 ，其中的结果是结果集或受 INSERT、 UPDATE 或 DELETE 语句影响的行数，或者正在通过多次调用 SQLPutData 发送数据。<br>
+在 (驱动程序管理器或驱动程序) 实现 ODBC 的一段代码内，语句句柄标识包含语句信息的结构，如：</p>
+<ul>
+<li>语句的状态</li>
+<li>当前语句级别诊断</li>
+<li>绑定到语句的参数和结果集列的应用程序变量的地址</li>
+<li>每个语句特性的当前设置<br>
+语句句柄用于大多数 ODBC 函数。 特别要注意的是，在函数中使用它们来绑定参数和结果集列 (SQLBindParameter 和 SQLBindCol) 、prepare 和 execute 语句 (SQLPrepare、 SQLExecute 和 SQLExecDirect) 、检索元 数据 (SQLColAttribute 和 SQLDescribeCol) 、提取结果 (SQLFetch) 并检索诊断 (SQLGetDiagField 和 SQLGetDiagRec) 。 它们还在目录函数中使用， (SQLColumns、 SQLTables 等) 以及许多其他函数。<br>
+语句句柄通过 SQLAllocHandle 分配，并与 SQLFreeHandle 一起释放。</li>
+</ul>
+<h3 id="状态转换"><a class="markdownIt-Anchor" href="#状态转换">#</a> 状态转换</h3>
+<p>状态标识符</p>
+<h2 id="缓冲区"><a class="markdownIt-Anchor" href="#缓冲区">#</a> 缓冲区</h2>
+<h2 id="基本-odbc-应用程序步骤go"><a class="markdownIt-Anchor" href="#基本-odbc-应用程序步骤go">#</a> 基本 ODBC 应用程序步骤<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vemgtY24vc3FsL29kYmMvcmVmZXJlbmNlL2RldmVsb3AtYXBwL2Jhc2ljLW9kYmMtYXBwbGljYXRpb24tc3RlcHM/dmlldz1zcWwtc2VydmVyLXZlcjE1"> GO</span></h2>
+<p>本部分包含以下主题。</p>
+<ul>
+<li>步骤 1：连接数据源</li>
+<li>步骤 2：初始化应用程序</li>
+<li>步骤 3：生成并执行 SQL 语句</li>
+<li>步骤 4a：提取结果</li>
+<li>步骤 4b：提取行计数</li>
+<li>步骤 5：提交事务</li>
+<li>步骤 6：从数据源断开连接</li>
+</ul>
+<h3 id="步骤-1连接数据源"><a class="markdownIt-Anchor" href="#步骤-1连接数据源">#</a> 步骤 1：连接数据源</h3>
+<p>connect:<br>
+SQLAllocHandle(ENV)<br>
+SQLSetEnvAttr<br>
+SQLAllocHandle(DBC)<br>
+SQLConnect<br>
+SQLSetConnectAttr</p>
+<p>连接到数据源的第一步是加载驱动程序管理器，并通过 SQLAllocHandle 分配环境句柄。</p>
+<h3 id="步骤-2初始化应用程序"><a class="markdownIt-Anchor" href="#步骤-2初始化应用程序">#</a> 步骤 2：初始化应用程序</h3>
+<p>此时，通常使用 SQLGetInfo 来发现驱动程序的功能。</p>
+<h3 id="步骤-3生成并执行-sql-语句"><a class="markdownIt-Anchor" href="#步骤-3生成并执行-sql-语句">#</a> 步骤 3：生成并执行 SQL 语句</h3>
+<p>第三步是生成和执行 SQL 语句，如下图所示。 用于执行此步骤的方法可能会有很大差异。 该应用程序可能会提示用户输入 SQL 语句，根据用户输入生成 SQL 语句，或者使用硬编码的 SQL 语句。</p>
+<h3 id="步骤-4a提取结果"><a class="markdownIt-Anchor" href="#步骤-4a提取结果">#</a> 步骤 4a：提取结果</h3>
+<p>如果在 “步骤 3：生成并执行 SQL 语句” 中执行的语句是 SELECT 语句或目录函数，则该应用程序首先调用 SQLNumResultCols 以确定结果集中的列数。 如果应用程序已知道结果集列的数目，则不需要执行此步骤，例如，当 SQL 语句在垂直或自定义应用程序中硬编码时。<br>
+接下来，应用程序通过 SQLDescribeCol 检索每个结果集列的名称、数据类型、精度和小数位数。 同样，对于已知道此信息的应用程序（如垂直和自定义应用程序），这并不是必需的。 应用程序将此信息传递给 SQLBindCol，这会将应用程序变量绑定到结果集中的列。<br>
+现在，应用程序会调用 SQLFetch 来检索第一行数据，并将该行中的数据置于与 SQLBindCol 绑定的变量中。 如果行中有任何长数据，则它会调用 SQLGetData 来检索该数据。 应用程序继续调用 SQLFetch 和 SQLGetData 以检索其他数据。 完成数据提取后，它将调用 SQLCloseCursor 以关闭游标。</p>
+<h3 id="步骤-4b提取行计数"><a class="markdownIt-Anchor" href="#步骤-4b提取行计数">#</a> 步骤 4b：提取行计数</h3>
+<p>如果在步骤 3 中执行的语句是 UPDATE、 DELETE 或 INSERT 语句，则应用程序将使用 SQLRowCount 检索受影响行的计数。</p>
+<h3 id="步骤-5提交事务"><a class="markdownIt-Anchor" href="#步骤-5提交事务">#</a> 步骤 5：提交事务</h3>
+<p>第五步是调用 SQLEndTran 来提交或回滚事务。 仅当应用程序将事务提交模式设置为手动提交时，应用程序才会执行此步骤；如果事务提交模式为自动提交（这是默认值），则执行语句时，将自动提交事务。 有关详细信息，请参阅事务。<br>
+若要在新事务中执行语句，应用程序会返回到步骤 3。 若要断开与数据源的连接，应用程序将继续执行步骤 6。</p>
+<h3 id="步骤-6从数据源断开连接"><a class="markdownIt-Anchor" href="#步骤-6从数据源断开连接">#</a> 步骤 6：从数据源断开连接</h3>
+<p>最后一步是断开与数据源的连接，如下图所示。 首先，应用程序通过调用 SQLFreeHandle 释放所有语句句柄。 有关详细信息，请参阅 释放语句句柄。</p>
+<h2 id="驱动程序管理器连接池"><a class="markdownIt-Anchor" href="#驱动程序管理器连接池">#</a> 驱动程序管理器连接池</h2>
+<p>使用连接池，应用程序可以使用连接池的连接，无需在每次使用时重新建立连接。 创建连接并将其放置到池中后，应用程序可以重新使用该连接，而无需执行完整的连接过程。</p>
+<h2 id="recording"><a class="markdownIt-Anchor" href="#recording">#</a> Recording</h2>
+<p>当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库， 以及通过 Odbc 1.x 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的应用程序将使用 odbc 1.x 驱动程序或符合标准的驱动程序。<br>
+当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库时，以及当应用程序通过 odbc 1.X 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的驱动程序将使用 odbc 1.x 应用程序或符合标准的应用程序。</p>
+<h2 id="开发"><a class="markdownIt-Anchor" href="#开发">#</a> 开发</h2>
+<p>开发应用程序。</p>
+<h2 id="函数api"><a class="markdownIt-Anchor" href="#函数api">#</a> 函数 API</h2>
+<p>三种连接 connect 方式的区别。</p>
+<p>SQLBrowseConnect()</p>
+<p>Driver 函数的作用。</p>
+<h2 id="想法part1"><a class="markdownIt-Anchor" href="#想法part1">#</a> 想法 Part1</h2>
+<p>不应该局限于整个体系，要形成自己的想法，然后进行实现。<br>
+ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资料几乎不可能告诉我。<br>
+目前的处境是，看似好像有一个逻辑，但是要依靠一个小白自下而上的调研整理出一个解决方案几乎不可能。<br>
+或者说难以形成一个真正可以实行的方案。无非就是：<br>
+响应连接，内部格式转换，进行事务处理，提交。<br>
+设置缓冲区，连接池。管理连接。</p>
+<p>更细节的东西目前不能解决刚需，更笼统的体系又没有什么作用，都是在讲述流程。要从这里规整为方案不太实际。即使有也不是我想的那样得出一个具体的流程模板。</p>
+<p>所以目下直接开始进行 Demo 实现，哪怕是进行黑盒反向测试。<br>
+如果鄙人经验丰富，那可能可以从大体上进行规划，甚至还可以通过模块化的思想将工作一分为多。</p>
+<p>根本的目标是进行远程通信，响应其他的 ODBC 的连接。换一种思路。</p>
+<p>所以接下来的工作是，</p>
+<ol>
+<li>实现一个 Demo， 使用其访问 sql server，并进行增删改查的基本操作。</li>
+<li>从这个 Demo 中得知 Microsoft 的执行方式，从而逆推 ODBC 功能。</li>
+</ol>
+<h2 id="想法part2"><a class="markdownIt-Anchor" href="#想法part2">#</a> 想法 Part2</h2>
+<p>我觉得，现在需要知道的是更底层的通信问题。<br>
+比如 ODBC 如何响应一个请求连接。这个地方也是 Socket 编程？<br>
+或者更底层的程序间的通信。甚至是请求连接的过程。</p>
+<h1 id="eof"><a class="markdownIt-Anchor" href="#eof">#</a> EOF</h1>
+
+      <div class="tags">
+          <a href="/tags/C-C-ODBC/" rel="tag"><i class="ic i-tag"></i> -- C/C++ -- ODBC</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-05-25 11:33:13" itemprop="dateModified" datetime="2021-05-25T11:33:13+08:00">2021-05-25</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="iTheds 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="iTheds 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Lonnie iTheds <i class="ic i-at"><em>@</em></i>人生长勤
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">http://example.com/2021/05/06/ODBC编程/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4fomxoj20zk0m8axp.jpg" title="ODBC理论">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>ODBC理论</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexw3o58j20zk0m8e81.jpg" title="ODBC连接数据库">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>ODBC连接数据库</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 句柄</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%A5%E6%9F%84environment-handles"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 环境句柄 (Environment Handles)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 连接句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 语句句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 状态转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.2.</span> <span class="toc-text"> 缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC-odbc-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%AD%A5%E9%AA%A4go"><span class="toc-number">1.3.</span> <span class="toc-text"> 基本 ODBC 应用程序步骤 GO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 步骤 1：连接数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 步骤 2：初始化应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%E7%94%9F%E6%88%90%E5%B9%B6%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 步骤 3：生成并执行 SQL 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4a%E6%8F%90%E5%8F%96%E7%BB%93%E6%9E%9C"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 步骤 4a：提取结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4b%E6%8F%90%E5%8F%96%E8%A1%8C%E8%AE%A1%E6%95%B0"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 步骤 4b：提取行计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 步骤 5：提交事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6%E4%BB%8E%E6%95%B0%E6%8D%AE%E6%BA%90%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 步骤 6：从数据源断开连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86%E5%99%A8%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-number">1.4.</span> <span class="toc-text"> 驱动程序管理器连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recording"><span class="toc-number">1.5.</span> <span class="toc-text"> Recording</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91"><span class="toc-number">1.6.</span> <span class="toc-text"> 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0api"><span class="toc-number">1.7.</span> <span class="toc-text"> 函数 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part1"><span class="toc-number">1.8.</span> <span class="toc-text"> 想法 Part1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part2"><span class="toc-number">1.9.</span> <span class="toc-text"> 想法 Part2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eof"><span class="toc-number">2.</span> <span class="toc-text"> EOF</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="iTheds"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">iTheds</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">69</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">31</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lUaGVkcw==" title="https:&#x2F;&#x2F;github.com&#x2F;iTheds"><i class="ic i-github"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Nodejs学习笔记">Nodejs学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="Ps学习札记">Ps学习札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" title="ODBC理论">ODBC理论</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/" title="Linux网络应用">Linux网络应用</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">iTheds @ iTheds</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/05/06/ODBC编程/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

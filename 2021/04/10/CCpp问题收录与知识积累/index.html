@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
         </ul>
       </div>
     </header>
@@ -153,17 +153,21 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 
     <h1 id="cc问题收录与知识积累"><a class="markdownIt-Anchor" href="#cc问题收录与知识积累">#</a> C/C++ 问题收录与知识积累</h1>
 <h2 id="知识积累"><a class="markdownIt-Anchor" href="#知识积累">#</a> 知识积累</h2>
-<h3 id="stl库函数返回值问题"><a class="markdownIt-Anchor" href="#stl库函数返回值问题">#</a> STL 库函数返回值问题</h3>
-<p>返回一个 char*，那么这个空间能保留的时间有多久呢。<br>
-如果用一个 char<em> 去接收，而这个 char * 没有 malloc 或者初始化一个 const char*，那么我们存储的就是一个地址。<br>
-而 char</em>，被返回，无论函数中是如何定义的，malloc 或者初始化，或者数组，都是有一个空间。<br>
-在某条件下，空间会被释放。<br>
-疑似使用引用次数？或者智能指针？</p>
+<h3 id=""><a class="markdownIt-Anchor" href="#">#</a> </h3>
+<h3 id="lpctstr"><a class="markdownIt-Anchor" href="#lpctstr">#</a> LPCTSTR</h3>
+<p>L 表示 long 指针 这是为了兼容 Windows 3.1 等 16 位操作系统遗留下来的，在 win32 中以及其他的 32 位操作系统中， long 指针和 near 指针及 far 修饰符都是为了兼容的作用。没有实际意义。<br>
+P 表示这是一个指针<br>
+ C 表示是一个常量<br>
+ T 表示在 Win32 环境中， 有一个_T 宏<br>
+ STR 表示这个变量是一个字符串</p>
+<h3 id="远程执行windows-server中的程序"><a class="markdownIt-Anchor" href="#远程执行windows-server中的程序">#</a> 远程执行 windows server 中的程序</h3>
+<p>使用工具 psexec，需要开启 ipc$ 和 admin$。未试验成功。<br>
+其中注意 PIN 与 password 的区别。</p>
 <h3 id="char-和-unsigned-char"><a class="markdownIt-Anchor" href="#char-和-unsigned-char">#</a> char 和 unsigned char</h3>
 <p>int 和 unsigned int 好理解，一个是有符号位，一个是没有符号位，两者能表示的数据范围都是一样的。<br>
 同理，ASCII 码中，有效位数是 [0, 127]，最高位可用于作为奇偶校验。双字节标识中文时，使用了负数范围。<br>
 一般情况下，使用正数 [0, 127]， unsigned 和 signed 没有什么区别，但是在转换为 int 的时候，如果是 signed ， 那么因为补码负数将会在高位补 1，进行扩展。<br>
-但是如果时 unsigned ， 即使时负数，也不会进行扩展，仍然补 0。</p>
+但是如果时 unsigned，即使时负数，也不会进行扩展，仍然补 0。</p>
 <h3 id="关于使用char-转成int型"><a class="markdownIt-Anchor" href="#关于使用char-转成int型">#</a> 关于使用 char 转成 int 型</h3>
 <h4 id="1-异或法范围与int型同"><a class="markdownIt-Anchor" href="#1-异或法范围与int型同">#</a> 1. 异或法，范围与 int 型同</h4>
 <p>最初的想法是直接通过位移的方式进行低位换算，存到 char 中；接收之后转换同理。</p>
@@ -395,6 +399,15 @@ else&#123;
 对于函数重载：若 c</ins> 中 （void *）支持任意类型转换，函数重载时将出现问题下列代码中 fun (NULL) 将不能判断调用哪个函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;1&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">char</span> *p)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fun(<span class="literal">NULL</span>);  <span class="comment">//输出1，c++中NULL为整数0</span></span><br><span class="line">    fun(<span class="literal">nullptr</span>);<span class="comment">//输出2，nullptr 为空指针常量。是指针类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="问题索引"><a class="markdownIt-Anchor" href="#问题索引">#</a> 问题索引</h2>
+<h3 id="dll文件和lib文件"><a class="markdownIt-Anchor" href="#dll文件和lib文件">#</a> dll 文件和 lib 文件</h3>
+<p>DLL (Dynamic Link Library) 文件，中文叫动态库文件，是程序在运行时所需要调用的库，那么静态库 lib 文件就是在程序编译时所需要调用的库。</p>
+<p>一般的有三个文件，lib、dll、pdb 文件，lib 文件指定路径就好。而 dll 文件需要位于 exe 文件路径中。</p>
+<h3 id="stl库函数返回值问题"><a class="markdownIt-Anchor" href="#stl库函数返回值问题">#</a> STL 库函数返回值问题</h3>
+<p>返回一个 char*，那么这个空间能保留的时间有多久呢。<br>
+如果用一个 char<em> 去接收，而这个 char * 没有 malloc 或者初始化一个 const char*，那么我们存储的就是一个地址。<br>
+而 char</em>，被返回，无论函数中是如何定义的，malloc 或者初始化，或者数组，都是有一个空间。<br>
+在某条件下，空间会被释放。<br>
+疑似使用引用次数？或者智能指针？</p>
 <h3 id="winsockh和winsock2h重定义问题"><a class="markdownIt-Anchor" href="#winsockh和winsock2h重定义问题">#</a> winsock.h 和 winsock2.h 重定义问题</h3>
 <p>1. 查找 winsock.h winsock2.h windows.h 调用的地方<br>
  2. 确保 windows.h 包含的地方同时包含 winsock2.h (先包含 winsock2.h)<br>
@@ -442,7 +455,7 @@ x = (int*)malloc(sizeof(int));<br>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-05-07 19:00:01" itemprop="dateModified" datetime="2021-05-07T19:00:01+08:00">2021-05-07</time>
+    <time title="修改时间：2021-05-31 10:35:47" itemprop="dateModified" datetime="2021-05-31T10:35:47+08:00">2021-05-31</time>
   </span>
 </div>
 
@@ -492,7 +505,7 @@ x = (int*)malloc(sizeof(int));<br>
     <div class="item left">
       
 
-  <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevuctzzj20zk0m84qp.jpg" title="AgilorE文件初步分析">
+  <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclflwv2aj20zk0m84qp.jpg" title="AgilorE文件初步分析">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>AgilorE文件初步分析</h3>
@@ -502,7 +515,7 @@ x = (int*)malloc(sizeof(int));<br>
     <div class="item right">
       
 
-  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitcxhpij20zk0m8hdt.jpg" title="CRC循环冗余校验">
+  <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclflwv2aj20zk0m84qp.jpg" title="CRC循环冗余校验">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>CRC循环冗余校验</h3>
@@ -524,7 +537,7 @@ x = (int*)malloc(sizeof(int));<br>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 问题收录与知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stl%E5%BA%93%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.1.</span> <span class="toc-text"> STL 库函数返回值问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char-%E5%92%8C-unsigned-char"><span class="toc-number">1.1.2.</span> <span class="toc-text"> char 和 unsigned char</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8char-%E8%BD%AC%E6%88%90int%E5%9E%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 关于使用 char 转成 int 型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%82%E6%88%96%E6%B3%95%E8%8C%83%E5%9B%B4%E4%B8%8Eint%E5%9E%8B%E5%90%8C"><span class="toc-number">1.1.3.1.</span> <span class="toc-text"> 1. 异或法，范围与 int 型同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-memcpy%E8%BF%9B%E8%A1%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E5%88%B6"><span class="toc-number">1.1.3.2.</span> <span class="toc-text"> 2. memcpy 进行空间复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AD%98%E5%82%A8ascii%E7%A0%81%E8%8C%83%E5%9B%B49999"><span class="toc-number">1.1.3.3.</span> <span class="toc-text"> 3. 存储 ASCII 码，范围 9999</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-cout%E5%88%A9%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AC%A6dec-hex%E5%92%8Coct%E5%88%86%E5%88%AB%E8%BE%93%E5%87%BA%E5%8D%81%E8%BF%9B%E5%88%B6-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%92%8C%E5%85%AB%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E6%95%B4%E6%95%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text"> C++ cout 利用控制符 dec、hex 和 oct，分别输出十进制、十六进制和八进制显示整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strcat"><span class="toc-number">1.1.5.</span> <span class="toc-text"> strcat()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int64"><span class="toc-number">1.1.6.</span> <span class="toc-text"> int64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E4%B8%AD%E7%9A%84c_str%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.7.</span> <span class="toc-text"> c++ 中的 c_str () 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atof"><span class="toc-number">1.1.8.</span> <span class="toc-text"> atof()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#itoa"><span class="toc-number">1.1.9.</span> <span class="toc-text"> itoa()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E9%92%88%E6%89%80%E6%8C%87%E5%90%91%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.1.10.</span> <span class="toc-text"> 获取指针所指向的地址中的空间大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="toc-number">1.1.11.</span> <span class="toc-text"> 迭代器 iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assert%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.12.</span> <span class="toc-text"> assert () 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ispunct"><span class="toc-number">1.1.13.</span> <span class="toc-text"> ispunct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assign"><span class="toc-number">1.1.14.</span> <span class="toc-text"> assign()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string-c_str%E5%92%8Cdata"><span class="toc-number">1.1.15.</span> <span class="toc-text"> string c_str () 和 data ()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#menset"><span class="toc-number">1.1.16.</span> <span class="toc-text"> menset()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#__stdcall"><span class="toc-number">1.1.17.</span> <span class="toc-text"> __stdcall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%9B%BA%E5%AE%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0int-testvoid-x"><span class="toc-number">1.1.18.</span> <span class="toc-text"> 不固定函数参数 int test (void* x,…)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cc%E4%B8%ADnear%E5%92%8Cfar%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.19.</span> <span class="toc-text"> C&#x2F;C++ 中 near 和 far 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-extern%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.20.</span> <span class="toc-text"> C extern 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%8E%B7%E5%8F%96"><span class="toc-number">1.1.21.</span> <span class="toc-text"> 时间获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gettimeofday-%E5%BE%AE%E7%A7%921e-6-s%E9%87%8F%E7%BA%A7"><span class="toc-number">1.1.21.1.</span> <span class="toc-text"> gettimeofday | 微秒 (1e-6 s) 量级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gettickcount-%E6%AF%AB%E7%A7%92"><span class="toc-number">1.1.21.2.</span> <span class="toc-text"> GetTickCount () | 毫秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%99%B6%E6%8C%AF%E7%9A%84%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97queryperformancecounter-%E5%BE%AE%E7%A7%92"><span class="toc-number">1.1.21.3.</span> <span class="toc-text"> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%97%E5%88%B0%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-number">1.1.21.4.</span> <span class="toc-text"> 得到格式化的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%92%E6%96%A5"><span class="toc-number">1.1.22.</span> <span class="toc-text"> 进程和线程的互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.23.</span> <span class="toc-text"> “-&gt;” 和 “.” 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.24.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">1.1.25.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">1.1.26.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#winsockh%E5%92%8Cwinsock2h%E9%87%8D%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.1.</span> <span class="toc-text"> winsock.h 和 winsock2.h 重定义问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F%E9%87%8D%E5%A4%8D%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 关于变量重复定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0xc0000374-%E5%A0%86%E5%B7%B2%E6%8D%9F%E5%9D%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 0xC0000374: 堆已损坏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B80xcccccccc-0xcdcdcdcd%E4%B8%8E%E6%8C%87%E9%92%88%E5%88%9D%E5%A7%8B%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 异常 0xcccccccc、0xcdcdcdcd 与指针初始化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-92559631349317830736831783200707727132248687965119994463780864000000"><span class="toc-number">1.2.6.</span> <span class="toc-text"> -92559631349317830736831783200707727132248687965119994463780864.000000</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cc%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.</span> <span class="toc-text"> C&#x2F;C++ 问题收录与知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 知识积累</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text"> </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lpctstr"><span class="toc-number">1.1.2.</span> <span class="toc-text"> LPCTSTR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8Cwindows-server%E4%B8%AD%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 远程执行 windows server 中的程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char-%E5%92%8C-unsigned-char"><span class="toc-number">1.1.4.</span> <span class="toc-text"> char 和 unsigned char</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8char-%E8%BD%AC%E6%88%90int%E5%9E%8B"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 关于使用 char 转成 int 型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%82%E6%88%96%E6%B3%95%E8%8C%83%E5%9B%B4%E4%B8%8Eint%E5%9E%8B%E5%90%8C"><span class="toc-number">1.1.5.1.</span> <span class="toc-text"> 1. 异或法，范围与 int 型同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-memcpy%E8%BF%9B%E8%A1%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E5%88%B6"><span class="toc-number">1.1.5.2.</span> <span class="toc-text"> 2. memcpy 进行空间复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AD%98%E5%82%A8ascii%E7%A0%81%E8%8C%83%E5%9B%B49999"><span class="toc-number">1.1.5.3.</span> <span class="toc-text"> 3. 存储 ASCII 码，范围 9999</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-cout%E5%88%A9%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AC%A6dec-hex%E5%92%8Coct%E5%88%86%E5%88%AB%E8%BE%93%E5%87%BA%E5%8D%81%E8%BF%9B%E5%88%B6-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%92%8C%E5%85%AB%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E6%95%B4%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text"> C++ cout 利用控制符 dec、hex 和 oct，分别输出十进制、十六进制和八进制显示整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strcat"><span class="toc-number">1.1.7.</span> <span class="toc-text"> strcat()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int64"><span class="toc-number">1.1.8.</span> <span class="toc-text"> int64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E4%B8%AD%E7%9A%84c_str%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.9.</span> <span class="toc-text"> c++ 中的 c_str () 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atof"><span class="toc-number">1.1.10.</span> <span class="toc-text"> atof()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#itoa"><span class="toc-number">1.1.11.</span> <span class="toc-text"> itoa()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E9%92%88%E6%89%80%E6%8C%87%E5%90%91%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%AD%E7%9A%84%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.1.12.</span> <span class="toc-text"> 获取指针所指向的地址中的空间大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="toc-number">1.1.13.</span> <span class="toc-text"> 迭代器 iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assert%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.14.</span> <span class="toc-text"> assert () 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ispunct"><span class="toc-number">1.1.15.</span> <span class="toc-text"> ispunct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assign"><span class="toc-number">1.1.16.</span> <span class="toc-text"> assign()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string-c_str%E5%92%8Cdata"><span class="toc-number">1.1.17.</span> <span class="toc-text"> string c_str () 和 data ()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#menset"><span class="toc-number">1.1.18.</span> <span class="toc-text"> menset()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#__stdcall"><span class="toc-number">1.1.19.</span> <span class="toc-text"> __stdcall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%9B%BA%E5%AE%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0int-testvoid-x"><span class="toc-number">1.1.20.</span> <span class="toc-text"> 不固定函数参数 int test (void* x,…)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cc%E4%B8%ADnear%E5%92%8Cfar%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.21.</span> <span class="toc-text"> C&#x2F;C++ 中 near 和 far 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-extern%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.22.</span> <span class="toc-text"> C extern 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%8E%B7%E5%8F%96"><span class="toc-number">1.1.23.</span> <span class="toc-text"> 时间获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gettimeofday-%E5%BE%AE%E7%A7%921e-6-s%E9%87%8F%E7%BA%A7"><span class="toc-number">1.1.23.1.</span> <span class="toc-text"> gettimeofday | 微秒 (1e-6 s) 量级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gettickcount-%E6%AF%AB%E7%A7%92"><span class="toc-number">1.1.23.2.</span> <span class="toc-text"> GetTickCount () | 毫秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%99%B6%E6%8C%AF%E7%9A%84%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97queryperformancecounter-%E5%BE%AE%E7%A7%92"><span class="toc-number">1.1.23.3.</span> <span class="toc-text"> 基于晶振的时间计算 QueryPerformanceCounter () | 微秒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%97%E5%88%B0%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-number">1.1.23.4.</span> <span class="toc-text"> 得到格式化的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%92%E6%96%A5"><span class="toc-number">1.1.24.</span> <span class="toc-text"> 进程和线程的互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.25.</span> <span class="toc-text"> “-&gt;” 和 “.” 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subordinates-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.26.</span> <span class="toc-text"> Subordinates 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic_cast%E5%92%8Cstatic_cast"><span class="toc-number">1.1.27.</span> <span class="toc-text"> dynamic_cast 和 static_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullptr%E5%92%8Cnull"><span class="toc-number">1.1.28.</span> <span class="toc-text"> nullptr 和 NULL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 问题索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%E5%92%8Clib%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text"> dll 文件和 lib 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stl%E5%BA%93%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.2.</span> <span class="toc-text"> STL 库函数返回值问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#winsockh%E5%92%8Cwinsock2h%E9%87%8D%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.3.</span> <span class="toc-text"> winsock.h 和 winsock2.h 重定义问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F%E9%87%8D%E5%A4%8D%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 关于变量重复定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0xc0000374-%E5%A0%86%E5%B7%B2%E6%8D%9F%E5%9D%8F"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 0xC0000374: 堆已损坏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B80xcccccccc-0xcdcdcdcd%E4%B8%8E%E6%8C%87%E9%92%88%E5%88%9D%E5%A7%8B%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.6.</span> <span class="toc-text"> 异常 0xcccccccc、0xcdcdcdcd 与指针初始化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%9A%84%E5%A4%96%E9%83%A8%E7%AC%A6%E5%8F%B7%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E6%97%B6%E6%9C%9F"><span class="toc-number">1.2.7.</span> <span class="toc-text"> 无法解析的外部符号发生在哪一个时期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-92559631349317830736831783200707727132248687965119994463780864000000"><span class="toc-number">1.2.8.</span> <span class="toc-text"> -92559631349317830736831783200707727132248687965119994463780864.000000</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -539,13 +552,13 @@ x = (int*)malloc(sizeof(int));<br>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">65</span>
+        <span class="count">69</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">30</span>
+        <span class="count">31</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -627,7 +640,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
+    <span><a href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/" title="Linux网络应用">Linux网络应用</a></span>
   </li>
 
       
@@ -636,7 +649,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
+    <span><a href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/" title="算法导论">算法导论</a></span>
   </li>
 
       
@@ -645,7 +658,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/" title="正则表达式">正则表达式</a></span>
+    <span><a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Nodejs学习笔记">Nodejs学习笔记</a></span>
   </li>
 
       
@@ -654,7 +667,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/" title="JS进阶">JS进阶</a></span>
+    <span><a href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/" title="ODBC编程">ODBC编程</a></span>
   </li>
 
       
@@ -663,7 +676,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
+    <span><a href="/2021/01/05/github%E4%BD%BF%E7%94%A8%E6%96%B9%E6%A1%88/" title="github使用方案">github使用方案</a></span>
   </li>
 
       
@@ -672,7 +685,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/" title="DOS命令扫描指定端口并查看端口号">DOS命令扫描指定端口并查看端口号</a></span>
+    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="Ps学习札记">Ps学习札记</a></span>
   </li>
 
       
@@ -681,7 +694,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
+    <span><a href="/2021/01/05/php%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%A6%81/" title="php学习概要">php学习概要</a></span>
   </li>
 
       
@@ -690,7 +703,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/02/String%E5%87%BD%E6%95%B0/" title="C&#x2F;C++ String函数">C/C++ String函数</a></span>
+    <span><a href="/2018/05/25/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="创新创业项目库管理系统">创新创业项目库管理系统</a></span>
   </li>
 
       
@@ -699,7 +712,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" title="开发者手册">开发者手册</a></span>
+    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
   </li>
 
       
@@ -708,7 +721,7 @@ x = (int*)malloc(sizeof(int));<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/" title="宽字节注入">宽字节注入</a></span>
+    <span><a href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入札记">SQL注入札记</a></span>
   </li>
 
   </ul>
