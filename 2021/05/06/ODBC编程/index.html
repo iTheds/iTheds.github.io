@@ -102,12 +102,12 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
         </ul>
       </div>
     </header>
@@ -154,7 +154,8 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
     <h1 id="odbc编程"><a class="markdownIt-Anchor" href="#odbc编程">#</a> ODBC 编程</h1>
 <h2 id="句柄"><a class="markdownIt-Anchor" href="#句柄">#</a> 句柄</h2>
 <p>句柄是用于标识特定项的不透明、32 位的值；在 ODBC 中，此项可以是环境、连接、语句或描述符。 当应用程序调用  <code>SQLAllocHandle</code>  时，驱动程序管理器或驱动程序将创建指定类型的新项，并将其句柄返回到应用程序。 稍后，应用程序使用该句柄在调用 ODBC 函数时标识该项。 驱动程序管理器和驱动程序使用该句柄来查找有关项的信息。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">SQLHSTMT      hstmtOrder, hstmtLine; <span class="comment">// Statement handles.  </span></span><br><span class="line">SQLUINTEGER   OrderID;  </span><br><span class="line">SQLINTEGER    OrderIDInd = <span class="number">0</span>;  </span><br><span class="line">SQLRETURN     rc;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Prepare the statement that retrieves line number information.  </span></span><br><span class="line">SQLPrepare(hstmtLine, <span class="string">&quot;SELECT * FROM Lines WHERE OrderID = ?&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind OrderID to the parameter in the preceding statement.  </span></span><br><span class="line">SQLBindParameter(hstmtLine, <span class="number">1</span>, SQL_PARAM_INPUT, SQL_C_ULONG, SQL_INTEGER, <span class="number">5</span>, <span class="number">0</span>,  </span><br><span class="line">               &amp;OrderID, <span class="number">0</span>, &amp;OrderIDInd);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind the result sets for the Order table and the Lines table. Bind  </span></span><br><span class="line"><span class="comment">// OrderID to the OrderID column in the Orders table. When each row is  </span></span><br><span class="line"><span class="comment">// fetched, OrderID will contain the current order ID, which will then be  </span></span><br><span class="line"><span class="comment">// passed as a parameter to the statement tofetch line number  </span></span><br><span class="line"><span class="comment">// information. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">// Create a result set of sales orders.  </span></span><br><span class="line">SQLExecDirect(hstmtOrder, <span class="string">&quot;SELECT * FROM Orders&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Fetch and display the sales order data. Code to check if rc equals  </span></span><br><span class="line"><span class="comment">// SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line"><span class="keyword">while</span> ((rc = SQLFetch(hstmtOrder)) != SQL_NO_DATA) &#123;  </span><br><span class="line">   <span class="comment">// Display the sales order data. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Create a result set of line numbers for the current sales order.  </span></span><br><span class="line">   SQLExecute(hstmtLine);  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Fetch and display the sales order line number data. Code to check  </span></span><br><span class="line">   <span class="comment">// if rc equals SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line">   <span class="keyword">while</span> ((rc = SQLFetch(hstmtLine)) != SQL_NO_DATA) &#123;  </span><br><span class="line">      <span class="comment">// Display the sales order line number data. Code not shown.  </span></span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Close the sales order line number result set.  </span></span><br><span class="line">   SQLCloseCursor(hstmtLine);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Close the sales order result set.  </span></span><br><span class="line">SQLCloseCursor(hstmtOrder);</span><br></pre></td></tr></table></figure>
+<p>&lt;sqltypes.h&gt; 文件中定义了多个句柄：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* generic data structures */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (ODBCVER &gt;= 0x0300)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(WIN32) || defined(_WIN64)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>*					SQLHANDLE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="keyword">typedef</span> SQLINTEGER              SQLHANDLE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>	<span class="comment">/* defined(WIN32) || defined(_WIN64) */</span></span></span><br><span class="line"><span class="keyword">typedef</span> SQLHANDLE               SQLHENV;</span><br><span class="line"><span class="keyword">typedef</span> SQLHANDLE               SQLHDBC;</span><br><span class="line"><span class="keyword">typedef</span> SQLHANDLE               SQLHSTMT;</span><br><span class="line"><span class="keyword">typedef</span> SQLHANDLE               SQLHDESC;</span><br></pre></td></tr></table></figure>
 <h3 id="环境句柄environment-handles"><a class="markdownIt-Anchor" href="#环境句柄environment-handles">#</a> 环境句柄 (Environment Handles)</h3>
 <p>环境是用于访问数据的全局上下文；与环境相关联的任何信息都是全局性的，例如：</p>
 <ul>
@@ -190,9 +191,80 @@ iTheds = 人生长勤 = 唯渴学而已，热烈肆溢，孤心坚韧</title>
 语句句柄用于大多数 ODBC 函数。 特别要注意的是，在函数中使用它们来绑定参数和结果集列 (SQLBindParameter 和 SQLBindCol) 、prepare 和 execute 语句 (SQLPrepare、 SQLExecute 和 SQLExecDirect) 、检索元 数据 (SQLColAttribute 和 SQLDescribeCol) 、提取结果 (SQLFetch) 并检索诊断 (SQLGetDiagField 和 SQLGetDiagRec) 。 它们还在目录函数中使用， (SQLColumns、 SQLTables 等) 以及许多其他函数。<br>
 语句句柄通过 SQLAllocHandle 分配，并与 SQLFreeHandle 一起释放。</li>
 </ul>
+<h3 id="描述符句柄"><a class="markdownIt-Anchor" href="#描述符句柄">#</a> 描述符句柄</h3>
+<p>描述符是描述 SQL 语句或结果集的列的元数据的集合，如应用程序或驱动程序所示 (也称为实现) 。 因此，描述符可以填充四个角色中的任意一个：</p>
+<p>应用程序参数描述符 (APD) 。 包含有关绑定到 SQL 语句中的参数的应用程序缓冲区的信息，如其地址、长度和 C 数据类型。</p>
+<p>实现参数描述符 (IPD) 。 包含 SQL 语句中参数的相关信息，例如 sql 语句的 SQL 数据类型、长度和为 null 性。</p>
+<p>应用程序行描述符 (ARD) 。 包含有关绑定到结果集中的列的应用程序缓冲区的信息，如其地址、长度和 C 数据类型。</p>
+<p>实现行描述符 (IRD) 。 包含有关结果集中的列的信息，如其 SQL 数据类型、长度和为 null 性。</p>
+<p>四个描述符 (一个填充每个角色) 在分配语句时自动分配。 这些 描述符称为自动分配的描述符 ，始终与该语句相关联。 应用程序还可以分配带有 SQLAllocHandle 的描述符。 这称为 显式分配的描述符。 它们在连接上进行分配，并可与该连接上的一个或多个语句相关联，以满足这些语句上的 APD 或 ARD 的角色。</p>
+<p>ODBC 中的大多数操作都可以在不显式使用应用程序的情况下执行。 但是，描述符为某些操作提供了方便的快捷方式。 例如，假设某个应用程序要从两个不同的缓冲区集中插入数据。 若要使用第一组缓冲区，请重复调用 SQLBindParameter 将其绑定到 INSERT 语句中的参数，然后执行该语句。 若要使用第二组缓冲区，请重复此过程。 此外，它还可以设置到一个描述符中第一组缓冲区的绑定，以及另一个描述符中的第二组缓冲区。 若要在绑定集之间切换，应用程序只需调用 SQLSetStmtAttr ，并将正确的说明符与作为 APD 的语句相关联。</p>
 <h3 id="状态转换"><a class="markdownIt-Anchor" href="#状态转换">#</a> 状态转换</h3>
-<p>状态标识符</p>
+<p>ODBC 定义每个环境、每个连接和每个语句的离散 状态 。 例如，环境具有三种可能的状态：未分配的 (，未分配任何环境) 、分配的 (，其中分配了环境但未分配任何连接) ，以及在其中分配环境和一个或多个连接的连接 () 。 连接有七种可能的状态；语句具有 13 个可能的状态。</p>
+<p>当应用程序调用某个函数或函数并将句柄传递给该项时，由其句柄标识的特定项从一个状态移到另一个状态。 此类移动称为 状态转换。</p>
+<p>从应用程序的角度来看，状态转换通常是非常简单的：法律状态转换倾向于在编写良好的应用程序的流时使用。 状态转换对于驱动程序管理器和驱动程序更复杂，因为它们必须跟踪环境、每个连接和每个语句的状态。 此工作的大部分工作由驱动程序管理器执行；驱动程序必须完成的大部分工作都是通过包含挂起结果的语句来完成的。</p>
 <h2 id="缓冲区"><a class="markdownIt-Anchor" href="#缓冲区">#</a> 缓冲区</h2>
+<p>缓冲区是用于在 <code>应用程序和驱动程序</code> 之间传递数据的任何应用程序内存片段。 例如，应用程序缓冲区可以与 SQLBindCol 的结果集列关联或绑定到结果集列。 提取每个行后，将为这些缓冲区中的每一列返回数据。 输入缓冲区 用于将数据从应用程序传递到驱动程序；输出缓冲区 用于将数据从驱动程序返回到应用程序。</p>
+<p>延迟的缓冲区<br>
+分配和释放缓冲区</p>
+<h2 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型">#</a> 数据类型</h2>
+<h2 id="数据结构"><a class="markdownIt-Anchor" href="#数据结构">#</a> 数据结构</h2>
+<h2 id="一致性级别"><a class="markdownIt-Anchor" href="#一致性级别">#</a> 一致性级别</h2>
+<p>There are three ODBC interface conformance levels: Core, Level 1, and Level 2.</p>
+<p>一致性级别并不总是完全划分为支持特定的 ODBC 函数列表，而是指定支持的功能。<br>
+所有 ODBC 驱动程序必须至少表现出核心级别的接口一致性。核心级别的功能是大多数一般可互操作应用程序所需的功能。</p>
+<h3 id="接口一致性级别"><a class="markdownIt-Anchor" href="#接口一致性级别">#</a> 接口一致性级别</h3>
+<h3 id="sql一致性级别"><a class="markdownIt-Anchor" href="#sql一致性级别">#</a> SQL 一致性级别</h3>
+<h2 id="环境-连接和语句属性"><a class="markdownIt-Anchor" href="#环境-连接和语句属性">#</a> 环境、连接和语句属性</h2>
+<h2 id="表和视图"><a class="markdownIt-Anchor" href="#表和视图">#</a> 表和视图</h2>
+<h2 id="数据流向"><a class="markdownIt-Anchor" href="#数据流向">#</a> 数据流向</h2>
+<h1 id="函数解析"><a class="markdownIt-Anchor" href="#函数解析">#</a> 函数解析</h1>
+<p>其中这些函数是需要满足接口一致性级别的，暂未归类。<br>
+拟定先进行功能归类再进行接口一致性级别分析。</p>
+<h2 id="sql_标准接口"><a class="markdownIt-Anchor" href="#sql_标准接口">#</a> SQL_() 标准接口</h2>
+<h3 id="sqlallochandle"><a class="markdownIt-Anchor" href="#sqlallochandle">#</a> SQLAllocHandle</h3>
+<p>分配一个环境、连接、语句或描述符句柄。</p>
+<p>引入的版本： ODBC 3.0 标准符合性： ISO 92</p>
+<h4 id="语法"><a class="markdownIt-Anchor" href="#语法">#</a> 语法</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  @type    : ODBC 3.8</span></span><br><span class="line"><span class="comment">  @purpose : Mapped to SQLCancel if HandleType is</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">SQLRETURN SQL_API <span class="title">SQLAllocHandle</span><span class="params">(SQLSMALLINT HandleType,</span></span></span><br><span class="line"><span class="function"><span class="params">    SQLHANDLE   InputHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">    _Out_ SQLHANDLE* OutputHandlePtr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>HandleType</em><br>
+SQLSMALLINT 是 short 类型， 表示分配的句柄类型，必须是以下类型：</p>
+<ul>
+<li>SQL_HANDLE_DBC</li>
+<li>SQL_HANDLE_DESC</li>
+<li>SQL_HANDLE_ENV</li>
+<li>SQL_HANDLE_STMT</li>
+<li>SQL_HANDLE_DBC_INFO_TOKEN   - 仅由驱动程序管理器和驱动程序</li>
+</ul>
+<figure class="highlight c++"><figcaption><span>#include<sql.h> command:("[root@localhost] $":1,9-10||"[admin@remotehost] #":4-6)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* handle type identifiers */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (ODBCVER &gt;= 0x0300)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQL_HANDLE_ENV              1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQL_HANDLE_DBC              2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQL_HANDLE_STMT             3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQL_HANDLE_DESC             4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="思考"><a class="markdownIt-Anchor" href="#思考">#</a> 思考</h1>
+<h2 id="想法part1"><a class="markdownIt-Anchor" href="#想法part1">#</a> 想法 Part1</h2>
+<p>不应该局限于整个体系，要形成自己的想法，然后进行实现。<br>
+ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资料几乎不可能告诉我。<br>
+目前的处境是，看似好像有一个逻辑，但是要依靠一个小白自下而上的调研整理出一个解决方案几乎不可能。<br>
+或者说难以形成一个真正可以实行的方案。无非就是：<br>
+响应连接，内部格式转换，进行事务处理，提交。<br>
+设置缓冲区，连接池。管理连接。</p>
+<p>更细节的东西目前不能解决刚需，更笼统的体系又没有什么作用，都是在讲述流程。要从这里规整为方案不太实际。即使有也不是我想的那样得出一个具体的流程模板。</p>
+<p>所以目下直接开始进行 Demo 实现，哪怕是进行黑盒反向测试。<br>
+如果鄙人经验丰富，那可能可以从大体上进行规划，甚至还可以通过模块化的思想将工作一分为多。</p>
+<p>根本的目标是进行远程通信，响应其他的 ODBC 的连接。换一种思路。</p>
+<p>所以接下来的工作是，</p>
+<ol>
+<li>实现一个 Demo， 使用其访问 sql server，并进行增删改查的基本操作。</li>
+<li>从这个 Demo 中得知 Microsoft 的执行方式，从而逆推 ODBC 功能。</li>
+</ol>
+<h2 id="想法part2"><a class="markdownIt-Anchor" href="#想法part2">#</a> 想法 Part2</h2>
+<p>我觉得，现在需要知道的是更底层的通信问题。<br>
+比如 ODBC 如何响应一个请求连接。这个地方也是 Socket 编程？<br>
+或者更底层的程序间的通信。甚至是请求连接的过程。</p>
+<h1 id="附录"><a class="markdownIt-Anchor" href="#附录">#</a> 附录</h1>
+<h2 id="标准说明"><a class="markdownIt-Anchor" href="#标准说明">#</a> 标准说明</h2>
+<p>当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库， 以及通过 Odbc 1.x 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的应用程序将使用 odbc 1.x 驱动程序或符合标准的驱动程序。<br>
+当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库时，以及当应用程序通过 odbc 1.X 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的驱动程序将使用 odbc 1.x 应用程序或符合标准的应用程序。</p>
+<h2 id="代码存留1_用例"><a class="markdownIt-Anchor" href="#代码存留1_用例">#</a> 代码存留 1_用例</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">SQLHSTMT      hstmtOrder, hstmtLine; <span class="comment">// Statement handles.  </span></span><br><span class="line">SQLUINTEGER   OrderID;  </span><br><span class="line">SQLINTEGER    OrderIDInd = <span class="number">0</span>;  </span><br><span class="line">SQLRETURN     rc;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Prepare the statement that retrieves line number information.  </span></span><br><span class="line">SQLPrepare(hstmtLine, <span class="string">&quot;SELECT * FROM Lines WHERE OrderID = ?&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind OrderID to the parameter in the preceding statement.  </span></span><br><span class="line">SQLBindParameter(hstmtLine, <span class="number">1</span>, SQL_PARAM_INPUT, SQL_C_ULONG, SQL_INTEGER, <span class="number">5</span>, <span class="number">0</span>,  </span><br><span class="line">               &amp;OrderID, <span class="number">0</span>, &amp;OrderIDInd);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Bind the result sets for the Order table and the Lines table. Bind  </span></span><br><span class="line"><span class="comment">// OrderID to the OrderID column in the Orders table. When each row is  </span></span><br><span class="line"><span class="comment">// fetched, OrderID will contain the current order ID, which will then be  </span></span><br><span class="line"><span class="comment">// passed as a parameter to the statement tofetch line number  </span></span><br><span class="line"><span class="comment">// information. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">// Create a result set of sales orders.  </span></span><br><span class="line">SQLExecDirect(hstmtOrder, <span class="string">&quot;SELECT * FROM Orders&quot;</span>, SQL_NTS);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Fetch and display the sales order data. Code to check if rc equals  </span></span><br><span class="line"><span class="comment">// SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line"><span class="keyword">while</span> ((rc = SQLFetch(hstmtOrder)) != SQL_NO_DATA) &#123;  </span><br><span class="line">   <span class="comment">// Display the sales order data. Code not shown.  </span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Create a result set of line numbers for the current sales order.  </span></span><br><span class="line">   SQLExecute(hstmtLine);  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Fetch and display the sales order line number data. Code to check  </span></span><br><span class="line">   <span class="comment">// if rc equals SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.  </span></span><br><span class="line">   <span class="keyword">while</span> ((rc = SQLFetch(hstmtLine)) != SQL_NO_DATA) &#123;  </span><br><span class="line">      <span class="comment">// Display the sales order line number data. Code not shown.  </span></span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Close the sales order line number result set.  </span></span><br><span class="line">   SQLCloseCursor(hstmtLine);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Close the sales order result set.  </span></span><br><span class="line">SQLCloseCursor(hstmtOrder);</span><br></pre></td></tr></table></figure>
+<h1 id="recording"><a class="markdownIt-Anchor" href="#recording">#</a> Recording</h1>
 <h2 id="基本-odbc-应用程序步骤go"><a class="markdownIt-Anchor" href="#基本-odbc-应用程序步骤go">#</a> 基本 ODBC 应用程序步骤<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vemgtY24vc3FsL29kYmMvcmVmZXJlbmNlL2RldmVsb3AtYXBwL2Jhc2ljLW9kYmMtYXBwbGljYXRpb24tc3RlcHM/dmlldz1zcWwtc2VydmVyLXZlcjE1"> GO</span></h2>
 <p>本部分包含以下主题。</p>
 <ul>
@@ -229,35 +301,6 @@ SQLSetConnectAttr</p>
 <p>最后一步是断开与数据源的连接，如下图所示。 首先，应用程序通过调用 SQLFreeHandle 释放所有语句句柄。 有关详细信息，请参阅 释放语句句柄。</p>
 <h2 id="驱动程序管理器连接池"><a class="markdownIt-Anchor" href="#驱动程序管理器连接池">#</a> 驱动程序管理器连接池</h2>
 <p>使用连接池，应用程序可以使用连接池的连接，无需在每次使用时重新建立连接。 创建连接并将其放置到池中后，应用程序可以重新使用该连接，而无需执行完整的连接过程。</p>
-<h2 id="recording"><a class="markdownIt-Anchor" href="#recording">#</a> Recording</h2>
-<p>当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库， 以及通过 Odbc 1.x 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的应用程序将使用 odbc 1.x 驱动程序或符合标准的驱动程序。<br>
-当使用 odbc 1.x 标头文件编译和链接 odbc 1.x 库时，以及当应用程序通过 odbc 1.X 驱动程序管理器获得对驱动程序的访问权限时，写入到开放组和 ISO CLI 规范的驱动程序将使用 odbc 1.x 应用程序或符合标准的应用程序。</p>
-<h2 id="开发"><a class="markdownIt-Anchor" href="#开发">#</a> 开发</h2>
-<p>开发应用程序。</p>
-<h2 id="函数api"><a class="markdownIt-Anchor" href="#函数api">#</a> 函数 API</h2>
-<p>三种连接 connect 方式的区别。</p>
-<p>SQLBrowseConnect()</p>
-<p>Driver 函数的作用。</p>
-<h2 id="想法part1"><a class="markdownIt-Anchor" href="#想法part1">#</a> 想法 Part1</h2>
-<p>不应该局限于整个体系，要形成自己的想法，然后进行实现。<br>
-ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资料几乎不可能告诉我。<br>
-目前的处境是，看似好像有一个逻辑，但是要依靠一个小白自下而上的调研整理出一个解决方案几乎不可能。<br>
-或者说难以形成一个真正可以实行的方案。无非就是：<br>
-响应连接，内部格式转换，进行事务处理，提交。<br>
-设置缓冲区，连接池。管理连接。</p>
-<p>更细节的东西目前不能解决刚需，更笼统的体系又没有什么作用，都是在讲述流程。要从这里规整为方案不太实际。即使有也不是我想的那样得出一个具体的流程模板。</p>
-<p>所以目下直接开始进行 Demo 实现，哪怕是进行黑盒反向测试。<br>
-如果鄙人经验丰富，那可能可以从大体上进行规划，甚至还可以通过模块化的思想将工作一分为多。</p>
-<p>根本的目标是进行远程通信，响应其他的 ODBC 的连接。换一种思路。</p>
-<p>所以接下来的工作是，</p>
-<ol>
-<li>实现一个 Demo， 使用其访问 sql server，并进行增删改查的基本操作。</li>
-<li>从这个 Demo 中得知 Microsoft 的执行方式，从而逆推 ODBC 功能。</li>
-</ol>
-<h2 id="想法part2"><a class="markdownIt-Anchor" href="#想法part2">#</a> 想法 Part2</h2>
-<p>我觉得，现在需要知道的是更底层的通信问题。<br>
-比如 ODBC 如何响应一个请求连接。这个地方也是 Socket 编程？<br>
-或者更底层的程序间的通信。甚至是请求连接的过程。</p>
 <h1 id="eof"><a class="markdownIt-Anchor" href="#eof">#</a> EOF</h1>
 
       <div class="tags">
@@ -273,7 +316,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-05-25 11:33:13" itemprop="dateModified" datetime="2021-05-25T11:33:13+08:00">2021-05-25</time>
+    <time title="修改时间：2021-07-20 17:01:29" itemprop="dateModified" datetime="2021-07-20T17:01:29+08:00">2021-07-20</time>
   </span>
 </div>
 
@@ -323,20 +366,20 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
     <div class="item left">
       
 
-  <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4fomxoj20zk0m8axp.jpg" title="ODBC理论">
+  <a href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljitigmj20zk0m87fp.jpg" title="智能指针">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>ODBC理论</h3>
+  <h3>智能指针</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexw3o58j20zk0m8e81.jpg" title="ODBC连接数据库">
+  <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxfdlttj20zk0m8npd.jpg" title="ODBC理论">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>ODBC连接数据库</h3>
+  <h3>ODBC理论</h3>
   </a>
 
     </div>
@@ -355,7 +398,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 句柄</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%A5%E6%9F%84environment-handles"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 环境句柄 (Environment Handles)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 连接句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 语句句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 状态转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.2.</span> <span class="toc-text"> 缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC-odbc-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%AD%A5%E9%AA%A4go"><span class="toc-number">1.3.</span> <span class="toc-text"> 基本 ODBC 应用程序步骤 GO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 步骤 1：连接数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 步骤 2：初始化应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%E7%94%9F%E6%88%90%E5%B9%B6%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 步骤 3：生成并执行 SQL 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4a%E6%8F%90%E5%8F%96%E7%BB%93%E6%9E%9C"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 步骤 4a：提取结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4b%E6%8F%90%E5%8F%96%E8%A1%8C%E8%AE%A1%E6%95%B0"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 步骤 4b：提取行计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 步骤 5：提交事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6%E4%BB%8E%E6%95%B0%E6%8D%AE%E6%BA%90%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 步骤 6：从数据源断开连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86%E5%99%A8%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-number">1.4.</span> <span class="toc-text"> 驱动程序管理器连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recording"><span class="toc-number">1.5.</span> <span class="toc-text"> Recording</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91"><span class="toc-number">1.6.</span> <span class="toc-text"> 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0api"><span class="toc-number">1.7.</span> <span class="toc-text"> 函数 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part1"><span class="toc-number">1.8.</span> <span class="toc-text"> 想法 Part1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part2"><span class="toc-number">1.9.</span> <span class="toc-text"> 想法 Part2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eof"><span class="toc-number">2.</span> <span class="toc-text"> EOF</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#odbc%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> ODBC 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 句柄</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%A5%E6%9F%84environment-handles"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 环境句柄 (Environment Handles)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 连接句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 语句句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%8F%A5%E6%9F%84"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 描述符句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 状态转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.2.</span> <span class="toc-text"> 缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> 数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text"> 数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E7%BA%A7%E5%88%AB"><span class="toc-number">1.5.</span> <span class="toc-text"> 一致性级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%80%E8%87%B4%E6%80%A7%E7%BA%A7%E5%88%AB"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 接口一致性级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E4%B8%80%E8%87%B4%E6%80%A7%E7%BA%A7%E5%88%AB"><span class="toc-number">1.5.2.</span> <span class="toc-text"> SQL 一致性级别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83-%E8%BF%9E%E6%8E%A5%E5%92%8C%E8%AF%AD%E5%8F%A5%E5%B1%9E%E6%80%A7"><span class="toc-number">1.6.</span> <span class="toc-text"> 环境、连接和语句属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%92%8C%E8%A7%86%E5%9B%BE"><span class="toc-number">1.7.</span> <span class="toc-text"> 表和视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%90%91"><span class="toc-number">1.8.</span> <span class="toc-text"> 数据流向</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 函数解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql_%E6%A0%87%E5%87%86%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.1.</span> <span class="toc-text"> SQL_() 标准接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlallochandle"><span class="toc-number">2.1.1.</span> <span class="toc-text"> SQLAllocHandle</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">2.1.1.1.</span> <span class="toc-text"> 语法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text"> 思考</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part1"><span class="toc-number">3.1.</span> <span class="toc-text"> 想法 Part1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95part2"><span class="toc-number">3.2.</span> <span class="toc-text"> 想法 Part2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text"> 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%AF%B4%E6%98%8E"><span class="toc-number">4.1.</span> <span class="toc-text"> 标准说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AD%98%E7%95%991_%E7%94%A8%E4%BE%8B"><span class="toc-number">4.2.</span> <span class="toc-text"> 代码存留 1_用例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#recording"><span class="toc-number">5.</span> <span class="toc-text"> Recording</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC-odbc-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%AD%A5%E9%AA%A4go"><span class="toc-number">5.1.</span> <span class="toc-text"> 基本 ODBC 应用程序步骤 GO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 步骤 1：连接数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 步骤 2：初始化应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%E7%94%9F%E6%88%90%E5%B9%B6%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5"><span class="toc-number">5.1.3.</span> <span class="toc-text"> 步骤 3：生成并执行 SQL 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4a%E6%8F%90%E5%8F%96%E7%BB%93%E6%9E%9C"><span class="toc-number">5.1.4.</span> <span class="toc-text"> 步骤 4a：提取结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4b%E6%8F%90%E5%8F%96%E8%A1%8C%E8%AE%A1%E6%95%B0"><span class="toc-number">5.1.5.</span> <span class="toc-text"> 步骤 4b：提取行计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"><span class="toc-number">5.1.6.</span> <span class="toc-text"> 步骤 5：提交事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6%E4%BB%8E%E6%95%B0%E6%8D%AE%E6%BA%90%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5"><span class="toc-number">5.1.7.</span> <span class="toc-text"> 步骤 6：从数据源断开连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86%E5%99%A8%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-number">5.2.</span> <span class="toc-text"> 驱动程序管理器连接池</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eof"><span class="toc-number">6.</span> <span class="toc-text"> EOF</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -370,13 +413,13 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">69</span>
+        <span class="count">73</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">31</span>
+        <span class="count">34</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -429,12 +472,12 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -458,6 +501,24 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="Apache系统管理">Apache系统管理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/" title="Wiki搭建">Wiki搭建</a></span>
   </li>
 
@@ -467,7 +528,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Nodejs学习笔记">Nodejs学习笔记</a></span>
+    <span><a href="/2017/07/25/JS%E6%9D%82%E7%83%A9oo/" title="JS杂烩">JS杂烩</a></span>
   </li>
 
       
@@ -476,7 +537,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="线程与进程管理">线程与进程管理</a></span>
+    <span><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></span>
   </li>
 
       
@@ -485,7 +546,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="Ps学习札记">Ps学习札记</a></span>
+    <span><a href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/" title="编译原理之语法分析程序">编译原理之语法分析程序</a></span>
   </li>
 
       
@@ -494,7 +555,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" title="ODBC理论">ODBC理论</a></span>
+    <span><a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" title="开发者手册">开发者手册</a></span>
   </li>
 
       
@@ -503,7 +564,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
+    <span><a href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/" title="打印机问题及使用方法">打印机问题及使用方法</a></span>
   </li>
 
       
@@ -512,7 +573,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+    <span><a href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/" title="加密解密的艺术">加密解密的艺术</a></span>
   </li>
 
       
@@ -521,25 +582,7 @@ ODBC 的协议，这些协议代表的是什么，规定的是什么？网上资
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/" title="php进阶手册">php进阶手册</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/" title="C&#x2F;C++进阶">C/C++进阶</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/" title="Linux网络应用">Linux网络应用</a></span>
+    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
   </li>
 
   </ul>

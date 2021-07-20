@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,7 +120,133 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/" itemprop="url" title="数据库理论系统学习手册"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></a>
+    <a href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/" itemprop="url" title="TCP与UDP实现"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-13 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-13T00:00:00+08:00">2021-04-13</time>
+  </span>
+</div>
+
+    <h3><a href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/" itemprop="url" title="TCP与UDP实现">TCP与UDP实现</a></h3>
+    <div class="excerpt">
+        # TCP 与 UDP 实现
+一般是使用 socket 进行编程。
+# 缓冲区
+三个地方设置了大小。
+123sendto();//发送数据的大小rev();//接收窗口的大小setsockopt(*sockfd, SOL_SOCKET, SO_SNDBUF, (const char*)&amp;amp;nSendBuf, sizeof(int));//设置SO_SNDBUF大小
+send 的作用是将数据拷贝进入 socket 的内核发送缓冲区之中，然后 send 便会在上层返回。
+也就是说 send () 方法返回之时，数据不一定会发送到对端即服务器上去（和 write...
+    </div>
+    <a href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/" itemprop="url" title="TCP与UDP实现" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" itemprop="url" title="开发者手册"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicljitigmj20zk0m87fp.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-11 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-11T00:00:00+08:00">2021-04-11</time>
+  </span>
+</div>
+
+    <h3><a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" itemprop="url" title="开发者手册">开发者手册</a></h3>
+    <div class="excerpt">
+        tags:
+– C/C++
+– C/C 手册
+– C/C 问题收录
+tags:
+– English
+    </div>
+    <a href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" itemprop="url" title="开发者手册" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" title="CRC循环冗余校验"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-10 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-10T00:00:00+08:00">2021-04-10</time>
+  </span>
+</div>
+
+    <h3><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" title="CRC循环冗余校验">CRC循环冗余校验</a></h3>
+    <div class="excerpt">
+        # CRC 循环冗余校验
+循环冗余校验（Cyclic Redundancy Check， CRC）是一种根据网络数据包或计算机文件等数据产生简短固定位数校验码的一种信道编码技术，主要用来检测或校验数据传输或者保存后可能出现的错误。它是利用除法及余数的原理来作错误侦测的。
+在数据传输过程中，无论传输系统的设计再怎么完美，差错总会存在，这种差错可能会导致在链路上传输的一个或者多个帧被破坏 (出现比特差错，0 变为 1，或者 1 变为...
+    </div>
+    <a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" itemprop="url" title="CRC循环冗余校验" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" title="AgilorE文件初步分析"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-04-07 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-04-07T00:00:00+08:00">2021-04-07</time>
+  </span>
+</div>
+
+    <h3><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" title="AgilorE文件初步分析">AgilorE文件初步分析</a></h3>
+    <div class="excerpt">
+        # AgilorE 文件初步分析
+# 项目分析
+数据库搜查分析，嵌入式数据库
+# 项目结构
+AgilorE 是成品文件。
+主要编辑的是 AeClLocal.cpp。目前有 1w 行代码。
+eXtremeWrap 文件中是所有的测试用例，用于测试上层进行调用的效率。
+F:\PROJECT\0329 最新版
+├─.vs
+│ └─AgilorE
+│ └─v16
+│ └─ipch
+│ └─AutoPCH
+│ ├─1b1557754eea2b50
+│ ├─20a99d3ba4f3080b
+│ ├─2344b43eabab9140
+│ ├─273850d1f5e8e69d
+│...
+    </div>
+    <a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" itemprop="url" title="AgilorE文件初步分析" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/" itemprop="url" title="数据库理论系统学习手册"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
   </div>
   <div class="info">
     
@@ -159,7 +285,34 @@ POST AJAX，http
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/03/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" itemprop="url" title="计算机网络具体实现"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicit4jrvuj20zk0m8785.jpg"></a>
+    <a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-03-08 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-03-08T00:00:00+08:00">2021-03-08</time>
+  </span>
+</div>
+
+    <h3><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结">设计模式总结</a></h3>
+    <div class="excerpt">
+        # 设计模式总结
+参考
+https://www.runoob.com/design-pattern/design-pattern-intro.html
+# 工厂模式
+    </div>
+    <a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/03/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/" itemprop="url" title="计算机网络具体实现"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -190,34 +343,7 @@ https://blog.csdn.net/yigui3542/article/details/81099255
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-03-08 00:00:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-03-08T00:00:00+08:00">2021-03-08</time>
-  </span>
-</div>
-
-    <h3><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结">设计模式总结</a></h3>
-    <div class="excerpt">
-        # 设计模式总结
-参考
-https://www.runoob.com/design-pattern/design-pattern-intro.html
-# 工厂模式
-    </div>
-    <a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" itemprop="url" title="设计模式总结" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/" itemprop="url" title="重装系统指南"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></a>
+    <a href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/" itemprop="url" title="重装系统指南"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
   </div>
   <div class="info">
     
@@ -248,7 +374,7 @@ http://www.xitongcheng.com/jiaocheng/xtazjc_article_32791.html
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" itemprop="url" title="计算机入门路线(应用篇)"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
+    <a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" itemprop="url" title="计算机入门路线(应用篇)"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -280,7 +406,7 @@ http://www.xitongcheng.com/jiaocheng/xtazjc_article_32791.html
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="Nodejs学习笔记"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+    <a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="Nodejs学习笔记"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipevuctzzj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -305,142 +431,6 @@ dnf module install nodejs:&amp;lt;stream&amp;gt;
 dnf module install...
     </div>
     <a href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="Nodejs学习笔记" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" itemprop="url" title="Apache系统管理"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-02-03 00:00:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-02-03T00:00:00+08:00">2021-02-03</time>
-  </span>
-</div>
-
-    <h3><a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" itemprop="url" title="Apache系统管理">Apache系统管理</a></h3>
-    <div class="excerpt">
-        # Apache 系统管理
-Nginx (engine x) 是一个高性能的 HTTP 和反向代理 web 服务器，同时也提供了 IMAP/POP3/SMTP 服务。Nginx 是由伊戈尔・赛索耶夫为俄罗斯访问量第二的 Rambler.ru 站点（俄文：Рамблер）开发的，第一个公开版本 0.1.0 发布于 2004 年 10 月 4 日。
-配置文件：/etc/httpd/conf/httpd.conf
-根目录：/var/www/httml/
-yum install httpd -y		##apache 软件
-yum install httpd-manual	##apache...
-    </div>
-    <a href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" itemprop="url" title="Apache系统管理" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" itemprop="url" title="Linux下数据库管理与建库"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-02-03 00:00:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-02-03T00:00:00+08:00">2021-02-03</time>
-  </span>
-</div>
-
-    <h3><a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" itemprop="url" title="Linux下数据库管理与建库">Linux下数据库管理与建库</a></h3>
-    <div class="excerpt">
-        # Linux 下数据库管理与建库
-搭建好 mysql 后的操作与相关问题，关于搭建参见 LAMP 搭建文章。
-# 登入 mysql
-mysql [-u username] [-h host] [-p password] [dbname]
-# 查看数据库
-show databases;
-# SQL 命令
-SQL 命令篇参照 &amp;lt;SQL 语句札记&amp;gt;
-# 兼容 phpmyadmin
-
-报错：
-
-mysqli_real_connect(): Headers and client library minor version mismatch. Headers:50560...
-    </div>
-    <a href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/" itemprop="url" title="Linux下数据库管理与建库" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" title="Linux命令总集与系统"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipey0a334j20zk0m8qpt.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-02-03 00:00:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-02-03T00:00:00+08:00">2021-02-03</time>
-  </span>
-</div>
-
-    <h3><a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" title="Linux命令总集与系统">Linux命令总集与系统</a></h3>
-    <div class="excerpt">
-        # Linux 命令总集与系统
-下载 wget，后台下载使用 wget -b + url，可以在当前目录 wget-log 文件查看进度。
-yum install -y wget
-
-安装可以上传 rz 和从 vps 上下载东西 sz 的命令：
-yum install -y lrzsz
-
-查看版本信息
-cat /proc/version
-cat /etc/redhat-release
-uname -a
-lsb_release -a
-
-# 文件编辑
-cat
-查找
-locate
-有时候出现问题：locate: can not stat () /var/lib/mlocate/mlocate.db :...
-    </div>
-    <a href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" title="Linux命令总集与系统" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/" itemprop="url" title="编码总集"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclflwv2aj20zk0m84qp.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-02-03 00:00:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-02-03T00:00:00+08:00">2021-02-03</time>
-  </span>
-</div>
-
-    <h3><a href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/" itemprop="url" title="编码总集">编码总集</a></h3>
-    <div class="excerpt">
-        # 编码总集
-其实很久之前做网安的时候就有打算去做这件事情了，但是因为很多原因 (懒) 而没有去做，再此作为长线文章进行收录总结。
-# URL 编码
-原理
-例子：
-C/C++
-C%2fC%2b%2b
-    </div>
-    <a href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/" itemprop="url" title="编码总集" class="btn">more...</a>
   </div>
 </article>
 
@@ -479,13 +469,13 @@ C%2fC%2b%2b
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">69</span>
+        <span class="count">73</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">31</span>
+        <span class="count">34</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -565,33 +555,6 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结">设计模式总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" title="C++基本项目开发思路">C++基本项目开发思路</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/" title="ODBC理论">ODBC理论</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/" title="计算机入门路线(应用篇)">计算机入门路线(应用篇)</a></span>
   </li>
 
@@ -601,7 +564,7 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/" title="项目小憩">项目小憩</a></span>
+    <span><a href="/2021/06/04/%E5%AD%97%E4%BD%93%E7%89%88%E6%9D%83%E9%97%AE%E9%A2%98/" title="字体版权问题">字体版权问题</a></span>
   </li>
 
       
@@ -610,7 +573,7 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" title="C&#x2F;C++问题收录与知识积累">C/C++问题收录与知识积累</a></span>
+    <span><a href="/2021/01/02/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="Linux网络编程笔记">Linux网络编程笔记</a></span>
   </li>
 
       
@@ -619,7 +582,7 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/" title="编译原理之语法分析程序">编译原理之语法分析程序</a></span>
+    <span><a href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/" title="编码总集">编码总集</a></span>
   </li>
 
       
@@ -628,7 +591,7 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/" title="基于MIPS指令集的32位五级流水线CPU设计">基于MIPS指令集的32位五级流水线CPU设计</a></span>
+    <span><a href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/" title="计算机组成原理">计算机组成原理</a></span>
   </li>
 
       
@@ -637,7 +600,7 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/" title="重装系统指南">重装系统指南</a></span>
+    <span><a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">B树学习札记</a></span>
   </li>
 
       
@@ -646,7 +609,34 @@ C%2fC%2b%2b
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/" title="配置Linux环境">配置Linux环境</a></span>
+    <span><a href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入札记">SQL注入札记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/" title="CRC循环冗余校验">CRC循环冗余校验</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/" title="markdown语法">markdown语法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2021/04/07/AgilorE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="AgilorE文件初步分析">AgilorE文件初步分析</a></span>
   </li>
 
   </ul>
