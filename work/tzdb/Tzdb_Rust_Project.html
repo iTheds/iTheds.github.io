@@ -1,0 +1,3862 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="TZDB Rust Project本文主要记录关于 TZDB 时序数据库开发内容。包括但不限于对于基础技术的调研工作、对于现有模块的开发工作、成员 iTheds 的开发历程。 项目启始：本次的项目目标，开发时序数据库系统单机版原型系统。时序数据库系统，准确来说是分布式集群的数据库系统。 系统结构方面是实现多个主机对多个客户端系统进行响应并且存储具有时序特征数据。 Compontence项目理论结构">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TZDB Rust Project">
+<meta property="og:url" content="http://itheds.github.io/work/tzdb/Tzdb_Rust_Project.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="TZDB Rust Project本文主要记录关于 TZDB 时序数据库开发内容。包括但不限于对于基础技术的调研工作、对于现有模块的开发工作、成员 iTheds 的开发历程。 项目启始：本次的项目目标，开发时序数据库系统单机版原型系统。时序数据库系统，准确来说是分布式集群的数据库系统。 系统结构方面是实现多个主机对多个客户端系统进行响应并且存储具有时序特征数据。 Compontence项目理论结构">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://itheds.github.io/image/%E6%80%BB%E4%BD%93%E8%BD%AF%E4%BB%B6%E6%88%90%E5%93%81%E5%8C%85%E5%9B%BE.png">
+<meta property="og:image" content="http://itheds.github.io/image/%E6%A8%A1%E5%9D%97%E6%8B%86%E8%A7%A3.png">
+<meta property="og:image" content="http://itheds.github.io/image/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8.png">
+<meta property="og:image" content="http://itheds.github.io/image/%E7%AE%97%E6%B3%95%E5%B7%A5%E5%85%B7.png">
+<meta property="og:image" content="http://itheds.github.io/image/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE%E8%A7%84%E5%88%99.png">
+<meta property="og:image" content="http://itheds.github.io/image/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD.png">
+<meta property="og:image" content="http://itheds.github.io/">
+<meta property="article:published_time" content="2022-10-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-14T08:01:31.445Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="rust">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://itheds.github.io/image/%E6%80%BB%E4%BD%93%E8%BD%AF%E4%BB%B6%E6%88%90%E5%93%81%E5%8C%85%E5%9B%BE.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>TZDB Rust Project · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="TZDB-Rust-Project"><a href="#TZDB-Rust-Project" class="headerlink" title="TZDB Rust Project"></a>TZDB Rust Project</h1><p>本文主要记录关于 TZDB 时序数据库开发内容。包括但不限于对于基础技术的调研工作、对于现有模块的开发工作、成员 iTheds 的开发历程。</p>
+<p>项目启始：<br>本次的项目目标，开发时序数据库系统单机版原型系统。<br>时序数据库系统，准确来说是分布式集群的数据库系统。</p>
+<p>系统结构方面是实现多个主机对多个客户端系统进行响应并且存储具有时序特征数据。</p>
+<h1 id="Compontence"><a href="#Compontence" class="headerlink" title="Compontence"></a>Compontence</h1><h2 id="项目理论结构"><a href="#项目理论结构" class="headerlink" title="项目理论结构"></a>项目理论结构</h2><p><img src="/../image/%E6%80%BB%E4%BD%93%E8%BD%AF%E4%BB%B6%E6%88%90%E5%93%81%E5%8C%85%E5%9B%BE.png"></p>
+<h2 id="项目大方向拆解"><a href="#项目大方向拆解" class="headerlink" title="项目大方向拆解"></a>项目大方向拆解</h2><p><img src="/../image/%E6%A8%A1%E5%9D%97%E6%8B%86%E8%A7%A3.png"></p>
+<h3 id="数据库系统要点任务"><a href="#数据库系统要点任务" class="headerlink" title="数据库系统要点任务"></a>数据库系统要点任务</h3><p>这个图不全面，不是任何的构成，不足以作为执行方案，但可以算是一个卖点方案。<br><img src="/../image/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8.png"></p>
+<h2 id="API-组件基本"><a href="#API-组件基本" class="headerlink" title="API 组件基本"></a>API 组件基本</h2><p><img src="/../image/%E7%AE%97%E6%B3%95%E5%B7%A5%E5%85%B7.png"></p>
+<h3 id="基本公共组件要点"><a href="#基本公共组件要点" class="headerlink" title="基本公共组件要点"></a>基本公共组件要点</h3><p><img src="/../image/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE%E8%A7%84%E5%88%99.png"></p>
+<h3 id="数据库核心功能"><a href="#数据库核心功能" class="headerlink" title="数据库核心功能"></a>数据库核心功能</h3><p><img src="/../image/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD.png"></p>
+<h1 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h1><p>catalog 概念：</p>
+<p>TbCache 表缓存</p>
+<p>Column</p>
+<p>DFField</p>
+<p>DFSchema</p>
+<p>QSchema</p>
+<p>SessionContext</p>
+<p>SessionState</p>
+<p>SessionContextProvider</p>
+<p>LogicalPlanSignature</p>
+<p>Parser</p>
+<h1 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h1><p>一般来说，我们将工程内容抽象为</p>
+<ol>
+<li>基本结构类工具 - 这部分是适应后续编程便捷度的、基于现有编程语言的开发工具。比如说， 如果是 C 语言，那么我们应该对其应当补充出一些基本类型的实现，如果可以应当补充一些便于面向对象的开发方式，以容纳更大的体系；如果是 C++ ，那么我们可以实现一些我们之后会使用到的库，如果有对生命周期做约束的；而 rust 中，可以实现一些公共的内容，比如压缩方法、十分泛用的链表等，而不是去想着代替标准库，比如 string 和 thread ，这样的内容是否要代替应该结合语言特性决定，C++ 在 unix 和 windows 上 thread 有区别，那么可以抽离出这样的 thread 对象，通信层面也可以抽离出对象来决定是使用 TCP&#x2F;IP 或者是 UDP ，但是 rust unix 和 windows 中两者一样，根本没有必要抽离出这种基本组件。同时如果可以，那么也应该加上宏编程等内容。</li>
+<li>算法工具 - 基本的逻辑性工具，针对某种可以进行泛化算法进行实现，比如说 红黑树、跳表、或者其他研究性算法等。</li>
+</ol>
+<blockquote>
+<p>接下来应当是整个系统进行对象化和模块化的内容，而数据库，最大的概念上分为客户端和服务端。在分布式数据库中，存在的是节点的概念，客户端是一个伪节点，用于访问，服务端分为 dnode,vnode,mnode,qnode，这些节点占用部分资源进行不同的功能操作，是横向观测结果。而纵向分层还需要进行持续性质的探讨，以更深入软件工程。</p>
+</blockquote>
+<h2 id="基本结构类工具"><a href="#基本结构类工具" class="headerlink" title="基本结构类工具"></a>基本结构类工具</h2><h3 id="shm"><a href="#shm" class="headerlink" title="shm"></a>shm</h3><p>初次开发的是 os_base 层次的 shm 。<br>共享内存。<br>C++ 中已经有一套。我们根据此接口进行实现即可。<br>首先要明确 rust 和 C++ 之间的关系。<br>调用 C++ 的是不合理的，但是 shm 共享库里面有，那么我们可以直接调用，封装之后，今天下午如果无事，那么应该编写完成，包括测试代码。晚上再弄一会 C++ 线程池。<br>shm ipc 也需要实现。</p>
+<p>那个不是共享库的，那个是个人开发者开发的开源的代码。但是开源的。<br>只能自己写了。顺便参考参考，完善一下。</p>
+<p>目前有两个比较好的项目，首选其中适配贴近 C++ 的项目。</p>
+<p>确定应该实现以下函数：<br>ftok<br>shmget<br>shmat<br>shmdt<br>shmctl</p>
+<p>参考:<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40602000/article/details/101267933#%E4%B8%89%E3%80%81%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%20%C2%A0-%3E%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">1 进程间的通信</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/aLingYun/article/details/100528283">2 共享内存 — shm</a></p>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p>接下来看红黑树：<br>在基本的每个节点中都会有一个 <code>enum&#123;red, black&#125;</code>。并且红黑树是键值对的形式，存储了左右节点指针。<br>高度计算仍然是 log(n) 。</p>
+<p>红黑树是从 2-3-4 树衍生而来的。<br>2-3-4 树， 是阶数为 4 的 B 树。其中， 2、3、4 表示的是单个节点所表示的指针数量，其表示可以分割的元素范围。<br>2节点将其标志为黑色节点， 3节点表示为 左倾红节点或者右倾红节点， 4节点则被转化为一个黑色父节点带着左右两个红色节点。<br>简化一下基本模型，我们来讨论 2-3 树， 左如果将<code>左倾红黑树</code>中的红色节点顺时针方向旋转45°使其与黑父平行，然后再将它们看作一个整体，这不就是一颗2-3树吗？<br>    – 左倾红黑树， 即 左边的是红色的节点， 优先插入左边子节点。 </p>
+<p><img src="/" alt="2-3-4 树和转换方式"></p>
+<p>红黑树插入的时候一定会把待插入节点涂成红色， 因为红色节点的意义是<code>与父节点进行关联</code>，形成概念模型 2-3 树中的 3 节点或者临时 4 节点。 </p>
+<p>红黑树在插入后需要再次调整，实际上很多的树都是需要这样的， 而红黑树是因为存在概念模型中的临时 4 节点， 反应在红黑树中是双红的情况。<br>如果插入节点是个 2 节点， 那么正好对应红黑树中的黑色父节点。在黑色父节点下面增加一个红色子节点， 确实不会违背红黑树的任何规则。<br>    – 在红黑树中， 插入 2 节点的时候，增加一个红色子节点， 并不会破坏规则；<br>    – 在 2-3 树中，向一个 2 节点插入， 即将该 2 节点变成一个 3 节点。</p>
+<p>再看删除，如果是 2-3 树， 删除的时候，如果是 3 节点，直接将该节点移除即可，不会改变 2-3 树性质， 即不会引起高度的变化；<br>如果是 2 节点，则会使得 2 节点失去自己唯一的元素， 引发自身删除， 使得该路径高度发生变化， 树变得不平衡。<br>解决方法： </p>
+<ol>
+<li>删除该节点，再平衡；</li>
+<li>假借其他节点组成一个 3 节点或者临时 4 节点，使得其不可能出现在 2 节点中。<br> 第二种方法， 在搜索整个节点路径中， 如果当前节点是 2 节点，那么就从它的兄弟节点或者父节点借一个元素， 使得其成为 3 节点或者 临时 4 节点。</li>
+</ol>
+<p>那么，如果该节点是非根节点， 那么当前的父节点一定是一个非 2 节点。 (搜索中已经判断了父节点并非 2 节点)。<br>那么，该节点必然可以借到节点，组成非 2 节点。</p>
+<p>所以再看红黑树基本定义：</p>
+<ol>
+<li>所有节点有红色和黑色之分；</li>
+<li>根节点为黑色；</li>
+<li>所有叶子节点为黑色 - 叶子节点其实都是空链接；</li>
+<li>任意节点到叶子节点经过的黑色节点数目相同 - 在 2-3 树中， 红色节点必然是和黑色节点绑定的， 所以，只有黑色节点才会贡献高度，在 2- 3树中任意节点到空链接距离相同， 在红黑i树中则是黑色完美平衡 - 距离包括本身和目标节点；</li>
+<li>不会有连续的红色节点 - 2-3 树中没有 4 节点， 2-3-4 树中虽然有 4 节点， 但是要求在红黑树中体现为 黑色节点带两个红色子节点， 并非连续。</li>
+</ol>
+<p>大多数二叉排序树 BST 的操作(查找、删除、最大值、最小值、插入等)都是 O(h) 的时间复杂度， h 为树的高度。<br>如果排序树倾斜，那么时间复杂度将达到 O(n) ， 即退化成链表。所以关键就在于如何平衡，如何更简单的进行平衡，保持高度为 log(n) 。 </p>
+<p>平衡二叉树(AVL)，和红黑树都可以保持高度。但是平衡二叉树在涉及到频繁的进行插入和删除时， 需要大量旋转操作。红黑树拥有更好的性能。</p>
+<p>红黑树中，黑色节点的高为其到叶子节点所经过的黑色节点数量 - 1 ， 红色节点的高与父节点一致。<br>引理：一棵有 n 个内部结点的红黑树的高度 <code>h &lt;= 2lg(n+1)</code>。</p>
+<p>红黑树应用：</p>
+<ol>
+<li>大多数自平衡BST(self-balancing BST) 库函数都是用红黑树实现的，比如C++中的map 和 set （或者 Java 中的 TreeSet 和 TreeMap）。</li>
+<li>红黑树也用于实现 Linux 操作系统的 CPU 调度。完全公平调度（Completely Fair Scheduler）使用的就是红黑树。</li>
+</ol>
+<p>在数据库中，红黑树可以用于作为一种索引。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143585797">参考</a></p>
+<p>调整平衡， 取决于当前节点的左右节点是什么颜色，当前的节点 leaf 是 red 节点，或者是初次给定的黑色节点 - 注意，这里是顺序执行以下判断，而非 if-else：</p>
+<ol>
+<li>如果右子节点是红色， 且左子节点为黑色或者不存在，则执行左旋操作； - 左倾红黑树操作？</li>
+<li>如果左子节点是红色， 且左子节点的左子节点不为空且为红色，则执行右旋操作；</li>
+<li>如果左子节点为红色， 且其右子节点为红色， 那么将左右子节点颜色置为黑色，本节点 leaf 置为红色；</li>
+</ol>
+<p>设想一个场景， 建立一个新的红黑树。先插入一个元素 key &#x3D; 12 ， 那么， 这个节点是什么颜色的？<br>插入的时候它是红色的， 没有左右子节点，是根节点所以染成黑色；<br>然后在这个红色节点的基础上，插入 key &#x3D; 1 ， 这个时候， 1&lt;12， 所以，在节点左边插入这个节点，<br>返回到 key &#x3D; 12 这个节点上， 进行判断， 不满足上述三个操作条件，不进行变换或染色；<br>接下来，插入 key &#x3D; 2 , 找到的 key &#x3D; 1 这个节点，插入到其右子节点， 然后先以 key &#x3D; 1 这个节点进行左旋，<br>此时 leaf 变为了 key &#x3D; 2 这个节点，该节点，只有左子节点 key &#x3D; 1 ，为红色，不必做任何操作，<br>回到 key &#x3D; 12 这个节点，不满足第一个条件，<br>满足第二个条件，执行右旋， 现在根节点是 key &#x3D; 2 的节点，好，现在颜色仍然是左节点是红色， 右节点是黑色， key &#x3D; 2 节点为红色；<br>只剩下第三个条件可以判断 - 满足第三个条件，执行染色。得到了一颗高为 2 的树， 左右节点为黑色，key &#x3D; 2 的节点因为是根节点而被染成黑色。</p>
+<p>所以通过上述分析可知大概作用：</p>
+<ol>
+<li>红色节点类似于表现一种权值事物， 如果该节点有兄弟节点也具有’Red’权值，那么权值就可以向上反馈；</li>
+<li>‘Red’权值单独存在的时候不会破坏权值，但是如果有一个相同方向的链式，相邻的节点都有’Red’ 权值，那么，就视为破坏了整体的平衡，<br>所以要执行左旋或者右旋操作；</li>
+<li>左倾红黑树，相当于在第二条中，确定了唯一的方向，使得<code>相同</code>方向条件变为<code>固定单一</code>的方向。至少简化了红黑树的编程操作，和判断条件。</li>
+</ol>
+<p>当然仅靠经验行事还不足以抽象成理论， 在这部分的操作中，可以映射到 2-3 树的操作： - 以下都是基于左倾红黑树</p>
+<ol>
+<li>左倾红黑树中，每个红色节点都是作为左子节点而存在的，与父节点绑定在一起，就形成了 2-3 树；</li>
+<li>有红色节点的分支一定是非完全的；</li>
+</ol>
+<h2 id="算法工具"><a href="#算法工具" class="headerlink" title="算法工具"></a>算法工具</h2><p>基本工具类型，作为算法工具，是可独立的。分为以下分支：</p>
+<ol>
+<li><p>缓冲池</p>
+<ol>
+<li>ID池</li>
+<li>内存池</li>
+<li>页缓存</li>
+<li>Cache</li>
+<li>Buffer</li>
+<li>资源引用</li>
+</ol>
+</li>
+<li><p>运行相关：</p>
+<ol>
+<li>工作者模式</li>
+</ol>
+</li>
+</ol>
+<h3 id="qlist"><a href="#qlist" class="headerlink" title="qlist"></a>qlist</h3><h3 id="工作者-worker"><a href="#工作者-worker" class="headerlink" title="工作者 - worker"></a>工作者 - worker</h3><p>工作者是执行对象。</p>
+<h2 id="主体策略"><a href="#主体策略" class="headerlink" title="主体策略"></a>主体策略</h2><p>有三个系列函数：<br>一个是 vmworker.rs 中的， 消息流转函数， 其初始化在 NodeMsgFpWrapper 中。<br>一个是 类似 vm_propose_write_message 的， 处理一系列请求的函数， 由 worker 线程直接调用。<br>一个为主系列函数，专门处理并执行实际的操作。例如同文件中的 vnodeProcessWriteMsg 。</p>
+<p>所以，首先响应， 然后流转到相关的执行者， 由指定的 worker 执行， 调用工作函数，处理一个或一批次函数，最后调用主系列函数进行执行。</p>
+<h3 id="磁盘引擎"><a href="#磁盘引擎" class="headerlink" title="磁盘引擎"></a>磁盘引擎</h3><h3 id="SQL引擎"><a href="#SQL引擎" class="headerlink" title="SQL引擎"></a>SQL引擎</h3><h3 id="数据订阅"><a href="#数据订阅" class="headerlink" title="数据订阅"></a>数据订阅</h3><p>功能简述：<br>数据订阅主要用于增量数据的实时获取。</p>
+<p>功能划分：</p>
+<p>模块划分：</p>
+<ol>
+<li>消费者</li>
+<li></li>
+</ol>
+<p>开发拆解：</p>
+<h3 id="流式计算"><a href="#流式计算" class="headerlink" title="流式计算"></a>流式计算</h3><h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>其以函数 ctx.rs 中的 sql 为具体执行方式。<br>调用 tonic 所生成的函数， 对应到 server.rs&#x2F;..&#x2F;lib.rs 文件 中的同名函数。</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>RPC 与我们所理解的一致。该问题是因为流式计算对 RPC 有所依赖。需要抽象出 RPC 的接口，进行发送。<br>RPC 是立足于网络协议的、与框架层进行交互的部分。</p>
+<p>IPC：(Inter Process Communication)跨进程通信<br>RPC: (Reomote Procedure Call) 远程过程调用</p>
+<p>构成：</p>
+<ol>
+<li>协议设计</li>
+<li>序列化与反序列化约定</li>
+</ol>
+<p>RPC 需要解决的内容为底层通信过程。<br>对于 Rust 来说，我们可以采用 Volo&#x2F;tonic 进行开发。<br>需要注意的是，将 Volo 定义为可以拆解的结构。方便后续进行开发， 保持其低耦合度。</p>
+<h4 id="tonic"><a href="#tonic" class="headerlink" title="tonic"></a>tonic</h4><p>在 server 的同名函数中，先接到 tonic 的结构体， 然后转换成 SQL 引擎结构体 MsgReq ， 然后携带其他信息，转换成 RpcMsg, 里面含有 channel， 使得其运行完成后，能够返回结构。<br>最后交由 dm_process_node_message 进行运行。</p>
+<h4 id="Volo-该方案已弃用"><a href="#Volo-该方案已弃用" class="headerlink" title="Volo 该方案已弃用"></a>Volo 该方案已弃用</h4><p>其是基于 rust 中的泛型关联类型(GAT)进行设计的。<br>该工程的使用是以来 IDL 的，类似生成代码的类型。其有自身的一套通讯机制。但是不清楚是否可以嵌套到 select 这样应对多种链接的情况。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397060740">RPC框架的IDL与IDL-less</a></p>
+<p>IDL，Interface description language，即接口描述语言。<br>Volo-Thrift 是一个 RPC 框架，既然是 RPC，底层就需要两大功能：</p>
+<pre><code>Serialization 序列化
+Transport 传输
+</code></pre>
+<p>IDL 全称是 Interface Definition Language，接口定义语言。</p>
+<p>关于内部架构原理可以参考此文:<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7217644586868031548">字节跳动开源的 Volo 框架简介</a></p>
+<p>在处理循环以来的时候进行 delay 处理。</p>
+<p>所以我们要验证的时候，必须进行以下的测验：</p>
+<ol>
+<li>针对 Option 属性的处理方式；</li>
+<li>针对 Arc Mutex 的处理方式；</li>
+</ol>
+<p>当然，如果其无法处理，可以使用手动序列化的场景进行。<br>缓解超大型 IDL 生成的代码带来的编译压力。</p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><h3 id="基本测试格式"><a href="#基本测试格式" class="headerlink" title="基本测试格式"></a>基本测试格式</h3><p>测试分为四个部分：</p>
+<ol>
+<li>function_test ： 功能级测试</li>
+<li>concurrency_paraller_test ： 并发与并行测试</li>
+<li>struct_definition ： 结构化定义测试</li>
+<li>feasibility_test ： AIP 验证，可行性测试</li>
+</ol>
+<p>模板如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/// 功能级测试</span></span><br><span class="line"><span class="keyword">mod</span> function_test &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 并发与并行测试</span></span><br><span class="line"><span class="keyword">mod</span> concurrency_paraller_test &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 结构化定义测试</span></span><br><span class="line"><span class="keyword">mod</span> struct_definition &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// AIP 验证，可行性测试</span></span><br><span class="line"><span class="keyword">mod</span> feasibility_test &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="shell-测试数据存留"><a href="#shell-测试数据存留" class="headerlink" title="shell 测试数据存留"></a>shell 测试数据存留</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database testDemo;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> testTable(ts <span class="type">timestamp</span>, id <span class="type">int</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> testTable <span class="keyword">values</span>(now, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> testTable <span class="keyword">values</span>(now, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> testTable;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ins_table;</span><br><span class="line"><span class="keyword">show</span> tables;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> topic topic_1 <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> testTable;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Development-Log"><a href="#Development-Log" class="headerlink" title="Development Log"></a>Development Log</h1><p>[2022.10.14]<br>In fact , I konw nothing about rust.<br>So, I need to provide an environment for testing.</p>
+<p>[2023.2.8]<br>开始开发 rust 。</p>
+<p>初次开发的是 os_base 层次的 shm 。<br>共享内存。<br>C++ 中已经有一套。我们根据此接口进行实现即可。<br>首先要明确 rust 和 C++ 之间的关系。<br>调用 C++ 的是不合理的，但是 shm 共享库里面有，那么我们可以直接调用，封装之后，今天下午如果无事，那么应该编写完成，包括测试代码。晚上再弄一会 C++ 线程池。<br>shm ipc 也需要实现。</p>
+<p>那个不是共享库的，那个是个人开发者开发的开源的代码。但是开源的。<br>只能自己写了。顺便参考参考，完善一下。</p>
+<p>目前有两个比较好的项目，首选其中适配贴近 C++ 的项目。</p>
+<p>确定应该实现以下函数：<br>ftok<br>shmget<br>shmat<br>shmdt<br>shmctl</p>
+<p>参考:<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40602000/article/details/101267933#%E4%B8%89%E3%80%81%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%20%C2%A0-%3E%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">1</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/aLingYun/article/details/100528283">2</a></p>
+<p>项目 shm-master ：<br>比较难懂其中的部分语法。而且都是调用的 C++ 的接口.</p>
+<p>项目 rust_shm_ipc-master :<br>比较有参考意义.<br>但是它考虑了 unix 和 windows 两个系统的适配.</p>
+<p>[2.09]<br>今日两个都弄完,如果没有完成,只能先看开源的了.</p>
+<p>依赖文件进行映射出唯一的id,是否需要将内存实体放入到内存?<br>应该不是</p>
+<p>理论基本完毕,目下只需要再看一遍语法,用此语言的思想进行实现.而不是用 C 的思想.</p>
+<p>该语言,希望忽略变量的使用,将其分为可变和不变两种变量.<br>所有权是一个很根本的东西,几乎动摇了编程的思想.不过这个只能是日常注意和学习.</p>
+<p>关于开源的项目,我们使用的边界又在那里呢?<br>适配层次.</p>
+<p>[2.10]<br>共享内存设计接口,两个方面.</p>
+<ol>
+<li>按照文件路径进行获取共享内存类.</li>
+<li>按照 id_str 获取共享内存类.</li>
+</ol>
+<p>额外设计类获取 str_id 的方法.</p>
+<p>base_sleep and base_shm develope done by iTheds.test over</p>
+<p>[2.13]<br>问题可大了.<br>shmem_master 引用了大量的 nix 库中内容.<br>nix 库实际调用的接口还是系统 libc 的接口.<br>嵌套层数太多.<br>但是得到了一些有用的信息:</p>
+<ol>
+<li>libc::shm_open</li>
+</ol>
+<p>所以,其实很多的接口并不能完全脱耦合.</p>
+<p>[2.14]<br>完全抽离,成本必定很难估量。<br>但是边界在什么地方，也需要清楚。<br>适配 windows ， windows 这个包是可以使用的。但是 win-sys 包可以取代。<br>适配 unix ，使用到 nix 包。很合理吧？？？:)</p>
+<p>之后如何处理？<br>直接封装一个标准口即可？<br>我们还是希望知道 libc 的接口是否 linux 和 windows 都可以使用</p>
+<p>[2.15]<br>重新梳理一下:<br>首先，接口并不难，难的是如何适配。<br>之前所述的 ftok&#x2F;shmget&#x2F;shmat&#x2F;shmdt&#x2F;shmctl 系列接口，都是 unix 下的。<br>而在 windows 下实现共享内存是用的 CreateFileMapping&#x2F;MapViewOfFile 类似的文件映射方式。<br>这个概念之前就被混淆了。理所当然认为是两个系统都用的该类型接口。<br>然后就是依赖问题。</p>
+<p>windows 和 winapi &#x2F; nix ，这几类库是否应该被使用。<br>首先， winapi 是个人封装的精简接口。可以抽离。<br>但是 nix 引用比较多。</p>
+<p>[2.17]<br>终于抽离代码完成。<br>最后进行加工，将 Result 归整， error 使用归整，可复用的代码归整。</p>
+<p>[2.20]<br>ok， 初步抽离完成。其实还有文档、测试可以补充，还可以归整一下代码。<br>但是按照目前的进度，优先完成周五先分配的任务。<br>红黑树，跳表，错误码。<br>只有两周时间，要自己做那肯定是不可能的。这周先把红黑树和跳表解决。网络上有现成的东西。可以先全部搬过来。然后再了解其具体使用。<br>作为工具性，错误码会更可被人使用，它的优先级应该更高。但是我还需要熟悉 rust 语法，且配合多一点的使用场景。</p>
+<p>跳表：<br>其概念大概懂了，就是在原有的链表结构中，按一定规则抽离出部分元素，使得其时间复杂度从 O(n) 降次到 O(logn)。<br>但是按照何种规则，会取得何种收益。这是需要考虑的。<br>先有一个代码实现，看项目 skiplist-master .</p>
+<p>The <code>rng.gen()</code> method is able to generate arrays (up to 32 elements) and tuples (up to 12 elements), so long as all element types can be generated. When using <code>rustc</code> ≥ 1.51, enable the <code>min_const_gen</code> feature to support arrays larger than 32 elements. For arrays of integers, especially for those with small element types (&lt; 64 bit), it will likely be faster to instead use [<code>Rng::fill</code>].</p>
+<p>只要可以生成所有元素类型，“rng.gen（）”方法就可以生成数组（最多32个元素）和元组（最多12个元素）。当使用“rustc”≥1.51时，启用“min_const_gen”功能以支持大于32个元素的数组。对于整数数组，尤其是那些元素类型较小（小于64位）的数组，使用[<code>Rng:：fill</code>]可能会更快。</p>
+<p>该仓库有一个级别分类.<br>直接抄袭.抄袭完成.抄袭下一个 redblackBST.<br>抄袭完成.</p>
+<p>最后一个错误码…</p>
+<p>[2.22]<br>准备上午弄完错误码,下午抽时间写一下大船脚本进行测试.<br>然后看看线程池这周能不能推进.</p>
+<p>[2.23]<br>全线推进完成.接下来就是仔细完善,并且学习 rust 代码.<br>其实我也有点想把线程池弄好.然后网站也弄好.多写几篇文章.</p>
+<p>[2.28]<br>hexo 已经弄好了,之后可以在多个设备之间进行编写. csp 不那么快,但是可以先刷题.<br>先看 rust .<br>现在需要对 redblackRST 和 skiplist 进行验证.<br>那么从 TDengine 源码入手,结合数据库场景.来观察是否相同.<br>首先验证跳表.先看懂其策略模型是如何布置的.<br>看的太慢了。</p>
+<p>[3.6]<br>快速进入结束阶段时期。<br>针对使用做出一套基本介绍。<br>今天重新统筹了关于数据库错误码的内容。想要实现一些用法。<br>看了关于跳表更深入的东西，但是发现，整个内容都很难平衡。无法得知更深入的东西。想要画一些图和表来表示更显而易见的理论。<br>还有红黑树。但是总感觉无法深入，没有着力点。</p>
+<p>大致了解了红黑树。但是好焦虑啊，我要开课题，要学习。</p>
+<p>[3.8]<br>才发现拷贝的仓库代码中没有删除节点的操作。<br>这不就是正好给我实践一下。<br>使用 RBTree 查了一下，发现了另一个仓库。<br>但是我如何得知，我可以使用它呢。<br>我甚至都不知道红黑树可以用来做什么。又如何去做。我不了解 TDengine ， 我不认可只是去拷贝它们。我想要更准确的架构，想要更明确的行动指南。<br>可是我没有办法，我现在还无法独挡一面。世界上那么多好玩的东西，那么多无法节制的东西，但是如果我连我自己都无法控制，那么，又如何控制自己的未来呢。<br>我要写，要学，要安静，我必定，可以养成好的习惯，必定可以超脱于此，必定可以突破自己的瓶颈。</p>
+<p>[3.9]<br>仓库， rbtree ，提供给了我最基本的设计操作和框架。<br>在设计红黑树的时候，仍然使用了 std::ptr 这样在 rust 不被建议的用法，但是却更加靠近底层，有更高的执行效率。<br>对于单个节点，一方面是节点实体 RBTreeNode, 一方面是该节点的指针 NodePtr，所有方法围绕指针进行。<br>而许多基本方法，则用继承进行实现，诸如拷贝、drop 等。<br>该程序的浏览，为之后的程序设计奠定了基本的流程开发。<br>至此，开(chao)发(xi)完毕。<br>接下来补足文档或者接着测试都可。<br>时常看看最原始的设计笔记，阅读 TDengine 源码，这两件事最好每天都有一个进展。</p>
+<p>[3.15]<br>flink 方向去看关于流计算的内容。不用太担心关于内容的构建。</p>
+<p>[3.20]<br>这日子，我是过不下去了。<br>没有方向，什么也没有。感觉已经在团队边缘，有效交流几乎已经没有了。自己琢磨方向，需要的时间简直就是指数上升。<br>很强烈的脱离感。支撑下去的只有职业道德。<br>现在直接编写 worker 。<br>在 Qset 的组件内， 实现了 Qset&#x2F;Queue&#x2F;Qall&#x2F;Node 三种基本格式，其中额外实现了 MutexQset&#x2F;MuteQueue 两种结构，并且方法与相对基本格式同等，是再次封装。<br>那么对于 worker 结构，我们可以获得一些关于锁的启示。<br>锁必须是要包含各个类型的。那么我们在构建的时候，如果要在本层次实现线程安全，或者说，提供给使用者是一个线程安全的结构，那么可以围绕该类型做一个接口。<br>一部分是标准接口，一部分是在标准接口之上的线程安全接口。但是这样就会造成部分冗余，直接让上层做线程安全不久可以了吗。<br>不设计到指针引用，如果是单一对象持有，在 Rust 中不设计为指针，如果是多对象引用，才需要指针型结构；如果是后续线程安全所涉及，应该由上层进行组织其为指针。</p>
+<ol>
+<li>484 ， MutexQset 的 close_qset , 传递参数是否需要统一和调用方式；</li>
+<li>qinfo.queue 需要调用 update_item_size ， 该成员无访问权限， 是否可以将此接口改成 QueueInfo 的接口；</li>
+<li>qinfo 中的 fp 应该也含有 FITmes ,建议设计为 enum 类型；</li>
+</ol>
+<p>[3.23]<br>工期拖延。没开发完成。<br>因为这个架构里面，如果完全套用 C++ 的思想，对于 rust 来说是不安全的。<br>我必须重新梳理一下架构内容。<br>三个对象， worker, qset, workerpool.</p>
+<p>我是否需要在 workerpool 上实现 Mutex ？它在锁定的时候保护了那些变量，又会以那些变量作为需要修改的信息。<br>首先，它所锁定的，并不是全部的内容，而是部分内容，在 C 结构中<br>那么，在 rust 中直接套一个锁，这样是不对的。<br>这个矛盾主要来源于， 我锁定了之后，还需要将其内部的部分变量借用给其他线程。多线程中毫无疑问，这些要借用的变量应该是 Arc 。<br>但是借用之外，需要改变的内容，不应该存在里面。<br>所以，Rust 中对于需要借用和不需要借用的变量应该做出明确的规定。<br>如果不是使用 usafe 的手段，以上是正确的论证。</p>
+<p>然后考虑，workerpool 中，如果套一层是为了上层使用该类在多个线程的时候保证安全，其实是不必要的，或者说，这个操作应该交由上层实现。<br>而在 C 中，本曾实现了锁，进行锁定，想要的是保护该类中指定的部分变量，而非整个类。很简单，没有类生来就是要在多个线程中单独执行的。</p>
+<p>我们使用 <code>Arc&lt;Mutex&lt;()&gt;&gt;</code> 来实现多线程中的可修改读写，代价是作为锁而存在。但还是有问题，是否表明，struct 中的 struct 还是只能用部分锁来使用呢，只是没有拷贝而已。</p>
+<p>[3.24]<br>经过一天的拼凑，大致上已经编写完成。但是还没有测试，也不具备测试的条件。<br>接下来的工作就是调查数据库流式计算应该如何处理。<br>现在是两条路子，一个是对 TDengine 调研并且编写尽可能准确的文档，不需要太宽泛；<br>一个是对流式计算做出调研。</p>
+<p>[3.27]<br>流式计算在数据库中的使用。<br>在时序数据的处理中，经常要对原始数据进行清洗、预处理，再使用时序数据库进行长久的储存。在传统的时序数据解决方案中，常常需要部署 Kafka、Flink 等流处理系统。而流处理系统的复杂性，带来了高昂的开发与运维成本。</p>
+<p>[4.3]<br>开始设计工作。</p>
+<p>[4.10]<br>仍然在排查算子的运作方式。<br>总体框架大概是，每个节点线程对应一个工作者。<br>调试方法和推断过程很重要。调试如果是为了了解系统大致架构，那么不需要仔细查看，但是也必须知晓关键函数所在，才能够尽量减少断点。</p>
+<p>[4.14]<br>基本分析已经做了将近三周的工作。在该三周中，我们对流式计算进行了概念级的了解。对 TDengine 中算子的分布情况、服务端各虚拟节点的作用、流式计算具体操作流程以及函数调用关系做出了分析。<br>接下来，就涉及到具体实施步骤，对项目搭建原始模型，详细到接口层面。之后再进行内容实施。</p>
+<p>[4.19]<br>一个月了。<br>一直在观察，阅读源码。但是呢，我获取的信息，我不知道大家的信息是那里来的，有没有明确的证明，但是我的信息，大部分只能靠猜测。<br>像是流式计算中执行 sql 语句的三个方法和策略。我深入分析了其中算子的生成过程。发现这个算子的生成方式还是很贴近现实的。<br>但是，策略呢？到目前为止，TDengine 的策略没有见到多少。这个过程让我十分之失望。<br>我应该如何落实具体的操作内容？真正可以拆解的架构图在那里？关键节点在那里？整个模块的逻辑是空洞的。<br>我们对底层一无所知。我不是要问责谁。但是我真的需要怀疑一下这件事的前景。<br>一件事情，是水还是硬核。</p>
+<p>我不能够再依靠经验去判断，我应该有更良好的体系和指导思想，在实践中调整。<br>人活在世界上，可以劳其形，尽其心，但是不能损其神，开发自己的思考和肉体是人最基本的需求。我要开始刷题了。<br>现有逻辑再有代码，必须工程化。</p>
+<p>[4.20]<br>今天想把 worker 进行优化一下。<br>明天搭建一个流式计算的基本实验性 Demo 。</p>
+<p>[4.24]<br>进行 worker 和 queue 的细化。</p>
+<p>[5.4]<br>正在开发， 但是流式计算和其他模块关联比较大。<br>目前的主线是去构造类。但是任务下发后执行是比较盲目的。<br>抄袭 TDengine 的东西，也应该有循序渐进的过程。<br>我的想法是能不能做个小 Demo ，然后根据这个 Demo 进行扩展。<br>当然，任务和时间也很重要。如果只有一天，你会怎么做？真是个奇怪的角度。</p>
+<p>[5.5]</p>
+<ol>
+<li>git 仓库建立一个；</li>
+<li>RPC 调研以及方案；</li>
+</ol>
+<p>[5.8]<br>今日将 worker 进行优化，顺便测试一下 volo 。 </p>
+<p>[5.9]<br>仔细抽离一下关于 worker 的内容。<br>首先，QworkerPool 同时维护了 qset 和 worker， worker 维护了线程相关的句柄和信息。<br>分配的线程，需要的是 qset 的指针，用于在其中取出数据进行执行。<br>唯一需要确定的是 qinfo 中需要什么内容。其中涉及到对应的上级 queue 指针。但是具体使用的时候只是将 queue 的长度进行 -1， 以控制变量。<br>所以其完全没有必要存储这个 queue 。</p>
+<p>之后考虑的就是阻塞的方式。需要用何种方式进行阻塞。充当信号量的用法。<br>是不是要用 unsafe 的方式。或者重新编写一个新的。tokie 中的也可以。但是发现 tokio 中的 sem 是非公开组件。那么目前确实缺少平替。</p>
+<p>接下来就是对 worker 进行编程。<br>拟定一个测试模型。</p>
+<p>[5.10]<br>发现一个结构问题。信号量，wati 的时候是等待，给出 post 的时候 wait 才会结束。<br>但是对于单一信号量，其 wait 和 post 的时候必须会要该变其值， lib 库中为 *mut。<br>这样一来，必须是 Arc&lt;Mutex<Sem>&gt; 的形式，但是必须解锁才能用。这样 sem 的方案就无效了。</p>
+<p>如果要实现阻塞，另一个方式就是使用 channel 。<br>基本，理念还是希望可以塑造多通道的、多消费者的模型结构。<br>让 queue 持有一个 send。但是这样以来，就变成了单个通道的。如果未来要改版，那么至少应该可以加上同等的另一个通道，或者建立一个新的 queue 来在上层补足。<br>接下来就是要解决在 worker 的可实践性。<br>问题是，worker 以何种方式持有本内容。因为 send 必须要全部的克隆体被释放才可以完全关闭，结束 recv 的阻塞。单个线程持有 send 肯定是不合理的。<br>要关闭，只能是所有 send 线程结束才行。进行统一关闭。<br>qset 中存储了 Arc&lt;Mutex<Queue>&gt;，标志其只能以锁的方式打开或者关闭。<br>但是没有一个线程，可以控制当下所有的 recv 。或者只能是 recv 主动变成非阻塞形式。<br>或者说，由 send 进行确定，发送指定内容后取消 recv 。<br>那么这样一来，就需要界定，queue 中发送的数据类型是什么，是否只能是 node ？如果想要多方面进行扩展，则需要传递带有 err 的目标信息值。但是无法传递元组信息，最多只能传递 enum。<br>突然觉得，是否可以存储嵌套中的类型呢，传递 node<enum>，这个方法默认是可行的。<br>所以我们标志一个节点为坏信息节点，让这个坏信息节点对 recv 进行取消阻塞。<br>还有一点，我们默认，该消费者模型中，生产者可以有很多个，但是只能有一个消费者。不过模型后期应当具有扩展为多消费者的功能。不对， recv 没有 clone 的变体。如果要多消费者，只能是采用 Arc&lt;Mutx<recv>&gt; 的形式。<br>所以，qset 是只能够读取而不能够写入的，如果要写入，必须要持有 queue 的句柄。<br>搞半天好像 qnode 结构体没有什么用处。<br>是否加上锁的依据是实体是否可以不需要锁并且满足多并发。</p>
+<p>使用无锁的 queue ，那么还有一个问题就是，需要修改该数据结构的时候采用何种方法。<br>必须有人持有原对象，其他使用的人所持有的都是其克隆。<br>所以设计 qset ，直接存储原有内容而非 Arc ，其他线程存储 Arc<Queue>。</p>
+<p>所以，所有对 queue 的改变，应当交由 qset 进行。</p>
+<p>整体流程如下：</p>
+<ol>
+<li>workerPool 负责分配 queue, 在其管理的 qset 中生成一个特定方法 fp 和特定节点 node 的 queue， 并且返回该 queue 的克隆，可用于写入数据；</li>
+<li>应用持有 queue_clone ，通过此写入数据进行发送；</li>
+<li>workers 常监听通道中是否有消息，如果有，则读出 item 进行执行。</li>
+</ol>
+<p>但是问题是，在 worker 监听的时候，一个 worker 对应的是共有的 qset， 此时，quest 中有多个 queue 需要同时被监听。<br>此时如何解决并发问题？</p>
+<ol>
+<li>还是有多个消费者；</li>
+<li>需要同时监听多个 recv.</li>
+</ol>
+<p>这些方法可以采用 crossbeam_channel、select 进行实现。</p>
+<p>[5.15]</p>
+<ol>
+<li>文档，本周需要；</li>
+<li>标准库 select；</li>
+<li>libuv 在 TDengine ，具体是 tar-v 线程的使用，和平替方法；</li>
+<li>tokio 的异步使用；</li>
+</ol>
+<p>基本测试完成。经过长期的迟到，终于我被组织发现了。先定个小目标，做到不迟到吧。<br>采用第三方库已经是必然的了。</p>
+<p>仔细思考一下生命周期的作用。<br>首先生命周期按理来说是每个引用都需要标注的，但是只有在某些无法被判断的情况下才需要表明。<br>而生命周期的目的，则是判断多个变量之间的依赖关系是否完整的情况。<br>在结构体中，如果涉及到引用那么则需要声明生命周期。</p>
+<p>而在本案例中。<br>在本案例中 queue 根本就是直接进入到本方法内部的，所以其生存周期也是应该同等。<br>生命周期的概念中，结构体和成员的生命周期是不同的。</p>
+<p>这里指定了结果引用的生存期应该等于传入引用的生存时间。唯一可能的方法（不安全代码除外）是，生成的引用以某种方式从传入引用派生，例如，它引用了传入引用指向的对象内部的某个字段： </p>
+<p>fn add&lt;’a&gt;(node: &amp;’a mut Node, data: &amp;’static str) -&gt; &amp;’a Node {<br>fn add&lt;’a&gt;(node: &amp;’a mut Node, data: &amp;’static str) -&gt; &amp;’a Node</p>
+<p>struct X {<br>    a: u32,<br>    b: u32,<br>}</p>
+<p>fn borrow_a&lt;’a&gt;(x: &amp;’a mut X) -&gt; &amp;’a mut u32 {<br>    &amp;mut x.a<br>}</p>
+<p>两种方法：</p>
+<ol>
+<li>变成 Arc </li>
+<li>在分配的时候就直接添加到 select</li>
+</ol>
+<p>变成 Arc 之后则解决。但是这样一来，就无法关闭。</p>
+<p>[5.22]<br>采用的是 result 还是 option ,要观察两者是为了解决什么样的问题。</p>
+<p>还是上周的问题。仔细复盘一下。<br>首先，select 引用了 recv 这个句柄。<br>所以，select &lt; recv 生命周期。<br>而 qset 持有 select ， queue 持有 recv ， qset 持有 queue。除了 qset 对 select 是等效持有，也就是 qset &gt; select 之外，其他两个都不确定。<br>所以，要得出 recv &gt; select ，在这个关系链里面是无法直接得出的。<br>那么我们要实验：</p>
+<ol>
+<li>新定义 A 持有 qset 和 recv， 是否可行；</li>
+<li>新定义模型 B 持有 select 和 recv ，是否可行。<br>这就是目前的存档，先留着，之后再补足。</li>
+</ol>
+<p>引用的生命周期比结构体本身更长。</p>
+<p>Higher-Rank Trait Bounds</p>
+<p>还能优化的地方：</p>
+<ol>
+<li>queue clone 的时候数据指针;</li>
+<li>test_queue_thread 使用无锁化;</li>
+<li>qall 的测试;</li>
+</ol>
+<p>还是有问题，首先，qset 是否需要锁，如果一直被锁，那么多个 worker 相当于只有一个在使用。<br>我们想一下， TDengine 中也是同等的流程。<br>所以赚取的实际上是执行方法的时间，每次只是在读取的时候会进行锁。<br>但是还有一个问题，读取的时候，如果是阻塞的方式，那么则无法进行写入 queue 。</p>
+<p>我不想代码里面全是 Option&lt;Arc&lt;Mutex<T>&gt;&gt; 。</p>
+<p>[5.25]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">    (*(queue**)&amp;((*(q))[<span class="number">0</span>])) = (&amp;item-&gt;qmsg);</span><br><span class="line">    (*(queue**)&amp;((*(q))[<span class="number">1</span>])) = (*(queue**)&amp;((*(&amp;item-&gt;qmsg))[<span class="number">1</span>]));</span><br><span class="line">    ((*(queue**)&amp;((*((*(queue**)&amp;((*(q))[<span class="number">1</span>]))))[<span class="number">0</span>]))) = (q); </span><br><span class="line">    (*(queue**)&amp;((*(&amp;item-&gt;qmsg))[<span class="number">1</span>])) = (q); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[5.26]</p>
+<ol>
+<li>阅读 transport ;</li>
+</ol>
+<p>[5.29]<br>首先在 libuv 的 transSendRespones 中，可以确定的是，有两个关键点：</p>
+<ol>
+<li>uv_async_t* asyncs;</li>
+<li>uv_loop_t* loop;<br>标志这，有一个 uv_loop_t 在一直运行，有一个 uv_async_t 供后续调用的时候，将在 uv_loop_t 中的方法进行回调。<br>那么对于用户来说，有前期挂载，装载，调用三步骤。<br>为什么我感觉 STransMsg(SRpcMsg) 中的内容没有用上。<br>直接看它装载了什么方法。vmSendRsp 应该是属于回调函数。</li>
+</ol>
+<p>说起来，最近事情特别多。晚上的时间也需要用来学习。瞬间觉得就变得有些疲惫了。就连交际也因为自身身体素质问题，变得更加难以琢磨。但是人生呢，就是这样。我只是个普通人。越是忙，就越是机遇，便越是专注。可是我终究是难以享受这些吗。那便是要一个力量，打破这个循环，常规方式是舍得，但本我对循环的破解方式，便是用一个更加强的力。专注并且享受，感受思考过程，清晰身体状态。</p>
+<p>关于架构，第一个是节点工作可拆卸。<br>我这部分作为整体架构的主要节点。必须明确每个节点的工作任务。</p>
+<p>[5.30]<br>职能无法明确。<br>我就是不想妥协一些方法，这些方法往往比较鸡肋。但是要真的设计起来，又需要成本。<br>只能说先暂时采用，后续版本迭代的时候进行修正。</p>
+<p>start to init the dnode and run<br>start to create dnode<br>no method to call<br>no method to call<br>hello vm init function<br>ready to start workers<br>start to vm_open_vnode<br>no method to call<br>no method to call</p>
+<p>按理来说，如果使用了 volo 架构，那么应该是来了一个包，直接执行在函数里面，结束后便返回。<br>但是目前的情况是采用了 worker 操作。<br>那么仍然是为 rpcmsg 封装一个 resopne 的操作。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">worker.thread = <span class="title function_ invoke__">Some</span>(Builder::<span class="title function_ invoke__">new</span>().<span class="title function_ invoke__">name</span>(&amp;<span class="keyword">self</span>.name).<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">    <span class="keyword">Self</span>::<span class="title function_ invoke__">thread_fp</span>(qset_clone);</span><br><span class="line">&#125;).<span class="title function_ invoke__">unwrap</span>());</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int32_t</span> i = <span class="number">0</span>;</span><br><span class="line">*(val) = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (;;) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((((pCoder)-&gt;size - (pCoder)-&gt;pos) &lt; (<span class="number">1</span>))) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">    <span class="type">uint32_t</span> tval = ((pCoder)-&gt;data + (pCoder)-&gt;pos)[<span class="number">0</span>]; </span><br><span class="line">    <span class="keyword">if</span> (tval &lt; (((<span class="type">uint8_t</span>)<span class="number">1</span>) &lt;&lt; <span class="number">7</span>)) &#123;</span><br><span class="line">         *(val) |= (tval &lt;&lt; (<span class="number">7</span> * i)); </span><br><span class="line">         ((pCoder)-&gt;pos += (<span class="number">1</span>)); </span><br><span class="line">         <span class="keyword">break</span>; </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        *(val) |= (((tval) &amp; ((((<span class="type">uint8_t</span>)<span class="number">1</span>) &lt;&lt; <span class="number">7</span>) - <span class="number">1</span>)) &lt;&lt; (<span class="number">7</span> * i)); </span><br><span class="line">        i++; </span><br><span class="line">        ((pCoder)-&gt;pos += (<span class="number">1</span>)); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; <span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>[6.6]芒种<br>今日进行数据对接。</p>
+<p>rustup override set nightly</p>
+<p>关键在于，每个层级都不一致。<br>很难去统一去协调。但是应该有一个约定，达成如此的境地。为什么，我们不能够按照原有的意愿进行下去。</p>
+<p>rustup default stable&#x2F;nightly&#x2F;beta</p>
+<p>rustup default stable</p>
+<p>rustup override set stable</p>
+<p>[6.9]<br>工程性的东西，想做什么最重要。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pub struct ColumnDefinition&#123;</span></span><br><span class="line"><span class="comment">//   pub name: String,</span></span><br><span class="line"><span class="comment">//   pub data_type: DataType,</span></span><br><span class="line"><span class="comment">//   pub comment:Option&lt;String&gt;,</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// pub struct CreateTableRpcReq&#123;</span></span><br><span class="line"><span class="comment">//   pub msg_type: u32,</span></span><br><span class="line"><span class="comment">//   pub sql: String,</span></span><br><span class="line"><span class="comment">//   pub name: String,</span></span><br><span class="line"><span class="comment">//   pub num_of_columns: u32,</span></span><br><span class="line"><span class="comment">//   pub columns: Option&lt;Vec&lt;ColumnDef&gt;&gt;,</span></span><br><span class="line"><span class="comment">//   pub num_of_tags: u32, </span></span><br><span class="line"><span class="comment">//   pub tags : Option&lt;Vec&lt;ColumnDef&gt;&gt;,</span></span><br><span class="line"><span class="comment">// &#125; // todo</span></span><br></pre></td></tr></table></figure>
+
+<p>create database testDemo;</p>
+<p>create table testTable(id bool, name bool);</p>
+<p>EDndNodeType</p>
+<pre><code>    fps[NodeAction::VnodeQuery.get_index()] = Some(vm_put_msg_to_query_queue);
+    fps[NodeAction::VondeWrite.get_index()] = Some(vm_put_msg_to_write_queue);
+    fps[NodeAction::TDMT_DND_CREATE_VNODE.get_index()] = Some(vm_put_msg_to_mgmt_queue);
+    fps[NodeAction::TDMT_VND_CREATE_TABLE.get_index()] = Some(vm_put_msg_to_write_queue);
+</code></pre>
+<p>tqProcessPollReq</p>
+<p>tqProcessSubscribeReq</p>
+<p>[6.19]<br>目前，如何定位到节点句柄是一个问题。<br>如果是线程之间的通信，那么获取的方式可以是嵌入到 RpcMsg 中。<br>但是如果没有该内容的定义，获取节点的方法是如何的呢。这一点目前阶段不需要探明，先将 topic 进行开发完善，到达可以运行之后探究。</p>
+<p>[6.25]<br>接下来的工作日程是,继续开发 mnode.</p>
+<p>Stay Focused:</p>
+<ol>
+<li>启动效应</li>
+<li>无干扰的休息</li>
+<li>主动工作</li>
+<li>固定日程</li>
+</ol>
+<p>[6.26]</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> tqPushMsg</li>
+<li>[] tqStartStreamTasks - tqProcessSubmitReq</li>
+<li><input checked="" disabled="" type="checkbox"> tqProcessTaskRunReq<!-- tqStreamTasksScanWal --></li>
+</ul>
+<p>[10.8]<br>几个月未有记录，实际上，一直都没有时间进行开发，组内风气目前是，如果没有在写文档，那么就是很闲；我不明白，写文档确实是工作内容，但是开发却像是一个奢侈的东西，在做这件事的时候，好像是很闲的表现。很搞笑的是，就这样的进度，还要对标TDengine。</p>
+<p>根据 mnode 最后的状态，编写其内容。<br>先确定整个流程，对其进行考察。</p>
+<p>dm_open_nodes() 中， 匹配了 wrappers ， 并且进行 open ， 调用的是 node_open_fp, 其中，方法阵列的载入</p>
+<p>GLOBAL_DNODE 中调用了 dm_init_dnode， 其中最接近的节点。</p>
+<p>其中 build_wrappers() 中，载入了所有的节点，分配到 dnode 中，那么 dnode 所跟随的节点数量就进行了限制。<br>dnode.trans.msg_handles 中存储了大量的操作内容。</p>
+<p>其中 MgmtWrapper 中存储的是以 VnodeMgmt 为先导的内容。<br>其存储的 vnode 为 VnodeMgmt 。在 dm_open_node 中 对 wrapper 进行了重新的声明和分配。</p>
+<p>以下是 vnode 在 rust 中的内容体现：</p>
+<p>VnodeMgmtPointer<br>    |____VnodeMgmt<br>            |____VnodeObjPointer<br>                    |____VnodeObj<br>                            |____VnodePointer<br>                                    |____Vnode</p>
+<p>实际上就三个，我们先根据现有的内容对 Mnode 系列进行构建，然后根据 rust 进行调整其结构，最后运行。完成其既定功能。</p>
+<p>vnode 的功能：</p>
+<ol>
+<li>功能：虚拟节点，拥有最基本的功能；</li>
+<li>系列接口：</li>
+</ol>
+<p>mnode 功能：</p>
+<ol>
+<li>功能：管理节点；</li>
+<li>系列接口：</li>
+</ol>
+<p>[10.12]<br>数据订阅过程：<br>定义 topic<br>基于一个已经存在的超级表、子表或普通表的查询条件，即一个 SELECT 语句(使用 SQL 对标签、表名、列、表达式等条件进行过滤，以及对数据进行标量函数与 UDF 计算（不包括数据聚合）)<br>消费者订阅 topic 后，可以实时获得最新的数据<br>多个消费者可以组成一个消费者组 (consumer group), 一个消费者组里的多个消费者共享消费进度。但不同消费者组中的消费者即使消费同一个 topic, 并不共享消费进度。<br>一个消费者可以订阅多个 topic。</p>
+<p>依赖 TDengine 的消息队列提供了消息的 ACK 机制，在宕机、重启等复杂环境下确保 at least once 消费。</p>
+<p>TDengine 会为 WAL (Write-Ahead-Log) 文件自动创建索引以支持快速随机访问。对于以 topic 形式创建的查询，TDengine 将对接 WAL 而不是 TSDB 作为其存储引擎。在消费时，TDengine 根据当前消<br>费进度从 WAL 直接读取数据，并使用统一的查询引擎实现过滤、变换等操作，将数据推送给消费者。</p>
+<p>程序流程：<br>就分析而言，其有线程性质。</p>
+<p>{int32_t (SRpcMsg *)} 0x555555618d15 <mndProcessCreateTopicReq></p>
+<p>数据订阅分为订阅表和订阅列，需要指定一个 sql 语句。(其实还有一个订阅 整个数据库的方式，但是 TDengine 中暂存了该方式，并未开发 ，3.0。)<br>在创建时，根据此，如果是订阅表，那么就将 SStbObj 放入到 SMqTopicObj；如果是订阅列，那么需要生成一个 SQueryPlan 序列化到 SMqTopicObj 中。<br>之后，开启事务，将 SMqTopicObj 的原生数据作为提交。</p>
+<p>所以这一系列的函数都在 mndTopic.c 中。</p>
+<p>[10.16]<br>TDengine 中，整体逻辑如下：</p>
+<p>单个线程逻辑如下：<br>tQWorkerThreadFp - 工作者模式劫持<br>mmProcessRpcMsg - rpc 分析<br>mndProcessRpcMsg - rpc 分析 - 关键方法执行</p>
+<p>之后的关键方法有很多种类.</p>
+<p>[10.18]<br>ExecutionPlan</p>
+<p>logical_plan 内容 - createLogicPlan</p>
+<p>SPlanContext 不需要，删除</p>
+<p>qExtractResultSchema</p>
+<p>[10.19]<br>关键词：<br>ntb<br>ctb ：<br>stb ： 超级表<br>sdb ： 实现了一个保存表、流元信息的结构，在 mnode 中保存</p>
+<p>[11.09]<br>订阅发布架子：<br>topic.rs - 400<br>WAL&#x2F;mod.rs - 50<br>db.rs - 30<br>trans.rs - 50</p>
+<p>tmsgdef.rs - 180</p>
+<p>rps 内容：<br>dispatch.rs - 500<br>push.rs - 30</p>
+<p>mnode 架子：<br>mmint.rs - 50</p>
+<p>可投入使用的：</p>
+<p>vnode 相关：<br>vnode_svr.rs - 390</p>
+<p>worker相关：<br>vmworker.rs - 360</p>
+<p>基础组件相关：<br>enumtype.rs - 50<br>queue.rs - 610<br>tzerror&#x2F;mod.rs - 240<br>worker&#x2F;mod.rs - 550<br>shmem&#x2F;mod.rs - 270<br>sleep&#x2F;mod.rs - 20</p>
+<p>十分的搞笑，感觉没写多少代码。<br>这一年来就没有以开发为重心。<br>计算机行业是以实践为基础的。不实践，怎么能知道是怎么回事？不应该先想好，而应该先积累足够的实践内容。</p>
+<p>整个架构还不是很了解。</p>
+<p>首先分为多个 node ， vnode 、 mnode 、snode 等。每个节点的职能序列如何确定。<br>node 中， 比如 vnode ，其中是否还有 vnode_mgmt 是做何用处。</p>
+<p>记不住，记不住。</p>
+<p>[11.10]<br>TMQ: Timing Message Queue</p>
+<p>TSDB中：<br>昨天调试发现有三个系列函数：<br>一个是 vmworker.rs 中的， 消息流转函数， 其初始化在 NodeMsgFpWrapper 中。<br>一个是 类似 vm_propose_write_message 的， 处理一系列请求的函数， 由 worker 线程直接调用。<br>一个为主系列函数，专门处理并执行实际的操作。例如同文件中的 vnodeProcessWriteMsg 。</p>
+<p>所以，首先响应， 然后流转到相关的执行者， 由指定的 worker 执行， 调用工作函数，处理一个或一批次函数，最后调用主系列函数进行执行。</p>
+<p>开发路线：</p>
+<ol>
+<li>确定 topic 挂载位置；</li>
+<li>确定关键函数支持；投放到三个系列函数中；<ol>
+<li>TDMT_MND_TMQ_CREATE_TOPIC</li>
+<li>TDMT_MND_TMQ_DROP_TOPIC </li>
+<li>TDMT_MND_TMQ_CONSUMER_LOST</li>
+<li>TDMT_MND_TMQ_CONSUMER_RECOVER</li>
+<li>TDMT_VND_TMQ_CONSUME</li>
+<li>TDMT_VND_TMQ_SUBSCRIBE</li>
+<li>TDMT_VND_TMQ_DELETE_SUB</li>
+<li>TDMT_VND_TMQ_COMMIT_OFFSET</li>
+</ol>
+</li>
+<li>与底层接口交互；</li>
+<li>客户端能够响应；</li>
+</ol>
+<p>事务是回调函数还是其他的呢？</p>
+<p>[概念]添加方法也有不同的概念。<br>一个是 node 携带的 msgFp 响应系列函数。<br>一个是 vmworker 中直接写入到 worker 中的函数， 列如 mmStartWorker 中的 mmProcessRpcMsg。由 wokrer 中的 thread 直接调用。<br>一个是介于以上二者之间的，例如 mndProcessRpcMsg 。能够对多个或者几个工作流做出响应。</p>
+<p>数据结构的布置， TDengine 的架构中， 采用了以下的数据结构分布：<br>先取出， SMnodeMgmt， 然后取出 SMnode， 在执行第一种函数时，锁定 node 如果必要。</p>
+<p>所以根据此，开发路线为以下：</p>
+<ol>
+<li>开发关键的系列函数；<ol>
+<li>topic 系列函数，及其衍生函数；</li>
+<li>consumer 系列函数，及其衍生函数；至此，认为已经能够做出 Demo 进行运行。</li>
+<li>tq 部分函数，及其衍生函数；</li>
+</ol>
+</li>
+<li>挂载并且运行。</li>
+</ol>
+<p>在开发 mnode 的时候，我将会新建立一套更加完善和规范的体系结构。</p>
+<p>需不需要先开发一套架子呢。先不必要。</p>
+<p>[11.13]<br>确定层次结构。<br>问题是目前的所有内容都建立在 vnode 上。如果之后有涉及到 mnode 的开发，移植不便。<br>改变功能结构为不同 node 的挂载参数。</p>
+<p>TODO：</p>
+<ol>
+<li>mndAcquireDb 中 DB 结构未存放，未对接；</li>
+</ol>
+<p>其他可优化：<br>2. mndCreateTopic 中暂未有 user name 关键字，应对客户端请求包做统一要求保存请求源的用户信息，才能够构建该字段；</p>
+<p>[11.14]<br>流计算和订阅发布基于的接口系列是 ssdb ，其 mnode 都基于数据结构 SSdb 中的函数方法，通过查验， 包括 insert、 update、 delete 等五种类型。都是在 mnode 进行管理， 但是其内部没有实际值。只有后续的几个是实际管理并且有效的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SSdbTable table = &#123;</span><br><span class="line">    .sdbType = SDB_STB,</span><br><span class="line">    .keyType = SDB_KEY_BINARY,</span><br><span class="line">    .encodeFp = (SdbEncodeFp)mndStbActionEncode,</span><br><span class="line">    .decodeFp = (SdbDecodeFp)mndStbActionDecode,</span><br><span class="line">    .insertFp = (SdbInsertFp)mndStbActionInsert,</span><br><span class="line">    .updateFp = (SdbUpdateFp)mndStbActionUpdate,</span><br><span class="line">    .deleteFp = (SdbDeleteFp)mndStbActionDelete,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是事务的一套方法。<br>那么对于子表等的插入是否也是基于此的？有待考证。</p>
+<p>并且其是否在 vnode 上有同样一套内容，此也有待考证。<br>vnode 中是否调用的是 tq 中的内容。</p>
+<p>例如 vnodeProcessFetchMsg 中的 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> TDMT_VND_TMQ_CONSUME:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tqProcessPollReq</span>(pVnode-&gt;pTq, pMsg);</span><br></pre></td></tr></table></figure>
+
+<p>挂载位置，并且保存那些信息。<br>Sdb 和 Row 层次两者必须要开发出。</p>
+<p>但是今天时间不够调试，先编写 consumer 。<br>创建 consumer 只能通过客户端操作，所以，该部分先不表现。<br>主要是目前的一系列操作，需要使用统一格式。如果找不到，那么就重新开一个。</p>
+<p>[规则]req 和 msg 一律不使用 Arc 和 Mutex.</p>
+<p>[11.17]<br>[Info]<a id="send_func">信息流转的方法有以下几种情况:</a></p>
+<ol>
+<li>客户端和服务端的通信,为远程通讯,使用 rpc, tonik 远程接口实现;</li>
+<li>同一个 dnode 中, 不同节点的通信, 例如 vnode 和 mnode 之间的通信;该部分可能是使用 更上级的消息队列 queue 实现,也可能是 rpc , 暂时存疑;</li>
+<li>同一个 dnode 中,相同的节点之间的通信, 例如 vnode-queur 和 vnode-write 之间的通信;此部分是由 消息队列实现, 例如 <code>tmsgPutToQueue(&amp;pMnode-&gt;msgCb, WRITE_QUEUE, &amp;rpcMsg);</code>;</li>
+</ol>
+<p>问题是,一个 sdb ,辅助为 sdbraw , 另一个为 trans 的部分,无法展开架构.</p>
+<p>[11.20]<br>接下来开发什么.</p>
+<p>ast -&gt; rpc , rpc -&gt; ast, 用户使用的是 ast 中的, 但目前暂时使用 rpc 中的.<br>对于服务端应该从 rpc 转换成 ast.</p>
+<p>rust 拥有比 C 更加精简的架构体系, 使用 enum 时,最好是知道其结构内容,并且嵌入,而非仅仅用作一个普通的 enum. </p>
+<p>[优化]如果所有的响应函数都能够串联到一个结构中,将会十分方便,可以通过 enum 来实现.</p>
+<p>[11.22]<br>问题的关键是,和存储以及 SQLengine 进行对接.</p>
+<p>订阅发布最基本的模型。</p>
+<p>重新梳理一下结构。</p>
+<p>TDengine 中 SSdb 和 SDbObj ，</p>
+<p>STDB 元数据存储引擎 ，对应到 rust - Meta.Tdb</p>
+<p>[11.24]<br>目前需要一个 demo 。<br>我们对于其还有部分疑问：</p>
+<ol>
+<li>消费者和消费组的关系；是否是通过 vgId 实现的；</li>
+<li>消费数据的过程，其消费的过程，tq 的部分参数；</li>
+<li>事务部分的内容，其就包含了最基础的过程；</li>
+</ol>
+<p>然后我们需要知道的框架如下：</p>
+<p>Topic ：</p>
+<p>Consumer：</p>
+<p>Subscribe：</p>
+<p>SdbUpdateFp updateFp &#x3D; (SSdb*)pSdb-&gt;updateFps[type];</p>
+<p>目前查看了事务，对其结构有进一步的了解：</p>
+<ol>
+<li>首先，所有的结构都有一系列的方法， 如下所示。其中， SSdbTable 为 Sdb 所携带的一系列方法， 在事务执行时，调用这些方法。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int32_t</span> <span class="title">mndInitTopic</span><span class="params">(SMnode *pMnode)</span> </span>&#123;</span><br><span class="line">SSdbTable table = &#123;<span class="comment">// </span></span><br><span class="line">    .sdbType = SDB_TOPIC,</span><br><span class="line">    .keyType = SDB_KEY_BINARY,</span><br><span class="line">    .encodeFp = (SdbEncodeFp)mndTopicActionEncode,</span><br><span class="line">    .decodeFp = (SdbDecodeFp)mndTopicActionDecode,</span><br><span class="line">    .insertFp = (SdbInsertFp)mndTopicActionInsert,</span><br><span class="line">    .updateFp = (SdbUpdateFp)mndTopicActionUpdate,</span><br><span class="line">    .deleteFp = (SdbDeleteFp)mndTopicActionDelete,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">mndSetMsgHandle</span>(pMnode, TDMT_MND_TMQ_CREATE_TOPIC, mndProcessCreateTopicReq);</span><br><span class="line"><span class="built_in">mndSetMsgHandle</span>(pMnode, TDMT_MND_TMQ_DROP_TOPIC, mndProcessDropTopicReq);</span><br><span class="line"><span class="built_in">mndSetMsgHandle</span>(pMnode, TDMT_VND_TMQ_ADD_CHECKINFO_RSP, mndTransProcessRsp);</span><br><span class="line"><span class="built_in">mndSetMsgHandle</span>(pMnode, TDMT_VND_TMQ_DEL_CHECKINFO_RSP, mndTransProcessRsp);</span><br><span class="line"></span><br><span class="line"><span class="built_in">mndAddShowRetrieveHandle</span>(pMnode, TSDB_MGMT_TABLE_TOPICS, mndRetrieveTopic);</span><br><span class="line"><span class="built_in">mndAddShowFreeIterHandle</span>(pMnode, TSDB_MGMT_TABLE_TOPICS, mndCancelGetNextTopic);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">sdbSetTable</span>(pMnode-&gt;pSdb, table);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在事务执行时，主要是 mndTransExecute 函数中的 TRN_STAGE_COMMIT_ACTION 选项， 执行 mndTransPerformCommitActionStage ， 最主要的是 mndTransExecSingleAction 执行， 其内部有三种：<ol>
+<li>TRANS_ACTION_NULL &#x3D; 0, 不执行，只做执行的标记，</li>
+<li>TRANS_ACTION_MSG &#x3D; 1, 将此 StransAction 作为 msg 发送到此 StransAction 的 epSet 所标志的位置；</li>
+<li>TRANS_ACTION_RAW &#x3D; 2, 调用的是 sdbWriteWithoutFree ，对应多个操作如下：  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (pRaw-&gt;status) &#123;</span><br><span class="line"><span class="keyword">case</span> SDB_STATUS_CREATING:</span><br><span class="line">    code = <span class="built_in">sdbInsertRow</span>(pSdb, hash, pRaw, pRow, keySize);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> SDB_STATUS_READY:</span><br><span class="line"><span class="keyword">case</span> SDB_STATUS_DROPPING:</span><br><span class="line">    code = <span class="built_in">sdbUpdateRow</span>(pSdb, hash, pRaw, pRow, keySize);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> SDB_STATUS_DROPPED:</span><br><span class="line">    code = <span class="built_in">sdbDeleteRow</span>(pSdb, hash, pRaw, pRow, keySize);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 所以，在执行的过程中，是有可能通过事务的执行，将 STransAction 中的 pRaw 写入到 pSdb 中的。这部分是一个事务。<br> 但是，对于 SMqTopicObj ，其 insert 函数是没有任何的东西的。<br> 但是，对于该函数(sdbWriteWithoutFree)， sdbInsertRow 中 <code>taosHashPut(hash, pRow-&gt;pObj, keySize, &amp;pRow, sizeof(void *))</code>已经将信息记录到了 pSdb 中。</li>
+</ol>
+</li>
+</ol>
+<p>[11.29]<br>Cmngr - Mnode<br>PsvrMgmtPointer - VnodeMgmtPointer<br>SubMetricmodelName<br>Metricmodel - Stb<br>cmngr<br>CMNGR<br>PSVR</p>
+<p>剩下需要改名的地方：</p>
+<p>vgroup</p>
+<p>[11.29]<br>之前通过事务，已经对整个体系明了了大半。</p>
+<p>[11.30]<br>在创建数据库时， 由 <code>psvr_m_add_vgroup_id_and_name</code> 插入到 vnode 的 map 里面，但是并没有插入到 mnode 中。</p>
+<p>在事务的 mndTransCommit 中，有 mndTransSync -&gt; mndSyncPropose , 其中 syncPropose -&gt; syncNodePropose 。</p>
+<p>之前提到有，<br><a href="#send_func">Info</a>信息流转的方法有以下几种情况:</p>
+<ol>
+<li>客户端和服务端的通信,为远程通讯,使用 rpc, tonik 远程接口实现;</li>
+<li>同一个 dnode 中, 不同节点的通信, 例如 vnode 和 mnode 之间的通信;该部分可能是使用 更上级的消息队列 queue 实现,也可能是 rpc , 暂时存疑;</li>
+<li>同一个 dnode 中,相同的节点之间的通信, 例如 vnode-queur 和 vnode-write 之间的通信;此部分是由 消息队列实现, 例如 <code>tmsgPutToQueue(&amp;pMnode-&gt;msgCb, WRITE_QUEUE, &amp;rpcMsg);</code>;</li>
+</ol>
+<p>[优化]将每种类型和 node action 进行优化，进行层次分类。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TransPort::<span class="built_in">handle_req</span>()</span><br></pre></td></tr></table></figure>
+
+<p>[12.1]<br>今天开发消费内容，尽可能下午与 SQL 引擎对接。</p>
+<p>STqOffsetStore 可能是消费位点提交。</p>
+<p>其中，日志和消费位点有一个配合，需要共同开发的部分。</p>
+<p>从主消费函数中衍生出整个流程 ， tqProcessPollReq 。<br>消费过程：<br>提出其消费者 id  时间和消费位点，找到 Tq handle 。<br>stq 是维护在 vnode 中的， tq handle 很可能是为单个可操作的内容， 其内部含有 wal ， 应该是为订阅发布所设计的。</p>
+<p>这些都是单个节点的消费过程。</p>
+<p>[优化]很多地方都有对不同的订阅结构(表、数据库、列)而分的 union ， 这部分应当使用同意的协定。</p>
+<p>[12.4]<br>再回归一下tdegnine 数据订阅发布过程：<br>首先， mnode 的工作者接收 create topic 请求包， 生成相对的执行树(或执行计划)， 并且将 topic 记录到 sdb 。<br><del>然后发送到 vnode ， vnode 对 topic 和 执行树进行记录。该部分在 TDengine 中应该是生成了 task 进行存储。</del>在创建完成订阅之后，流任务才被创建，并且发送到 vnode 。</p>
+<p>创建消费者的过程，该部分仍然比较模糊，其并没有创建 consumer 的过程，需要调试一下。不过，在本项目中，创建 consumer 时，可以在 mnode 中进行，并且发送到 vnode 中的 stq 存储。<br>流中有一个 mndScheduleStream ， 此为一个方向。</p>
+<p>订阅过程，根据客户端订阅函数 tmq_subscribe 发现其构造了一个请求结构， SMsgSendInfo ，<br>其中， TDMT_MND_TMQ_SUBSCRIBE ， SMqSubscribeCbParam，<br>由 <code>mndSetMsgHandle(pMnode, TDMT_MND_TMQ_SUBSCRIBE, mndProcessSubscribeReq);</code> 指定函数 mndProcessSubscribeReq 进行处理，此处才是进行订阅的过程。然后更新指定的消费者。<br>所以订阅就是更新消费者的过程。</p>
+<p>而根据 <code>mndSetMsgHandle(pMnode, TDMT_VND_TMQ_SUBSCRIBE_RSP, mndTransProcessRsp);</code>， 表明<del>我又在处理审批工作，然后忘记想到什么地方了，然后代码也没写，此刻只想发呆，就这么回事</del>订阅的过程，实际就是执行该事务的过程。<del>然后没写几句就又开始弄审批工作啦，实在是太坤乐啦</del></p>
+<p>但是其实际生效是在 mndProcessRebalanceReq 中。</p>
+<p>SMqSubscribeObj 和 SMqTopicObj 有同 cgroup 下的 key 。<br>代表了 &lt;topic, subscribe , consumer&gt; 的关系。<br>创建订阅 subscribe 之后， 存储到 mnode sdb 中。</p>
+<p>均衡操作 mndProcessRebalanceReq 调用， 这是一个应答 TDMT_MND_TMQ_DO_REBALANCE 的响应结构。<br>调用 mndSchedInitSubEp， 将 topic 中的 qplan 取出其子计划， 放到 SMqSubscribeObj-&gt;unassignedVgs 中的 qmsg，之后通过 mndDoRebalance ，发给相关的 vnode 。</p>
+<p>&#x2F;&#x2F;</p>
+<p>在消费时， 根据 req 中的 key ，找到 handle ， 确定消费位点， 进行校验，之后取出消费位点的数据， <del>通过 task 执行</del>，通过<br>然后将结果集返回，之后提交消费位点。</p>
+<p>SMqDataRsp 应该是一个能适用于多线程，暂时存储结果集的结构。<br>STqPushEntry 是一个用于推数据的结构，存储应答消息体。其存储在 stq 中。</p>
+<p>也就是说，在消费时，<br>如果是列订阅，<br>    如果消费位点是 log 模式，创建一个 STqPushEntry， 添加到 stq-&gt;pPushMgr 中，之后结束消费过程。<br>    如果不是 log 模式，发送，然后结束消费过程。其作为 TMQ_MSG_TYPE__POLL_RSP。<br>然后结束消费过程。<br>如果不是列订阅，<br>    如果消费位点不是 TMQ_OFFSET__LOG log 模式， 那么，扫描位点数据，如果有数据，则发送，没有则设置消费位点，结束消费过程。<br>    如果消费位点是 log 模式，那么，通过 tqFetchLog 扫描日志，获取数据后 tqSendTaosxRsp， 然后提交。</p>
+<blockquote>
+<p>其模式有：<br>TMQ_OFFSET__RESET_NONE &#x3D; -3,<br>TMQ_OFFSET__RESET_EARLIEAST &#x3D; -2,<br>TMQ_OFFSET__RESET_LATEST &#x3D; -1,<br>TMQ_OFFSET__LOG &#x3D; 1,<br>TMQ_OFFSET__SNAPSHOT_DATA &#x3D; 2,<br>TMQ_OFFSET__SNAPSHOT_META &#x3D; 3,</p>
+</blockquote>
+<p>[info]df scheame 是语义分析中产生的。<br>q schema 是公用的。</p>
+<p>[12.6]<br>根据之前分析的 tdengine 数据订阅发布过程，构建本数据库的订阅发布最简单的过程：<br>创建 topic ：使用 sql 语句进行创建，mnode 的工作者接收 create topic 请求包， 生成一个相对的执行树(或执行计划)，存储到 topic odj 中， 并且将 topic obj 记录到 sdb 。</p>
+<p>创建消费者：使用客户端接口创建， mnode 接收到 创建消费者请求包， 存储到 sdb 中。</p>
+<p>创建订阅 subscribe ： 使用客户端接口创建， mnode 接受到 订阅 CMSubscribeReq 请求包，更新消费者结构体，将生成的 subsrcibe obj, 存储到 sdb 中，<br>将 topic 中的 执行计划 plan 一并发送到 vnode ，分配 STqPushEntry、STqHandle、SAlterCheckInfo、STqOffsetStore，</p>
+<ol>
+<li>pPushEntry-&gt;subKey 与 handle 有 hash 关系。STqPushEntry 中有 SMqDataRsp ，用于存储并管理结果集。</li>
+<li>STqOffsetStore 管理消费位点；<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SHashObj* pPushMgr;    <span class="comment">// consumerId -&gt; STqPushEntry</span></span><br><span class="line">SHashObj* pHandle;     <span class="comment">// subKey -&gt; STqHandle</span></span><br><span class="line">SHashObj* pCheckInfo;  <span class="comment">// topic -&gt; SAlterCheckInfo</span></span><br><span class="line">STqOffsetStore* pOffsetStore;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>消费时：根据 req 中的 key ，找到 handle ， 确定消费位点， 进行校验，之后取出消费位点的数据，使用执行树进行执行，输出结果集到指定的 pPushMgr 中。<br>然后将结果集返回，之后提交消费位点。</p>
+<p>[12.7]<br>本周就剩下两天了，又是天天有流程工作。</p>
+<p>接下来可能就是说，需要将之前的接口进行完善，然后开发一部分新的接口。<br>选一个比较实际的事项进行完成。</p>
+<p>还是四部分：</p>
+<ol>
+<li>topic <ol>
+<li><input checked="" disabled="" type="checkbox"> 创建 topic</li>
+</ol>
+</li>
+<li>consumer <ol>
+<li><input checked="" disabled="" type="checkbox"> 创建 consumer</li>
+</ol>
+</li>
+<li>subscribe <ol>
+<li><input disabled="" type="checkbox"> 订阅过程</li>
+</ol>
+</li>
+<li>consume <ol>
+<li><input disabled="" type="checkbox"> 消费过程</li>
+</ol>
+</li>
+</ol>
+<p>需要的支撑：</p>
+<ol>
+<li>sql 引擎：<ol>
+<li><input disabled="" type="checkbox"> 生成执行树</li>
+<li><input disabled="" type="checkbox"> 执行树执行</li>
+<li><input disabled="" type="checkbox"> 结果集保存</li>
+</ol>
+</li>
+<li>wal ：<ol>
+<li><input disabled="" type="checkbox"> 写入 wal </li>
+<li><input disabled="" type="checkbox"> 读出指定位置的 wal</li>
+<li><input disabled="" type="checkbox"> 批量读出</li>
+</ol>
+</li>
+<li>sdb 系列函数怎么写</li>
+<li>trans 部分怎么处理</li>
+</ol>
+<p>消费过程，依赖的东西太多。</p>
+<p>Tdengine 中 sdb 所存储的 &lt;key,value&gt; ， value 存储的是指针， key 则是 obj ，但 obj 可以 decode 为 原数据。</p>
+<p>rpc 中传递什么，传递的有两种，动作包和元数据包，元数据包附带动作，那么就形成了一个动作包。</p>
+<p>[12.10]<br>之后的开发只有三个部分:</p>
+<ol>
+<li>创建订阅</li>
+<li>vnode 的操作方法, 其主要是<ol>
+<li>接收到 subscribe 之后的部署操作 psvr_process_deploy_subscribe_task</li>
+</ol>
+</li>
+<li>消费的流程</li>
+</ol>
+<p><code>TD_DEF_MSG_TYPE(TDMT_VND_TMQ_SUBSCRIBE, &quot;vnode-tmq-subscribe&quot;, SMqRebVgReq, SMqRebVgRsp)</code>，<br>忽略了一个订阅的过程 tqProcessSubscribeReq ， 在此处， 订阅的时候创建了算子 qCreateQueueExecTaskInfo ， </p>
+<p>[12.18]<br>流中是 STaskExec ，而 tq 中是 STqExecHandle 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">  <span class="type">char</span>* qmsg;</span><br><span class="line">  <span class="comment">// followings are not applicable to encoder and decoder</span></span><br><span class="line">  <span class="type">void</span>* executor; <span class="comment">// qTaskInfo_t</span></span><br><span class="line">&#125; STaskExec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">  <span class="type">int8_t</span> subType;</span><br><span class="line"></span><br><span class="line">  STqReader*  pExecReader;</span><br><span class="line">  qTaskInfo_t task;</span><br><span class="line">  <span class="keyword">union</span> &#123;</span><br><span class="line">    STqExecCol execCol;</span><br><span class="line">    STqExecTb  execTb;</span><br><span class="line">    STqExecDb  execDb;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="type">int32_t</span> numOfCols;  <span class="comment">// number of out pout column, temporarily used</span></span><br><span class="line">&#125; STqExecHandle;</span><br></pre></td></tr></table></figure>
+
+<p>之后就是构建 task ，然后将 task 进行执行。<br>完成这项之后，订阅发布即可执行。</p>
+<p>之后完成 tq 相关接口。但是其中还有部分关键。</p>
+<p>[12.26]<br>最近两天又开始弄关于 select 的复用问题.<br>但是由于其引用无法解决, 转向寻求 tokio 中的 select 进行解决, 但其作为 select! 在使用有限内容的时候可以很好解决, 但是需要监听的 channel 一旦多其来后, 就无法进行监听.</p>
+<p>在使用 crossbeam_channel 的说实在, 这一块, 比较无解, 其使用场景, 就确定了 需要 recv 的生命周期必须比 select 更长,  那么就无法限定在一个结构体内部同时存储这两者.<br>两个结构体比较鸡肋, 应用场景会被局限, 最简单的应该只有是用一个全局变量, 来存储 recv , 然后 select.recv(recv) , 通过此法来确定.</p>
+<p>尝试使用 tokio 中的 recv ,其是一个 future .</p>
+<p>[12.27]<br>目前的方向是:</p>
+<ol>
+<li>仍然使用 crossbeam_channel 的 select , 尝试解决其引用问题, 但是此法, 如果不能够将 recv 的生命周期控制控制在有限范围内, 那么将会对整体代码产生较大的污染.</li>
+<li>使用 tokio 中的 select!, 编写新的 VecRecv 为 future , 但是此法的效率依赖于内部实现的并发效能;</li>
+<li>使用 future 进行实现.</li>
+</ol>
+<p>又是周三, 今天做了什么事情呢, 尝试了 select ,但是没有成功, 开发元数据, 但是拖了很久时间, 不知道时间去那里了, 看了会订阅发布, 其中涉及到其他算子的使用, 没有耐心看完, 下午去了质量处.</p>
+<p>[12.28]<br>今日专心设计, 保证文档质量.</p>
+<p>qset 和 worker 在设计之初, 没有考虑到多线程的并发问题.<br>其中 qset 的 read all item 和 add item 之间无法进行并发.<br>这块可以进行改进.</p>
+<p>[12.29]<br>select 之间。</p>
+<p>[2024.1.2]<br>新的一年。</p>
+<p>可以边进行设计。</p>
+<p>tqProcessSubscribeReq 。</p>
+<p>关于 STqHandle ， 其实我不想光是抄写 stqreader 等相关组件。</p>
+<p>然后关于 exec 组件， 如何调用 sql 引擎的接口， 需要那些接口也比较关键。</p>
+<p>STqHandle 中有 SWalReader， 其是 wal 。</p>
+<p>SWalCkHead 为读取出的内容， 其有 SWalCont， SWalCont 有 body ， body 为读取出的内容。</p>
+<p>wal 中读出的 SWalCkHead 可能其 type 是 TDMT_VND_SUBMIT ， 这说明了什么？？？</p>
+<p>Vnode 中有一个 SWal ， 每次需要读取时， 先根据此生成一个 STqReader。<br>STqReader 中有一个 SWalReader ， 其内部存储了一个 SWalCkHead， </p>
+<p>在 STqReader 中有一个 SSubmitMsgIter ， 该结构体的作用？？？</p>
+<p>tq 即任务队列。<br>在任务队列中需要实现那些内容？？</p>
+<p>[1.4]<br>qStreamPrepareScan 确实是执行计划的内容， 但是我需要知道的是， 其产生了如何的效果。</p>
+<p>看的差不多了，先开始设计。<br>tq 本质上是任务队列， 不是对什么存储的封装，具体是将算子进行流转和执行的过程。<br>在这个过程中， 主要部署了以下内容：</p>
+<ol>
+<li>算子的流向位置， 这部分主要依赖于 rpc 的信息管道， 里面有需要流转的地址；</li>
+</ol>
+<p>其主要实现通过 vnode 中的 stq 实现， 将整个过程的直接对象分为三个 ： 执行、读取、推送。<br>所以，每个部分都包含了其他的模块，耦合度十分之高。<br>但是大体上，我们可以剥离开， 读取 主要和 wal 进行绑定， 执行绑定的是 执行算子， 推送所绑定的是 通讯的地址， 即 msg 发送到那个部分。<br>封装的目的是为了能够携带相关信息的目标位置。</p>
+<p>在 TDengine 中， 具体是通过 STQ 实现。其持有 list<STqPushEntry> 和 list<STqHandle> ,<br>而一个 <code>STqHandle</code> 就是一个完整的结构。其持有 <code>STqPushHandle</code> , <code>STqExecHandle</code> , wal 伴生结构 &lt;SWalReader,SWalRef&gt; , </p>
+<p>但是问题是, 流转过程中, 如何传递, 传递到什么地方, 在什么粒度决定.<br>其执行是整个算子链都执行完成, 还是执行链中的部分算子可以传递到其他地方执行.</p>
+<p>再看 tsdb , 按理来说, 如果要使用算子的方式, 那么不应该只是流式计算来使用, 普通的建表过程也应该使用算子的方式.<br>那么我们再来思考关于两者统一的问题.</p>
+<p>[1.5]<br>目前得到的都是大概的内容.</p>
+<p>执行模块, 需要那些参数传递, 又如何执行,<br>推送模块, 怎么确定目的地,<br>读取模块, 如何从 wal 中获得数据, 获得的是日志中的数据, 还是数据库存入的缓存, 即得到的格式是怎么样的, wal 是否已经挂载在数据库中了.</p>
+<p>TDengine 中没有找到关于将 执行算子传递的内容, 而且这部分, 只需要对接即可.<br>我需要知道执行引擎中的内容:</p>
+<ol>
+<li>执行模块主要的系列方法,</li>
+<li>如何构建一个执行树, 或者说可以用于执行 sql 语句的内容, 或者说能够根据 sql 生成的功能组件,</li>
+<li>需要保留那些结构, 是否可复用,</li>
+<li>如何获取结果,</li>
+</ol>
+<p>执行后的结果是否为直接发送出去.</p>
+<p>然后我们再看, 结合数据订阅中的 消费者\主题 topic \ 订阅 .<br>通过 act 订阅, 建立消费者和 topic 之间的联系. 主要通过渲染 <code>STqHandle</code> 完成.<br>一个 <code>STqHandle</code> 与一个 订阅 相关联.</p>
+<p>但是 TDengine 中的订阅过程 <code>tqProcessSubscribeReq</code> , consumer 和 订阅似乎并没有产生联系的过程 .<br>服务端接受到的请求时, 便已经生成了一个 subkey, 该请求通过 <code>mndBuildSubChangeReq</code> 进行创建, 最根本是 reblance 函数中 SMqRebOutputObj 的 key 相同, 由 topic 和 cgroup 共同组成.<br>在订阅过程中, 如果是新的订阅(指的是针对 cgroup 和 topic 之间的关系), 那么生成一个 <code>STqHandle</code> ,<br>根据不同的订阅类型进行不同的操作:</p>
+<ol>
+<li>column , 创建算子, 并且将执行算子放入到 <code>STqExecHandle</code> 中 ; 在这个过程中, 通过 <code>STQ</code> 的上层 vnode 的 meta 作为入参生成一个 <code>SReadHandle</code> , 也一并用于生成执行算子的入参;<ol>
+<li>但是, 执行算子中的读取组件, 使用是 从该算子链 中拿出(type &#x3D; QUERY_NODE_PHYSICAL_PLAN_STREAM_SCAN) <code>SStreamScanInfo</code>, 从其中取出 <code>STqReader</code> , 放入到 <code>STqExecHandle</code> 中.</li>
+</ol>
+</li>
+<li>db ,  如果是订阅的数据库, 那么 wal 挂载 ,  然后, 打开 <code>tqOpenReader</code> <code>STqReader</code> 放到 <code>STqExecHandle</code> 中 , 之后, <code>buildSnapContext</code> <code>SSnapContext</code> 创建一个上下文, 该上下文中包含了 meta 等其他状态信息 , <ol>
+<li>然后, 也生成了一个执行算子,该算子的生成 , 入参只有 <code>SReadHandle</code> ,</li>
+</ol>
+</li>
+<li>table , 表的大致流程与库一样 ,</li>
+</ol>
+<p>构建完成 <code>STqHandle</code> 之后, 存放到 STQ 中的 list<STqHandle> 中.</p>
+<p>但是推送的过程如何构建呢,<br>查看 TDengine 代码发现,  <code>STqHandle</code> 中的 <code>STqPushHandle</code> 并没有被使用到, 在 push 中, 直接使用的是 <code>tqPushMsg</code> ,<br>其直接使用 <code>STQ</code> 中的 list<STqPushEntry>, 对其进行迭代, 然后执行 task , 并且将数据放入到 <code>SMqDataRsp</code> 中, 然后调用 <code>tqPushDataRsp</code> 发送 <code>STqPushEntry</code> 中的数据.<br>之后删除这些 STqPushEntry , 是否代表者其只是一次性的???<br>tqProcessSubmitReq 在 tqPushMsg 中调用，而且该函数只在 vnodeProcessWriteMsg 作为写入后的统一回应， 表明该接口是在写入后对数据的一种提交。<br>而其遍历的是 STqPushEntry ， 表明其将数据放入了推送部分。</p>
+<p>但是看其创建的地方, 在 <code>tqProcessPollReq</code> 中,  这其实是一个消费函数,<br>其在消费时, 先获取到创建完成的 STqHandle  ,然后 校验和调整 offset 消费位点,<br>如果是列订阅, 那么执行 tqScanData , 这个接口内调用了算子进行了计算.<br>发送时, 如果没有 STqPushEntry 则进行创建. </p>
+<p>ok , 那么之后就简单了.<br>我们根据 TDengine 的内容来设计我们自己的 任务队列 , 结合 rust 语言特性.</p>
+<p>任务队列 仍然由挂载在 psvr 的 STQ 负责, 其持有一个 TqHandle , 来专门负责具有同等模型的任务.<br>TqHandle 分为 推送\执行\读取 三部分. </p>
+<p>Exec 中, 应当持有 执行部分内容:<br>我需要知道执行引擎中的内容:</p>
+<ol>
+<li><del>执行模块主要的系列方法</del></li>
+<li>如何构建一个执行树, 或者说可以用于执行 sql 语句的内容, 或者说能够根据 sql 生成的功能组件 ,<ol>
+<li>客户端根据 sql 语句创建语法树, 进行语义分析, 逻辑优化, 生成的<em>执行计划</em>发送给服务端, 拿到之后就可以运行;</li>
+<li>通过切换输入源,  ExecutionPlan:: , e.g stream&lt;518&gt; , tq&lt;390&gt; transfrom , 具体用法可参照 push_down_projection&lt;414&gt;replace_cols_by_name ,</li>
+<li>传递逻辑计划, StatementPlan ,</li>
+<li>执行计划, create_physical_plan , 传入的逻辑计划通过方法 create_physical_plan 生成执行计划 , </li>
+<li>其他-创建算子， e.g stream &lt;320&gt;</li>
+</ol>
+</li>
+<li>需要保留那些结构, 是否可复用,</li>
+<li>如何获取结果,<ol>
+<li>结果集, <code>RecordBatch</code></li>
+</ol>
+</li>
+</ol>
+<p>推送部分:</p>
+<ol>
+<li>保留通信信道,</li>
+</ol>
+<p>读取部分:</p>
+<ol>
+<li>支持通过 wal 读取, </li>
+<li>支持通过 Queue 构建队列来进行读取.</li>
+</ol>
+<p>[1.9]<br>具体构建如下:<br>任务队列与订阅发布:<br>任务队列负责将 sql 引擎的算子进行推送和管理, 面向的是整个分布式架构, 支持节点到节点之间\主机到主机之间的传递,<br>订阅发布以消费组为单位, 每次创建消费者的时候, 将建立一个消费组, 允许消费者加入消费组, 进而共享消费进度.<br>消费组和订阅构建关系.<br>在创建订阅的时候, 渲染出 exec 执行模块, 在订阅过程中 ,完成 读取算子 和 推送算子 的构建 , 消费时, 执行算子即可. </p>
+<p>TDengine 中执行的过程都是固定的， 是否表明执行算子其实是固定的某些呢。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 handle ，取出算子</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 取出相应的数据内容， 进行计算，放入结果集中</span></span><br><span class="line"></span><br><span class="line">todo!();</span><br><span class="line"><span class="comment">// SMqDataRsp</span></span><br><span class="line"><span class="comment">// tqScanData</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 位点提交</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// tqSendDataRsp</span></span><br></pre></td></tr></table></figure>
+
+<p>目前， 概念设计已经完成， 开始写代码。</p>
+<p>关键是有三种处理方式.<br>主要是执行.</p>
+<p>主要流程:</p>
+<ol>
+<li>创建 topic ; cmngrCreateTopic(CMCreateTopicReq)</li>
+<li>创建 consumer; cmngrProcessCreateC哦nsumerReq</li>
+<li>创建 subscribe; cmngrProcessSubscribeReq(TDMT_MND_TMQ_SUBSCRIBE) tqProcessSubscribeReq(TDMT_VND_TMQ_SUBSCRIBE) </li>
+<li>插入数据的挂载; </li>
+<li>消费函数; tq_process_consume_req</li>
+</ol>
+<p>TDengine 中， 订阅消息 <code>TDMT_MND_TMQ_SUBSCRIBE</code> 先由 mnode 进行处理， 只针对消费者进行操作。<br>然后由 mnode 定时器 <code>mndThreadFp</code> 触发 <code>mndProcessRebalanceReq(TDMT_MND_TMQ_DO_REBALANCE)</code> 由 <code>mnode</code> 处理，在此过程中生成 <code>(SMqSubscribeObj)mndCreateSub</code>， 并且调用 mndPersistRebResult - &gt; mndPersistSubChangeVgReq 事务转消息 <code>tqProcessSubscribeReq(TDMT_VND_TMQ_SUBSCRIBE)</code> ， 渲染出任务队列的组件。供消费使用。</p>
+<p>现阶段先不实现 rebalance ， 在 cmngrProcessSubscribeReq 中直接记录， 然后送达到 vnode 进行部署。</p>
+<p>Epset 是指的 ？？？</p>
+<p>[1.12]<br>wal 挂载还需要考虑。</p>
+<p>[1.15]<br>推送有两种模式， 单独推送和统一推送。<br>在本系统中采取单独推送的方式。</p>
+<p>这三个组件之间的关系是， 如果是：执行模块需要推送和读入模块作为初始化。算子运行时，从读取模块读入定量数据，送达推送模块， 然后推送模块在 <code>tqPushMsg</code> 中推送。这是统一推送。<br>单独推送可以是运算完成后直接推送。</p>
+<p>根据算子替换来说，可能需要更换一个输入源。<br>需要自定义输入源来实现。</p>
+<ol>
+<li>inset 中， 使用的是 push_msg</li>
+<li>输入算子的执行结果是，生成一个结构， 能够通过 poll_next 取出数据</li>
+<li>拿到输出的过程</li>
+</ol>
+<p>订阅发布有两种模式：</p>
+<ol>
+<li>使用 wal ；</li>
+<li>使用 stream task 的同等 queue</li>
+</ol>
+<p>读取和写入是相对的, 读取的内容执行后得到输出.</p>
+<p>推送组件也可以是一个算子, 执行完成时, 直接使用推送组件进行推送, 但这样的话就是即时推送的模式.<br>但是只要控制执行的过程, 即调用消费的时候才将数据推送.</p>
+<p>输出结构是什么.</p>
+<p>rpc_create_topic 进行数据输出 , 使用结构 RpcSenderRsp 进行 send ,该结构可以 clone .</p>
+<p>构建算子，其中的输出是 RecordBatch。</p>
+<p>get_result() 中有其返回的结果用法。如果是使用该方法，那么就不需要更换输出。</p>
+<p>新功能增加：</p>
+<ol>
+<li>proto 文件中定义 msg 和接口， grpc 下执行 <code>cargo build</code>。</li>
+<li>在 grpc_define 中编写该接口。</li>
+</ol>
+<p>之后是渲染</p>
+<p>编写完成了。<br>之后就是测试和优化了。然后补全一下文档</p>
+<p>[1.17]<br>目前主要是如何将插入的内容给放入到 queue 中。<br>感觉上 TDengine 中并没有将 stq-&gt;meta 作为订阅发布的需求结构。<br>也并没有使用到 stream task。</p>
+<p>再看 wal 的方向是否可行。 之前探究过 wal 的 read 倒是比较全面， 但是 write 中， <code>walWrite</code> 接口将其完全去除，也没有影响。<br>也就是没有找到 wal 的写入挂载地区。</p>
+<p>那我可以通过一个暂时的策略来完成这件事。明两天的时候完善文档和编写分布式数据库。<br>后续再优化这个地方。</p>
+<p>客户端新增支持：</p>
+<ol>
+<li>创建 consumer; cmngrProcessCreateConsumerReq(CreateConsumer)<ol>
+<li>CREATE CONSUMER consumer_name;</li>
+</ol>
+</li>
+<li>创建 subscribe; cmngrProcessSubscribeReq(TDMT_MND_TMQ_SUBSCRIBE CMSubscribeReq) tqProcessSubscribeReq(TDMT_VND_TMQ_SUBSCRIBE MqRebVgReq)<ol>
+<li>create SUBSCRIBE consumer_name TOPICS (topic_name1, topic_name2);</li>
+</ol>
+</li>
+<li>消费函数; tq_process_consume_req(SMqPollReq)<ol>
+<li>CONSUME POLL;</li>
+</ol>
+</li>
+</ol>
+<p>流程：</p>
+<ol>
+<li>确定各个的 msg；</li>
+<li>开发这些的同 <code>rpc_create_topic</code> 系列方法；</li>
+<li>确定其语句；</li>
+</ol>
+<p>process_query_msg(</p>
+<p>String::from_utf8(cgroup.clone()</p>
+<p>本数据库有一些原则：</p>
+<ol>
+<li>所有的动作，都通过请求包和回应包来进行，是面向请求包的，请求包也代表了维护的元数据；需要考量的是，对于客户端过来的结构，客户端方面是否能够获取到相关的数据内容；</li>
+</ol>
+<p>功能流程：</p>
+<ol>
+<li>定义功能；</li>
+<li>设计 msg ；</li>
+<li>确定 sql 语句语法；</li>
+<li>开发接口；</li>
+<li>或者上述流程反之；</li>
+</ol>
+<p>consume all process, start test, by iTheds </p>
+<p>[1.23]<br>测试 topic ，进行运行。</p>
+<p>query_parser::Parser::parse_sql</p>
+<p>let statement &#x3D;<br>    query_parser::Parser::parse_sql(&amp;sql).map_err(|e| anyhow::anyhow!(“{e:?}”))?;</p>
+<p>let mut catalog_req &#x3D; CatalogReq::default();<br>statement.collect(self.get_current_database_name(), &amp;mut catalog_req);</p>
+<p>let meta_data &#x3D; Catalog::default()<br>    .ctg_get_all_meta(&amp;catalog_req, addr,self.get_current_database_id())<br>    .await?;<br>&#x2F;&#x2F;println!(“respose MetaData &#x3D;{meta_data:?}”);&#x2F;&#x2F;lsd</p>
+<p>let logic_plan &#x3D; Translate::new(&amp;meta_data,self.get_current_database_id(),self.get_current_database_name().clone())<br>    .sql_statement_to_plan(statement)<br>    .map_err(|e| anyhow::anyhow!(“{e:?}”))?;</p>
+<p>MetaData</p>
+<pre><code>    let res = CtgGetDbCfgRsp &#123;
+        num_of_vgroups: 0,
+        num_of_stables: 0,
+        buffer: 0,
+        cache_size: 0,
+        page_size: 0,
+        pages: 0,
+        days_per_file: 0,
+        days_to_keep0: 0,
+        days_to_keep1: 0,
+        days_to_keep2: 0,
+        min_rows: 0,
+        max_rows: 0,
+        wal_fsync_period: 0,
+        wal_level: 0,
+        precision: 0,
+        compression: 0,
+        replication: 0,
+        strict: 0,
+        cache_last: 0,
+        nums_of_retensions: 0,
+        schemaless: 0,
+        sst_trigger: 0,
+    &#125;;
+</code></pre>
+<p>TDMT_CMNGR_USE_DB</p>
+<pre><code>                    let use_db_rsp = CtgUseDbRsp &#123;
+                        db_name: usedb_req.db_name.clone(),
+                        db_id: -1,
+                        num_of_table: 0,
+                        state_ts: 0,
+                        err_code: 0,
+                    &#125;;
+</code></pre>
+<p>一个 db 一个 node 。</p>
+<p>CreateMetricPlan</p>
+<p>[1.29]<br>sdb 这样的存储结构可以实现 iterator 。</p>
+<p>我如何得知会数据会发向何处？？？</p>
+<p>需要画的几张图：</p>
+<ol>
+<li>系统消息流转图， 创建一个 node 之后，整个系统是如何接收到信息，并且信息是通过何种方式确定其要输出的地点，然后根据此进行转发，什么节点拿到数据然后输出；</li>
+<li>系统详细构建的方式，</li>
+<li>其他模块的对外接口，已经公用方法组件，</li>
+</ol>
+<p>项目规范方案：</p>
+<ol>
+<li><p>每个包有一个 config 的文件，专门存放既定的字符串和数字，可供修改的内容。</p>
+</li>
+<li><p>实现其 node trait;</p>
+</li>
+<li><p>优化锁粒度, 去除 point 层;</p>
+</li>
+</ol>
+<p>全部的特征体系都围绕消息体系进行处理.</p>
+<p>首先要明确 svr 和 svrmgmt 的职能关系.<br>svrmgmt 管理的是当前物理节点的所有该类节点.</p>
+<p>设计节点特性, 对节点的普适操作方法做出约定:</p>
+<ol>
+<li>初始化</li>
+<li>运行</li>
+<li>根据统一的 NoadeAction 定义本节点的消息流转方法</li>
+<li></li>
+</ol>
+<p>重整部分设施.</p>
+<p>如果是 trait , 期望的是实现同一的操作流程;<br>如果是 enum(struct) 结构, 那么是功能定制化的过程.</p>
+<p>[2.4]<br>MgmtWrapper 是否需要保留.<br>这个结构的存在已经有点违反了面向对象的结构.<br>因为其的功能只有一个, 就是作为一个 wrapper 包装存在.<br>但是其没有功能分层的必要性.<br>但是如果作为存储该节点所有方法的结构还是有可取之处.</p>
+<p>太多内容固化了, 都生锈了.</p>
+<p>[2.5]<br>MgmtWrapper 如果有管理方法, 那么还是要将其内部的内容取出, 然后做操作,<br>现在存放的是指针, 那么就按照实体为指针来操作,<br>指针类型[temp]只持有用于获取其内部数据的操作.</p>
+<p>所以现在的情况就是:</p>
+<ol>
+<li>实体&#x2F;实体指针</li>
+<li>实体管理类&#x2F;实体管理类指针</li>
+<li>wrapper</li>
+</ol>
+<p>[2.26]<br>事务日志<br>WHL</p>
+<p>还有集群方面</p>
+<p>用了个包.</p>
+<p>[2.27]<br>155<br>这次仓库改动比较大, 如何.<br>我的改动应该并不是特别多, 主要集中在对模块的归整上, 所以删除和合并的内容可以手动完成, 并且会有报错或重定义提示.</p>
+<p>SDbCfg<br>MetricModelObj<br>Msvr<br>ServerEngineType<br>SvrMgmtMod</p>
+<p>CmngrMgmt -&gt; CmngrEngine<br>Msvr -&gt; MsvrEngine</p>
+<p>pdata -&gt; PDATA </p>
+<p>cmngr_m_get_mgmt_func<br>cmngr_m_init</p>
+<p>提早做出该产品的明确定义笔记, 不然总是忘记.<br>将产品描述清楚.<br>四大坑</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">cmngr_m_put_msg_to_write_queue</span>(p_mgmt: &amp;MgmtPointer, <span class="keyword">mut</span> msg: RpcMsg) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p_cmngr_mgmt</span> = <span class="keyword">match</span> p_mgmt &#123;</span><br><span class="line">        MgmtPointer::<span class="title function_ invoke__">CmngrMgmtPointer</span>(v) =&gt; v,</span><br><span class="line">        _ =&gt; <span class="built_in">unreachable!</span>(),</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">cmngr_mgmt</span> = p_cmngr_mgmt.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">cmngr_m_put_msg_to_read_queue</span>(p_mgmt: &amp;MgmtPointer, <span class="keyword">mut</span> msg: RpcMsg) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p_cmngr_mgmt</span> = <span class="keyword">match</span> p_mgmt &#123;</span><br><span class="line">        MgmtPointer::<span class="title function_ invoke__">CmngrMgmtPointer</span>(v) =&gt; v,</span><br><span class="line">        _ =&gt; <span class="built_in">unreachable!</span>(),</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">cmngr_mgmt</span> = p_cmngr_mgmt.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 整个系列都应该修改</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">psvr_m_put_msg_to_sync_ctrl_queue</span>(p_mgmt: &amp;MgmtPointer, <span class="keyword">mut</span> pmsg: RpcMsg) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p_psvr</span> = <span class="keyword">match</span> p_mgmt &#123;</span><br><span class="line">        MgmtPointer::<span class="title function_ invoke__">PsvrMgmtPointer</span>(v) =&gt; v,</span><br><span class="line">        _ =&gt; <span class="built_in">unreachable!</span>(),</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p_mgmt</span> = p_psvr.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    <span class="title function_ invoke__">psvr_m_put_msg_to_queue</span>(&amp;p_mgmt, pmsg, EQueueType::SyncCtrlQueue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">enum_for_index! &#123;</span><br><span class="line"><span class="comment">/// 系统节点类型</span></span><br><span class="line"><span class="meta">#[derive(Debug, PartialOrd, Eq, Ord, Hash, Copy)]</span></span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">enum</span> <span class="title class_">ServerEngineType</span> : <span class="type">usize</span> &#123;</span><br><span class="line">        MSVR = <span class="number">0</span>,</span><br><span class="line">        CMNGR = <span class="number">1</span>,</span><br><span class="line">        PSVR = <span class="number">2</span>,</span><br><span class="line">        QNODE = <span class="number">3</span>,<span class="comment">//csvr??</span></span><br><span class="line">        SNODE = <span class="number">4</span>,<span class="comment">//csvr??</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>mod function_list</p>
+<p>[2.29]<br>合并完成.</p>
+<p>[3.6]<br>事务日志\WHL, 还有集群方面, wal 可能用了一个公共库中的包.</p>
+<p>[3.15]<br>接下来开发, 调研关于 wal 方面的内容.</p>
+<p>[3.18]<br>不用管其他人开发的是什么样子的, 自己开发的工具只隶属并服务自己的开发进度, 目前的团队现状决定.<br>而且, 也不用考虑别人开发的怎么样, 没必要为其他人完善. 将自己负责的功能开发完善即可.<br>目前比较重要的是, 将能看懂的看懂. 然后加以完善即可.</p>
+<p>[5.24]<br>重新再见 tsdb 。<br>为其开发 wal 内容。</p>
+<p>WAL(Write Ahead Log)预写日志，是数据库系统中常见的一种手段，用于保证数据操作的原子性和持久性。</p>
+<p>在计算机科学中，「预写式日志」（Write-ahead logging，缩写 WAL）是关系数据库系统中用于提供原子性和持久性（ACID 属性中的两个）的一系列技术。在使用 WAL 的系统中，所有的修改在提交之前都要先写入 log 文件中。<br>log 文件中通常包括 redo 和 undo 信息。这样做的目的可以通过一个例子来说明。假设一个程序在执行某些操作的过程中机器掉电了。在重新启动时，程序可能需要知道当时执行的操作是成功了还是部分成功或者是失败了。如果使用了 WAL，程序就可以检查 log 文件，并对突然掉电时计划执行的操作内容跟实际上执行的操作内容进行比较。在这个比较的基础上，程序就可以决定是撤销已做的操作还是继续完成已做的操作，或者是保持原样。<br>WAL 允许用 in-place 方式更新数据库。另一种用来实现原子更新的方法是 shadow paging，它并不是 in-place 方式。用 in-place 方式做更新的主要优点是减少索引和块列表的修改。ARIES 是 WAL 系列技术常用的算法。在文件系统中，WAL 通常称为 journaling。PostgreSQL 也是用 WAL 来提供 point-in-time 恢复和数据库复制特性。</p>
+<p>[6.6]</p>
+<ol>
+<li>使用Java Native Interface (JNI)</li>
+<li>使用Java-Rust FFI库</li>
+</ol>
+<p>关于 java 部分，采用的是统一的 odbc 接口。其中由中间件，对 tsdb 的 c 接口进行开发。odbc 调用 c 接口。 java 采用 JNI 方式调用中间件接口。</p>
+<p>[9.14]<br>今天下午开始关于 tsdb 的内容。<br>对于其中的订阅发布进行测试。</p>
+<p>重新复述其流程：<br>创建 topic 交由 cmngr 进行 保存到 p_sdb: Sdb 。<br>然后 cmngr 保存后传递给 psvr 进行 xx。<br>数据在插入时，将符合 topic 的数据保存在 wal ，然后由用户主动拉取数据。</p>
+<p>但是此处似乎只有我用到了 Sdb。<br>SdbValueNum 中可知，其的本意是维护同类型元素。</p>
+<p>最基本的是， 一个 topic 有一个名字和一个 sql 语句。<br>其能够挂载到 cmngr 中,并且创建物理计划。</p>
+<p>[10.1]<br>生成 topic 保存到 cmngr 的 sdb。</p>
+<p>订阅过程:<br>TDMT_PSVR_TMQ_SUBSCRIBE:MqRebVgReq - cmngrProcessSubscribeReq<br>订阅的过程必然是消费者创建,其对某个 topic 进行订阅.<br>然后该消费者能够通过接口进行消费。<br>确定 topic 之后， 形成订阅， 将 订阅插入到 p_sdb 。<br>将订阅发送到 psvr 中， 进行部署。</p>
+<p>客户端新增支持：</p>
+<ol>
+<li>创建 consumer; cmngrProcessCreateConsumerReq(CreateConsumer)<ol>
+<li>CREATE CONSUMER consumer_name;</li>
+</ol>
+</li>
+<li>创建 subscribe; cmngrProcessSubscribeReq(TDMT_MND_TMQ_SUBSCRIBE CMSubscribeReq) tqProcessSubscribeReq(TDMT_VND_TMQ_SUBSCRIBE MqRebVgReq)<ol>
+<li>create SUBSCRIBE consumer_name TOPICS (topic_name1, topic_name2);</li>
+</ol>
+</li>
+<li>消费函数; tq_process_consume_req(SMqPollReq)<ol>
+<li>CONSUME POLL;</li>
+</ol>
+</li>
+</ol>
+<p>只能通过自己的理解然后实现一个简单的了。<br>首先三大函数，先对服务端进行支持。<br>创建 topic ，将其保存到 cmngr sdb 中。传递给 psvr 。<br>创建消费者， cmngrProcessCreateConsumerReq,<br>订阅 subscribe ， cmngrProcessSubscribeReq ,</p>
+<p>客户端维护什么很重要吗。<br>客户端发送一个 topic 的 name ，就能够把结果集拿到不就行了吗。不需要消费者，不需要订阅。<br>就两个东西，创建 topic ， 消费数据(tq_process_consume_req)。</p>
+<p>消费的时候就取出 tq, 采用 tq 的执行模块 exec_handle 进行执行。<br>那么 tq 是什么时候创建的。 STqHandle 就是订阅发布的执行者。 StreamQueue 中读取数据。<br>消费者有还是必要的。</p>
+<p>所以接下来针对以下操作进行完善：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">TDMT_CREATE_TOPIC = 13,</span><br><span class="line"></span><br><span class="line">TDMT_PSVR_TMQ_COMMIT_OFFSET = 25,    // 提交消费位点</span><br><span class="line">TDMT_PSVR_TMQ_SUBSCRIBE = 26,        // 订阅操作</span><br><span class="line">TDMT_PSVR_TMQ_DELETE_SUB = 27,       // 删除订阅</span><br><span class="line">TDMT_PSVR_TMQ_CONSUME = 28,          // 消费数据</span><br><span class="line"></span><br><span class="line">TDMT_CMNGR_TMQ_SUBSCRIBE = 39,</span><br></pre></td></tr></table></figure>
+
+<p>还有创建 consumer(cmngrProcessCreateConsumerReq)。</p>
+<ol>
+<li>开发 TDMT_CMNGR_TMQ_CREATE_CONSUMER ， 根据 TDMT_CREATE_TOPIC</li>
+<li>TDMT_CMNGR_TMQ_SUBSCRIBE , </li>
+<li>更换 consumer 主键为 consumer_name;</li>
+<li>new_queue 补充实现;</li>
+<li>build_subscribe 补充实现;</li>
+<li>实现 TDMT_PSVR_TMQ_CONSUME。</li>
+</ol>
+<p>以上都是流程。<br>之后是关于算子布置的的：</p>
+<p>DmlPlan<br>TDMT_PSVR_SUBMIT<br>tq_subscribe_record - 参照 process_submit_req </p>
+<p>没有查到数据，队列未输入数据。或者说，两个队列不一样。<br>那么就是部署的时候的问题。queue 都没有初始化。<br>算子链执行到一半的时候，就进行返回了。</p>
+<p>测试语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database test1;</span><br><span class="line">use test1;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table1 (ts <span class="type">timestamp</span>, u1 <span class="type">int</span> , u2  <span class="type">int</span>);</span><br><span class="line"></span><br><span class="line">use test1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> topic topic1 <span class="keyword">AS</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1 <span class="keyword">WHERE</span> u1 <span class="operator">&gt;</span> <span class="number">25</span>;</span><br><span class="line"><span class="keyword">create</span> topic topic1 <span class="keyword">AS</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1;</span><br><span class="line"><span class="keyword">create</span> consumer constest1;</span><br><span class="line"><span class="keyword">create</span> subscribe constest1 TOPICS (topic1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">10</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">20</span>, <span class="number">40</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">15</span>, <span class="number">35</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">25</span>, <span class="number">45</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">30</span>, <span class="number">50</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">40</span>, <span class="number">60</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">50</span>, <span class="number">70</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table1 (ts, u1, u2) <span class="keyword">VALUES</span> (NOW, <span class="number">60</span>, <span class="number">80</span>);</span><br><span class="line"></span><br><span class="line">consume poll constest1;</span><br><span class="line"></span><br><span class="line">use test1;</span><br><span class="line">consume poll constest1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> topic topic1 <span class="keyword">AS</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1;</span><br></pre></td></tr></table></figure>
+
+<p>[10.5]<br>ok 结束了。<br>但是还有以下的优化点：</p>
+<ol>
+<li>删除数据；</li>
+<li>stq push 未生效；</li>
+<li>wal ;</li>
+<li>条件查询未测试，疑似语法不支持。</li>
+</ol>
+<p>清理程序脚本，启动脚本，清理数据库磁盘脚本。<br>清理程序脚本需要加上对父目录的约束。</p>
+<p>[10.17]</p>
+<p>[10.17]</p>
+<ol>
+<li>调用 delete 在 tsdb client 中崩溃；</li>
+<li>建议 tzdb bool 类型 ‘true’ 改成 true;</li>
+</ol>
+<p>sudo apt-get install libqt5sql5-odbc unixodbc-dev</p>
+<p>ERROR:Compiler error at position 19: Unknown table rules_</p>
+<ol>
+<li>[x]数据问题；</li>
+<li>[x]java bug;</li>
+<li>[]qt 数据;</li>
+<li>异常测试；</li>
+<li>[x]长字符串；</li>
+<li>[X]测试多插入表；</li>
+</ol>
+<p>valgrind –leak-check&#x3D;full –track-origins&#x3D;yes .</p>
+<p>Valgrind 是一个非常强大的内存调试和性能分析工具，它能够检测多种内存和线程相关的问题。Valgrind 有多种不同的报告形式来帮助开发者找到并修复代码中的错误，以下是几种常见的 Valgrind 报告形式：</p>
+<ol>
+<li>内存泄漏（Memory Leak）报告</li>
+</ol>
+<p>内存泄漏发生在程序未能正确释放分配的内存时。Valgrind 会检测出未释放的内存，并按其不同类型报告泄漏。</p>
+<pre><code>definitely lost：程序丢失了对这部分内存的所有引用，无法再释放。确实是泄漏。
+indirectly lost：内存块本身没有丢失，但它是由其他丢失的内存块引用的，实际上也算是泄漏。
+possibly lost：程序分配的内存没有丢失，但指向该内存的指针可能不在程序的范围内或无法访问，可能是泄漏。
+still reachable：分配的内存仍然可达，程序结束时没有释放，但不一定是问题。通常是全局变量导致的。
+</code></pre>
+<p>[10.23]</p>
+<ol>
+<li>多表 java 崩溃；</li>
+<li>内存问题</li>
+</ol>
+<p>[10.25]</p>
+<ol>
+<li><p>同表插入， tsdb , 第一个字段相同，出现 fetch meta 问题；</p>
+</li>
+<li><p>事务提交失败， 错误码 301； select 之后，未提交事务，进行连接，连接阻塞；</p>
+</li>
+<li><p>加一个长时间未响应自动响应失败。</p>
+</li>
+<li><p>open 的 rollback 去除；</p>
+</li>
+</ol>
+<p>[10.29]<br><del>第二次同步的时候， master 发送数据没有到 leave .</del><br>其实是从的没有关闭，导致的阻塞。还是 select 模型的问题。<br>io 模型必须加上一个关闭 fd 。<br>其实 io 模型已经关闭了。只是在从2 在等待主节点回消息，但是主节点其对从2 的主动连接未断开。</p>
+<p>[10.30]</p>
+<ol>
+<li>客户端 QT 其默认会给 7030 发送消息，即使连接的是 3062.</li>
+<li></li>
+</ol>
+<p>客户端处理 REPLICA_DATA_SYNC_REQUEST 的过程，可能有问题，导致未同步。</p>
+<p>后续问题：</p>
+<ol>
+<li>还是有 socket reset;</li>
+<li>同步的时候，比较慢，调整 io 所有 socket hd 为 非阻塞之后解决。 – 但是还未知其原因；</li>
+</ol>
+<p>有时间 jdbc 也测试一下。</p>
+<p>日志可以采用 journalctl .</p>
+<h1 id="Consciousness"><a href="#Consciousness" class="headerlink" title="Consciousness"></a>Consciousness</h1><p>[2023.12.4]<br>天天说咱不如人，两件事的体量都不一样。谁都没有经验，还不是在边学习的过程。并且，今年一堆杂事。我看是在浪费我时间。<br>还有一个姓赵的，凭啥一件事就说我粗心，写错了一次，我认，但是就事论事而已，别给我最好，我不接受你的定义，也别给我那些杂事！<br>一群傻逼。有要求你可以提出来，没必要说我们做完就说不好，没干好活，那是我们自己的责任，但是如何验收，这是你的事，不能说我们给个定义，第一次就说不行，一说不行就和别人比。</p>
+<p>好困, 好懒, 又太多不确定的事, 想到如今的经济情况, 想到曾经的人, 想到山风啊, 明月啊, 什么时候能再相见</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://itheds.github.io">iTheds</a>
+            <p>Link：<a href="http://itheds.github.io/work/tzdb/Tzdb_Rust_Project.html">http://itheds.github.io/work/tzdb/Tzdb_Rust_Project.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/tzdb/Tzdb_Rust_Project.html">October 15th 2022, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/tzdb/Tzdb_Rust_Project.html">February 14th 2025, 4:01:31 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 91
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2025 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span>
+            <a class="archive-post-title" href="/2025/03/18/OpenEuler/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2025/03/17/unix%E5%86%85%E6%A0%B8%E6%80%81/">UNIX 内核态</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/2024/11/10/%E5%BC%B1%E7%BD%91%E6%9D%A1%E4%BB%B6%E6%A8%A1%E6%8B%9F/">弱网条件模拟</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2024/07/05/%E5%85%AC%E7%BD%91ip%E6%98%A0%E5%B0%84/">公网ip映射问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2024/06/18/hibernate/">Hibernate</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2024/04/17/%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E5%85%B1%E4%BA%ABWLAN/">局域网内共享WLAN</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span>
+            <a class="archive-post-title" href="/2023/04/12/VScode_debug/">VScode Debuge</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据和流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/02</span>
+            <a class="archive-post-title" href="/2023/03/02/skiplist_analyze/">Skiplist Analyze</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2022/11/03/Berkeley_Read_record/">Berkeley_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span>
+            <a class="archive-post-title" href="/2022/09/28/UNIX%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">UNIX系统使用笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">TDengine技术分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2022/03/10/%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F%E7%AD%96%E5%88%92%E6%96%B9%E6%A1%88/">学习方式策划方案</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/17</span>
+            <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2021/07/24/%E5%8C%97%E4%BA%AC%E9%A3%9F%E5%BA%97%E6%94%B6%E5%BD%95/">北京食店收录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E5%AD%97%E4%BD%93%E7%89%88%E6%9D%83%E9%97%AE%E9%A2%98/">字体版权问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2%E7%AE%97%E6%B3%95/">EKF，UKF，CKF，PF非线性滤波算法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/DB_%E6%9C%8D%E5%8A%A1%E5%99%A8_%E6%A1%A5%E9%80%BB%E8%BE%91/">DB 服务器 桥逻辑</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/SQLite/">SQLite</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/">C/C++windows服务</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">ODBC连接数据库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/">ODBC理论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/">ODBC编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/Rust%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E6%89%8E%E8%AE%B0/">Rust编程学习扎记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/">TCP与UDP实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/">CRC循环冗余校验</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/">数据库理论系统学习手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">计算机网络具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span>
+            <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span>
+            <a class="archive-post-title" href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Nodejs学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">Apache系统管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/">Linux下数据库管理与建库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/">编码总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span>
+            <a class="archive-post-title" href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/">软件总集以及网站</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span>
+            <a class="archive-post-title" href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">英语学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/git_use_page/">git 及 github 使用手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/">php进阶手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/">工具总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">数据结构具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/String%E5%87%BD%E6%95%B0/">C/C++ String函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/">各软件及windows操作快捷键总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">线程与进程管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/">Linux网络应用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span>
+            <a class="archive-post-title" href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/">宽字节注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/">正则表达式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2018/09/05/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo/">高频词汇表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/30</span>
+            <a class="archive-post-title" href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/">系统管理之重装系统记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span>
+            <a class="archive-post-title" href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/">打印机问题及使用方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/20</span>
+            <a class="archive-post-title" href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/">文件类型以及分析手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/">Wiki搭建</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span>
+            <a class="archive-post-title" href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/">大数据涉猎</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">编译原理之预测分析器的设计与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/">项目小憩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/">SQL语句札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">基于MIPS指令集的32位五级流水线CPU设计</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2018/06/04/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E4%B9%8B%E6%89%AB%E6%8F%8Foo/">攻防安全之扫描</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/">计算机组成原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2018/05/25/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">创新创业项目库管理系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/">编译原理之语法分析程序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span>
+            <a class="archive-post-title" href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/">WebCollector爬虫与Hbase</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/">加密解密的艺术</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/">配置Linux环境</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/">SQL注入札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/">数据库中文乱码问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/">网页状态提示说明</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span>
+            <a class="archive-post-title" href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/">hexo 札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/">DOS命令扫描指定端口并查看端口号</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/">markdown语法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/">JS进阶</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="数据库">
+                <span class="iconfont-archer">&#xe606;</span>
+                数据库
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="unix">
+                <span class="iconfont-archer">&#xe606;</span>
+                unix
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RESTful">
+                <span class="iconfont-archer">&#xe606;</span>
+                RESTful
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Ant Design Pro">
+                <span class="iconfont-archer">&#xe606;</span>
+                Ant Design Pro
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="React">
+                <span class="iconfont-archer">&#xe606;</span>
+                React
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前后端分离">
+                <span class="iconfont-archer">&#xe606;</span>
+                前后端分离
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apache">
+                <span class="iconfont-archer">&#xe606;</span>
+                apache
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Berkeley">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Berkeley
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="JS">
+                <span class="iconfont-archer">&#xe606;</span>
+                JS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="SQL">
+                <span class="iconfont-archer">&#xe606;</span>
+                SQL
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lamp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lamp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lnmp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lnmp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Markdown">
+                <span class="iconfont-archer">&#xe606;</span>
+                Markdown
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- ODBC">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- ODBC
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- QT">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- QT
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="rust">
+                <span class="iconfont-archer">&#xe606;</span>
+                rust
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Socket网络编程">
+                <span class="iconfont-archer">&#xe606;</span>
+                Socket网络编程
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="project">
+                <span class="iconfont-archer">&#xe606;</span>
+                project
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ocker">
+                <span class="iconfont-archer">&#xe606;</span>
+                ocker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java">
+                <span class="iconfont-archer">&#xe606;</span>
+                java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="algorithm">
+                <span class="iconfont-archer">&#xe606;</span>
+                algorithm
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wiki">
+                <span class="iconfont-archer">&#xe606;</span>
+                wiki
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="信息安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                信息安全
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="网络运维">
+                <span class="iconfont-archer">&#xe606;</span>
+                网络运维
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="参考文档">
+                <span class="iconfont-archer">&#xe606;</span>
+                参考文档
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Hadoop">
+                <span class="iconfont-archer">&#xe606;</span>
+                Hadoop
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="免密登入">
+                <span class="iconfont-archer">&#xe606;</span>
+                免密登入
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="CPU">
+                <span class="iconfont-archer">&#xe606;</span>
+                CPU
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="--">
+                <span class="iconfont-archer">&#xe606;</span>
+                --
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件类型">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件类型
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="编译原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                编译原理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计划">
+                <span class="iconfont-archer">&#xe606;</span>
+                计划
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- English">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- English
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计算机组成原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                计算机组成原理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
