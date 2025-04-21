@@ -19,23 +19,27 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="和鸢">
-<meta property="og:url" content="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">
+    <meta name="description" content="大数据和流式计算大数据基本知识图谱参考链接 流式计算流式计是一种计算模型，和其他计算模型最大的区别是它在输入上是持续的，处理端会源源不断收到数据，意味着你永远无法拿到全量数据去计算。同时，计算结果也是源源不断输出的。流式计算对实时性要求也比较高，一般是先定义目标计算，然后数据到来之后将计算逻辑应用于数据。同时为了提高计算效率，往往尽可能采用增量计算代替全量计算。批量处理模型中，一般先有全量数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据中的流式计算">
+<meta property="og:url" content="http://itheds.github.io/2023/03/27/big_data&flow_calculation/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+<meta property="og:description" content="大数据和流式计算大数据基本知识图谱参考链接 流式计算流式计是一种计算模型，和其他计算模型最大的区别是它在输入上是持续的，处理端会源源不断收到数据，意味着你永远无法拿到全量数据去计算。同时，计算结果也是源源不断输出的。流式计算对实时性要求也比较高，一般是先定义目标计算，然后数据到来之后将计算逻辑应用于数据。同时为了提高计算效率，往往尽可能采用增量计算代替全量计算。批量处理模型中，一般先有全量数据">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-07-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-21T03:20:07.911Z">
+<meta property="og:image" content="http://itheds.github.io/image/%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0.jpg">
+<meta property="og:image" content="http://itheds.github.io/image/windows_google_dataflow.jpg">
+<meta property="article:published_time" content="2023-03-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-18T09:41:25.715Z">
 <meta property="article:author" content="iTheds">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="流式计算">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://itheds.github.io/image/%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>和鸢 · iTheds&#39;s Studio</title>
+    <title>大数据中的流式计算 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -222,6 +226,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -251,6 +257,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">大数据中的流式计算</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -277,24 +294,80 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                大数据中的流式计算
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+                    
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="大数据">大数据</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="流式计算">流式计算</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2023/03/27</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -428,30 +501,57 @@
     <article class="article-entry">
         <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
 
-<h1 id="和鸢计划"><a href="#和鸢计划" class="headerlink" title="和鸢计划"></a>和鸢计划</h1><p>八月份的硬性计划。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>[8.2]<br>忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。</p>
-<p>害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。</p>
-<p>[8.5]<br>可不可能？<br>关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。<br>但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。</p>
-<p>凡事，都要问一句，有没有用心。</p>
-<p>心理上的压力是巨大的。<br>不要问以后，时间，总是回不去的。作出改变，才会有机会。</p>
-<p>是现实压的我喘不过气吗，不，是寻求改变的路途，好似有杀死自己的危机。</p>
-<p>想念一个人是十分痛苦的，这和实践自我有异曲同工之秒。</p>
-<p>[8.7]<br>大厂工资可真高啊。真好啊。<br>人生有那么多想得到的。我也考虑过德不配位的自我放失，但更多的是面对风雨尘仆，我只能选择更具有力量积蓄的方式，未来会怎么样，其不确定性都来源于自身的力量不足么。于是我说，哭吧，笑吧，奔跑吧。时光太短，又何必要压抑自我。只此一遭，便是孓然无物，也唯证心语。</p>
-<p>[8.8]<br>得失之意还是会环绕我。我选择，安静的面对。</p>
-<p>[8.12]<br>怕得不到<br>我有时候会想，工作了三四年了，可是存的钱却没有达到目标，按理来说，手上至少也应该有个 15 ，中间个中花费，大抵上有 4,但是不必要的花费也有 4,再加上 3 的设备花费，这样看来好似真的没有存下多少。但倘若不必要的花费能够节省，目下手中也是有 8 的。<br>而对于目标，我却在想，到底是选择哪个好？如果实力确定都达标了，那么我会选择什么。<br>我的目的是什么呢？我在想。</p>
-<p>[8.21]<br>很迷茫， Redis 都不知道，又何谈分布式开发。<br>这方面的经验，真的有吗，我所做的事情，看不到确切的意义。<br>我期望者深刻的改变，但是目下，却被疲惫所困扰着。</p>
-<p>[8.28]<br>焦虑。大厂还是考公。<br>这是两个完全不同的路线分支。也是对我影响最为巨大的。<br>在这件事情的考虑上我不得不着重分析。</p>
-<p>其追根溯源是我期望选择什么样的生活的问题。<br>一方面，我不愿意安与现状。我期望能够尽可能到达更高的地方。可是，我却不知道如何用力。并且我不太确定我是否愿意着力到高强度的工作中。<br>我也许有着骄傲的自信。<br>一方面， 我期望能够有更多的时间来打磨自身所期望做的事情，去表达自我和宣扬情怀，变得深刻而荣誉等身。当然，这是比较夸张的说法，抑或是真实的想法。<br>换一个说法，那便还是不甘于平庸的热忱了。</p>
-<p>我很想说可能就是上班累了。但是实际却是，我也不知道。<br>就好像必然要在某个年纪，明确自我的追求一般。</p>
+<h1 id="大数据和流式计算"><a href="#大数据和流式计算" class="headerlink" title="大数据和流式计算"></a>大数据和流式计算</h1><h2 id="大数据基本知识图谱"><a href="#大数据基本知识图谱" class="headerlink" title="大数据基本知识图谱"></a>大数据基本知识图谱</h2><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/764737">参考链接</a></p>
+<h2 id="流式计算"><a href="#流式计算" class="headerlink" title="流式计算"></a>流式计算</h2><p>流式计是一种计算模型，和其他计算模型最大的区别是它在输入上是持续的，处理端会源源不断收到数据，意味着你永远无法拿到全量数据去计算。同时，计算结果也是源源不断输出的。<br>流式计算对实时性要求也比较高，一般是先定义目标计算，然后数据到来之后将计算逻辑应用于数据。同时为了提高计算效率，往往尽可能采用增量计算代替全量计算。<br>批量处理模型中，一般先有全量数据集，然后定义计算逻辑，并将计算应用于全量数据。特点是全量计算，并且计算结果一次性全量输出。</p>
+<p>业界常见的流式计算框架：Storm、Flink、Yahoo S4、Kafka Stream、Twitter Heron、Apache Samza、Spark Streaming。</p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h3><p>要理解窗口应该先理解聚合。<br>通过子查询和聚合函数,理论上可以解决任何复杂的sql查询问题。<br>窗口函数和聚合函数非常相似,区别在于聚合函数是将多个行结合成一个结果,而窗口函数是以某个区域(窗口)为界限,进行计算,不会导致合并。</p>
+<p>在日常工作中，经常会遇到需要在每组内排名，比如下面的业务需求：<br>    排名问题：每个部门按业绩来排名<br>    topN问题：找出每个部门排名前N的员工进行奖励</p>
+<p>面对这类需求，就需要使用sql的高级功能窗口函数了。</p>
+<p>窗口函数，也叫OLAP函数（Online Anallytical Processing，联机分析处理），可以对数据库数据进行实时分析处理。<br>窗口函数有以下功能：<br>1）同时具有分组和排序的功能<br>2）不减少原表的行数</p>
+<p>窗口函数的基本语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br></pre></td></tr></table></figure>
+<p>故此，在数据逻辑中，窗口表示的是某种限制范围，对实体的部分属性或者全部属性做出一定的约束，使得数据在特定属性中做出限制。提供此限制，使数据在此限制中进行分析。</p>
+<p>静态窗口函数不能用frame子句；滑动窗口函数指加入order by或frame子句后，函数区域变为到当前行的数据集。<br>静态窗口函数：<br>排名函数 rank（）、dense_rank()、row_number()；<br>滑动窗口函数：<br>聚合函数 sum、 avg、percent_rank()；</p>
+<p>其中聚合函数也可以作为窗口函数使用，本质上是限制窗口并且进行部分塌缩，而非是对于全部目标进行塌缩。<br>常用窗口函数：</p>
+<p><img src="/../image/%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0.jpg"></p>
+<p>实际操作例如，<br>在 Google DataFlow 中，Window，也就是窗口，将一部分数据集合组合起操作。在处理无限数据集的时候有限操作需要窗口，比如 aggregation，outer join，time-bounded 操作。窗口大部分都是基于时间来划分，但是也有基于其他存在逻辑上有序关系的数据来划分的。窗口模型主要由三种：Fixed Window，Sliding Window，Session Window。</p>
+<p><img src="/../image/windows_google_dataflow.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/tardis/zm/art/92654574?source_id=1005">参考链接</a></p>
+<h3 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h3><p>聚合广义上表示聚集并且合并，即抽象“个体”以一种或多种方式以有序或者无序的方式在某一个维度形成了符合该维度的同一性或者相似性的状态的一种行为或对该行为的一种描述。<br>但是在数据世界中，描述一个逻辑实体是通过各种属性来进行的，单一属性标志了一个个体，但绝不是一个逻辑意义上的实体，而是一种属性维度，对该属性维度进行一定的描述，即对有限或无限数据进行描述其符合或不符合何种特点，当符合某种特点时，将该特点认为是该属性的体现方式，用该体现方式表示该实体在该属性中的特性，这种描述方式或找到该描述方式的过程称为聚合。</p>
+<blockquote>
+<p>实体之间，聚合、关联、组合的区别：<br>关联关系是类与类之间的联接，它使一个类知道另一个类的属性和方法。关联可以是双向的，也可以是单向的，它是依赖关系更强的一种关系。–表示的是实体与实体之间，产生的强于依赖的关系。甚至可以是互相包含的。<br>聚合是一种特殊的关联关系，它是较强的一种关联关系，强调的是整体与部分之间的关系，从语法上是没办法区分的，只能从语义上区分。–表示的是某些实体是主要实体的一个可分割的个体。<br>组合也是关联关系的一种特例，这种关系比聚合关系更强。它强调了整体与部分的生命周期是一致的，而聚合的整体和部分之间在生命周期上没有什么必然的联系。–表示的是实体与组成实体的实体的关系。</p>
+</blockquote>
+<p>聚类是把相似的对象通过静态分类的方法分成不同的组别或者更多的子集（subset），这样让在同一个子集中的成员对象都有相似的一些属性，常见的包括在坐标系中更加短的空间距离等。<br>聚类常用的算法有 K-mean 等聚类算法。</p>
+<p>聚类是将物理或抽象对象的集合分成由类似的对象组成的多个类的过程。由聚类所生成的簇是一组数据对象的集合，这些对象与同一个簇中的对象彼此相似，与其他簇中的对象相异。“物以类聚，人以群分”，在自然科学和社会科学中，存在着大量的分类问题。聚类分析又称群分析，它是研究（样品或指标）分类问题的一种统计分析方法。聚类分析起源于分类学，但是聚类不等于分类。聚类与分类的不同在于，聚类所要求划分的类是未知的。聚类分析内容非常丰富，有系统聚类法、有序样品聚类法、动态聚类法、模糊聚类法、图论聚类法、聚类预报法等。</p>
+<p>聚合维度<br>可以采用“最小值”、“最大值”、“计数”或“计数(不重复)”的形式聚合视图中的维度。当聚合维度时，将创建一个新的临时度量列，使维度实际具有度量的特征。</p>
+<p>这样想，现在有一个模型，一个表结构，有许多属性，table(v1, v2, v3, v4, v5, v6, v7) ，里面有 10 万条数据。</p>
+<p>聚合是将不同数据源的数据进行合并，如果选择的维度是 最小值 ， 那么在指定范围内的特定数据将会处理，所有的数据塌缩为最小值。<br>用来产生聚合数据的数学函数称为聚合函数。<br>聚合函数对一组值进行计算并返回单个值。例如，包含值 1, 2, 3, 3, 4 的某个度量经过求和聚合后返回单个值：13。<br>而多维度(即多属性的数据，比如以上的一组数据中，单一的数据是 1, 这是因为其只有或只表现了一个维度，而多个维度就像上面的模型一样，有 7 个属性)则是在各个维度进行塌缩。</p>
+<p>常见聚合函数有：</p>
+<ul>
+<li>COUNT</li>
+<li>SUM</li>
+<li>AVG</li>
+<li>MAX</li>
+<li>MIN</li>
+</ul>
+<p>这都是表现出了数据进行的塌缩方式。而聚合后的数据则可以使用在 Group by 等语句中。</p>
+<p>Group by :</p>
+<ul>
+<li>select中使用group by 语句 可以对指定列进行分组查询</li>
+<li>注意: 使用group by进行分组查询时,SELECT 指定的字段必须是“分组依据字段”，其他字段若想出现在SELECT 中则必须包含在聚合函数中。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 查询每个角色的总工资</span><br><span class="line">mysql&gt; select role, <span class="built_in">sum</span>(salary) from emp group by role;</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| role      | <span class="built_in">sum</span>(salary) |</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| 教导员    |     1900.00 |</span><br><span class="line">| 班主任    |     1500.00 |</span><br><span class="line">| 老师      |     2000.00 |</span><br><span class="line">+-----------+-------------+</span><br><span class="line">3 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Google-DataFlow"><a href="#Google-DataFlow" class="headerlink" title="Google DataFlow"></a>Google DataFlow</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>[3.27]<br>关键在于，输入和输出的数据量应该有一个比率，即不断输入，不断输出。</p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
-            <p>原文链接：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html</a>
-            <p>发表日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">July 28th 2024, 12:00:00 am</a>
-            <p>更新日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">April 21st 2025, 11:20:07 am</a>
+            <p>原文链接：<a href="http://itheds.github.io/2023/03/27/big_data&flow_calculation/">http://itheds.github.io/2023/03/27/big_data&flow_calculation/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2023/03/27/big_data&flow_calculation/">March 27th 2023, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2023/03/27/big_data&flow_calculation/">April 18th 2025, 5:41:25 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,8 +559,18 @@
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/" title="算法学习笔记03">
+                    <div class="nextTitle">算法学习笔记03</div>
+                </a>
+            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2023/03/10/docker_use/" title="Docker Used Node">
+                    <div class="prevTitle">Docker Used Node</div>
+                </a>
             
         </li>
     </ul>
@@ -584,6 +694,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%92%8C%E6%B5%81%E5%BC%8F%E8%AE%A1%E7%AE%97"><span class="toc-number">1.</span> <span class="toc-text">大数据和流式计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1"><span class="toc-number">1.1.</span> <span class="toc-text">大数据基本知识图谱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%BC%8F%E8%AE%A1%E7%AE%97"><span class="toc-number">1.2.</span> <span class="toc-text">流式计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3"><span class="toc-number">1.3.1.</span> <span class="toc-text">窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">聚合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-DataFlow"><span class="toc-number">1.4.</span> <span class="toc-text">Google DataFlow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-number">2.</span> <span class="toc-text">日志</span></a></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1242,6 +1369,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         

@@ -19,23 +19,25 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="和鸢">
-<meta property="og:url" content="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">
+    <meta name="description" content="Mysql Read recordThe first priorities is the difference and the theory of between InnoDB and Myisam. Theory of InnoDB内存 缓冲池：数据页，索引页，插入缓冲，自适应哈希索引，锁信息，数据字典信息。 LRU(Latest Recent Used)算法。  midpoint 位置,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql_Read_record">
+<meta property="og:url" content="http://itheds.github.io/2022/11/07/Mysql_Read_record/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+<meta property="og:description" content="Mysql Read recordThe first priorities is the difference and the theory of between InnoDB and Myisam. Theory of InnoDB内存 缓冲池：数据页，索引页，插入缓冲，自适应哈希索引，锁信息，数据字典信息。 LRU(Latest Recent Used)算法。  midpoint 位置,">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-07-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-21T03:20:07.911Z">
+<meta property="og:image" content="http://itheds.github.io/image/Figure10-1.StructureOfIndex(.MYI)fileinMyISAM.png">
+<meta property="article:published_time" content="2022-11-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T03:23:22.970Z">
 <meta property="article:author" content="iTheds">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="-- Mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://itheds.github.io/image/Figure10-1.StructureOfIndex(.MYI)fileinMyISAM.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>和鸢 · iTheds&#39;s Studio</title>
+    <title>Mysql_Read_record · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -222,6 +224,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -251,6 +255,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Mysql_Read_record</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -277,24 +292,78 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                Mysql_Read_record
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+                    
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="-- Mysql">-- Mysql</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/11/07</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -428,30 +497,93 @@
     <article class="article-entry">
         <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
 
-<h1 id="和鸢计划"><a href="#和鸢计划" class="headerlink" title="和鸢计划"></a>和鸢计划</h1><p>八月份的硬性计划。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>[8.2]<br>忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。</p>
-<p>害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。</p>
-<p>[8.5]<br>可不可能？<br>关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。<br>但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。</p>
-<p>凡事，都要问一句，有没有用心。</p>
-<p>心理上的压力是巨大的。<br>不要问以后，时间，总是回不去的。作出改变，才会有机会。</p>
-<p>是现实压的我喘不过气吗，不，是寻求改变的路途，好似有杀死自己的危机。</p>
-<p>想念一个人是十分痛苦的，这和实践自我有异曲同工之秒。</p>
-<p>[8.7]<br>大厂工资可真高啊。真好啊。<br>人生有那么多想得到的。我也考虑过德不配位的自我放失，但更多的是面对风雨尘仆，我只能选择更具有力量积蓄的方式，未来会怎么样，其不确定性都来源于自身的力量不足么。于是我说，哭吧，笑吧，奔跑吧。时光太短，又何必要压抑自我。只此一遭，便是孓然无物，也唯证心语。</p>
-<p>[8.8]<br>得失之意还是会环绕我。我选择，安静的面对。</p>
-<p>[8.12]<br>怕得不到<br>我有时候会想，工作了三四年了，可是存的钱却没有达到目标，按理来说，手上至少也应该有个 15 ，中间个中花费，大抵上有 4,但是不必要的花费也有 4,再加上 3 的设备花费，这样看来好似真的没有存下多少。但倘若不必要的花费能够节省，目下手中也是有 8 的。<br>而对于目标，我却在想，到底是选择哪个好？如果实力确定都达标了，那么我会选择什么。<br>我的目的是什么呢？我在想。</p>
-<p>[8.21]<br>很迷茫， Redis 都不知道，又何谈分布式开发。<br>这方面的经验，真的有吗，我所做的事情，看不到确切的意义。<br>我期望者深刻的改变，但是目下，却被疲惫所困扰着。</p>
-<p>[8.28]<br>焦虑。大厂还是考公。<br>这是两个完全不同的路线分支。也是对我影响最为巨大的。<br>在这件事情的考虑上我不得不着重分析。</p>
-<p>其追根溯源是我期望选择什么样的生活的问题。<br>一方面，我不愿意安与现状。我期望能够尽可能到达更高的地方。可是，我却不知道如何用力。并且我不太确定我是否愿意着力到高强度的工作中。<br>我也许有着骄傲的自信。<br>一方面， 我期望能够有更多的时间来打磨自身所期望做的事情，去表达自我和宣扬情怀，变得深刻而荣誉等身。当然，这是比较夸张的说法，抑或是真实的想法。<br>换一个说法，那便还是不甘于平庸的热忱了。</p>
-<p>我很想说可能就是上班累了。但是实际却是，我也不知道。<br>就好像必然要在某个年纪，明确自我的追求一般。</p>
+<h1 id="Mysql-Read-record"><a href="#Mysql-Read-record" class="headerlink" title="Mysql Read record"></a>Mysql Read record</h1><p>The first priorities is the difference and the theory of between InnoDB and Myisam.</p>
+<h2 id="Theory-of-InnoDB"><a href="#Theory-of-InnoDB" class="headerlink" title="Theory of InnoDB"></a>Theory of InnoDB</h2><h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><ol>
+<li>缓冲池：数据页，索引页，插入缓冲，自适应哈希索引，锁信息，数据字典信息。</li>
+<li>LRU(Latest Recent Used)算法。 <ol>
+<li>midpoint 位置, innodb_old_blocks_pct</li>
+<li>innodb_old_blocks_time</li>
+</ol>
+</li>
+<li>重做日志缓冲 redo log, undo log</li>
+<li>额外的内存池</li>
+</ol>
+<h3 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h3><p>缓冲技术</p>
+<h3 id="FreeList"><a href="#FreeList" class="headerlink" title="FreeList"></a>FreeList</h3><p>本质上是空闲页管理。<br>源码中 plugin&#x2F;innodb_memcached&#x2F;innodb_memcache&#x2F;cache-src 中有系列函数提到过内存管理的 freelist.</p>
+<h3 id="Source-code-stack"><a href="#Source-code-stack" class="headerlink" title="Source code stack"></a>Source code stack</h3><h2 id="Theory-of-MYISAM"><a href="#Theory-of-MYISAM" class="headerlink" title="Theory of MYISAM"></a>Theory of MYISAM</h2><h3 id="File-format"><a href="#File-format" class="headerlink" title="File format"></a>File format</h3><p>每个myisam在磁盘上存储成3个文件，文件名和表名相同，但扩展名为：<br>.frm(存储表结构定义)<br>.MYD(MYData ,存储数据)<br>.MYI(MYIndex , 索引数据)</p>
+<p> 对于每一个以Myisam做数据引擎的表，在&lt;%data_dir%&gt;&#x2F;<database>目录下会有如下几个文件来保存其相关信息：</p>
+<pre><code>.frm文件。 这个文件是跨引擎的，描述了该表的元信息，其中最重要的是表定义和表的数据库引擎。
+.MYD文件。这是我们要看的重点文件，包含了数据库record信息，就是数据库中的每个行。
+.MYI文件。索引文件，用来加速查找。
+</code></pre>
+<p>myisam表支持三种不同的存储格式：<br>静态表（长度固定）;<br>动态表；<br>压缩表。<br>静态表是默认的存储格式。静态表中的字段都是非变长字段，这样每个记录都是固定长度的，这种存储方式的优点是存储非常迅速，容易缓存，出现故障容易恢复；缺点是占用空间通常比动态表多。</p>
+<h3 id="Application-scenario"><a href="#Application-scenario" class="headerlink" title="Application scenario"></a>Application scenario</h3><p>由MyISAM的特性，我们就可以简单的列举MyISAM引擎适用场景了。<br>1、不需要事务支持的场景。<br>2、读取操作比较多，写入和修改操作比较少的场景。<br>3、数据并发量较低的场景。<br>4、硬件条件比较差的场景。<br>5、在配置数据库读写分离场景下，MySQL从库可以使用MyISAM索引。</p>
+<h3 id="Source-code-stack-1"><a href="#Source-code-stack-1" class="headerlink" title="Source code stack"></a>Source code stack</h3><p>创建.frm文件的代码在 mysql_create_frm() 里.–并没有找到该方法。估计是版本太久或者其他的。</p>
+<p>而对于MYD中的每个record， 可以 是fixed，dynamic以及packed三种类型之一。fixed表示record的大小是固定的，没有VARCHAR, blob之类的。dynamic则刚好相反，有变长数据类型。packed类型是通过 myisampack 处理过的record。<a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.1/en/myisam-table-formats.html">参见</a> 。<br>需要注意的是record类型是针对表的设置，而不是对每个column的设置。 </p>
+<p>myisampack 有一个同名文件。</p>
+<p>record处理接口<br>record的类型是表级别的设置，所以在一个表被打开的时候， myisam 会检查元数据的选项，看该表的record是什么类型，然后设置对应的处理函 数，具体处理在storage&#x2F;myisam&#x2F;mi_open.c的 <code>mi_setup_functions</code> 中。</p>
+<p>其中是 C 语言中常用的类似多态的方法，利用函数指针，适应多种情况。</p>
+<p>Fixed类型<br>顾名思义，fixed类型的表中的所有字段都是定长的，不能出现TEXT, VARCHAR之类的东东。这种严格限制带来的好处就是更快更直接的数据record操作，想想也知道，每个数据都是定长的，在文件操作的时候多方便啊。<br>看看一个数据的函数 <code>_mi_write_static_record</code> ，它在 mi_statrec.c 中，所有对于fixed record的操作的实现都定义在这个文件中。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangjay/article/details/6714113">参考链接</a></p>
+<p>my_alloc.cpp 中有方法 AllocBlock 和 Alloc。这两个函数都是对需求内存进行计算，然后返回一个现有地址是以变量 m_current_free_start 为开始的的。<br>所以内存分配应该是事先分配好了若干个，然后需要的时候取值。<br>但是这些方法没有对内存中的数据进行校验。</p>
+<p>• Perform large allocations with my_malloc( ) , and free the allocated blocks with<br>my_free( ) as soon as possible.<br>• Do not free pointers allocated with sql_alloc( ) . The memory pool will be freed<br>at once with a call to free_root( ) at the end of the query.</p>
+<p>没有仔细阅读 free ， 但是里面是有把 memory pool size 加大的。</p>
+<h4 id="THD"><a href="#THD" class="headerlink" title="THD"></a>THD</h4><p>确实有此类。</p>
+<p>Each client connection is handled by a thread. Each thread has a descriptor object.</p>
+<p>原来这种方式其实并非不正确。</p>
+<p>MySQL has a number of system threads, such as the replication slave threads and delayed insert threads.</p>
+<p>但是这样看来效率有点低，速度也并没有 delayed insert threads 快。</p>
+<h4 id="Shared-Aspects-of-Architecture"><a href="#Shared-Aspects-of-Architecture" class="headerlink" title="Shared Aspects of Architecture"></a>Shared Aspects of Architecture</h4><p>build_table_filename 接口，未找到实现。</p>
+<p>The table and database name are now encoded in build_table_filename( ) in sql&#x2F;sql_table.cc. Code reads and parses the files using openfrm( ) from sql&#x2F;table.cc, and writes to them using create_frm( ) from the same source file.</p>
+<p>open_binary_frm 位于 table.cc 中。该函数内容很多。到此，应该就开始是 MyISAM 的重点了。</p>
+<p>Regardless of the storage engine, the server reads the table definition from the .frm file, and stores it in what is called a table cache. This way, the next time the table needs to be accessed, the server does not have to reread and reparse the .frm file, but rather can use the cached information.</p>
+<p>.frm 文件作为表的信息文件，一旦读取会放在缓存之中。</p>
+<h5 id="MyISAM-Architecture"><a href="#MyISAM-Architecture" class="headerlink" title="MyISAM Architecture"></a>MyISAM Architecture</h5><p>MyISAM stores its data on a local disk. In addition to the .frm file common to all storage engines, it uses two additional files: a datafile (.MYD), and an index file (.MYI).</p>
+<p>Index file</p>
+<p><img src="/image/Figure10-1.StructureOfIndex(.MYI)fileinMyISAM.png" alt="A"></p>
+<p>MyISAM Key Types</p>
+<p>MyISAM supports three types of keys: regular B-tree, full-text (which uses a B-tree),and spatial (which uses an R-tree).</p>
+<p>B-tree keys</p>
+<p>Those interested in more detail should refer to mi_key.c, mi_search.c,mi_write.c, and mi_delete.c in the storage&#x2F;myisam directory.</p>
+<p>A MyISAM B-tree consists of leaf and nonleaf nodes, or pages. By default, each page is 1,024 bytes. It can be changed by testing the <code>myisam_block_size</code> variable. You can distinguish a nonleaf node from a leaf node by looking at the highest bit of the first byte of the page. It will be set for a nonleaf node.</p>
+<p>Both leaf and nonleaf nodes contain key values and pointers to the record positions in the datafile. Nonleaf nodes additionally contain pointers to child nodes. Key values in a node may be compressed by replacing a common prefix with a referencing pointer.</p>
+<p>mi_write.cc 中含有关于页面均衡的接口。也是一个突破口。</p>
+<h2 id="Difference"><a href="#Difference" class="headerlink" title="Difference"></a>Difference</h2><p>区别：</p>
+<ol>
+<li><p>InnoDB支持事务， MyISAM 不支持，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放在begin和commit之间，组成一个事务； </p>
+</li>
+<li><p>InnoDB支持外键，而MyISAM不支持。对一个包含外键的InnoDB表转为MYISAM会失败； </p>
+</li>
+<li><p>InnoDB是聚集索引，使用B+Tree作为索引结构，数据文件是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），必须要有主键，通过主键索引效率很高。但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大。</p>
+<p> MyISAM是非聚集索引，也是使用B+Tree作为索引结构，索引和数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。<br> 也就是说：InnoDB的B+树主键索引的叶子节点就是数据文件，辅助索引的叶子节点是主键的值；而MyISAM的B+树主键索引和辅助索引的叶子节点都是数据文件的地址指针。</p>
+</li>
+<li><p>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而 MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快（注意不能加有任何WHERE条件）</p>
+<p> 那么为什么InnoDB没有了这个变量呢？<br> 因为InnoDB的事务特性，在同一时刻表中的行数对于不同的事务而言是不一样的，因此count统计会计算对于当前事务而言可以统计到的行数，而不是将总行数储存起来方便快速查询。InnoDB会尝试遍历一个尽可能小的索引除非优化器提示使用别的索引。如果二级索引不存在，InnoDB还会尝试去遍历其他聚簇索引。<br> 如果索引并没有完全处于InnoDB维护的缓冲区（Buffer Pool）中，count操作会比较费时。可以建立一个记录总行数的表并让你的程序在INSERT&#x2F;DELETE时更新对应的数据。和上面提到的问题一样，如果此时存在多个事务的话这种方案也不太好用。如果得到大致的行数值已经足够满足需求可以尝试SHOW TABLE STATUS</p>
+</li>
+<li><p>Innodb不支持全文索引，而MyISAM支持全文索引，在涉及全文索引领域的查询效率上MyISAM速度更快高；PS：5.7以后的InnoDB支持全文索引了</p>
+</li>
+<li><p>MyISAM表格可以被压缩后进行查询操作</p>
+</li>
+<li><p>InnoDB支持表、行(默认)级锁，而MyISAM支持表级锁<br> InnoDB的行锁是实现在索引上的，而不是锁在物理行记录上。潜台词是，如果访问没有命中索引，也无法使用行锁，将要退化为表锁。</p>
+</li>
+<li><p>InnoDB表必须有唯一索引（如主键）（用户没有指定的话会自己找&#x2F;生产一个隐藏列Row_id来充当默认主键），而 Myisam 可以没有</p>
+</li>
+<li><p>Innodb存储文件有 frm、ibd，而Myisam是frm、MYD、MYI</p>
+<p> Innodb：frm是表定义文件，ibd是数据文件<br> Myisam：frm是表定义文件，myd是数据文件，myi是索引文件</p>
+</li>
+</ol>
+<p>InnoDB为什么推荐使用自增ID作为主键？<br>    答：自增ID可以保证每次插入时B+索引是从右边扩展的，可以避免B+树和频繁合并和分裂（对比使用UUID）。如果使用字符串主键和随机主键，会使得数据随机插入，效率比较差。</p>
+<p>innodb引擎的4大特性<br>    插入缓冲（insert buffer),二次写(double write),自适应哈希索引(ahi),预读(read ahead)</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35642036/article/details/82820178">参考链接</a></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
-            <p>原文链接：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html</a>
-            <p>发表日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">July 28th 2024, 12:00:00 am</a>
-            <p>更新日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">April 21st 2025, 11:20:07 am</a>
+            <p>原文链接：<a href="http://itheds.github.io/2022/11/07/Mysql_Read_record/">http://itheds.github.io/2022/11/07/Mysql_Read_record/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2022/11/07/Mysql_Read_record/">November 7th 2022, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2022/11/07/Mysql_Read_record/">April 21st 2025, 11:23:22 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,8 +591,18 @@
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2023/03/10/docker_use/" title="Docker Used Node">
+                    <div class="nextTitle">Docker Used Node</div>
+                </a>
+            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/" title="Python和Cpp混合编程">
+                    <div class="prevTitle">Python和Cpp混合编程</div>
+                </a>
             
         </li>
     </ul>
@@ -584,6 +726,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql-Read-record"><span class="toc-number">1.</span> <span class="toc-text">Mysql Read record</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Theory-of-InnoDB"><span class="toc-number">1.1.</span> <span class="toc-text">Theory of InnoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-number">1.1.1.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Checkpoint"><span class="toc-number">1.1.2.</span> <span class="toc-text">Checkpoint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FreeList"><span class="toc-number">1.1.3.</span> <span class="toc-text">FreeList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Source-code-stack"><span class="toc-number">1.1.4.</span> <span class="toc-text">Source code stack</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Theory-of-MYISAM"><span class="toc-number">1.2.</span> <span class="toc-text">Theory of MYISAM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#File-format"><span class="toc-number">1.2.1.</span> <span class="toc-text">File format</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-scenario"><span class="toc-number">1.2.2.</span> <span class="toc-text">Application scenario</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Source-code-stack-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">Source code stack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#THD"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">THD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shared-Aspects-of-Architecture"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">Shared Aspects of Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MyISAM-Architecture"><span class="toc-number">1.2.3.2.1.</span> <span class="toc-text">MyISAM Architecture</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Difference"><span class="toc-number">1.3.</span> <span class="toc-text">Difference</span></a></li></ol></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1242,6 +1401,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         

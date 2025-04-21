@@ -19,23 +19,22 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="和鸢">
-<meta property="og:url" content="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">
+    <meta name="description" content="C++基本项目开发思路基本的开发思路 概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++基本项目开发思路">
+<meta property="og:url" content="http://itheds.github.io/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+<meta property="og:description" content="C++基本项目开发思路基本的开发思路 概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-07-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-21T03:20:07.911Z">
+<meta property="article:published_time" content="2021-04-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-18T09:41:53.311Z">
 <meta property="article:author" content="iTheds">
-<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>和鸢 · iTheds&#39;s Studio</title>
+    <title>C++基本项目开发思路 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -222,6 +221,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -251,6 +252,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">C++基本项目开发思路</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -277,24 +289,76 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                C++基本项目开发思路
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+                    C++基本项目开发思路
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/04/16</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -428,30 +492,67 @@
     <article class="article-entry">
         <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
 
-<h1 id="和鸢计划"><a href="#和鸢计划" class="headerlink" title="和鸢计划"></a>和鸢计划</h1><p>八月份的硬性计划。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>[8.2]<br>忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。</p>
-<p>害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。</p>
-<p>[8.5]<br>可不可能？<br>关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。<br>但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。</p>
-<p>凡事，都要问一句，有没有用心。</p>
-<p>心理上的压力是巨大的。<br>不要问以后，时间，总是回不去的。作出改变，才会有机会。</p>
-<p>是现实压的我喘不过气吗，不，是寻求改变的路途，好似有杀死自己的危机。</p>
-<p>想念一个人是十分痛苦的，这和实践自我有异曲同工之秒。</p>
-<p>[8.7]<br>大厂工资可真高啊。真好啊。<br>人生有那么多想得到的。我也考虑过德不配位的自我放失，但更多的是面对风雨尘仆，我只能选择更具有力量积蓄的方式，未来会怎么样，其不确定性都来源于自身的力量不足么。于是我说，哭吧，笑吧，奔跑吧。时光太短，又何必要压抑自我。只此一遭，便是孓然无物，也唯证心语。</p>
-<p>[8.8]<br>得失之意还是会环绕我。我选择，安静的面对。</p>
-<p>[8.12]<br>怕得不到<br>我有时候会想，工作了三四年了，可是存的钱却没有达到目标，按理来说，手上至少也应该有个 15 ，中间个中花费，大抵上有 4,但是不必要的花费也有 4,再加上 3 的设备花费，这样看来好似真的没有存下多少。但倘若不必要的花费能够节省，目下手中也是有 8 的。<br>而对于目标，我却在想，到底是选择哪个好？如果实力确定都达标了，那么我会选择什么。<br>我的目的是什么呢？我在想。</p>
-<p>[8.21]<br>很迷茫， Redis 都不知道，又何谈分布式开发。<br>这方面的经验，真的有吗，我所做的事情，看不到确切的意义。<br>我期望者深刻的改变，但是目下，却被疲惫所困扰着。</p>
-<p>[8.28]<br>焦虑。大厂还是考公。<br>这是两个完全不同的路线分支。也是对我影响最为巨大的。<br>在这件事情的考虑上我不得不着重分析。</p>
-<p>其追根溯源是我期望选择什么样的生活的问题。<br>一方面，我不愿意安与现状。我期望能够尽可能到达更高的地方。可是，我却不知道如何用力。并且我不太确定我是否愿意着力到高强度的工作中。<br>我也许有着骄傲的自信。<br>一方面， 我期望能够有更多的时间来打磨自身所期望做的事情，去表达自我和宣扬情怀，变得深刻而荣誉等身。当然，这是比较夸张的说法，抑或是真实的想法。<br>换一个说法，那便还是不甘于平庸的热忱了。</p>
-<p>我很想说可能就是上班累了。但是实际却是，我也不知道。<br>就好像必然要在某个年纪，明确自我的追求一般。</p>
-<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+<h1 id="C-基本项目开发思路"><a href="#C-基本项目开发思路" class="headerlink" title="C++基本项目开发思路"></a>C++基本项目开发思路</h1><p>基本的开发思路</p>
+<h2 id="概要设计"><a href="#概要设计" class="headerlink" title="概要设计"></a>概要设计</h2><p>从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。<br>其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。<br>所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文件系统，获得比较健壮的项目体系。</p>
+<h2 id="项目文件结构"><a href="#项目文件结构" class="headerlink" title="项目文件结构"></a>项目文件结构</h2><p>项目在创立初期需要考虑文件的引用结构。</p>
+<p>一个.cpp文件，会伴随一个同名的.h头文件。</p>
+<ul>
+<li>.cpp文件内容:<br>  include”同名.h”，函数的定义。</li>
+<li>.h文件内容:<br>  函数的声明，宏定义，结构体。有时候也可以放全局变量，全局变量一般在公用文件中。<br>  特别的，无论是否在公用文件中定义了一个宏，在.h文件中都必要将文件中的宏额外定义出来。</li>
+</ul>
+<h3 id="文件引用结构"><a href="#文件引用结构" class="headerlink" title="文件引用结构"></a>文件引用结构</h3><p>文件的流向问题。</p>
+<p>最经典的结构是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph BT</span><br><span class="line">A[主程序] --&gt; B[功能文件1];</span><br><span class="line">B--&gt;G[公用文件];</span><br><span class="line">A --&gt;C[功能文件2]--&gt;G</span><br><span class="line">A --&gt;D[功能文件2]--&gt;G</span><br><span class="line">A --&gt;E[功能文件2]--&gt;G</span><br><span class="line">A --&gt;F[功能文件...]--&gt;G</span><br><span class="line">G--&gt;config文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="资源处理"><a href="#资源处理" class="headerlink" title="资源处理"></a>资源处理</h2><p>涵盖了所有循环、监听以及阻塞资源</p>
+<h2 id="Config文件优化"><a href="#Config文件优化" class="headerlink" title="Config文件优化"></a>Config文件优化</h2><p>使用一个读函数，对配置文件进行读写。</p>
+<h2 id="版本迭代"><a href="#版本迭代" class="headerlink" title="版本迭代"></a>版本迭代</h2><p>版本迭代时不可避免的。<br>在开发的整体流程里，调研过程，产生元单位代码，元单位代码简单，往往包含关键技术，是实现项目功能的最小子单位，或者是最简框架单位；<br>开始开发，初步布局之后，产生第一代整体代码，第一代代码往往拥有很优良的规范，所有目标都十分明确具体；<br>产生了第一代整体代码后，必然会有需求改动或者</p>
+<h2 id="模块化思想"><a href="#模块化思想" class="headerlink" title="模块化思想"></a>模块化思想</h2><p>模块和功能之间的区别：</p>
+<ol>
+<li>功能侧重于描述软件的过程性，对应需求。</li>
+<li>模块侧重于描述软件的操作性，元操作组合之后成为模块。元操作体现为接口。</li>
+</ol>
+<p>划分模块需要考虑：</p>
+<ol>
+<li>隔离模块边界</li>
+<li>模块间的跳转</li>
+<li>模块间的通信</li>
+</ol>
+<h3 id="接口回调"><a href="#接口回调" class="headerlink" title="接口回调"></a>接口回调</h3><p>C语言中指针回调：表示指针变量中存放了一个变量地址，该指针变量可以间接调用存放变量地址的变量。</p>
+<p>接口回调。指的是可以把实现某一接口的类创建的对象的引用赋值给该接口声明的接口变量，那么该接口变量就可以调用被类实现的接口方法。(其实当<code>接口变量</code>在调用被类实现的接口方法时，就是在通知相应的对象调用这个方法)</p>
+<p>但是接口变量无法调用类中其他的非接口方法；<br>(类似于上转型对象调用子类重写的方法)</p>
+<p>接口回调与多态<br>把实现接口的类的实例的引用赋值给接口变量后，该接口变量就可以回调类重写的接口方法。<br>不同的类在实现同一个接口时可能具有不同的实现方式，那么接口变量就在回调接口方法时可能具有多种形态。</p>
+<h3 id="模块合并"><a href="#模块合并" class="headerlink" title="模块合并"></a>模块合并</h3><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>建立自己的错误处理代码体系。</p>
+<h3 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h3><p>将错误写到日志文件中。最直观的方法是，打开文件，追加写入，关闭文件。但是这样只能一条一条写入。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">output_log</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* fmt, ...)</span> </span>&#123;</span><br><span class="line">	<span class="type">char</span> fmtBuf[<span class="number">128</span>];</span><br><span class="line">	<span class="type">char</span> msgBuf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">	va_list args;</span><br><span class="line">	<span class="built_in">va_start</span>(args, fmt);</span><br><span class="line">	FILE* fp;</span><br><span class="line">	fp = <span class="built_in">fopen</span>(<span class="string">&quot;/var/log/program.log&quot;</span>, <span class="string">&quot;a+&quot;</span> );</span><br><span class="line">	<span class="keyword">if</span> (fp != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(fmtBuf, <span class="number">0x00</span>, <span class="built_in">sizeof</span>(fmtBuf));</span><br><span class="line">		<span class="built_in">memset</span>(msgBuf, <span class="number">0x00</span>, <span class="built_in">sizeof</span>(msgBuf));</span><br><span class="line">		<span class="built_in">snprintf</span>(fmtBuf, <span class="built_in">sizeof</span>(fmtBuf), <span class="string">&quot;%s\n&quot;</span>, fmt);</span><br><span class="line">		<span class="built_in">vsnprintf</span>(msgBuf, <span class="built_in">sizeof</span>(msgBuf), fmtBuf, args);</span><br><span class="line">		<span class="built_in">fprintf</span>(fp, <span class="string">&quot;%s&quot;</span>, msgBuf);</span><br><span class="line">		<span class="built_in">fclose</span>(fp);</span><br><span class="line">		fp = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">va_end</span>(args);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cout, <span class="function">rdbuf</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">( )</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="function">ofstream <span class="title">file</span><span class="params">( <span class="string">&quot;rdbuf.txt&quot;</span> )</span></span>;</span><br><span class="line">   streambuf *x = cout.<span class="built_in">rdbuf</span>( file.<span class="built_in">rdbuf</span>( ) );</span><br><span class="line">   cout &lt;&lt; <span class="string">&quot;test&quot;</span> &lt;&lt; endl;   </span><br><span class="line">   cout.<span class="built_in">rdbuf</span>(x);</span><br><span class="line">   cout &lt;&lt; <span class="string">&quot;test2&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="规范化"><a href="#规范化" class="headerlink" title="规范化"></a>规范化</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>无论什么数据都需要初始化，特别是指针。</p>
+<h3 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h3><p>函数返回值永远是错误码，而不是返回某个数据。或者返回指针结构体。</p>
+<p>有一个启示，我们可以在 C++ 编程中使用类似的手段，不进行返回值作为错误码，而是以抛出异常的方式来进行错误分析。<br>在设计 C++ 接口时，我们将返回值和参数做有机的结合，而不将错误码归并到一起。</p>
+<h3 id="使用ifdef防止重定义，提高编译速度"><a href="#使用ifdef防止重定义，提高编译速度" class="headerlink" title="使用ifdef防止重定义，提高编译速度"></a>使用ifdef防止重定义，提高编译速度</h3><p>使用的场景为头文件中，一般可以包含头文件引用，也可以不包含。主要是防止重复定义。</p>
+<pre><code>#ifndef AIS_TABLE_H_
+#define AIS_TABLE_H_
+
+#endif //!AIS_TABLE_H_
+</code></pre>
+<h3 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**********************************************************************************</span></span><br><span class="line"><span class="comment">* @file     DBBTree.h</span></span><br><span class="line"><span class="comment">* @brief       BTree索引头文件</span></span><br><span class="line"><span class="comment">* @author      XXX</span></span><br><span class="line"><span class="comment">* @date        2020-06-19</span></span><br><span class="line"><span class="comment">* @version     V1.0</span></span><br><span class="line"><span class="comment">* @copyright   Copyright (c) 2020-2025  单位</span></span><br><span class="line"><span class="comment">**********************************************************************************</span></span><br><span class="line"><span class="comment">* @par 修改日志:</span></span><br><span class="line"><span class="comment">* &lt;table&gt;</span></span><br><span class="line"><span class="comment">* &lt;tr&gt;&lt;th&gt;Date        &lt;th&gt;Version  &lt;th&gt;Author    &lt;th&gt;Description</span></span><br><span class="line"><span class="comment">* &lt;tr&gt;&lt;td&gt;2020/06/09  &lt;td&gt;1.0      &lt;td&gt;XXX  &lt;td&gt;创建初始版本</span></span><br><span class="line"><span class="comment">* &lt;/table&gt;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**********************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h2><ol>
+<li>项目中为了底层接口的升级对现有接口进行重新封装再使用，封装函数中基本不做任何改动，有必要吗？</li>
+<li>头文件之间相互包含，合理吗</li>
+<li>头文件引用结构是线性的，合理吗</li>
+</ol>
+<h1 id="EOF"><a href="#EOF" class="headerlink" title="EOF"></a>EOF</h1><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
-            <p>原文链接：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html</a>
-            <p>发表日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">July 28th 2024, 12:00:00 am</a>
-            <p>更新日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">April 21st 2025, 11:20:07 am</a>
+            <p>原文链接：<a href="http://itheds.github.io/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">http://itheds.github.io/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">April 16th 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">April 18th 2025, 5:41:53 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,8 +560,18 @@
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="B树学习札记">
+                    <div class="nextTitle">B树学习札记</div>
+                </a>
+            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" title="C/C++问题收录与知识积累">
+                    <div class="prevTitle">C/C++问题收录与知识积累</div>
+                </a>
             
         </li>
     </ul>
@@ -584,6 +695,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">C++基本项目开发思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.1.</span> <span class="toc-text">概要设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">项目文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%BC%95%E7%94%A8%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">文件引用结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E5%A4%84%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">资源处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Config%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96"><span class="toc-number">1.4.</span> <span class="toc-text">Config文件优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%BF%AD%E4%BB%A3"><span class="toc-number">1.5.</span> <span class="toc-text">版本迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E6%80%9D%E6%83%B3"><span class="toc-number">1.6.</span> <span class="toc-text">模块化思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%9B%9E%E8%B0%83"><span class="toc-number">1.6.1.</span> <span class="toc-text">接口回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%90%88%E5%B9%B6"><span class="toc-number">1.6.2.</span> <span class="toc-text">模块合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.7.</span> <span class="toc-text">错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.1.</span> <span class="toc-text">日志文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E5%8C%96"><span class="toc-number">1.8.</span> <span class="toc-text">规范化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.8.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.8.2.</span> <span class="toc-text">函数返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8ifdef%E9%98%B2%E6%AD%A2%E9%87%8D%E5%AE%9A%E4%B9%89%EF%BC%8C%E6%8F%90%E9%AB%98%E7%BC%96%E8%AF%91%E9%80%9F%E5%BA%A6"><span class="toc-number">1.8.3.</span> <span class="toc-text">使用ifdef防止重定义，提高编译速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="toc-number">1.8.4.</span> <span class="toc-text">版权声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-number">1.9.</span> <span class="toc-text">问题总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EOF"><span class="toc-number">2.</span> <span class="toc-text">EOF</span></a></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1242,6 +1370,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         

@@ -19,23 +19,25 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+    <meta name="description" content="JAVA JNI开发前言JNI (Java Native Interface) 是Java平台的一个重要特性，它允许Java代码与其他语言（如C、C++）编写的代码进行交互。本文将详细介绍如何使用JNI封装ODBC接口，实现Java程序对数据库的访问。 开发流程概述完整的开发流程包括以下几个步骤：  编译ODBC接口库：使用多模项目编译出ODBC动态库 设计JNI接口层：创建中间层接口，连接J">
 <meta property="og:type" content="website">
-<meta property="og:title" content="和鸢">
-<meta property="og:url" content="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">
+<meta property="og:title" content="JAVA JNI开发">
+<meta property="og:url" content="http://itheds.github.io/archives/JAVA_JNI.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+<meta property="og:description" content="JAVA JNI开发前言JNI (Java Native Interface) 是Java平台的一个重要特性，它允许Java代码与其他语言（如C、C++）编写的代码进行交互。本文将详细介绍如何使用JNI封装ODBC接口，实现Java程序对数据库的访问。 开发流程概述完整的开发流程包括以下几个步骤：  编译ODBC接口库：使用多模项目编译出ODBC动态库 设计JNI接口层：创建中间层接口，连接J">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-07-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-21T03:20:07.911Z">
+<meta property="article:published_time" content="2024-07-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T02:48:11.652Z">
 <meta property="article:author" content="iTheds">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="JNI">
+<meta property="article:tag" content="ODBC">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>和鸢 · iTheds&#39;s Studio</title>
+    <title>JAVA JNI开发 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -428,30 +430,120 @@
     <article class="article-entry">
         <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
 
-<h1 id="和鸢计划"><a href="#和鸢计划" class="headerlink" title="和鸢计划"></a>和鸢计划</h1><p>八月份的硬性计划。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>[8.2]<br>忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。</p>
-<p>害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。</p>
-<p>[8.5]<br>可不可能？<br>关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。<br>但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。</p>
-<p>凡事，都要问一句，有没有用心。</p>
-<p>心理上的压力是巨大的。<br>不要问以后，时间，总是回不去的。作出改变，才会有机会。</p>
-<p>是现实压的我喘不过气吗，不，是寻求改变的路途，好似有杀死自己的危机。</p>
-<p>想念一个人是十分痛苦的，这和实践自我有异曲同工之秒。</p>
-<p>[8.7]<br>大厂工资可真高啊。真好啊。<br>人生有那么多想得到的。我也考虑过德不配位的自我放失，但更多的是面对风雨尘仆，我只能选择更具有力量积蓄的方式，未来会怎么样，其不确定性都来源于自身的力量不足么。于是我说，哭吧，笑吧，奔跑吧。时光太短，又何必要压抑自我。只此一遭，便是孓然无物，也唯证心语。</p>
-<p>[8.8]<br>得失之意还是会环绕我。我选择，安静的面对。</p>
-<p>[8.12]<br>怕得不到<br>我有时候会想，工作了三四年了，可是存的钱却没有达到目标，按理来说，手上至少也应该有个 15 ，中间个中花费，大抵上有 4,但是不必要的花费也有 4,再加上 3 的设备花费，这样看来好似真的没有存下多少。但倘若不必要的花费能够节省，目下手中也是有 8 的。<br>而对于目标，我却在想，到底是选择哪个好？如果实力确定都达标了，那么我会选择什么。<br>我的目的是什么呢？我在想。</p>
-<p>[8.21]<br>很迷茫， Redis 都不知道，又何谈分布式开发。<br>这方面的经验，真的有吗，我所做的事情，看不到确切的意义。<br>我期望者深刻的改变，但是目下，却被疲惫所困扰着。</p>
-<p>[8.28]<br>焦虑。大厂还是考公。<br>这是两个完全不同的路线分支。也是对我影响最为巨大的。<br>在这件事情的考虑上我不得不着重分析。</p>
-<p>其追根溯源是我期望选择什么样的生活的问题。<br>一方面，我不愿意安与现状。我期望能够尽可能到达更高的地方。可是，我却不知道如何用力。并且我不太确定我是否愿意着力到高强度的工作中。<br>我也许有着骄傲的自信。<br>一方面， 我期望能够有更多的时间来打磨自身所期望做的事情，去表达自我和宣扬情怀，变得深刻而荣誉等身。当然，这是比较夸张的说法，抑或是真实的想法。<br>换一个说法，那便还是不甘于平庸的热忱了。</p>
-<p>我很想说可能就是上班累了。但是实际却是，我也不知道。<br>就好像必然要在某个年纪，明确自我的追求一般。</p>
+<h1 id="JAVA-JNI开发"><a href="#JAVA-JNI开发" class="headerlink" title="JAVA JNI开发"></a>JAVA JNI开发</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JNI (Java Native Interface) 是Java平台的一个重要特性，它允许Java代码与其他语言（如C、C++）编写的代码进行交互。本文将详细介绍如何使用JNI封装ODBC接口，实现Java程序对数据库的访问。</p>
+<h2 id="开发流程概述"><a href="#开发流程概述" class="headerlink" title="开发流程概述"></a>开发流程概述</h2><p>完整的开发流程包括以下几个步骤：</p>
+<ol>
+<li>编译ODBC接口库：使用多模项目编译出ODBC动态库</li>
+<li>设计JNI接口层：创建中间层接口，连接Java与ODBC</li>
+<li>实现JNI调用：在Java程序中调用本地方法</li>
+<li>测试与调优：确保接口正常工作并优化性能</li>
+</ol>
+<h2 id="JNI使用教程"><a href="#JNI使用教程" class="headerlink" title="JNI使用教程"></a>JNI使用教程</h2><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p>使用JNI开发ODBC接口的基本流程如下：</p>
+<ol>
+<li>前提条件：拥有ODBC库（如odbc.dll或libodbc.so）</li>
+<li>创建JNI包装库：<ul>
+<li>引入头文件<code>#include &lt;jni.h&gt;</code></li>
+<li>按照接口规范（<code>Java_&lt;全限定类名&gt;_&lt;方法名&gt;</code>）定义接口</li>
+<li>编译生成新的库文件（如odbc-jni.dll或libodbc-jni.so）</li>
+</ul>
+</li>
+<li>Java程序中加载本地库并调用方法</li>
+<li>部署和测试</li>
+</ol>
+<h3 id="动态库生成命令"><a href="#动态库生成命令" class="headerlink" title="动态库生成命令"></a>动态库生成命令</h3><p>使用GCC编译生成动态库的命令示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成动态库命令</span></span><br><span class="line">gcc -I&quot;$JDK_HOME/include&quot; -I&quot;$JDK_HOME/include/linux&quot; -shared -o ./lib/lib$FILE_NAME.so -fPIC ./jni/$FILE_NAME.c</span><br></pre></td></tr></table></figure>
+
+<h2 id="JNI接口设计"><a href="#JNI接口设计" class="headerlink" title="JNI接口设计"></a>JNI接口设计</h2><p>为了封装ODBC接口，需要设计一系列JNI接口。下表列出了主要接口及其对应的ODBC函数：</p>
+<table>
+<thead>
+<tr>
+<th>JNI 接口</th>
+<th>对应的 ODBC 接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>JNIEXPORT jlong JNICALL Java_tzmdb_odbcjni_Odbc_allocHandle(JNIEnv *, jobject, jlong)</code></td>
+<td><code>SQLAllocHandle</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_connect(JNIEnv *, jobject, jlong, jstring, jstring, jstring)</code></td>
+<td><code>SQLConnect</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_describeCol(JNIEnv *, jobject, jlong, jint, jstring, jint)</code></td>
+<td><code>SQLDescribeCol</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_closeConnection(JNIEnv *, jobject, jlong)</code></td>
+<td><code>SQLDisconnect</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_query(JNIEnv *, jobject, jlong, jstring)</code></td>
+<td><code>SQLExecDirect</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_fetch(JNIEnv *, jobject, jlong)</code></td>
+<td><code>SQLFetch</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_getData(JNIEnv *, jobject, jlong, jint, jint, jobject)</code></td>
+<td><code>SQLGetData</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_resultCols(JNIEnv *, jobject, jlong)</code></td>
+<td><code>SQLNumResultCols</code></td>
+</tr>
+<tr>
+<td><code>JNIEXPORT jint JNICALL Java_tzmdb_odbcjni_Odbc_resultRowCount(JNIEnv *, jobject, jlong)</code></td>
+<td><code>SQLRowCount</code></td>
+</tr>
+</tbody></table>
+<h2 id="常见问题及解决方案"><a href="#常见问题及解决方案" class="headerlink" title="常见问题及解决方案"></a>常见问题及解决方案</h2><h3 id="1-库文件加载错误"><a href="#1-库文件加载错误" class="headerlink" title="1. 库文件加载错误"></a>1. 库文件加载错误</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>在运行Java程序时可能会遇到以下错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">&quot;main&quot;</span> java.lang.UnsatisfiedLinkError: no tzmdb_odbcjni_Odbc <span class="keyword">in</span> java.library.path</span><br><span class="line">	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1860)</span><br><span class="line">	at java.lang.Runtime.loadLibrary0(Runtime.java:843)</span><br><span class="line">	at java.lang.System.loadLibrary(System.java:1136)</span><br><span class="line">	at tzmdb.odbcjni.Odbc.&lt;clinit&gt;(Odbc.java:14)</span><br><span class="line">	at main.java.AppTest.main(AppTest.java:13)</span><br></pre></td></tr></table></figure>
+
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><ol>
+<li><p>设置JVM参数指定库文件路径：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Djava.library.path=/path/to/your/library</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理解库文件命名规则：</p>
+<ul>
+<li>在Linux系统中，<code>System.loadLibrary(&quot;name&quot;)</code>实际寻找的是<code>libname.so</code></li>
+<li>在Windows系统中，寻找的是<code>name.dll</code></li>
+</ul>
+</li>
+<li><p>通过调试ClassLoader源码，可以看到库文件加载的具体流程：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ClassLoader.java 库文件查找逻辑</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span> ; i &lt; sys_paths.length ; i++) &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">libfile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(sys_paths[i], System.mapLibraryName(name));</span><br><span class="line">    <span class="keyword">if</span> (loadLibrary0(fromClass, libfile)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    libfile = ClassLoaderHelper.mapAlternativeName(libfile);</span><br><span class="line">    <span class="keyword">if</span> (libfile != <span class="literal">null</span> &amp;&amp; loadLibrary0(fromClass, libfile)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 查找用户路径</span></span><br><span class="line"><span class="keyword">if</span> (loader != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span> ; i &lt; usr_paths.length ; i++) &#123;</span><br><span class="line">        <span class="type">File</span> <span class="variable">libfile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(usr_paths[i], System.mapLibraryName(name));</span><br><span class="line">        <span class="keyword">if</span> (loadLibrary0(fromClass, libfile)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        libfile = ClassLoaderHelper.mapAlternativeName(libfile);</span><br><span class="line">        <span class="keyword">if</span> (libfile != <span class="literal">null</span> &amp;&amp; loadLibrary0(fromClass, libfile)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 加载失败</span></span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsatisfiedLinkError</span>(<span class="string">&quot;no &quot;</span> + name + <span class="string">&quot; in java.library.path&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-ODBC接口调用问题"><a href="#2-ODBC接口调用问题" class="headerlink" title="2. ODBC接口调用问题"></a>2. ODBC接口调用问题</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>在开发过程中，发现<code>SQLGetData</code>函数始终返回-1（SQL_ERROR），这表明JNI调用的接口可能与预期不符。</p>
+<h4 id="分析与解决"><a href="#分析与解决" class="headerlink" title="分析与解决"></a>分析与解决</h4><p>通过分析，发现以下可能的原因：</p>
+<ol>
+<li>JNI与ODBC动态库之间缺少正确的链接关系</li>
+<li>ODBC驱动管理器使用函数指针数组调用函数，而非直接调用</li>
+<li>前序函数可能返回了错误状态，导致后续调用失败</li>
+</ol>
+<p>对啊，我既然都用JNI了，为什么不自己设计接口，而要让ODBC驱动管理程序来使用我开发的ODBC接口？</p>
+<p>思路转变重新设计接口架构，直接通过JNI调用底层数据库接口，绕过ODBC驱动管理器，从而解决了问题。</p>
+<h2 id="JNI实现示例"><a href="#JNI实现示例" class="headerlink" title="JNI实现示例"></a>JNI实现示例</h2><p>以下是<code>getData</code>方法的JNI实现示例，展示了如何处理不同数据类型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">JNICALL <span class="title function_">Java_tzmdb_odbcjni_Odbc_getData</span><span class="params">(JNIEnv *env, jobject obj, jlong hStmt, jint colNum, jint cType, jobject jData)</span></span><br><span class="line">&#123;</span><br><span class="line">    SQLLEN indicator;</span><br><span class="line">    SQLRETURN ret;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义缓冲区大小和类型</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bufferSize = <span class="number">1024</span>;</span><br><span class="line">    SQLCHAR buffer[bufferSize];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cType == SQL_WVARCHAR)</span><br><span class="line">    &#123;</span><br><span class="line">        cType = SQL_C_CHAR;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用SQLGetData</span></span><br><span class="line">    ret = SQLGetData((SQLHSTMT)hStmt, (SQLUSMALLINT)colNum, (SQLSMALLINT)cType, buffer, <span class="keyword">sizeof</span>(buffer), &amp;indicator);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;[%s]:[ret:%d]:[ctype:%d]:[data:%s]\n&quot;</span>, __FUNCTION__, ret, cType, buffer);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)</span><br><span class="line">    &#123;</span><br><span class="line">        jclass dataClass = env-&gt;GetObjectClass(jData);</span><br><span class="line">        jmethodID setMethod;</span><br><span class="line">        jmethodID appendMethod;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据不同数据类型处理结果</span></span><br><span class="line">        <span class="keyword">switch</span> (cType)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">case</span> SQL_CHAR:</span><br><span class="line">        <span class="keyword">case</span> SQL_VARCHAR:</span><br><span class="line">            <span class="comment">// 处理字符串类型</span></span><br><span class="line">            setMethod = env-&gt;GetMethodID(dataClass, <span class="string">&quot;setLength&quot;</span>, <span class="string">&quot;(I)V&quot;</span>);</span><br><span class="line">            appendMethod = env-&gt;GetMethodID(dataClass, <span class="string">&quot;append&quot;</span>, <span class="string">&quot;(Ljava/lang/String;)Ljava/lang/StringBuilder;&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (setMethod &amp;&amp; appendMethod)</span><br><span class="line">            &#123;</span><br><span class="line">                env-&gt;CallVoidMethod(jData, setMethod, <span class="number">0</span>); <span class="comment">// 清空现有内容</span></span><br><span class="line">                jstring jStr = env-&gt;NewStringUTF((<span class="type">char</span> *)buffer);</span><br><span class="line">                env-&gt;CallObjectMethod(jData, appendMethod, jStr);</span><br><span class="line">                env-&gt;DeleteLocalRef(jStr);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="comment">// 其他数据类型处理...（代码已省略）</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="comment">// 处理未知类型或错误</span></span><br><span class="line">            <span class="keyword">return</span> SQL_ERROR;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (jint)ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="开发日志"><a href="#开发日志" class="headerlink" title="开发日志"></a>开发日志</h2><h3 id="2024-08-20"><a href="#2024-08-20" class="headerlink" title="2024-08-20"></a>2024-08-20</h3><p>ODBC开发过程中，对Java的JDBC进行测试时发现SQLGetData一直返回-1。分析表明JNI调用的SQLGetData可能并非ODBC提供的接口。</p>
+<p>推论：JNI和TZODBC动态库之间没有正确的链接关系。ODBC测试程序调用库时连接不上，而JNI可以连接但无法使用SQLGetData。</p>
+<h3 id="2024-08-29"><a href="#2024-08-29" class="headerlink" title="2024-08-29"></a>2024-08-29</h3><p>发现ODBC内部使用函数指针方式访问函数，因此ODBC函数实现中不应直接调用ODBC函数，而应另起名称。</p>
+<p>最终决定：既然已经使用JNI，为何不直接设计自己的接口，而非通过ODBC驱动管理程序？这一思路转变为后续开发指明了方向。</p>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><h3 id="ODBC配置示例"><a href="#ODBC配置示例" class="headerlink" title="ODBC配置示例"></a>ODBC配置示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[TZMDB ODBC 1.0 ANSI Driver]</span></span><br><span class="line"><span class="attr">Driver</span>=/usr/lib/tzmodbc/libtzmdb-odbc.so</span><br><span class="line"><span class="attr">SETUP</span>=</span><br><span class="line"><span class="attr">UsageCount</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="section">[tzmdb_test_1]</span></span><br><span class="line"><span class="attr">Description</span>  = tzmdb</span><br><span class="line"><span class="attr">Driver</span> = TZMDB ODBC <span class="number">1.0</span> ANSI Driver</span><br><span class="line"><span class="attr">Server</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">Port</span> = <span class="number">7030</span></span><br><span class="line"><span class="attr">CHARSET</span>  = UTF8</span><br></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过JNI技术，成功地将ODBC接口封装为Java可用的形式。虽然过程中遇到了一些挑战，但通过深入理解JNI和ODBC的工作原理，最终找到了合适的解决方案。这种封装方式为Java应用程序提供了高效访问数据库的能力，同时保持了底层接口的灵活性。<br>&#96;&#96;&#96;</p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
-            <p>原文链接：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html</a>
-            <p>发表日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">July 28th 2024, 12:00:00 am</a>
-            <p>更新日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">April 21st 2025, 11:20:07 am</a>
+            <p>原文链接：<a href="http://itheds.github.io/archives/JAVA_JNI.html">http://itheds.github.io/archives/JAVA_JNI.html</a>
+            <p>发表日期：<a href="http://itheds.github.io/archives/JAVA_JNI.html">July 30th 2024, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/archives/JAVA_JNI.html">April 21st 2025, 10:48:11 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     

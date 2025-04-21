@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="高频词汇表常考词汇表 A abandon  vt.  丢弃;放弃,抛弃aboard  ad.  在船(车)上;上船abroad   ad.  (在)国外;到处absent   a.  不在场的;缺乏的abundant   a.  丰富的;大量的academic   a.  学院的;学术的accent   n.  口音,腔调;重音acceptable   a.  可接受的,合意的access">
+<meta property="og:type" content="website">
+<meta property="og:title" content="高频词汇表">
+<meta property="og:url" content="http://itheds.github.io/archives/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="高频词汇表常考词汇表 A abandon  vt.  丢弃;放弃,抛弃aboard  ad.  在船(车)上;上船abroad   ad.  (在)国外;到处absent   a.  不在场的;缺乏的abundant   a.  丰富的;大量的academic   a.  学院的;学术的accent   n.  口音,腔调;重音acceptable   a.  可接受的,合意的access">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-09-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T02:37:43.937Z">
+<meta property="article:author" content="iTheds">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>高频词汇表 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="高频词汇表"><a href="#高频词汇表" class="headerlink" title="高频词汇表"></a>高频词汇表</h1><h2 id="常考词汇表"><a href="#常考词汇表" class="headerlink" title="常考词汇表"></a>常考词汇表</h2><blockquote>
+<h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3></blockquote>
+<p>abandon  vt.  丢弃;放弃,抛弃<br>aboard  ad.  在船(车)上;上船<br>abroad   ad.  (在)国外;到处<br>absent   a.  不在场的;缺乏的<br>abundant   a.  丰富的;大量的<br>academic   a.  学院的;学术的<br>accent   n.  口音,腔调;重音<br>acceptable   a.  可接受的,合意的<br>access   n.  接近;通道,入口<br>accident   n.  意外的;事故<br>accidental   a.  偶然的;非本质的<br>accommodation   n.  招待设备;预定铺位<br>accomplish   vt.  达到(目的);完成<br>account   n.  记述;解释;帐目<br>accuracy   n.  准确(性);准确度<br>accustomed   a.  惯常的;习惯的<br>achievement   n.  完成;成就,成绩<br>activity   n.  活动;活力;行动<br>addition   n.  加,加法;附加物<br>address   n.  地址;演说;谈吐<br>adequate   a.  足够的;可以胜任的<br>administration   n.  管理;管理部门<br>adult   n. 成年人     a. 成年的<br>advanced   a.  先进的;高级的<br>affection   n.  慈爱,爱;爱慕<br>agency   n.  经办;代理;代理处<br>agriculture   n.  农业,农艺;农学<br>aircraft   n.  飞机,飞行器<br>airline    n.  航空公司;航线<br>alcohol   n.  酒精,乙醇<br>alternative n.替换物;取舍,抉择<br>altitude   n.  高,高度;高处<br>ambition   n.  雄心,抱负,野心<br>ambulance   n.  救护车;野战医院<br>analysis   n.  分析,分解,解析<br>ancestor   n.  祖宗,祖先<br>annual   a.  每年的     n.  年报<br>anticipate   vt.  预料,预期,期望<br>apartment   n.  一套公寓房间<br>apparent   a.  表面上的;明显的<br>applicable   a.  能应用的;适当的<br>application   n.  请求,申请;施用<br>appreciate   vt.  欣赏;领会;感谢<br>approach   vt.  向…靠近    n. 靠近<br>architecture   n.  建筑学;建筑式样<br>arrest   vt.  逮捕,拘留;阻止<br>artificial   a.  人工的;娇揉造作的<br>assemble   vt.  集合,召集;装配<br>assess   vt.  对(财产等)估价<br>association   n.  协会,团体;联合<br>athlete   n.  运动员;田径运动员<br>atmosphere   n.  大气;空气;气氛<br>attempt  vt.  尝试,试图     n.  企图<br>attraction   n.  吸引;吸引力;引力<br>attribute   vt.  把…归因于     n.  属性<br>audience   n.  听众,观众,读者<br>authority   n.  当局,官方;权力<br>automatic   a.  自动的;机械的<br>avenue   n.  林荫道,道路;大街<br>average   n.  平均数     a.  平均的</p>
+<blockquote>
+<h3 id="B"><a href="#B" class="headerlink" title="B"></a>B</h3></blockquote>
+<p>balance   vt.  使平衡;称     n.  天平<br>barrier   n.  栅栏,屏障;障碍<br>bathroom   n.  浴室;盥洗室<br>beast   n.  兽,野兽;牲畜<br>beggar   n.  乞丐,穷人<br>behavior   n.  行为,举止,态度<br>bench   n.  长凳,条凳;工作台<br>beneficial   a.  有利的,有益的<br>betray   vt.  背叛;辜负;泄漏<br>biology   n.  生物学;生态学<br>bitter   a.  痛苦的;严寒的<br>blame   vt.  责备,把…归咎于<br>bottom   n.  底,底部,根基<br>boundary   n.  分界线,办界<br>brake   n.  闸,刹车     vi.  制动<br>branch   n.  树枝;分部;分科<br>breakfast   n.  早饭,早餐<br>breathe   vi.  呼吸    vt.  呼吸<br>brilliant   a.  光辉的;卓越的<br>Britain   n.  不列颠,英国<br>British   a.  不列颠的,英联邦的<br>bronze   n.  青铜;青铜制品<br>bullet   n.  枪弹,子弹,弹丸<br>bury   vt.  埋葬,葬;埋藏<br>butcher   n.  屠夫;屠杀者</p>
+<blockquote>
+<h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3></blockquote>
+<p>cabinet   n.  橱,柜;内阁<br>cafeteria   n.  自助食堂<br>calendar   n.  日历,历书;历法<br>camera   n.  照相机,摄影机<br>campaign   n.  战役;运动<br>campus   n.  校园,学校场地<br>candidate   n.  候选人;投考者<br>capacity   n.  容量;能力;能量<br>capital   n.  资本,资金;首都<br>carpenter   n.  木工,木匠<br>cattle   n.  牛;牲口,家畜<br>central   a.  中心的;主要的<br>certificate   n.  证书,证件,执照<br>challenge   n.  挑战;要求,需要<br>chamber   n.  会议室;房间;腔<br>channel   n.  海峡;渠道;频道<br>chemistry   n.  化学<br>chocolate   n.  巧克力;巧克力糖<br>Christmas   n.  圣诞节<br>circumstance   n.  情况,条件;境遇<br>citizen   n.  公民;市民,居民<br>civilization   n.  文明,文化;开化<br>classification   n.  分类;分级;分类法<br>climate   n.  气候;风土,地带<br>clumsy   a.  笨拙的;愚笨的<br>coach   n.  长途公共汽车<br>coffee   n.  咖啡,咖啡茶<br>collapse   vi.  倒坍;崩溃,瓦解<br>collar   n.  衣领,项圈<br>colleague   n.  同事,同僚<br>comfort   n.  舒适;安慰     vt.  安慰<br>commercial   a.  商业的;商品化的<br>committee   n.  委员会;全体委员<br>communication   n.  通讯;传达;交通<br>comparison   n.  比较,对照;比似<br>competent   a.  有能力的;应该做的<br>competition   n.  竞争,比赛<br>complete   a.  完整的;完成的<br>complicated   a.  复杂的,难懂的<br>component   n.  组成部分;分;组件<br>concentrate   vt.  集中;聚集;浓缩<br>confidence   n.  信任;信赖;信心<br>confident   n.  确信的,自信的<br>congratulation   n.  祝贺;祝贺词<br>congress   n.  大会;国会,议会<br>conscience   n.  良心,道德心<br>consciousness   n.  意识,觉悟;知觉<br>consequence   n.  结果,后果<br>considerate   a.  考虑周到的;体谅的<br>consumption   n.  消耗量;消耗<br>contemporary   a.  当代的,同时代的<br>continuous   a.  连续不断的,持续的<br>contract   n.  契约,合同;婚约<br>contrary   a.  相反的     n.  相反<br>contrast   n.  对比,对照,悬殊<br>convention   n.  习俗,惯例;公约<br>corporation   n.  公司,企业;社团<br>corresponding   a.  相应的;符合的<br>council   n.  理事会,委员会<br>coward   n.  懦夫;胆怯者<br>creative   a.  创造性的,创作的<br>creature   n.  生物,动物,家畜<br>criminal   n.  犯人,罪犯,刑事犯<br>crisis   n.  危机;存亡之际<br>critical   a.  决定性的;批评的<br>cultivate   vt.  耕;种植;培养<br>culture   n.  文化,文明;教养<br>cushion   n.  垫子,坐垫,靠垫<br>customer   n.  顾客,主顾</p>
+<blockquote>
+<h3 id="D"><a href="#D" class="headerlink" title="D"></a>D</h3></blockquote>
+<p>damage   vt.  损害,毁坏    n.  损害<br>debate   n.&amp; vi.  争论,辩论<br>debt   n.  债,债务,欠债<br>decade   n.  十年,十年期<br>decent   a.  正派的;体面的<br>defence   n.  防御;防务;辩护<br>definition   n.  定义,释义;定界<br>democratic   a.  民主的,民主政体的<br>department   n.  部,司,局,处,系<br>description   n.  描写,形容;种类<br>desert   n.  沙漠    vt.  离弃;擅离<br>desperate   a.  拼死的;绝望的<br>despite   prep.  不管,不顾<br>determination   n.  决心;决定;确定<br>devise   vt.  设计,发明<br>diamond   n.  金钢石,钻石;菱形<br>digest   vt.  消化;领会    n.  文摘<br>digital   a.  数字的,计数的<br>diligent   a.  勤勉的,勤奋的<br>disadvantage   n.  不利,不利地位<br>discharge   vt.  释放;排出    n.  释放<br>discipline   n.  纪律;训练    vt.  训练<br>disposal   n.  丢掉,处理,销毁<br>distinct   a.  与其他不同的<br>distress   n.  忧虑,悲伤;不幸<br>division   n.  分,分配;除法<br>divorce   n.  离婚,离异    vi.  离婚<br>domestic   a.  本国的;家庭的<br>doubtless   ad.  无疑地;很可能<br>downstairs   ad.  在楼下    a.  楼下的<br>dramatic   a.  引人注目的,戏剧<br>duration   n.  持续,持久<br>dwelling   n.  住处,寓所<br>dynamic   a.  有活力的;动力的</p>
+<blockquote>
+<h3 id="E"><a href="#E" class="headerlink" title="E"></a>E</h3></blockquote>
+<p>earnest   a.  认真的,诚恳的<br>economic   a.  经济的,经济学的<br>economy   n.  经济;节约,节省<br>efficient   a.  效率高的,有能力的<br>effort   n.  努力;努力的成果<br>elbow   n.  肘,肘部;弯管<br>electronic   a.  电子的<br>elimination   n.  消灭,排除,消除<br>embarrass   vt.  使窘迫,使为难<br>emotional   a.  感情的,情绪的<br>employment   n.  工业;雇用;使用<br>enforce   vt.  实施,执行;强制<br>engage   vt.  使从事于;聘用<br>engine   n.  发动机,引擎;机车<br>enormous   a.  巨大的,庞大的<br>enthusiasm   n.  热情,热心,热忱<br>equivalent   a.  相等的;等量的<br>era   n.  时代,年代;纪元<br>evaluate   vt.  评价,估…的价<br>eventually   ad.  终于;最后<br>evolution   n.  进化,演化;发展<br>exaggerate   vt.&amp; vi.  夸大,夸张<br>exceed   vt.  超过,胜过;超出<br>excessive   a.  过多的,极度的<br>exclusively   ad.  专门地<br>exhaust   vt.  使筋疲力尽;用尽<br>exhibit   vt.  显示;陈列,展览<br>experimental   a.  实验的,试验的<br>expert   n.  专家    a.  熟练的<br>explanation   n.  解释,说明;辩解<br>explosive   n.  炸药    a.  爆炸的<br>exposure   n.  暴露;揭露;曝光<br>external   a.  外部的,外面的<br>extra   a.  额外的    ad.  特别地<br>extraordinary   a.  非同寻常的,特别的<br>extremely   ad.  极端,极其,非常</p>
+<blockquote>
+<h3 id="F"><a href="#F" class="headerlink" title="F"></a>F</h3></blockquote>
+<p>facility   n.  设备;容易;便利<br>failure   n.  失败;失败的人<br>faithful   a.  忠诚的;如实的<br>familiar   a.  熟悉的;冒昧的<br>fancy   n.  想象力;设想;爱好<br>farewell   int.  再会    n.  告别<br>fashionable   a.  流行的,时髦的<br>fatigue   n.  疲劳,劳累<br>favourite   a.  特别受喜爱的<br>federal   a.  联邦的;联盟的<br>fee   n.  费,酬金;赏金<br>feedback   n.  回授,反馈,反应<br>fertilizer   n.  肥料<br>festival   n.  节日;音乐节<br>fiction   n.  小说;虚构,杜撰<br>figure   n.  数字;外形;人物<br>finance   n.  财政,金融;财源<br>flame   n.  火焰;光辉;热情<br>flexible   a.  易弯曲的;灵活的<br>flight   n.  航班;飞行;逃跑<br>flourish   vi.  繁荣,茂盛,兴旺<br>flu   n.  流行性感冒<br>fluid   n.  流体,液体<br>formation   n.  形成;构成;形成物<br>former   a.  在前的    n.  前者<br>Form ula   n.  公式,式<br>fortunate   a.  幸运的,侥幸的<br>foundation   n.  基础;地基;基金<br>framework   n.  框架,构架,结构<br>frequently   ad.  时常,常常<br>frontier   n.  边境;边疆;新领域<br>fulfil   vt.  履行;满足;完成<br>fundamental   a.  基础的,基本的<br>funeral   n.  葬礼,丧礼,丧葬<br>furniture   n.  家具;装置,设备<br>furthermore   ad.  而且,此外</p>
+<blockquote>
+<h3 id="G"><a href="#G" class="headerlink" title="G"></a>G</h3></blockquote>
+<p>gallery   n.  长廊,游廊;画廊<br>garage   n.  车库;加油站<br>garbage   n.  垃圾,污物,废料<br>generate   vt.  发生;引起;生殖<br>generator   n.  发电机;发生者<br>generous   a.  慨的;宽厚的<br>genius   n.  天才,天赋,天资<br>genuine   a.  真的;真正的<br>geography   n.  地理,地理学<br>glance   vi.  看一下    n.  一瞥<br>glory   n.  光荣;荣誉的事<br>government   n.  政府;治理;政治<br>governor   n.  州长;主管人员<br>graduate   n.  毕业生    vi.  大学毕业<br>grateful   a.  感激的;令人愉快的<br>gratitude   a.  感激,感谢,感恩<br>greenhouse   n.  温室,玻璃暖房<br>grocer   n.  食品商;杂货商<br>grocery   n.  食品杂货店<br>guarantee   n.  保证;担保物<br>guilty   a.  内疚的;有罪的<br>gymnasium   n.  体育馆,健身房</p>
+<blockquote>
+<h3 id="H"><a href="#H" class="headerlink" title="H"></a>H</h3></blockquote>
+<p>habitual   a.  习惯性的,惯常的<br>harbour   n.  海港,港口    vt.  庇护<br>hardware   n.  五金器具;硬件<br>harmony   n.  调合,协调,和谐<br>harvest   n.  收获,收成 vt.收割<br>haste   n.  急速,急忙;草率<br>headache   n.  头痛;头痛的事<br>headquarters   n.  司令部;总部<br>helicopter   n.  直升机<br>hesitate   vi.  犹豫,踌躇;含糊<br>honeymoon   n.  蜜月<br>honourable   a.  诚实的;光荣的<br>horizon   n.  地平线;眼界,见识<br>household   n.  家庭,户;家务<br>humble   a.  谦逊的;地位低下的<br>humid   a.  湿的,湿气重的<br>humorous   a.  富于幽默的,诙谐的<br>hydrogen   n.  氢</p>
+<blockquote>
+<h3 id="I"><a href="#I" class="headerlink" title="I"></a>I</h3></blockquote>
+<p>identical   a.  完全相同的;同一的<br>identify   vt.  认出,识别,鉴定<br>ignorant   a.  不知道的;无知的<br>illegal   a.  不合法的,非法的<br>imaginary   a.  想象中的,假想的<br>immigrant   n.  移民    a.  移民的<br>impact   n.  影响,作用;冲击<br>income   n.  收入;收益;进款<br>independence   n.  独立,自主,自立<br>indicate   vt.  标示,表示;表明<br>indifferent   a.  冷漠的;不积极的<br>indispensable   a.  必不可少的,必需的<br>individual   a.  个别的;独特的<br>indoors   ad.  在室内,在屋里<br>industrial   a.  工业的;产业的<br>inferior   a.  下等的;劣等的<br>influential   a.  有影响的;有权势的<br>inform   vt.  通知,向…报告<br>inhabitant   n.  居民,住户<br>initial   a.  最初的;词首的<br>innocent   a.  清白的,幼稚的<br>installation   n.  安装;装置;设施<br>instinct   n.  本能;直觉;生性<br>instrument   n.  仪器;工具;乐器<br>insurance   n.  保险;保险费<br>intellectual   n.  知识分子    a.  智力的<br>intelligence   n.  智力;理解力;情报<br>intensity   n.  强烈,剧烈;强度<br>intention   n.  意图,意向,目的<br>interference   n.  干涉,干预;阻碍<br>interior   a.  内的;内地的   n.  内部<br>intimate   a.  亲密的;个人的<br>invisible   a.  看不见的,无形的</p>
+<blockquote>
+<h3 id="J"><a href="#J" class="headerlink" title="J"></a>J</h3></blockquote>
+<p>jazz   n.  爵士音乐,爵士舞曲<br>jealous   a.  妒忌的;猜疑的<br>journalist   n.  记者,新闻工作者<br>jungle   n.  丛林,密林,莽丛<br>junior   a.  年少的     n.  晚辈<br>jury   n.  陪审团;评奖团<br>justice   n.  正义,公正;司法</p>
+<blockquote>
+<h3 id="K"><a href="#K" class="headerlink" title="K"></a>K</h3></blockquote>
+<p>king   n.  国王,君主<br>kingdom   n.  王国;领域,界<br>kitchen   n.  厨房,灶间<br>kneel   vi.  跪,跪下,跪着</p>
+<blockquote>
+<h3 id="L"><a href="#L" class="headerlink" title="L"></a>L</h3></blockquote>
+<p>laboratory   n.  实验室,研究室<br>labour   n.  劳动;工作;劳工<br>lamp   n.  灯<br>lantern   n.  提灯,灯笼<br>Latin   a.  拉丁的    n.  拉丁语<br>lawn   n.  草地,草坪,草场<br>leadership   n.  领导<br>leading   a.  指导的;最主要的<br>league   n.  同盟,联盟;联合会<br>legal   a.  法律的;合法的<br>legend   n.  传说,传奇<br>leisure   n.  空闲时间;悠闲<br>length   n.  长,长度;一段<br>lessen   vt.  减少,减轻;缩小<br>liable   a.  易于…的;可能的<br>liar   n.  说谎的人<br>librarian   n.  图书馆馆长<br>license   n.  许可;执照    vt.  准许<br>likely   a.  可能的    ad.  很可能<br>likewise   ad.  同样地;也,又<br>limit   n.  限度;限制;范围<br>lip   n.  嘴唇<br>liquid   n.  液体    a.  液体的<br>liquor   n.  酒;溶液,液剂<br>literary   a.  文学(上)的<br>loan   n.  贷款;暂借     vt.  借出<br>local   a.  地方的;局部的<br>logical   a.  逻辑的;符合逻辑的<br>loosen   vt.  解开;使松驰<br>loyalty   n.  忠诚,忠心<br>luck   n.  运气;好运,幸运<br>lucky   a.  幸运的;吉祥的<br>luggage   n.  行李;皮箱,皮包<br>luxury   n.  奢侈,奢华;奢侈品</p>
+<blockquote>
+<h3 id="M"><a href="#M" class="headerlink" title="M"></a>M</h3></blockquote>
+<p>magnet   n.  磁铁,磁石,磁体<br>magnificent   n.  壮丽的;华丽的<br>maintain   vt.  维持;赡养;维修<br>maintenance   n.  维持,保持;维修<br>major   a.  较大的     n.  专业<br>majority   n.  多数,大多数<br>manual   a.  体力的    n.  手册<br>marvelous   a.  奇迹般的;了不起的<br>masterpiece   n.  杰作,名著<br>mathematics   n.  数学<br>maximum   n.  最大量    a.  最大的<br>mayor   n.  市长<br>meadow   n.  草地,牧草地<br>mechanic   n.  技工,机械,机修工<br>mechanical   a.  机械的;力学的<br>message   n.  信息,消息;启示<br>microscope   n.  显微镜<br>minister   n.  部长,大臣;公使<br>minor   a.  较小的;较次要的<br>minus   a.  负的    prep.  减(去)<br>minute   a.  微细的;详细的<br>miracle   n.  奇迹,令人惊奇的人<br>mirror   n.  镜子    vt.  反映,反射<br>miserable   a.  痛苦的,悲惨的<br>mislead   vt.  使误入岐途<br>missile   n.  发射物;导弹<br>misunderstand   vt.  误解,误会,曲解<br>moderate   a.  温和的;有节制的<br>moisture   n.  潮湿,湿气;温度<br>monitor   n.  班长;监视器<br>monument   n.  纪念碑;纪念馆<br>motivate   vt.  促动;激励,激发<br>museum   n.  博物馆;展览馆<br>musician   n.  音乐家;作曲家<br>mysterious   a.  神秘的;难以理解的<br>mystery   n.  神秘;神秘的事物</p>
+<blockquote>
+<h3 id="N"><a href="#N" class="headerlink" title="N"></a>N</h3></blockquote>
+<p>naked   a.  裸体的;无遮敝的<br>narrow   a.  狭的,狭窄的<br>nationality   n.  国籍;民族,族<br>naval   n.  海军的,军舰的<br>navy   n.  海军<br>necessity   n.  必要性;必然性<br>negative   a.  否定的;消极的<br>neighbourhood   n.  邻居关系;邻近<br>nephew   n.  侄子,外甥<br>neutral   a.  中立的;中性的<br>nonsense   n.  胡说,废话<br>noticeable   a.  显而易见的;重要的<br>nuclear   a.  原子核的;核心的<br>nursery   n.  托儿所;苗圃<br>nylon   n.  尼龙,耐纶</p>
+<blockquote>
+<h3 id="O"><a href="#O" class="headerlink" title="O"></a>O</h3></blockquote>
+<p>object   n.  物,物体;目的<br>objective   a.  客观的;无偏见的<br>observation   n.  注意;观察;观察力<br>occasion   n.  场合,时刻;时机<br>occupation   n.  占领,占据;职业<br>offend   vt.  冒犯    vi.  犯过错<br>official   a.  官员的;官方的<br>operation   n.  操作;手术;运算<br>operator   n.  操作人员,接线员<br>opinion   n.  意见,看法,主张<br>opponent   n.  对手,敌手;对抗者<br>opposite   a.  对面的    n.  对立物<br>optimistic   a.  乐观的;乐观主义的<br>option   n.  选择,选择权<br>orchestra   n.  管弦乐队<br>organic   a.  有机体的;器官的<br>oriental   a.  东方的;东方国家的<br>origin   n.  起源,由来;出身<br>outcome   n.  结果,后果,成果<br>outstanding   a.  突出的,杰出的<br>overseas   ad.  海外    a.  在海外的</p>
+<blockquote>
+<h3 id="P"><a href="#P" class="headerlink" title="P"></a>P</h3></blockquote>
+<p>pacific   a.  和平的    n.  太平洋<br>package   n.  包裹,包,捆<br>painful   a.  使痛的;费力的<br>palace   n.  宫,宫殿<br>palm   n.  手掌,手心;掌状物<br>parade  n.  游行;检阅    vi.  游行<br>parliament   n.  议会,国会<br>participate   vi.  参与,参加;分享<br>passenger   n.  乘客,旅客,过路人<br>passion   n.  激情,热情;爱好<br>patient   a.  忍耐的    n.  病人<br>peaceful   a.  和平的;安静的<br>peculiar   a.  特有的;特别的<br>peninsula   n.  半岛<br>perceive   vt.  察觉,发觉;理解<br>percent   n.  百分之…<br>performance   n.  履行;演出;行为<br>permanent   a.  永久的,持久的<br>personnel   n.  全体人员,全体职员<br>phenomenon   n.  现象<br>philosopher   n.  哲学家<br>physician   n.  医生,内科医生<br>physicist   n.  物理学家<br>pigeon   n.  鸽子<br>pillar   n.  柱,柱子;栋梁<br>pillow   n.  枕头<br>pilot   n.  领航员;飞行员<br>pine   n.  松树,松木<br>pink   n.  粉红色    a.  粉红色的<br>pioneer   n.  拓荒者;先驱者<br>plain   n.  平原    a.  清楚的<br>plant   n.  植物;工厂    vt.  栽种<br>plantation   n.  种植园;栽植<br>plastic   a.  可塑的    n.  塑料<br>platform   n.  平台;站台;讲台<br>plentiful   a.  丰富的,富裕的<br>pocket   n.  衣袋    n.  袖珍的<br>policy   n.  政策,方针<br>population   n.  人口;全体居民<br>positive   a.  确定的;积极的<br>possession   n.  有,所有;占有物<br>potato   n.  马铃薯,土豆<br>potential   a.  潜在的    n.  潜力<br>practical   a.  实践的;实用的<br>preceding   a.  在前的;在先的<br>precious   a.  珍贵的,宝贵的<br>precise   a.  精确的,准确的<br>predict   v.  预言,预告,预测<br>preferable   a.  更可取的,更好的<br>prejudice   n.  偏见,成见<br>president   n.  总统;校长;会长<br>prevail   vi.  胜,优胜;流行<br>prevent   vt.  预防,防止;阻止<br>previous   a.  先的;前的    ad.  在前<br>primary   a.  最初的;基本的<br>primitive   a.  原始的;粗糙的<br>principal   a.  主要的    n.  负责人<br>principle   n.  原则,原理;主义<br>procedure   n.  程序;手续;过程<br>process   n.  过程;工序    vt.  加工<br>profession   n.  职业<br>prohibit   vt.  禁止,阻止<br>promote   vt.  促进,发扬;提升<br>property   n.  财产,资产;性质<br>proportion   n.  比,比率,部分<br>proposal   n.  提议,建议;求婚<br>protein   n.  蛋白质,朊<br>provided   conj.  以…为条件<br>punctual   a.  严守时刻的;准时的<br>pupil   n.  学生,小学生<br>purchase   n.  买,购买 vt.买<br>purpose   n.  目的;意图;效果<br>purse   n.  钱包,小钱袋,手袋<br>puzzle   n.  难题;谜    vi.  使迷惑</p>
+<blockquote>
+<h3 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h3></blockquote>
+<p>quality   n.  质量;品质,特性<br>quantity   n.  量,数量,分量<br>quit   vt.  离开,退出;停止<br>quiz   n.  小型考试,测验</p>
+<blockquote>
+<h3 id="R"><a href="#R" class="headerlink" title="R"></a>R</h3></blockquote>
+<p>radiation   n.  放射,发射;辐射能<br>rainbow   n.  虹,彩虹<br>rational   a.  理性的;出于理性的<br>realm   n.  王国,国土;领域<br>reap   vt.&amp; vi.  收割,收获<br>rear   n.  后部,后面;背面<br>reasonable   a.  合情合理的;公道的<br>recognition   n.  认出,识别;承认<br>recovery   n.  重获;痊愈,恢复<br>reflection   n.  反射;映象;反映<br>refresh   vt.  使清新    vi.  恢复精神<br>refreshment   n.  茶点,点心,便餐<br>refusal   n.  拒绝<br>register   n.&amp; vt.  登记,注册<br>rehearsal   n.  排练,排演;练习<br>reinforce   vt.  增援,支援;加强<br>reject   vt.  拒绝;丢掉;驳回<br>relativity   n.  相关性;相对性<br>release   vt.  释放;放松;发表<br>relevant   a.  有关的,贴切的<br>reliable   a.  可靠的,可信赖的<br>religion   n.  宗教;宗教信仰<br>religious   a.  宗教的;虔诚的<br>remedy   n.&amp; vt  治疗;补救<br>renew   vt.  使更新    vi.  更新<br>repeatedly   ad.  重复地;一再<br>representative   a.  代表性的    n.  代表<br>resemble   vt.  像,类似<br>reservoir   n.  水库;蓄水池<br>residence   n.  居住;驻扎;住处<br>resistance   n.  抵抗;抵制;抵抗力<br>resolution   n.  坚决,坚定;决定<br>resource   n.  资源,物力;办法<br>respective   a.  各自的,各个的<br>respond   vi.  作答;响应<br>responsibility   n.  责任,责任心;职责<br>restless   a.  不安定的,焦虑的<br>restrict   vt  限制,限定,约束<br>resume   vt.  恢复;重新开始<br>revenge   vt.  替…报仇    n.  报仇<br>rhythm   n.  韵律,格律;节奏<br>ridiculous   a.  荒谬的,可笑的<br>roar   vi.  吼叫;呼喊    n.  吼<br>robot   n.  机器人;自动机<br>romantic   a.  浪漫的;传奇的<br>roughly   ad.  粗糙地,粗略地<br>royal   a.  王的;皇家的<br>rumour   n.  谣言,谣传,传闻<br>rusty   a.  生锈的;变迟钝的</p>
+<blockquote>
+<h3 id="S"><a href="#S" class="headerlink" title="S"></a>S</h3></blockquote>
+<p>safety   n.  安全,保险<br>sailor   n.  水手,海员,水兵<br>salary   n.  薪金,薪水<br>salesman   n.  售货员,推销员<br>sample   n.  样品;实例,标本<br>satellite   n.  卫星;人造卫星<br>satisfactory   a.  令人满意的,良好的<br>scale   n.  天平,磅秤,秤<br>scarcely   ad.  仅仅;几乎不<br>scenery   n.  舞台布景;风景<br>schedule   n.  时间表;计划表<br>scholarship   n.  学业成绩;奖学金<br>scientific   a.  科学(上)的<br>scratch   vt.&amp; vi.&amp; n.  搔;抓<br>scream   vi.  尖叫;呼啸<br>secondary   a.  第二的;次要的<br>secretary   n.  秘书;书记;大臣<br>security   n.  安全,安全感<br>seize   vt.  抓住,逮捕;夺取<br>semester   n.  半年;学期,半学年<br>senior   a.  年长的;地位较高的<br>sensible   a.  感觉得到的;明智的<br>sensitive   a.  敏感的;灵敏的<br>sequence   n.  连续,继续;次序<br>series   n.  连续,系列;丛书<br>session   n.  会议,一段时间<br>settle   vt.  安排;安放;调停<br>severe   a.  严格的;严厉的<br>shadow   n.  阴影,阴,影子<br>shallow   a.  浅的;浅薄的<br>sharpen   vt.  削尖,使敏锐<br>shelf   n.  搁板,架子<br>shell   n.  壳;贝壳;炮弹<br>shelter   n.  隐蔽处;掩蔽,庇护<br>shepherd   n.  牧羊人,羊倌<br>shiver   vi.  颤抖,哆嗦    n.  冷颤<br>shock   n.  冲击;震惊    vi.  震动<br>shopkeeper   n.  店主<br>shortage   n.  不足,缺少,不足额<br>shortcoming   n.  短处,缺点<br>shower   n.  阵雨;(一)阵;淋浴<br>sign   n.  符号;招牌    n.  签名<br>signal   n.  信号   vi.  发信号<br>significance   n.  意义,意味;重要性<br>similar   a.  相似的,类似的<br>simplicity   n.  简单,简易;朴素<br>sincere   a.  真诚的;真挚的<br>singular   a.  单一的;非凡的<br>skillful   a.  灵巧的,娴熟的<br>slave   n.  奴隶;苦工<br>slavery   n.  奴隶制度;苦役<br>slender   a.  细长的;微薄的<br>slipper   n.  拖鞋,便鞋<br>slogan   n.  标语,口号<br>smog   n.  烟雾<br>smoke   n.  烟;抽烟    vi.  冒烟<br>soap   n.  肥皂<br>solar   a.  太阳的,日光的<br>solemn   a.  庄严的;隆重的<br>solid   a.  固体的    n.  固体<br>sophisticated   a.  老于世故的;高级的<br>sore   a.  痛的;恼火的    n.  疮<br>sorrow   n.  悲痛,悲哀,悲伤<br>sour   a.  酸的;脾气坏的<br>spacecraft   n.  航天器,宇宙飞船<br>span   n  跨距;一段时间<br>spare   vt.  节约    a.   多余的<br>specialist   n.  专家<br>speciality   n.  专业,特长;特产<br>speech   n.  言语;演说;方言<br>sphere   n.  球,圆体;范围<br>splendid   a.  壮丽的;显著的<br>sponsor   n.  发起者    vt.  发起<br>spontaneous   a.  自发的;本能的<br>squeeze   vt.&amp; vi.  榨,挤;压榨<br>stability   n.  稳定,稳定性,巩固<br>stadium   n.  露天大型运动场<br>startle   vt.  使大吃一惊    n.  吃惊<br>statistical   a.  统计的,统计学的<br>statue   n.  塑像,雕像,铸像<br>steer   vt.&amp; vi.  驾驶<br>stem   n.  茎,(树)干    vi.  起源<br>stiff   a.  硬的;僵直的<br>stimulate   vt.  刺激,激励,激发<br>stomach   n.  胃;肚子;食欲<br>strategy   n.  战略;策略<br>strawberry   n.  草莓<br>stream   n.  河;流    vi.&amp; vt.  流<br>structure   n.  结构;构造    vt.  建造<br>submarine   a.  水下的   n.  潜水艇<br>subsequent   a.  随后的,后来的<br>substance   n.  物质;实质;本旨<br>succeed   vt.  继…之后    vi.  成功<br>success   n.  成功,成就,胜利<br>suffer   vt.  遭受;忍受;容许<br>sufficient   a.  足够的,充分的<br>superficial   a.  表面的;肤浅的<br>superior   a.  较高的;优越的<br>supplement   n.&amp; vt.  增补,补充<br>surgeon   n.  外科医师;军医<br>surroundings   n.  周围的事物,环境<br>suspect   vt.  怀疑    vi.  疑心<br>suspicion   n.  怀疑,疑心,猜疑<br>symbol   n.  象征;符号,记号<br>sympathetic   a.  同情的;和谐的<br>systematic(al)   a.  有系统的;有计划的</p>
+<blockquote>
+<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3></blockquote>
+<p>tablet   n.  碑,匾;药片<br>tag   n.  附加语;标签<br>tale   n.  故事,传说<br>talent   n.  天才;才能;人才<br>temperature   n.  温度;体温<br>temple   n.  圣堂,神殿,庙宇<br>temporary   a.  暂时的,临时的<br>tendency   n.  趋向,趋势,倾向<br>terminal   a.  末端的    n.  末端<br>territory   n.  领土,版图;领域<br>theoretical   a.  理论(上)的<br>throat   n.  咽喉,喉咙;嗓音<br>throne   n.  宝座,御座;王位<br>thumb   n.  (大)拇指<br>toast   n.  祝酒;祝酒词<br>tobacco   n.  烟草,烟叶<br>toilet   n.  厕所,盥洗室,浴室<br>tolerance   n.  忍受,容忍;公差<br>tortoise   n.  龟,乌龟<br>traffic   n.  交通,通行;交通量<br>tragedy   n.  悲剧;惨事,惨案<br>transistor   n.  晶体管<br>transparent   a.  透明的;易识破的<br>treasure   n.  财富;珍宝    vt.  珍视<br>treaty   n.  条约;协议,协定<br>tremendous   a.  极大的,非常的<br>trend   vi.  伸向;倾向    n.  倾向<br>trial   n.  试,试验;审判<br>triumph   n.  凯旋;胜利    vi.  成功<br>troop   n.  军队;一群,大量<br>tropical   a.  热带的<br>troublesome   a.  令人烦恼的;麻烦的<br>tuition   n.  教,教诲;学费<br>tune   n.  调子;和谐    vt.  调谐<br>tunnel   n.  隧道,坑道,地道<br>typewriter   n.  打字机<br>typhoon   n.  台风<br>typical   a.  典型的,代表性的<br>typist   n.  打字员<br>tyre   n.  轮胎,车胎</p>
+<blockquote>
+<h3 id="U"><a href="#U" class="headerlink" title="U"></a>U</h3></blockquote>
+<p>ultimate   a.  最后的,最终的<br>umbrella   n.  伞,雨伞<br>uncover   vt.  揭开…的盖子<br>undergo   vt.  经历,经受,忍受<br>underground   a.  地下的;秘密的<br>undertake   vt.  从事;承担;保证<br>unfortunate   a.  不幸的;可取的<br>unique   a.  唯一的,独一无二的<br>universal   a.  宇宙的;普遍的<br>urgent   a.  紧急的;强求的<br>utility   n.  效用,有用,实用<br>utilize   vt.  利用<br>utmost   a.  最远的    n.  极限</p>
+<blockquote>
+<h3 id="V"><a href="#V" class="headerlink" title="V"></a>V</h3></blockquote>
+<p>vacant   a.  空的;未被占用的<br>vacation   n.  假期,休假<br>vacuum   n.  真空;真空吸尘器<br>vague   a.  模糊的,含糊的<br>vain   a.  徒劳的;自负的<br>valid   a.  有效的;正当的<br>valuable   a.  值钱的;有价值的<br>value   n.  价值;价格    vt.  评价<br>variation   n.  变化,变动;变异<br>variety   n.  多样化;种类;变种<br>various   a.  各种各样的,不同的<br>vary   vt.  改变;使多样化<br>vehicle   n.  车辆,机动车<br>vertical   a.  垂直的,竖式的<br>victim   n.  牺牲者,受害者<br>vigorous   a.  朝气蓬勃的<br>violence   n.  猛烈,激烈;暴力<br>virtue   n.  善;美德;优点<br>visible   a.  可见的,看得见的<br>vivid   a.  鲜艳的;生动的<br>vocabulary   n.  词汇表;词汇,语汇<br>volcano   n.  火山<br>voluntary   a.  自愿的,志愿的<br>voyage   n.&amp; vi.  航海,航空</p>
+<blockquote>
+<h3 id="W"><a href="#W" class="headerlink" title="W"></a>W</h3></blockquote>
+<p>wage   n.  工资,报酬<br>wage   vt.  开展(运动)<br>waggon   n.  四轮运货马车<br>waist   n.  腰,腰部<br>waste   n.  浪费;废物;垃圾<br>waterfall   n.  瀑布<br>wealth   n.  财富,财产;丰富<br>wealthy   a.  富的,富裕的<br>weapon   n.  武器,兵器<br>weary   a.  疲倦的    vt.  使疲乏<br>weather   n.  天气<br>wedding   n.  婚礼<br>Wednesday   n.  星期三<br>weekday   n.  周日,工作日<br>weekend   n.  周末,周末假期<br>welfare   n.  幸福,福利<br>whip   vt.  鞭笞;搅打   n.  鞭子<br>whisper   vt.  低声地讲    vi.  低语<br>widespread   a.  分布广的,普遍的<br>widow   n.  寡妇<br>width   n.  宽阔,广阔;宽度<br>withdraw   vt.  收回;撤回   vi.  撤退<br>worship   n.  礼拜;崇拜    vt.  崇拜<br>worthwhile   a.  值得花时间的<br>worthy   a.  有价值的;值得的<br>wreck   n.  失事;残骸    vt. 破坏<br>wrist   n.  腕,腕关节</p>
+<blockquote>
+<h3 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h3></blockquote>
+<p>yard   n  .院子,庭院;场地<br>yawn   vi.  打呵欠    n.  呵欠<br>yield   vt.&amp; vi.  出产   n.  产量<br>youth   n.  青春;青年们;青年<br>youthful   a.  年轻的,青年的</p>
+<blockquote>
+<h3 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h3></blockquote>
+<p>zealous   a.  热心的,热情的<br>zebra   n.  斑马<br>zero   n.  零;零点,零度<br>zone   n.  地区,区域,范围</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/archives/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo.html">http://itheds.github.io/archives/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo.html</a>
+            <p>发表日期：<a href="http://itheds.github.io/archives/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo.html">September 5th 2018, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/archives/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo.html">April 21st 2025, 10:37:43 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="弱通信评审2024.6.28 方案评审感觉还有所欠缺。一个是划清本项目和通信之间的关系，表明其是针对任务特征进行的处理；一个是介绍其增量，对已有的系统的改进。比如说。 开发日志[5.28]打算怎么做？ 先写两周方案再说()。 直接上手该，新建 tools 进行验证。 单个节点的设计，多个节点的设计，先实现三个节点之间的通信。 每个节点以转发为基础，开一个转发。 每个转发如何设计是比较关键的。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="弱通信">
+<meta property="og:url" content="http://itheds.github.io/work/distributedNet/%E5%BC%B1%E9%80%9A%E4%BF%A1.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="弱通信评审2024.6.28 方案评审感觉还有所欠缺。一个是划清本项目和通信之间的关系，表明其是针对任务特征进行的处理；一个是介绍其增量，对已有的系统的改进。比如说。 开发日志[5.28]打算怎么做？ 先写两周方案再说()。 直接上手该，新建 tools 进行验证。 单个节点的设计，多个节点的设计，先实现三个节点之间的通信。 每个节点以转发为基础，开一个转发。 每个转发如何设计是比较关键的。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T03:20:07.905Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="C++ project">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>弱通信 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="弱通信"><a href="#弱通信" class="headerlink" title="弱通信"></a>弱通信</h1><h1 id="评审"><a href="#评审" class="headerlink" title="评审"></a>评审</h1><h2 id="2024-6-28-方案评审"><a href="#2024-6-28-方案评审" class="headerlink" title="2024.6.28 方案评审"></a>2024.6.28 方案评审</h2><p>感觉还有所欠缺。<br>一个是划清本项目和通信之间的关系，表明其是针对任务特征进行的处理；<br>一个是介绍其增量，对已有的系统的改进。<br>比如说。</p>
+<h1 id="开发日志"><a href="#开发日志" class="headerlink" title="开发日志"></a>开发日志</h1><p>[5.28]<br>打算怎么做？ 先写两周方案再说()。</p>
+<p>直接上手该，新建 tools 进行验证。</p>
+<p>单个节点的设计，多个节点的设计，先实现三个节点之间的通信。</p>
+<p>每个节点以转发为基础，开一个转发。</p>
+<p>每个转发如何设计是比较关键的。</p>
+<p>设计完成后，应该达到：</p>
+<ol>
+<li>自组织，节点只需要 host 信息群， 就能建立起连接；</li>
+<li>基本任务传递功能，建立连接后，能够快速传递数据；</li>
+<li>仿真机，仿真机模拟下发任务和生成任务，模拟和应用层的交互过程；并且收集单个节点的数据，如果可行，可以通过其原有协议生成整个网络的信息；</li>
+</ol>
+<p>其中：</p>
+<ol>
+<li>自组织：<br>这一块有很多种的网络结构，节点之间是否分级，这个需要考虑。<br>然后节点之间能否组成多跳必定可达的状态，需要可行性，理论分析一下；</li>
+</ol>
+<p>[6.3]<br>需要新开发的内容有以下：</p>
+<p>抽象出单个连接的身份系统，这个是可以主动生成的。</p>
+<p>然后建立连接等操作。<br>封装在 netSocket 中，其存储的是最基本的操作。能够平替关于建立 tcp ，udp 的操作。但说实在的，我觉得这个没什么用。<br>不不，还是有作用的，其是基本的适配层。用于平替操作系统。，相当于不需要再关心操作系统的适配，包括 linux 和 windows 之间的差异。<br>并且其应当能够建立起 udp 组播， udp 单播， udp 广播的操作。</p>
+<p>netSocket 层次，应当抹除 listen 和 bind 、listen 的痕迹。不对，应该是 CONNECT 层次抹除。</p>
+<p>CONNECT 层，凡是涉及到 协议内容的， 都采用 CONNECT 层。CONNECT 层次对 payload 进行二次载荷；<br>针对不同的协议，比如非 udp 协议内容，应当用 CONNECT 层次，进行平衡。</p>
+<p>CONNECT 层是抽象出的针对点到点或者点到集合之间的关系。</p>
+<p>场景的模拟。</p>
+<p>这一套方法如果弄好了，之后分布式网络也可以使用。</p>
+<p>在之后，要调整一个网络的各种选择，那么离不开网络协议的变更。诸如此次 611 实验。<br>需要一个分布式网络。可达节点集合的概念。<br>即是建立一个网络连接池。<br>每次需要发送数据的时候，就从这个池子里面找连接，并且，我怎么样把数据发送出去，也不需要关心。如果建立网络，建立何种网络。</p>
+<p>组集合，全域集合，点对点。</p>
+<p>在组织网络的过程中，将这个特征进行抽象。<br>广播和组播都看成是同一个内容。</p>
+<p>关键是加入组播阶段。</p>
+<p>比如说抽象出之后，CONNECT 层分为普通的 TCP ， 需要解决粘包问题，<br>如果是 UDP 则需要解决分包和重传的问题。此处有时间阈值。</p>
+<p>但是网络在开始组织的时候如何操作是关键。以往网络的组织都是由数据的发送着主动组织(诸如 net_send_msg)，或者是被动生成(订阅发布模式)，<br>所以在网络的组织过程中，不同的协议模式，会带来不同的组织方式。</p>
+<p>比如 611 给出的通信接口，是基于 udp 的，需要嵌入重传和分包；如果是 tcp ，则可以直接和其他节点进行连接；如果是 udp ，不需要触探的，则认为已经连接，如果是需要触探的，需要有通信的过程。<br>这个过程比如说，节点 A 进行触探，只有接收线程接到 ACK ，才认为节点已经连接。<br>如果信息是非纵向的，那么又需要信号量池。</p>
+<p>协议的制造过程，可以通过分配一个个任务来完成。<br>NetPool 中有多个动作，每个动作都可以分配一个任务，只要改变分配的任务内容，就能够组织不同的网络。</p>
+<p>CONNECT 内部嵌套关于其信息管理部分。</p>
+<p>假设要生成不同的协议规则的网络。</p>
+<ol>
+<li>TCP 形式；</li>
+<li>UDP 形式；</li>
+<li>订阅发布形式；</li>
+</ol>
+<p>想一想，协议，数据，之间是不是有共通的地方。<br>数据，任务，优先级，管理。</p>
+<p>#pragma pack(push)<br>#pragma pack(8)<br>#pragma pack(pop)</p>
+<p>预设定一系列动作进行。</p>
+<p>[6.17]<br>错误码感觉很鸡肋。<br>修改一下，采用 errno 的原生状态， 0 为成功，其他为失败，额外作为参数。但是这不仅仅是作为本网络，还作为其他的域。</p>
+<p>[6.23]<br>下周四或周五2y合同评审，到时候需要提供：实施方案、合同文本、经费概算三份文件。其中，合同之前确认过，概算我来弄，实施方案需要您们提供对应部分，ppt提供对应部分（可以先按一般项目中等这些来准备）。模板他们还没给到，可以先提前准备内容。预计需要下周二提供给我，我来合并</p>
+<p>研究目标<br>研究内容<br>技术方案(各 2 页)<br>指标</p>
+<p>针对弱通信条件下分布式指控系统协同任务的信息管理需求，开展具有分布式、可扩展特性指控节点自适应信息共享架构研究，主要包括分布式节点链路状态可达节点状态管理模块、弱通信自适应信息分发模块、基于收发缓存的信息重传控制模块，。其中，分布式节点链路状态管理模块可达节点状态管理模块部署在分布式指控系统各节点，实现对拓扑连接中一跳可达、两跳可达、不可达节点集动态管理；弱通信自适应信息分发模块信息分发模块基于任务与链路状态，实现信息及时发送给目的节点的能力；基于收发缓存的信息重传控制模块信息重传控制模块利用传输链路状态动态监测机制，实现信息在多节点间高可靠共享能力。</p>
+<p>针对弱通信条件下分布式指控系统协同任务的信息管理需求，开展具有分布式、可扩展特性指控节点自适应信息共享架构研究，主要包括分布式节点链路状态管理模块、弱通信自适应信息分发模块、基于收发缓存的信息重传控制模块，其中分布式节点链路状态管理模块部署在分布式指控系统各节点，实现对拓扑连接中一跳可达、两跳可达、不可达节点集动态管理；弱通信自适应信息分发模块基于任务与链路状态，实现信息及时发送给目的节点的能力；基于收发缓存的信息重传控制模块利用传输链路状态动态监测机制，实现信息在多节点间高可靠共享能力。</p>
+<p>DataFlow</p>
+<p>仿真。<br>10月节点(改为 8月底)</p>
+<p>年前节点</p>
+<p>socket<br>udp点播和组播。</p>
+<p>带宽获取。<br>只能是端口的流量监控。<br>路由，ping 通就能。</p>
+<p>研究目标与技术指标<br>研究内容<br>技术方案<br>预期成果应用</p>
+<p>1．分布式节点链路状态管理能力<br>①指标要求：支持不少于3种用户可达状态的管理能力，至少包含一跳通信节点集、两跳通信节点集、其它通信节点集。<br>②考核方式：在分布式节点网络拓扑连接下，各节点支持不少于3种可达节点状态管理能力，包含一跳通信节点集、两跳通信节点集、其它通信节点集，在节点拓扑连接发生变化时，具有对新的可达状态及时更新维护的能力。<br>2．信息重传响应时间<br>①指标要求：支持节点间通信链路重连后，信息重传响应时间不超过1秒。<br>②考核方式：在两节点间存在信息分发需求且通信链路由断到通时，记录时间戳T1，经过基于收发缓存的信息重传控制模块与弱通信自适应信息分发模块处理后，记录接收节点完成第一帧分发内容信息接收的时间戳T2，其中T2-T1的信息重传响应时间不超过1秒。<br>3．不同通信条件下信息自适应分发能力<br>①指标要求：具备弱通信自适应的数据传输管理能力，能够支持在不少于4种通信条件下的自适应信息分发。<br>②考核方式：在信息分发链路带宽分别在8MB&#x2F;s、2MB&#x2F;s、500KB&#x2F;s、200KB&#x2F;s条件下，使用弱通信自适应信息分发模块，可实现对同一组待分发信息不同的组织或调度形式，组织形式包括信息裁剪和信息压缩方式，调度形式包括基于任务截止期的调度方法、基于优先级的调度方法。</p>
+<p>分布式节点链路状态管理模块：部署在分布式指控系统各节点，实现对拓扑连接中一跳可达、两跳可达、不可达节点集动态管理；<br>弱通信自适应信息分发模块：基于任务与链路状态，实现信息及时发送给目的节点的能力；<br>基于收发缓存的信息重传控制模块：利用传输链路状态动态监测机制，实现信息在多节点间高可靠共享能力</p>
+<p>这 ppt 是真难做，是难做，还是不想做？其实是不想做。而且现在有点困，大脑无法思考。关键的还是要抓住休息的时间，进行复习，真的不能浪费时间了。<br>那就慢一点，<br>画几张图，主要是图片。</p>
+<p>首先是协同任务驱动的跨端自适应信息共享框架。如果有立体图是最好的，但是这东西，不是一时半会能弄出来的，不如发挥现有的特点，画一些结构图。</p>
+<p>PING消息（心跳检测）<br>PONG消息（确认和状态传播）<br>FALL消息（一致的故障广播）</p>
+<p>[7.4]<br>评审内容的补充，还有设计文档，与开发进度一同编写。</p>
+<p>[7.5]<br>通信协议的作用是辅助解决粘包的问题。其和 Buffer 以及 Connect 之间的关系。</p>
+<p>通信协议，内存池，连接三者之间的关系。</p>
+<p>内存池并非是支持多线程的。其用法被局限了。</p>
+<ol>
+<li>用静态接口进行处理，这样会多复制一次；</li>
+<li>内存池变成支持多线程；</li>
+</ol>
+<p>但是无论如何都需要对数据进行至少一次的复制。现有的内存机制下确实需要复制。<br>但是将数据向外传递的过程中，也需要对数据进行使用。<br>这个过程拷贝多少？<br>或者不考虑是否拷贝多次的情况。</p>
+<p>可以考虑更加轻量化的方法。如果是 tcp ，那么就采取随读随取的方式，因为有协议的辅助，会使得其具有充分的便利性。</p>
+<p>[7.8]<br>UDP 需要尽可能快的接收数据。<br>其协议规定其实很简单，只是看用什么样的初始化函数。<br>其不需要处理粘包问题，但是需要处理分包问题。</p>
+<p>但是 tcp 就不需要处理分包了吗，这块需要测试。</p>
+<p>udp 需要分包，如何分包，其一定会变得结构臃肿。</p>
+<p>udp 的 netRead ，不像 tcp 可以存储到比较多的数据时进行读取，而应该时尽可能监听，并且将数据取出。<br>所以， udp 协议下的 netRead 应该只使用一个 buffer 而已，所以，不需要内存池，或者说，内存池可以丢给上层。</p>
+<p>ip 层的分包。<br>按理来说，调用哪个层次的端口，就使用的哪个层次的 ip。<br>网络层，传输层，应用层。在传输层对数据进行分包。但是网络模型总是需要一个阈值进行传输的。<br>而且，一旦在传输层开始分包，那么，总是需要规定一个阈值上限。而且，要分包发送，那么分到什么粒度？<br>是最大传输单元(1472 byte)以下，还是能够使用网络层的分片，按单位 65507 byte 来分？</p>
+<p>分包策略：<br>让其能够支持多一点的分包策略，比如，10MB 的数据，100MB 的数据是要能够传输过去的。<br>那么，就需要对其进行设计，首先是对包进行标记，然后依据重传机制，需要回应。但是这个回应，只是 recode。<br>也就是说比如一个数据，首先确定分成几个包，然后进行发送，一次全部发完；对面收到一个包，就进行标记，然后组成一个码，进行返回。<br>发送方设定一个时间，比如说 1 ms ，监听该 recode 包，并且对其核验，如果数据对面都收到了，就结束；<br>如果发现对面有没收的，就根据这个码，重新发送。<br>如果没有收到 recode ，那么就发一个询问包，对方如果没有回应，那么就标记该包发送失败。<br>对方回应后，继续重复上述操作，判断是否有丢包存在。<br>根据丢包频率，调整发送频率和监听的时间窗口。<br>关于流量控制和拥塞控制：</p>
+<p>一定要有 read callback 。<br>已进行并发特性的设计。</p>
+<p>再有一个是基于 gossip 的协议。这个是一个 ip 层协议。</p>
+<p>[7.9]<br>关于字符串的处理过程，进入一个字符串，出一个字符串，其关键是，出的字符串应该是怎么样子的。是新分配一个内存还是用旧的内存？</p>
+<p>本次协议设计只是在网络层做的分包，如果有传输层做一个协议规则，实现网络自组织。<br>其应当是基于一系列的阶段的。<br>对于整个网络来说，其有一定的任务做法。<br>这个时候采用何种设计模式。行为设计模式。<br>事件体系结构，比如说，<br>一个网络层的结构，其在开启之后，就可以丢任务给他，进行发送，并且反馈是否送达。<br>那么在其不需要维护太多内容的情况下。<br>可以这么做：<br>网络类，是基于身份的。其可以向网络中的单个&#x2F;多个目标递送数据。<br>其提一个目标身份，可以是 id ，也可以是别的，维护一个 map &lt;identify, NetInfo&gt; 。<br>这是一个连接管理器，能够通过用户键入的指针 handle， 映射到本协议的网络信息。<br>在进行数据发送时，只需要指定向哪个目标递送即可。</p>
+<p>然后还需要和订阅发布结合。<br>之前设想的是，订阅发布是更加上层的内容，也就是说，任务先到调度队列，然后任务再传递到数据分发队列。进行分发。<br>主要关注数据的消费过程，消费者可以是网络结构，等等，其是在网络结构内部的，还是在外部的？</p>
+<p>网络类，维护一个身份的 map， 其 key 由用户定义。<br>其关键在于初始化的过程。初始化完成后，其他的都没有问题。<br>假设一个网络的模型，其使用的 gossip 协议。<br>我们定义基本的发送工具 GossipConnect ， 并且定义一个与其伴生的 Protocol 。其负责对数据包进行处理。<br>然后，设计一系列的通信规则，供其进行控制传输内容。<br>关于网络其有以下内容：</p>
+<ol>
+<li>在网络创建之初，初始化一系列的内容，其包括以 NetInfo 为中心的本机地址&#x2F;域范围目标地址&#x2F;单目标地址；</li>
+<li>首先，NetPool 启动线程初始化任务，或者通过上级 ThreadPool 进行初始化； – 恐怕很难实现，不过可以实现不扩展线程数目的线程池；</li>
+<li>将 listen NetInfo 进行初始化，对本机地址进行绑定，作为 publisher 添加到 IOModel 中；</li>
+<li>分配一个线程，运行 IOMode 的监听任务 waitEvent;</li>
+<li>初步建立：主要体现在状态管理表的配置上；为所有的连接都发一个 <em>连接包</em>，然后等待。 dest 的<em>连接数目</em>可以配置，限制的越少，越接近非全连接的网络；</li>
+<li>之后就是任务驱动：如果本机收到<em>连接包</em>，那么就更新网络信息；连接包里面应当包括本机所掌握的所有节点内容，即，目标地址是否是通断的，以及其一跳范围节点；连接包如何传递这些信息？其采用一个掩码，一个目标的最大连接数是无上限的；该掩码的长度为 n ，其表示一个 n*3 矩阵，表示对 n 个节点的多层次体现；</li>
+<li>同理的，针对初始化的网络配置数据，将生成一个 local NetInfo ,负责本机向外部进行操作，主要负责网络任务，建立网络拓扑使用；</li>
+</ol>
+<p>一个基于阶段特征的网络模型，其实很难实现。理想情况下，通过设计一个阶段，让单个节点在这个阶段中作出一系列的动作，发起、响应、接收、确认等，通过替换该阶段的过程，就能够变更某个阶段，然后完成对不同网络的协议改变。<br>但是这个机制，有些难以控制。还而言之，可以通过另一个方式进行替换。<br>设置一个状态机，对节点的网络进行管理。网络仍然采用数据包的方式，触发某种任务，触发完毕之后，将节点转变为另一种状态，这个状态又能够通过别的数据包进行触发，或者超时触发，转变为另一种状态。<br>根据此，相当于完成了整个动作序列。</p>
+<p>数据包可调整的，基于状态机的网络，能够通过替换数据包的触发方式，甚至改变状态机来变更网络的执行措施。</p>
+<p>我们首要实现的是一个 tcp 常量连接的网络。在后续阶段实现 udp 连接的网络。<br>tcp 常量网络中，数据包与状态机的种类和关系如下：<br>tcp 常量网络，需要数据包确认吗？不需要，其只需要连接，然后交由上级基于这个 tcp 网络进行数据传输。<br>但是 tcp 常量网络也有一套基于状态机的设计。<br>以检测其建立的连接。</p>
+<p>所以设计基于状态机的协议网络，是十分之关键的。其应该对某种状态，设定一系列的触发条件。<br>能够对状态的后续状态进行约束，形成一个状态链式结构向导。<br>使用者在拿到 elem 的时候，执行，然后执行的函数还是使用者的类内函数，其能够修改状态机器。<br>那么也就是说，其有两种结构，一种是协议的命令，一个是实际的载荷数据。<br>但是协议挂钩后，如何脱钩？因为原有的协议是面向 CONNECT 的，也就是说其只有传输的职能，但是没有构建既定网络环境的职能。<br>而且，复杂的是，后续和多个节点建立连接，还需要判断连接数量等等。其只能够以约束的方式呈现。</p>
+<p>协议混合，目前在 IOMode 层还是保留了其特征，但是在 Net 层还没有想好怎么使用。</p>
+<p>将任务进行分级。</p>
+<p>create task , 应该是面向于线程池的，也就是说，任何负责某项动作的执行者，都可以继承一个由线程池提供的抽象类，该类虚函数为创建任务。<br>使用线程池时，由该类创建任务，然后放到线程池中。放入的东西，可以是该类携带的方法，也可以是一个非类内的接口。</p>
+<p>宕机恢复措施的考虑。可以通过检测链路层是否断连来提供节点状态的变更，与上层的状态机相结合。</p>
+<p>重新梳理一下，首先 IOMode 的职能是针对不同的 CONNECT 提供异构的处理方式，由 CONNECT 自行设定。<br>IOMode 如果要将接收到的数据，作为数据包去修正上层的状态机，那么就必须持有 handle。<br>而且，recv_deal 的处理过程有可能很漫长，此处造成网络的阻塞没有好处，应该让有线程池的结构创建任务，完全可以通过 <code>上级 handle</code> 的线程池。<br>也就是说，上级 handle 有方法能够处理。<br>其实这个操作可以在现有的模型中使用，采用 handle 传入不同 CONNECT 所 product 的 ELEM 。</p>
+<p>发现，其中，订阅发布模型，其实是和网络深度绑定的，因为其与 io 模型绑定。<br>订阅发布模型，本质上，是创建一个围绕发布者，和消费者之间的关系媒介模式。<br>使用者通过将自己的类继承发布者，定义创建 ELEM 函数 create_product 。<br>其是否需要能够自我监视有 elem 产生？这个部分是交由 io 实现的。订阅者和消费者，其实是一个适用更加广泛的内容，而 io 只是针对网络的。<br>因此，io 在做处理的时候，应该继承 订阅发布模型 所规定的范本接口。以实现 订阅发布模型 将产品的生产监控交给 io 模型。</p>
+<p>但目前的情况是，SubscriberServer 直接就把所有的 pub 放入到 io_mode 中，并不对其是否产生 elem 进行监视。<br>现在能不能不解耦？后续的时候， 有这么几条路可以选：</p>
+<ol>
+<li>io_mode 扩展。扩展其功能为提供为 pub 性质的结构做特殊的监听，pub 需要继承泛型，提供方法作出监听。io mode 更加细致；</li>
+<li>io mode 脱离，并且与 sub&#x2F;pub 形成对立，io 继承 sub&#x2F;pub 的泛型类；</li>
+</ol>
+<p>网络是一定要依靠 io 模型的，先把这一块弄好。<br>不要忘记根本，开发一套模型将网络层的操作完全剥离。</p>
+<p>io 中普通的连接是无法使用的，因为其不仅是挂载监听，还挂载了数据读取。而其限制在于，监听到的连接一定会放入该 io mode。<br>本次的修改一定是会连带修改 io 模型， 使得其更加具有可复用性。<br>io 模型需要考虑的就两个点：</p>
+<ol>
+<li>listen 的新连接放在哪里；<ol>
+<li>新连接就放在这个 io 模型中？能不能提供放到另一个 io 模型的功能； – 没必要感觉，</li>
+</ol>
+</li>
+<li>recv 到的数据包放在那里；<ol>
+<li>现在是交给 recv connect 进行处理；相当于， recv connect 持有一个上级 handle 和 func， 在 io 中记录 func ， func 中 recv connect(this) + elem + handle 处理；</li>
+<li>上级句柄难道可以不考虑线程安全了吗？</li>
+<li>所以根本就在于， handle 交给谁？交出去，还是向上反？io mode 和其他组件的关系决定？– 关系是次要的，其作为被依赖的组件，无需关心。但是向上交出去是不合适的。反倒是 connect 进行维护会比较好。<br>至于要不要区分 listen 连接和 recv 性质的连接(tcp 中)，肯定是不想考虑的比较好，因为这样，两种连接的规范为一种，对框架更好。</li>
+</ol>
+</li>
+</ol>
+<p>这样一来， 就没有所谓的接收问题，或者说，可以在 recv 的时候指定查询某种 send 命令的 recv 内容。也就是说， send 接口能够返回 elem ，表示其发送的内容。</p>
+<p>连接的关系，再捋一遍。首先一个 connect ， 其分为两种类型， listen connect 和 recv connect 。<br>listen connect 其具有 local net info；<br>recv connect 具有 dest net info， 可能有 local net info， 但是不关心 dest net info；<br>udp 有 local net info ， 但是没有 dest net info ，因为所有的 host 都可以覆盖；<br>tcp 有 local net info ， 也有 dest net info ；<br>udp 只能够表示为 recv connect；<br>tcp 可以表示为 recv connect ，也可以表示为 listen connect;</p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>类型</th>
+<th>local net info</th>
+<th>dest net info</th>
+<th>new for task</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UDP</td>
+<td>recv connect</td>
+<td>有</td>
+<td>\</td>
+<td>\</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>listen connect</td>
+<td>有</td>
+<td>\</td>
+<td>是 - listen</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>recv connect</td>
+<td>可能有</td>
+<td>有</td>
+<td>是 - recv</td>
+</tr>
+</tbody></table>
+<p>所以，要加入 local net info ， 没有 connect 持有的情况下， 只能新增加；<br>加入 dest net info ， 就需要从每个连接中查询是否有 dest net info。<br>如果单个协议可以记录下这个表就好了。</p>
+<p>监听等待，发送，接收改变。</p>
+<p>connect 和 accept 都是应该任务化的。accept 通过 io 变得可任务化， 而 connect 只能是通过创建一个任务来进行任务化。</p>
+<p>&lt;NetInfo , type&gt; 可以唯一确定一个连接。</p>
+<p>返回值也可以优化，再返回的时候，如果是因为其他的函数过程未通过，那么应该返回其函数才对。</p>
+<p>ProtocolFormat 可以负责处理许多事情。</p>
+<p>错误码的返回准则。</p>
+<p>[7.31]<br>现在只剩下关键的方法，在这个过程中确定传送的数据包类型。</p>
+<p>然后把 udp 协议开发一下。<br>之后做重传和压缩。</p>
+<p>接收缓存，单个解析。</p>
+<p>协议基调，其是为谁而服务的。设想的是为 CONNECT， 但是其必要的是为 NetPool 提供服务。</p>
+<p>协议的动作类型：<br>tcp 下， 不会传递网络有关的内容；<br>udp 下， 比如适用于重传控制机制，对某个数据包的确认机制。以及相关的定时功能；包括交换各种网络信息，心跳包机制。<br>于是， net pool 的任务分配分为两个级别，一个是针对单个连接的 CONNECT ， 一个是针对单个数据包的。<br>这两个级别一旦固定是不能够扩展的，因为其本质不是等级制度，而是一个结构层次。<br>单个连接在某个情况下能够触发任务分配；单个数据包也具备同等的能力。<br>下发完成任务后，记录在某个组件或者表单中，等待新的数据包对其进行修改，监控到任务完成后销毁并进行下一步行为。</p>
+<p>所以，数据包一者是复写到网络的状态机？关键是对任务进行回应。<br>创建一个网络任务，对连接或者数据包进行监视，将其加入到定时器中.<br>还需要的是对信息的记录功能，单个任务一旦进行了记录，就能够将其进行修改。<br>这个结构的关系映映射是， this – ProtocolFormat 。<br>package 借助 net pool 修改 task， 或者复写 task 。</p>
+<p>为什么呢，因为回应，响应重传，只有通过 CONNECT (协议)来进行负载， 而其面向的对象是能够兼容订阅发布的任务驱动型网络。<br>所以，任务、协议、连接之间的隔离如果能设计好是非常重要的。<br>所以，如何让协议负载既定的数据包，然后修改 NetPool， 是关键问题。<br>按理来说，是不是应该加两层壳。一层是基本解，一层是网络信息交换。<br>网络信息交换，或许应该作为 网络层 和应用层的中间部分。</p>
+<p>之前设想的是，网络有一个信息交换，表明网络的拓扑结构。<br>网络层次按理来说，是一个无向图，tcp 是确定连接，udp 在经过确认后能够组成确定的连接。<br>所以，存储的方式，是一个共有的体系，其存储 NetInfo 之间的映射连接。<br>比如， &lt;NetInfo_1, NetInfo_2, con&gt; , 主要是 &lt;NetInfo_1, NetInfo_2&gt; ，<br>所以，对于总的启发数目连接 <code>NetInfo[n]</code> 来说， 其能够构成一个 nxn 的矩阵来表示其连接状态的有无。那么只需要传递这个矩阵即可。<br>但问题是， 这个<code>NetInfo[n]</code>顺序是不确定的。也就是说，不同节点的连接的<code>NetInfo[n]</code>可能顺序不一致。<br>通过这个图，能够显示出多跳路由的信息。<br>但是这个功能可以之后扩展。</p>
+<p>目前是要解决协议所在的位置。<br>数据包拿到之后，先交给连接处理，然后交给任务进行确定。<br>这样就和协议挂钩了。先修改协议的内容，再体现到网络的层次。<br>修改什么存储内容，存储内容在谁那里，就给谁修改。<br>比如：<br>重传机制：con <del>创建任务，任务持有数据的状态，这个状态，需要让</del>持有单个数据包是否已经被传输的标志位。。缓冲队列在什么地方？数据的缓存队列，应该维护在 udp connect 中， 包括其记录和修正，也是如此。<br>那么就限制了任务包确认的连接必须是原有的连接，作为上级的寻址方式。<br>因此，也就是说，将数据连接包所获得的数据，重新再经历一便 con， 以修正记录。<br>这对于重传机制来说是确实可行的。<br>网络状态管理及交换：交换表的信息时，主体还是 net pool ， 也就时说，去除了关于以任务为记录目标的结构，甚至任务也能够去除？任务模块暂不考虑。毕竟没有功能扩展和需求扩展。<br>那么 net pool 层的数据交换，其交给谁，还是交给 ProtocolFormat 协议完成。<br>指令集合是必要的，指令集合交给 ProtocolFormat 处理。<br>重传机制，需要 con 自主确认。</p>
+<p>网络的组织方法，无非就是将多个连接保存起来。并且定时对指定对象作出操作。</p>
+<p>所以再对一遍流程。<br>所有的节点，启动的时候，自主通过配置文件，发现所有网络中的节点，并且具备对任何节点传输数据的功能。<br>网络能够构建一个非全连接的网络。数据节点能够将所有内容递送出去。其包括转送的功能。<br>节点失联之后，能够有效通过网络信息传递给想要的目标。</p>
+<p>[8.5]<br>设计一个 udp 协议级，其管理的应当是单个的数据包，在拆包的时候，会将数据分散，合包的时候将所有数据合并到一起形成一个总的 buffer 。<br>一个 UdpProtocol 将负载所有数据，数据分隔成多个子数据块，用 Package 存储。为其指定唯一的序列号。<br>当 Net pool 在 io 模型通过某个 CONNECT 获取到这新系列数据包的时候，作为普通数据包交给连接句柄处理。<br>连接句柄此时就定位到了 Udp Connect ,,,<br>分包是否需要可见？Net pool 调用发送 ，定位到句柄，然后由 con 内部进行 分包 发送。这个过程是否需要创建任务。<br>如果数据包没有组合完成，那么就不能作为一个完整的数据包给到 Net Pool 的缓冲区。<br>创建任务是没有必要的。<br>CONNECT 应当及时对过期的任务数据进行处理。</p>
+<p>[8.12]</p>
+<p>日志功能修改：</p>
+<ol>
+<li>缓冲队列和文件是绑定的；</li>
+</ol>
+<p>[8.19]</p>
+<p>首先确定主要的方向：</p>
+<ol>
+<li>一种基于多因素的信息分发调度技术算法</li>
+<li>协同任务驱动的跨端自适应信息共享架构</li>
+</ol>
+<p>主要从这两个部分结合或者基于背景。</p>
+<p>背景：</p>
+<p>分布式指挥控制系统下</p>
+<p>关键技术：</p>
+<p>一种调度算法。</p>
+<p>[8.20]<br>几个方向：</p>
+<p>一者是说，在一个现有的分布式指挥控制系统下，通过一种现有算法(Gossip)构建的分布式网络，提出一种(多级多类任务队列+多因素权值)的调度算法，来应对恶劣带宽情况下的无线网络环境。<br>创新点在于：</p>
+<ol>
+<li>应对分布式指控系统下的不同特征性质的任务，进行调度；</li>
+<li>通过多因素来自适应调整网络策略；</li>
+</ol>
+<p>这样的好处就是，能够充分的将重心移动到调度和系统架构上。使得其更具有明显的工程特性。</p>
+<p>一种基于分布式指控系统的调度算法<br>分布式指挥控制系统下任务自适应调度方法<br>一种面向恶劣无线网络的自适应任务调度方法<br>一种基于分布式指控系统的任务调度方法</p>
+<p>主要是说什么：<br>主要就是说，在分布式网络的基础上，通过多因素检测和自适应调整网络策略，并且进行试验，得出多因素的关键因素及其适用不同情况的参数。<br>然后，面对分布式指控系统的任务特点，建立多级多类任务队列，进行分发调度。</p>
+<blockquote>
+<p>需不需要说指挥控制系统还是只是说分布式系统，指挥控制可能需要包含各种不同的设备，分为指挥控制主体和被指挥控制的主体</p>
+</blockquote>
+<p>其他方向，或者说可能的方向：</p>
+<p>通信的自适应心跳包，感觉太简单 – 加上多因素来调整和控制，得到关键参数。<br>重传控制，没有亮点 – 实在想不到什么优化的点。<br>分布式节点的发现，简单 – 构建网络组织，并且发现多跳范围内的节点，控制在 n 级别 – 超出项目范围</p>
+<p>[8.21]<br>背景：</p>
+<p>查找现有的技术。<br>其必须有的关键词：分布式<br>包含的非必要关键词： 恶劣 带宽受限 任务 调度</p>
+<p>Distributed<br>Adverse<br>Bandwidth-Constrained<br>Limited Bandwidth<br>Task<br>Scheduling<br>Distributed Network </p>
+<p>[8.26]<br>流程：</p>
+<ol>
+<li>8.27 给二院签 联合申请协议 ，王宇航； - 项目名称&#x2F;项目编号； – 自动化所和我们的合同；</li>
+<li>非秘盘导入 - 制作 - 传递：代理中心[工业和信息化部电子专利中心]；</li>
+<li>8.29 审批表 -&gt; 王英；</li>
+<li>用印；</li>
+</ol>
+<p>流程变更：</p>
+<ol>
+<li>直接刻盘给 208 加急；</li>
+<li>询问</li>
+</ol>
+<p>[8.30]<br>测试的方式，就是使用 net pool 设置其接收的 callback。<br>使用一个线程将 net pool 2 进行数据的发送。这个逻辑构成了基本的测试方法。<br>在使用的时候，是否可行？<br>似乎很麻烦，需要保存其 dest 内容， 然后确定。<br>也就是说需要一个 &lt;id, dest&gt; 映射。</p>
+<p>弱通信中，有许多函数，都是由第三方来生成，极其不可控。<br>其还是无法良好处理何时变成 server 的过程。</p>
+<p>作为 connect 的连接，如果提前放入了 io mode 中， 那么其会链接失败。</p>
+<p>[9.9]<br>目前， buffer 的使用是怎么样的？<br>一个连接，用一个 buffer ， 而一个 buffer 长度惊人，已经到达了 <code>1024 * 1024 * 8</code>， 这样怎么处理上万条连接？<br>是否要用一个 buffer 去存储数据？<br>产生这个问题， 主要是因为每次读出的数据，不一定是单条的，有可能会读出多个消息体。<br>其主要问题是，连接的职能从管道中拿出数据，变成了符合固定协议，取出相应的单个数据包。<br>一方面， 内存的分配职能对其具有重大的影响； – 如果可以使用上级内存管理。那么会比较好。<br>另一方面， 读取数据的长度是不确定的，导致可能读出更多的数据条目。</p>
+<p>[9.10]</p>
+<ol>
+<li>分包机制 – 已经开发，但未载入完整性校验</li>
+<li>网络管理图 – 开发完成，但需要再规整代码</li>
+<li>压缩算法嵌入</li>
+<li>降采样</li>
+<li>多级多类任务队列</li>
+<li>界面展示</li>
+</ol>
+<p>这个压缩算法，放在什么地方？<br>压缩应该是由 NetPool 来进行的，其分为不同的策略组织。<br>在每次 send 和 recv 中进行压缩和解压。但是压缩和解压，都不一定是必须即刻发生的。<br>降采样也是如此。先搞清楚这几个操作什么时候进行。<br>其应该有个访问点。</p>
+<p>多级多类列任务队列放在什么地方？<br>在 send 的时候，先存入到该队列中，然后有一个额外的线程进行触发，对数据进行发送。<br>但是我为什么不直接发送？还要多此一举？即使其可以面对低带宽模式，也不应该对带宽充裕的情况产生干扰。<br>如果不能够直接发送，而是生成一个 package ，存入多级多类任务队列，那么效能更慢。<br>在 1 s 内发送 100 个数据， 100 个包，每个的载荷都是 10 MB。通过限制，和即刻的上限测试，来制造压力测试，触发该条件。<br>数据长期维护，但是不进行发送，会造成内存消耗较大。<br>多级多类任务队列，要不就是发送失败之后，存入到多级多类任务队列中。</p>
+<p>实际的发送过程，进行策略组。当网络发生变化的时候，改变策略组。<br>根据网络管理图， 判断每个连接的网络质量。<br>那么，是否每个连接都有不同的策略组，有不同的网络状态监控。<br>还是以不同的网卡来判断其流量上限？<br>每个连接里面，都有对其自身网络的衡量参数。</p>
+<p>还是用邻接矩阵存储网络信息。<br>网络管理图可大可小。<br>本机，也不一定是只有一个 host 的。那没有必要关心，都视为同一种类型。<br>但是其根本问题是，怎么去将一个 host 归结为一个’节点’？关键在于， 一个 net pool 里面有很多个可以到达的节点数目。<br>而这个 net pool 并非是以一个 host 为中心的，其可能包括很多个 host 。<br>连接必然是一个 host 对应一个 host 。所以为什么是 destinations ?应该只有一个。<br>其都可以以有限描述来进行，所以，并没有必要用多个目的地。<br>那么回到原来的问题，如果确定， 一个 con 是一个 host 到另一个 host 的元组， 那么由如何确定当前 net pool 所代表的 hosts ？<br>这是一个新的概念。<br>而再细化一下。<br>tcp listen : 只有本地的 host ， 而没有远程的 host 。<br>tcp con : 建立连接， 但并不关注于本地连接的 host ，而更加关注与远程的 host ， 其远程的 host 连接即是 connect 的远程 listen host。<br>udp con : 可能绑定了本地 host 的 udp 连接， 能够提供外部的地址通信链路。<br>必须要有一些约束才行。<br>首先， tcp listen 和 udp bind ， 是一个节点的标准配置。<br>而 tcp 和 udp 的主动连接，都是非必要绑定自身的 port 的， 也就产生了’无本地 host’的情况。<br>如果是完全使用 udp 连接，那么，只要约束，向外发送数据的 socket 必定是本节点 bind 的 socket 。<br>   那么， 面向端口的连接就出现了。节点之间使用端口进行数据通讯。进行完成被动通讯的节点，就能够注册成为可达节点；完成主动通讯的节点，通过目标节点的信息回馈，对目标节点注册；<br>再来看 tcp 连接，<br>   实际上，当连接完成之后，可以对目标节点的 host 进行注册。标志其是可达的，但是这个 host 是 port 随机的，如果是目标节点的 tcp listen host ，是可以标志，但是其不具备 socket addr 的属性，即其是无效的内容。对于 connect 来说， 这两者是造成 con 无法描述节点与节点之间关系的关键所在。<br>这样的讨论，其本质在于探讨 &lt;host,host&gt; 四元组是否能够标志一个 socket 连接。<br>那么我们可以通过一些 net pool 的限制，使得 socket 的建立能够符合表征规则。<br>其约束如下：</p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>类型</th>
+<th>local net info</th>
+<th>dest net info</th>
+<th>is server</th>
+<th>new for task</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UDP</td>
+<td>recv connect</td>
+<td>有</td>
+<td>+ 有</td>
+<td>no</td>
+<td>\</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>listen connect</td>
+<td>有</td>
+<td>\</td>
+<td>yes</td>
+<td>是 - listen</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>recv connect</td>
+<td>可能有 + 代理表示</td>
+<td>有</td>
+<td>no</td>
+<td>是 - recv</td>
+</tr>
+<tr>
+<td>连接中增加一个并不关心的连接内容，即本地的 tcp recv con 其 local 表征为本机的 tcp listen local host。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>udp 必然是非 server 的。 is_server 能够被判断，是否能够作为网路图谱中的一个有效边。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ol>
+<li>但是这还是有一个问题， 就是什么的最低的限度？图，可以通过边来进行初始化。那么图谱是否就是额外的内容？存储的内容有冗余。</li>
+</ol>
+<p>降采样，由多级多列任务队列来执行。如何触发？策略组反馈。</p>
+<p>关于界面，还是期望有一个最基本的 Demo 。</p>
+<p>[9.23]<br>在项目研发进度方面：<br>（1）已完成验证场景整体通信架构的接口开发，包括对面向可靠连接的TcpConnect、不确定链路通信类 UdpConnect 开发、内存池开发，通信链路内部缓冲区开发，完成UdpConnect分包功能开发；<br>（2）已完成网络策略组(压缩、降采样)中的压缩算法部分开发，包括zlib和lz4压缩算法；<br>（3）已完成网络管理图开发，并且整合到CONNECT，形成无向图；<br>（4）已完成网络管理图的多节点渲染，完成可达节点发现需求；<br>（5）已完成多级多类任务队列设计工作；<br>后期计划：<br>（1）研发UdpConnect重传功能；<br>（2）研发多级多类任务队列，并嵌入网络策略组，开发降采样功能；<br>（3）研发界面展示功能，对网络图谱进行显示。</p>
+<p>月底前准备一下进展汇报材料，拟本月底组织一次进展研讨。</p>
+<p>在项目研发进度方面：<br>（1）搭建多级多类任务队列，完成其中的一般任务管理；<br>（2）整合压缩策略组到多级多类任务队列；<br>（3）对不确定链路进行测试模拟。<br>后期计划：<br>（1）研发重传功能；<br>（2）研发多级多类任务队列中对周期任务的管理；<br>（3）研发界面展示功能，对网络图谱进行显示；<br>（4）搭建带宽限制场景。</p>
+<p>（1）已完成验证场景整体通信架构的接口开发，包括对面向可靠连接的TcpConnect、不确定链路通信类 UdpConnect 开发、内存池开发，通信链路内部缓冲区开发，完成UdpConnect分包功能开发；<br>（2）已完成网络策略组(压缩、降采样)中的压缩算法部分开发，包括zlib和lz4压缩算法；<br>（3）已完成网络管理图开发，并且整合到CONNECT，形成无向图；<br>（4）已完成网络管理图的多节点渲染，完成可达节点发现需求；<br>（5）已完成多级多类任务队列设计工作；<br>后期计划：<br>（1）研发UdpConnect重传功能；<br>（2）研发多级多类任务队列，并嵌入网络策略组，开发降采样功能；<br>（3）研发界面展示功能，对网络图谱进行显示。</p>
+<p>[9.14]<br>关于多级多类任务队列(MMTQ)。<br>Multi level and multi class task queue， MultiLMTaskQueue</p>
+<p>首先，任务的主体应该是下发的 buffer 。也就是说，针对网络而言，任务的最小构成单位应该是字符流。<br>其 task 的主体可以是 DataInfoFormat 。<br>一个任务通过 net pool 的 send 接口下发。net pool 先将数据放入多级多类任务队列中。<br>MMTQ，构建若干个存储队列来存放’任务’，每个存储队列标志一个等级，MMTQ支持 n 个任务等级。<br>其提供最基本的取出、放入接口。<br>关键再于不同类别的任务有不同的处理方式。所有等级的任务放在同一个队列中。</p>
+<p>任务有两个参数，一个是优先级 n， 一个是截止日期 t， 通过这两个参数计算得出一个参数 k ， 标志该任务在当前时刻的紧迫性。</p>
+<p>[10.5]</p>
+<ol>
+<li>图谱管理并且输出；</li>
+<li>udp 测试并且使用；</li>
+</ol>
+<p>还是要去看大的框架是什么样子的。</p>
+<ol>
+<li>分包机制 – 已经开发，但未载入完整性校验；</li>
+<li>网络管理图 – 开发完成，加入；</li>
+<li>压缩算法嵌入 – 已经开发，准备嵌入到协议中；</li>
+<li>降采样</li>
+<li>多级多类任务队列 – 已经开发，加入；</li>
+<li>界面展示</li>
+</ol>
+<p>[10.8]<br>多级多类任务队列，什么时候触发其发送？<br>其等于对任务进行了限制，那么我们应该对其做一个线程进行专门的发送操作。<br>接收到的数据仍然放入到队列中存储起来。发送需要一个专门的线程。</p>
+<p>压缩嵌入到协议之中，是 udp 还是 tcp ？ 或者两个都有，直接放在 connect 基类中？接口层面是向上给出还是。</p>
+<p>按理来说， tryGetTask 拿到的是 buffer , 因为我并不关心其执行的优先等级。执行的优先等级，那么是否就意味着，还是需要发送一个内容，其含有优先等级。<br>任务只是 buffer ， 组合成一个新的 buffer， 其实可以将 MMTask 。</p>
+<p>网络质量评估体系 - 未开发<br>降采样 - 未开发<br>重传未嵌入。<br>周期任务未完成。</p>
+<p>总结，这两天先弄好降采样，然后直接进行测试，展示。</p>
+<p>[10.9]<br>汇报，</p>
+<p>阶段成果：</p>
+<ol>
+<li>专利；</li>
+<li>做了哪些功能模块，然后其能够达到何种效果；</li>
+<li>列个提纲，包括完成了什么，从需求到工程设计，到演示，并且后续的计划；</li>
+</ol>
+<p>先进行测试。<br>windows 可以测试，但是可能会有问题，因为其使用的 select 模型不同。</p>
+<p>可达节点和不可达节点，一跳和二跳。</p>
+<p><a target="_blank" rel="noopener" href="https://asciinema.org/a/uu04zHRvYsaMAvQYUExKxoxtg">https://asciinema.org/a/uu04zHRvYsaMAvQYUExKxoxtg</a></p>
+<p><a target="_blank" rel="noopener" href="https://asciinema.org/a/umd85legXh66rtPJse1ORUt1s">https://asciinema.org/a/umd85legXh66rtPJse1ORUt1s</a></p>
+<p>[10.11]<br>图谱还有些问题：<br>tcp 的，建立起连接之后，再进行统计。<br>这种插入边的方法，并不可行。<br>因为插入的边，大部分只能够是只有一个点的。<br>比如监听的连接，其都是自身，而对方的连接状态呢。<br>所以，保存的边，大部分都是无效的，不能作为 handle 发送数据。只有 dest ，是可以发送的。<br>所以，其插入的边，总结如下：</p>
+<ul>
+<li>tcp 中：</li>
+<li><ol>
+<li>成功建立的连接， [NULL, dest]</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>监听， [local, NULL]</li>
+</ol>
+</li>
+<li>udp 中：</li>
+<li><ol>
+<li>能够到达目的地的连接，[NULL, dest]</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>接收句柄，[local , NULL]</li>
+</ol>
+</li>
+</ul>
+<p>方案1：</p>
+<ol>
+<li>graph 中设置一个默认的本地 host ， 凡是 local &#x3D;&#x3D; null ? local &#x3D; default ;但这个方法会面临本地 host 不止一个的情况;<br>方案2:</li>
+<li>严格遵守必须填写的原则, 建立连接的时候,必须指明是哪个地址为 local ,而 dest &#x3D;&#x3D; null 时,连接不加入.</li>
+</ol>
+<p>sudo netstat -tuanlp | grep 8001<br>sudo ss -tuanlp | grep 8001<br>lsof -i :8001</p>
+<p><code>sudo netstat -tuanlp | grep 8001</code> 的 TIME_WAIT 状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前 tcp_fin_timeout 值</span></span><br><span class="line">sysctl net.ipv4.tcp_fin_timeout</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 tcp_fin_timeout 为 30 秒</span></span><br><span class="line">sudo sysctl -w net.ipv4.tcp_fin_timeout=30</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久生效：编辑 /etc/sysctl.conf，添加以下行</span></span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br></pre></td></tr></table></figure>
+
+<p>没有 bind 的 udp 能够存入吗， 不可能。也就是说， upd 根本没有办法注册。<br>只是注册的，没有绑定。</p>
+<p>奇怪， accept 有很多个没有成功的， 9 个没有成功, 5 个成功了。CONNECT success 有 15 个成功。<br>5 个连接，每个监听一个， 与其他 3 个发起连接， 15 个连接。</p>
+<p>accept error 10<br>accept success 5<br>CONNECT success 15</p>
+<p>同一个时刻，收到两个连接请求。<br>是因为水平触发和边缘触发的问题吗。<br>不对，因为其能够接收到同等数量的 accept 请求。<br>边缘触发是值的多个请求，只进行一次通知。目前用的是边缘触发。<br>边缘触发下，及时处理，是可以的。<br>刚刚尝试，水平触发，其因为处理失败，一直都会有通知到 epoll_wait。</p>
+<p>还是每个都只能 accept 一次。那么说明是句柄被破坏了。发现，其 operator&#x3D; 的用法，采用的是指针相等，故改变了新 create 的句柄。<br>修改后解决。</p>
+<p>kliny:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libc::unix::linux_like::linux::gnu::b64::aarch64</span><br><span class="line"><span class="comment">// size = 1, align = 0x1</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">type</span> <span class="title class_">c_char</span> = <span class="type">u8</span></span><br></pre></td></tr></table></figure>
+
+<p>linux:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libc::unix::linux_like::linux::gnu::b64::x86_64</span><br><span class="line"><span class="comment">// size = 1, align = 0x1</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">type</span> <span class="title class_">c_char</span> = <span class="type">i8</span></span><br></pre></td></tr></table></figure>
+
+<p>valgrind –leak-check&#x3D;full </p>
+<p><strong>PRETTY_FUNCTION</strong> 是 GCC&#x2F;Clang 提供的宏，显示当前函数签名，包含类名。<br>这是编译器特有的功能，在不同的编译器上可能会有所不同，Visual Studio 中可以使用 __FUNCSIG__。</p>
+<p>[10.21]<br>界面设计。<br>其实简单一点就可以。<br>首先是一个表示自身节点的所有可达节点。<br>一跳可达，二跳可达。的本机界面。</p>
+<p>可以控制其进行数据的发送。</p>
+<p>明天调试网络。</p>
+<p>[10.22]<br>自组织网络显示出当前节点的所有可达节点。并且显示出宕机的节点，能够进行主动的连接。</p>
+<p>本机任务中用一个 list 显示出所有的可达节点信息，单击后可以弹出窗口，进行任务的发放，并且查看目标连接的信息裁剪策略、配置网络质量参数。<br>并且在右侧显示出当前节点所收到的任务。</p>
+<p>功能方面：</p>
+<ol>
+<li>要使得 tcp 能够完整的接收和发送数据。</li>
+<li>主要是要先有个界面</li>
+</ol>
+<p>[10.24]<br>后续：</p>
+<ol>
+<li>显示有的内容；</li>
+<li>选择并且进行数据的发送；</li>
+<li></li>
+</ol>
+<p>如何判断是否为本机节点，如果光是靠 ip ， 那只能是将本级，识别为 0.<br>下一步是，发送数据。<br>发送完毕。</p>
+<p>下一步，接收数据，使用槽函数。</p>
+<p>收不到数据，并且测试用例连接不上。<br>网络看不到，无法判断其连接数目。</p>
+<p>准确来说是只识别到了一个 connect 。<br>所以，需要将其拿出。<br>也就是说 accept 的时候， 拿到的连接实际上并不符合条件。所以，取出的 socket 并非原来的内容，所以，read 自然是无数据。</p>
+<p>线程池可能出现没有任务的情况。需要设置一个 single 进行等待。<br>线程池初步解决：通过添加一个信号量，标志资源池。</p>
+<p>io 模型多线程访问有问题。<br>解决。</p>
+<p>读出的数据有问题，未解码。</p>
+<p>开始实验测试用例。</p>
+<p>[10.26]</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 加一个二跳节点:<br>更改表格的渲染方式，使得其第三列能够显示其他节点。[x]<br>但是即使加上了，也应该是当前节点的系统。所以，添加模拟设备。[x]</li>
+<li><input disabled="" type="checkbox"> 数据断连的时间显示。<br>直接在小窗口上显示出，某某节点断连，然后系统检测时间是多少。[ ]</li>
+<li><input disabled="" type="checkbox"> 任务调度顺序。<br>显示所有的任务，及其优先级和截止时间；用表格显示。[ ]<br>显示收到的任务，收到的任务来源于哪个节点。[ ]</li>
+</ul>
+<p>关于第三列的渲染，其根本原因是图谱构造中的监听连接问题；还是希望其能够使用原有的连接效果。</p>
+<p>监听连接首先放入，通过后续筛选，效率太慢。目前先用此方法进行渲染。</p>
+<ol>
+<li><input checked="" disabled="" type="checkbox"> 好像监听到的新连接还没有放入到图中；<ol>
+<li>解决,但是新的连接, dest 是一个远端的 ip:port ;</li>
+</ol>
+</li>
+</ol>
+<p>问题是如何标志节点。<br>节点的方向如何确定，一个 graph ， 如何表示所有的网络信息。</p>
+<p>其实关键是，如何发现节点，一个节点，建立连接，往往不是体现在端口上的。<br>按理来说，应该是有一个 id 号，来标志节点。然后这个节点和本机进行通信。<br>因为依靠端口来识别设备是不准确的，端口具有的唯一性，使得所有的连接都像是孤岛信息。</p>
+<p>listen 连接需要放入，作为一跳节点。<br>accept 的连接也需要放入。</p>
+<p>我能够在本级实现，将连接给渲染上，但是一旦是远端，那就没法实现了。<br>因为 tcp 连接只能够获取其 ip 和端口。</p>
+<p>如果能够用多个 ip 就好了。</p>
+<p>通过这种方式模拟本地回环，构建本机的环境。<br><em>本地回环中，能否将带宽进行限制。事实是可以的。</em></p>
+<p>现在，需要保存哪些连接？<br>listen 的连接不需要。按理来说不会出现 800x 的端口。</p>
+<p>是否只有能够连接到本机的连接，才是正确的。</p>
+<table>
+<thead>
+<tr>
+<th>First Vertex</th>
+<th>Second Vertex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.0.0.0: 0</td>
+<td>127.0.0.4: 8003</td>
+</tr>
+<tr>
+<td>127.0.0.11: 8010</td>
+<td>127.0.0.1: 38004</td>
+</tr>
+<tr>
+<td>0.0.0.0: 0</td>
+<td>127.0.0.7: 8006</td>
+</tr>
+<tr>
+<td>0.0.0.0: 0</td>
+<td>127.0.0.13: 8012</td>
+</tr>
+<tr>
+<td>127.0.0.11: 8010</td>
+<td>127.0.0.1: 38016</td>
+</tr>
+</tbody></table>
+<p>主动 listen 的连接， 其 local 为监听的端口。但其 dest 是 0:0 。但是其没有加入到图谱中。</p>
+<p>主动 connect 的连接， 其 local 是 0:0， dest 是 connect 的第二参数，即目标的监听节点。</p>
+<p>接收的新连接， local 与本机 listen 的 local 同， dest 为 accept 的第二参数出参。</p>
+<p>就建议而言：</p>
+<ol>
+<li>改变 connect 的 local 为其真实的内容；</li>
+<li>将 listen 加入到图中，以作为本机的标志；</li>
+</ol>
+<p>当寻找第一跳的节点的时候，先寻址本机 ip 。再进行图谱构建。<br>后续应该新增标志位， 将连接是否有效进行甄别，以构建多跳节点。<br>图谱也应该优化。</p>
+<table>
+<thead>
+<tr>
+<th>First Vertex</th>
+<th>Second Vertex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>127.0.0.10: 8009</td>
+<td>0.0.0.0: 0</td>
+</tr>
+<tr>
+<td>127.0.0.1: 46516</td>
+<td>127.0.0.17: 8016</td>
+</tr>
+<tr>
+<td>127.0.0.1: 34486</td>
+<td>127.0.0.14: 8013</td>
+</tr>
+<tr>
+<td>127.0.0.1: 54834</td>
+<td>127.0.0.7: 8006</td>
+</tr>
+<tr>
+<td>127.0.0.10: 8009</td>
+<td>127.0.0.1: 37900</td>
+</tr>
+<tr>
+<td>127.0.0.10: 8009</td>
+<td>127.0.0.1: 37910</td>
+</tr>
+</tbody></table>
+<p>大致无误，但是 connect 其没有绑定 ip 地址网卡。<br>添加。<br>在进行传输的时候，本机的 ip 仍然可以作用到， 其是不合适的。<br>除非，将 0:0 进行过滤。</p>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th>127.0.0.14: 8013</th>
+<th>0.0.0.0: 0</th>
+<th>127.0.0.14: 39387</th>
+<th>127.0.0.9: 8008</th>
+<th>127.0.0.14: 38319</th>
+<th>127.0.0.5: 8004</th>
+<th>127.0.0.14: 8013</th>
+<th>127.0.0.12: 37791</th>
+<th>127.0.0.14: 45507</th>
+<th>127.0.0.16: 8015</th>
+<th>127.0.0.14: 8013</th>
+<th>127.0.0.20: 45271</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>127.0.0.14: 8013</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.0.0.0: 0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 39387</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.9: 8008</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 38319</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.5: 8004</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 8013</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.12: 37791</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 45507</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.16: 8015</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 8013</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>127.0.0.20: 45271</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>First Vertex</th>
+<th>Second Vertex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>127.0.0.14: 8013</td>
+<td>0.0.0.0: 0</td>
+</tr>
+<tr>
+<td>127.0.0.14: 39387</td>
+<td>127.0.0.9: 8008</td>
+</tr>
+<tr>
+<td>127.0.0.14: 38319</td>
+<td>127.0.0.5: 8004</td>
+</tr>
+<tr>
+<td>127.0.0.14: 8013</td>
+<td>127.0.0.12: 37791</td>
+</tr>
+<tr>
+<td>127.0.0.14: 45507</td>
+<td>127.0.0.16: 8015</td>
+</tr>
+<tr>
+<td>127.0.0.14: 8013</td>
+<td>127.0.0.20: 45271</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Distance (Edges)</th>
+<th>Reachable Vertices</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>127.0.0.14: 8013;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.0.0.0: 0; 127.0.0.9: 8008; 127.0.0.5: 8004; 127.0.0.12: 37791; 127.0.0.16: 8015; 127.0.0.20: 45271;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>127.0.0.14: 39387;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>127.0.0.14: 38319;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>127.0.0.14: 8013;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>127.0.0.14: 45507;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>127.0.0.14: 8013;</td>
+</tr>
+</tbody></table>
+<p>接下来就是优化图算法，过滤重复节点。</p>
+<p>先把 QT 整理完。<br>去除其节点生成的方式。</p>
+<p>改变为模拟设备时，进行点击，然后自动生成连接。将测试的接口进行抽象。那我还是需要模拟接口，只是其时真实的生成多个节点。</p>
+<p>ckDeviceSimulation 。开发一个接口，根据配置文件，显示出多个节点。</p>
+<p>压缩调试，降采样开发；<br>网络质量着一块，需要有评估算法。<br>比如设计几个参数，然后调整其策略。</p>
+<p>先做一个模拟设备生成。主要是生成一系列的线程。每个线程中维护一个节点，按照原有的配置进行。<br>设计一个配置群，根据此配置群生成线程，然后将线程持有。</p>
+<p>压缩算法表明，1024 字节，用 zlib 压缩完成后为 794， 而用 lz4 为 1029 。针对完全混乱的数据，即为如此。而协议的设定应该依据数据量的大小和网络质量进行适配并且压缩。<br>但是问题是谁来设置，理论上一个链路的质量可能是变化的，所以需要经常变更，变更的过程中， 根据不同的信息进行算法的变更。 – ？？ </p>
+<p>降采样只能自己写了。嵌入到多级多类任务队列中。<br>降采样其原来的设计理念，是根据网络的质量，用来优先确保高优先级的任务的送达，允许丢弃部分紧迫性低的任务，设置降采样策略，来将数据进行降次。<br>在当前架构中，嵌入到多级多类任务队列中。其基本理念是维持优先任务队列的任务数量来进行分发，这样才是比较合理的。维护数据量在一定范围内。<br>设定 max_data_num 为最大任务数目。<br>每次轮询的时候，判断，如果任务大与最大任务数目，则丢弃部分数据。该方法已经实现完成。<br>但是具体的实践和理论肯定是有差别的。</p>
+<p>多级多类任务队列的，阈值调控部分还有优化空间。</p>
+<p>[11.01]<br>这两个整理完成之后，就能将数据具体化。<br>需要统计哪些内容。</p>
+<ol>
+<li>多级多类任务队列的变化，需要体现出来；</li>
+<li>连接的断开，也需要进行响应，并且从图谱中移除； [x]</li>
+<li>然后就是单个连接的处理方法。首先就是任务送达情况。<ol>
+<li>在发送任务的过程中，会产生 send 失败的情况；作为丢包的依据。</li>
+</ol>
+</li>
+</ol>
+<p>模拟的生成也完成了。</p>
+<p>之后其实还是优化，让其能够显示。<br>主要体现在：</p>
+<ol>
+<li>状态监控，包括:<ol>
+<li>每个连接，都要显示，其收到了多少个数据，连接的状态是怎么样的，数据的特征如何(数据的字节数，数据压缩后的大小)，有多少数据发送失败；</li>
+<li>图谱，主要是提示作用，连接断开的时候需要有提示。</li>
+</ol>
+</li>
+</ol>
+<p>[11.02]<br><del>今天把所有的链路都打通。</del><br>还是先将实验内容完成。包括状态监控等。<br>如何将数据收集起来。<br>一个信息收集器，其包括单个的，还有整合性质的。最好是能够在实际上线的时候通过编译过滤掉。<br>但是这些也不是最重要的。不在指标之内。还不如先把指标内容完成。<br>这个架构的难度在于，要将零散的数据收集起来。而且还要设计何时重置。</p>
+<p>模拟发送数据。</p>
+<p>[11.08]<br>告一段落。其实如果进度可以的话，是可不用去出差的。但是时间限制，环境昨天也没有办法立刻运行。今天就要出发，只能出差了。<br>既然需要出差那么就不如先打磨一下代码，将需要写的文档规整规整。</p>
+<p>三个方面：</p>
+<ol>
+<li>开发：<ol>
+<li>降采样； - [x] 初步完成；</li>
+<li>适配通信协议; [x] -by xw</li>
+</ol>
+</li>
+<li>界面：<ol>
+<li>基本的界面，网络和任务分发 – 微调；[x]</li>
+<li>新开 – 测试；</li>
+</ol>
+</li>
+<li>测试部分；<ol>
+<li>布置多个节点程序，进行网络的发现；</li>
+<li>实验不同带宽下，任务分发的效果 – 1. 丢包率； 2. 带宽利用率，每秒的 bit 流；</li>
+</ol>
+</li>
+</ol>
+<p>[11.11]<br>今天上午先试试关于 VNC 的问题。<br>然后解决需要优化的部分。</p>
+<p>sudo docker run -it -p 5900:5900 tzdb_image<br>sudo docker build -t tzdb_image .</p>
+<p>下线和上线的规整。<br>首先，qt 工具集， qt 继承以重写部分方法，与 QT 界面进行联动。<br>如何更新，其实还是只能够更新一跳之内的。<br>而且整个网络的信息传递也需要。</p>
+<p>How remove ? remove vertex or edge?<br>actually edge can’t be remove , if localhost determined, remove edge same as remove vertex.<br>So , make sure to remove vertex for public interface.</p>
+<p><em>Then,about times.</em></p>
+<p>Then, system should respond to online.</p>
+<p>[11.13]</p>
+<ol>
+<li>when remove edge by send, delete error. may delete twice.</li>
+<li>should add item ,for recv item, and show which data cropping strategy was adopted.</li>
+</ol>
+<p>首先添加每个连接的可达节点。</p>
+<p>client cboxBindIP</p>
+<p>切换完成。</p>
+<p>需要加上，链路的质量。应该加入到哪里，显示在什么地方。</p>
+<p>printVertexRange 有 bug 。</p>
+<p>具体修改意见：</p>
+<ol>
+<li>界面改成 一跳， 两条，其他这种形式； - [x]</li>
+<li>在本机任务中，能看到带宽和裁剪策略； - [x]</li>
+<li>在发送的任务中，能够看到原始长度和发送的长度； - flushSendTask - [X]</li>
+<li>建立模拟数据，其中模拟的数据为固定的，根据不同带宽应该设置不同降采样阈值和压缩算法； - [x] 完成</li>
+</ol>
+<p>连接成功后，还是被连接的时候发送？应该是被连接的时候发送一份。 – 解决<br>设置连接的带宽，应该如何设置？？ – 这点的修改需要改变整个存储的结构, 先修改 dest_index, 使其保存网络质量的设置, 现在已经有框架能够完成网络质量的判定,之后就是显示.<br>关于显示,目前显示的是 NetInfo 的信息, 后续需要显示,则需要面向连接的显示. – 解决,已经进行了显示.</p>
+<p>127.0.0.82: 8014&#x2F;&#x2F; Bandwidth: 80.993138Mbps&#x2F;&#x2F; LZ4</p>
+<p>bind 的设置似乎还有些问题 - [x]<br>图谱更新还有问题 - [x]</p>
+<p>下一步就是显示分发的任务采用的何种压缩算法, 完善多级多类任务队列的状态.<br>如何显示是个问题,因为数据只有在实际发送的时候才会进行压缩, 其实此时, 任务是不知道其会采用何种发送方式, 以及面对何种裁剪策略的. 还是用测试包来做这件事。测试包里面含有信息，然后对上层来说明该包所采用的方法。 - 把原生的包 MMTask 发过去， 指定压缩算法，CONNECT 提供新的接口。降采样的影响，通过网络质量来影响队列的话，改变多级多类任务队列的阈值。<br>解包的时候其实我就知道是什么信息了，也就是说，read 的时候如果传递的是协议信息，那么就有完整的信息。</p>
+<p>MMTask</p>
+<p>taskRecvList</p>
+<p>ok, 状态测试监控开发完成, 之后就是渲染.</p>
+<p>数据放到多级多类任务队列里面的时候，其实已经被序列化了。<br>做一个预热机制。</p>
+<p>好像忘记了还有一个类叫做 NetDataTask 。distributeTask 的时候对 MMTask 进行了转换。其实，我们完全可以在 NetDataTask 中增加这些信息。然后在进行传递的时候，直接传递该结构，而不是传递解包之后的数据内容。 - 修改完成</p>
+<p>之后考虑:</p>
+<ol>
+<li>bug 问题；</li>
+<li>实验应该怎么做。</li>
+</ol>
+<p>Task Info:<br>Priority: 0<br>Deadline: 22694<br>Compression Algorithm: Lz4<br>Generated Time: 2024-11-15 16:12:25<br>Total Data Length: 1024 bytes<br>Compressed Data Length: 614 bytes</p>
+<p>后续建议：</p>
+<ol>
+<li>没有获取压缩长度 - [x]</li>
+<li>侧边栏进行设置 - [ ]</li>
+<li>分发的时候进行指定 - [x]</li>
+</ol>
+<p>btnSend<br>其实我们接收到的内容就不必体现了。<br>主要是要体现其发送的内容。</p>
+<p>btnListen to btnSend<br>btnSave - 刷新<br>btnClear - 删除所有任务 - 完成</p>
+<p>感觉其对任务的处理有些混乱。但是也正常，其实应该由 recv 进行处理。目前任务是未被取出的状态。</p>
+<p>带宽的调整，如果加入一个新的连接，那么就将调整队列的长度。 -  完成</p>
+<p>先调整图谱的问题。图谱目前就是更新后，但是并没有渲染出其内容。</p>
+<p>奇怪，图谱序列化和压缩算法都测试过了。为什么，接收到并且反序列化后的内容还是不对。<br>读取数据的时候，先读出原生数据，然后该数据经过了解压，到目前应该是没问题，解压之后。向上之后是 NetBaseCode , 此时解协议,其里面是什么?是一个 RASGraph, 到这里应该都没有问题.<br>反序列化应该是没问题的.</p>
+<p>序列化, 到 NetBaseCode 应该是没问题.<br>生成一个 MMTask ,经过一个转换, 变成 MonitoredTask , 是浅拷贝. - 但是没有删除 task 其内存还在<br>存入到队列中, 队列里面进行消费 MMTQ_consumer; getTaskData() ,转回去, 其直接返回的 task 中的内存. 这个时候不对了.<br>内存访问异常??RASVertex 解码问题. – 解决</p>
+<p>图谱更新失败, 是因为压根没有考虑到会有直接记录信息的 connect. – 解决，但是这个架子还是挺畸形，因为 connect 并没有只面向记录的内容。不过也解决了 graph 的序列化一些 bug。</p>
+<p>侧边栏设置。</p>
+<p>关于上线的问题， 要么就是直接连接， 使得整个网络图谱趋近于全连接。</p>
+<p>界面具体修改意见：</p>
+<ol>
+<li>自组织网络图的渲染问题； - [ ]</li>
+<li>显示一下队列总数 taskSendLabel - [x]</li>
+</ol>
+<p>其他功能：</p>
+<ol>
+<li>被动连接的带宽，暂时设置成默认； 5 MB&#x2F;s</li>
+</ol>
+<p>bug 提示：</p>
+<ol>
+<li>图存在多线程访问冲突 bug ， 体现在 for(auto:vector) 的访问中；</li>
+<li>数据接收有问题；旧的渲染模块还没有解耦；</li>
+</ol>
+<p>演示参数调整意见： - [x]</p>
+<ol>
+<li>8M NONE;</li>
+<li>2M Zlib;</li>
+<li>500KB lz4;</li>
+</ol>
+<p>降采样如何体现，按照当前的框架是区别体现在不同的节点上。<br>关于移除的数据，通过队列的长度来体现。</p>
+<p>调整参数使得且能够显示出对不同带宽的不同压缩策略。<br>表格修改。</p>
+<p>[virtual CONNECT::errorCode CONNECT::netRead(tzchar*&amp;, int, int&amp;, NetInfo**)]:line{351},return code{-14},return because of null<br>[virtual CONNECT::errorCode TcpConnect::netReadPackage(ProtocolFormat*&amp;, NetInfo**)]:line{271},return code{-14},return because false check<br>[short int io_recv_callback(IO_HANDLE*, void*)]:line{58},return code{0},return because of null</p>
+<p>[virtual short int TcpProtocol::stringToStruct(const tzchar*, int)]:line{104},return code{-1},return because false check</p>
+<p>发送 10 个数据， 每个都只接收到了两个。<br>只有第一个是有数据的，所以是什么地方的问题，数据进行反序列化？不对，网络图谱至少是更新了。</p>
+<p>kmp 有问题，如果字符串其有 0 字节，则会有访问异常。 - [ ] - 恶性 bug</p>
+<p>[11.25]<br>准备晚上去看看， http 和 websocket 的工具集合。看看能否模拟出来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 替换为你的 WebSocket 服务端路径</span></span><br><span class="line"><span class="keyword">const</span> socsssket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&#x27;ws://localhost:7080/netctl/websocket&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听连接成功</span></span><br><span class="line">socsssket.<span class="property">onopen</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;WebSocket connected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 如果需要发送消息，使用 socket.send(&#x27;your_message&#x27;);</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听服务器消息</span></span><br><span class="line">socsssket.<span class="property">onmessage</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Received message:&#x27;</span>, event.<span class="property">data</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听错误</span></span><br><span class="line">socssket.<span class="property">onerror</span> = <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;WebSocket error:&#x27;</span>, error);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听连接关闭</span></span><br><span class="line">socssket.<span class="property">onclose</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;WebSocket connection closed&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修复手动 remove 的 bug 。</li>
+</ol>
+<p>开发新的内容：</p>
+<ol>
+<li>图谱 node ；- [X]</li>
+<li>全连接图谱；</li>
+</ol>
+<p>全连接图谱就直接今天晚上调就可以了。<br>但是关于渲染成 node 形式。</p>
+<p>mock 所模拟的内容还有问题。</p>
+<p>[11.30]<br>开发新的内容：</p>
+<ol>
+<li>update for http。</li>
+</ol>
+<p>[12.01]<br>还有什么可以调整的内容。<br>那么就是进行测试或者添加二跳路由规则。</p>
+<p>然后适应一下空的情况。</p>
+<p>[12.05]<br>到目前为止，还有的问题，就是关闭连接之后，io model 也 remove来， 可是，一旦又建立了新的连接，其就会定位到之前的连接，然后一直进行处理。我怀疑是关闭的时候，并没有对操作符进行移除。</p>
+<p>[12.08]<br>带宽问题总是要解决的。还有多路由的连接也必须要采取降采样等措施。<br>带宽的设置，理想化的情况是通过连接的反序列化来使得其包含更多的有利信息。<br>其前提是，也是必然的项就是连接必须支持序列化。这个消息应该控制在尽可能小的范围内。<br>然后压缩算法也应该控制在尽可能小的范围之内。<br>或者我们直接反序列化网络质量。</p>
+<p>我还需要继续编写代码吗？似乎已经尘埃落定。虽然收录到总体测试大纲，并非这次的成果目标，但是总感觉没有做到最好。<br>时间上不需要。成本收束，等未来有时间自己将这次的代码上传到 github ，或者当成一个自己的项目玩。</p>
+<p>[12.18]<br>关于后续进行优化。首先就优化线程池。</p>
+<p>能够继承 DBThread 是可以的。<br>但是我期望的是 DBThread 可以是有返回值的。目前看来，多个系统适配已经难以修改。<br>加上中间层进行实现。<br>不过这不是最要紧的。最要紧的是将其和 thread pool 的耦合性消除。</p>
+<p>空闲队列怎么存取都是无关紧要的，但是正在运行的线程如何回收是个问题。<br>线程的自解耦是很诱人的，所以一开始使用的是双向链表，但是双向链表中的修改，需要持有其他元素。<br>线程弹出后，应该放入到空闲队列。<br>目前的措施是，局部持有该双向链表。将本对象给予 pool 进行回收。</p>
+<p>让线程池能够下发串行任务。</p>
+<p>实现给用户的类 ThreadPool ,用户使用其进行下发任务。其维护了一个存储线程的 ThreadQueue；维护了一个 ThreadTaskQueue 来存储任务。</p>
+<p>实现一个线程任务的类 ThreadTask 。其持有需要执行的线程函数指针，参数，及结果。<br>当用户在下发任务后，返回该类的指针。可以通过该类的 wait 函数等待该任务执行完成，并且支持设置等待的时间。<br>该任务进行下发后，将该类持有，使得 wait 会处于阻塞状态。</p>
+<p>实现一个线程类， 继承 DBThread, </p>
+<p>线程的并行化。<br>为实现线程的并行化，可以支持，单个线程收到多个任务。这一就直接完成了并行化。返回的是以 task 为单位的</p>
+<p>状态机如何设计。</p>
+<p>还是要有一个任务队列。<br>task 和 thread 进行解耦，指派任务的过程，可以通过链表来实现。有序和无序的数据结构。<br>订阅发布模式。</p>
+<p>[12.20]<br>:-1: error: [Makefile:582: ui_frmmain.h] Error 1</p>
+<p>专利：<br>走报送，技术交底书。</p>
+<p>信息材料报送。</p>
+<p>知悉范围：<br>所领导、项目主管、实验室领导、实验室支撑、项目组成员：</p>
+<p>nmcli connection show<br>nmcli connection up <connection_name></p>
+<p>blacklist nouveau</p>
+<p>要添加 NVIDIA 驱动的模式集参数，你可以按照以下步骤进行：</p>
+<pre><code>编辑 GRUB 配置文件： 打开 GRUB 配置文件：
+
+bash
+</code></pre>
+<p>sudo nano &#x2F;etc&#x2F;default&#x2F;grub</p>
+<p>添加模式集参数： 找到以 GRUB_CMDLINE_LINUX&#x3D; 开头的行，并在引号内添加 nvidia-drm.modeset&#x3D;1。例如：</p>
+<p>bash</p>
+<p>GRUB_CMDLINE_LINUX&#x3D;”quiet splash nvidia-drm.modeset&#x3D;1”</p>
+<p>更新 GRUB： 保存文件并退出编辑器后，更新 GRUB 配置：</p>
+<p>bash</p>
+<p>sudo grub2-mkconfig -o &#x2F;boot&#x2F;grub2&#x2F;grub.cfg</p>
+<p>重启系统： 重启计算机以使更改生效：</p>
+<p>bash</p>
+<p>sudo reboot</p>
+<p>[12.30]<br>做一个导入，制作，用印。<br>制作可以不管，用旧的。<br>但是导入和用印得走一下，封皮和交付清单。</p>
+<p>[1.15]<br>经费相关材料整理完成。项目已经结束。</p>
+<h1 id="出差日志-内蒙古-2024-11-21-2024-12-10"><a href="#出差日志-内蒙古-2024-11-21-2024-12-10" class="headerlink" title="出差日志 - 内蒙古[2024.11.21 - 2024.12.10]"></a>出差日志 - 内蒙古[2024.11.21 - 2024.12.10]</h1><h2 id="出差目标"><a href="#出差目标" class="headerlink" title="出差目标"></a>出差目标</h2><ul>
+<li>完成在实际环境中的演示验证。</li>
+</ul>
+<p>在出差前，已完成所内自测，基本能够展示指标要求。</p>
+<h2 id="总体意见"><a href="#总体意见" class="headerlink" title="总体意见"></a>总体意见</h2><p>记录从 12月8日 给总体曹东旭展示成果，软件能够顺利通过金美的接口构建完整的分布式网络。<br>但是曹东旭觉得与预期不符，由于金美软件接口只体现了交换机节点，未能体现出网络中的主机节点内容，未达到展示效果。<br>结论：项目基本完成，能够进行指标验收，不收录到总体测试大纲。</p>
+<p>追溯未收录到总体测试大纲原因：</p>
+<ol>
+<li>主要原因 – 不具备演示效果：<ol>
+<li>由于使用的是金美接口，未具体展示实际场景下的设备信息；</li>
+<li>无法展示所有的工作内容，网络图谱太过于简陋；</li>
+<li>功能性缺失；未展示所有图谱；</li>
+<li>展示问题；未对体系功能进行展示；</li>
+</ol>
+</li>
+<li>功能未达标：<ol>
+<li>界面粗糙；</li>
+</ol>
+</li>
+<li>其他原因：<ol>
+<li>总体的测试大纲中，分承合同功能并非强制要求收录；</li>
+</ol>
+</li>
+</ol>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ol>
+<li>对 docker 已经十分熟练，包括使用其进行单节点运行，多个节点部署， docker 网络部署，配置 docker 开发环境等；</li>
+<li>软件开发中：<ol>
+<li>采用组合模式和工厂模式，有效使得软件架构具有极大易扩展性；但是，对于 C++ 中的特性扩展仍然存在菱形继承问题，还需要进行实践；并且对 QT 的前端，应该采取何种开发模式并不熟悉；</li>
+<li>网络图谱，直接采用邻接矩阵的方式进行通信信息交换，即采用[节点序列，邻接矩阵]来描述点和边，固然节省空间，但是未携带足够的连接信息；而且其最大的问题是，不具备良性操作方式，如果采用的是树形结构，或者一开始就使用图形结构进行存储，将对软件运算有极大提升 – tips:至少，有利于画出尽可能少交叉点的网络拓扑图；</li>
+</ol>
+</li>
+<li>其他；</li>
+</ol>
+<h2 id="外场系统组成"><a href="#外场系统组成" class="headerlink" title="外场系统组成"></a>外场系统组成</h2><p>试验目的： 小专项试验；<br>关键设备： 雷达车， 指控车， 无线接收设备， 数据分发接收工具 bitflow， 天基分布式雷达指控系统， 航天金美随遇软件；其他可能存在的东西：装备车，导弹；<br>试验项目： 6 个序号；<br>实验队组成：体系室，各分所，调度，政工，技安，保密；</p>
+<h2 id="开发日记"><a href="#开发日记" class="headerlink" title="开发日记"></a>开发日记</h2><p>[11.21]<br>当天晚上到达宾馆，晚上上车开始调试，在所内测试效果，已经在车上完整达到。<br>提出两个需求，准备开发新功能：</p>
+<ol>
+<li>网络拓扑图；</li>
+<li>多跳节点的到达。<br>[11.22-11.24]<br>完成 docker 上搭建开发环境，熟练使用 docker。<br>开发：</li>
+<li>[拓扑界面功能]。<br>具备基本的显示功能，但是未过滤标签节点，存在 bug ：</li>
+<li>渲染的图片位置计算有问题；<br>[11.25-11.27]<br><em>对接金美软件，适配其接口</em>：</li>
+<li>发现模拟接口有些许不符合实际接口部分，进行修正； - 煊炜修改</li>
+<li>部分参数未按照手册编写，修改部分参数变量；</li>
+<li>需要记录并且完成对金美数据的回放；</li>
+<li>并且经过沟通，发现使用的接口有限，只能使用第一个接口获得图谱，并且定时获取来检测下线offline和上线的节点；<br>[11.28]<br>完善新功能：</li>
+<li>网络拓扑完善，过滤标签节点，调整界面；<br>开发新功能：</li>
+<li>[数据回放功能]制作 server ，对金美的 http 协议 json 文件进行记录，并且回放；</li>
+<li>[网络拓扑更新]对图谱进行开发，采用临时策略，依赖测试组件中的 [节点-目标]结构，进行图谱的更新和断联； - TODO:后续可优化为单节点订阅 http 接口进行更新；<br>[11.29-12.01]<br>修复 bug :</li>
+<li>修复手动 remove 的 bug;</li>
+<li>修复数据显示不全面的 bug;</li>
+<li>修改部分界面展示；</li>
+<li>修正[网络拓扑更新]中，反复对既定节点初始化的 bug ;<br>[12.01-12.3]<br>开发新功能：</li>
+<li>[多跳节点的通信功能];作为临时策略，使用网络层而非传输层实现，在 MonitoredTask 中负载路由信息，每个节点收到路由信息都进行传递；</li>
+<li>开发图谱的路径计算方式；</li>
+<li>将二跳通信功能嵌入已有框架；</li>
+<li>调整界面；</li>
+<li>修复部分bug;<br>[12.04-12.07]<br>修复 bug ：</li>
+<li>对 qt 界面部分加入大量容错代码；</li>
+<li>对 现有的 C++ 组件加入新的容错代码；</li>
+<li>对 io 模型进行测试；<br>解决恶性 bug :</li>
+<li>到目前为止，还有的问题就是关闭连接之后， io model 进行 remove 时，一旦又建立了新的连接，其就会定位到之前的连接，然后一直进行循环处理。 -[x] 解决怀疑是 io 模型在处理连接关闭的候，未对操作符进行移除。<br><em>完成阶段性工作</em>：</li>
+<li>大部分要求功能已经实现，确保软件正常运行期间不出现 bug 。</li>
+<li>与二院吴鼎展示目前效果；</li>
+<li>基本对完软件指标；<br>[12.08]<br>给总体曹东旭展示成果，能够顺利通过金美的接口构建完整的分布式网络。<br>但是曹博觉得与预期不符，由于金美软件接口只体现了交换机节点，未能体现出网络中的主机节点内容。<br>结论：项目基本完成，能够进行指标验收，不收录到总体测试大纲。</li>
+</ol>
+<p>追溯原因：</p>
+<ol>
+<li>本质是软件自动化不够；无法全面展示所研发的内容；</li>
+<li>界面太差；无法展示所有的工作内容，网络图谱太过于简陋；</li>
+<li>功能性缺失；未展示所有图谱；</li>
+<li>展示问题；未对体系功能进行展示。<br>[12.09]<br>完善测试大纲和测试报告；<br>准备次日回北京。</li>
+</ol>
+<h1 id="文档整理"><a href="#文档整理" class="headerlink" title="文档整理"></a>文档整理</h1><p>[12.21]</p>
+<ol>
+<li>修改经费文档 - 刘xh；加上专家费用(事务费用)；专利费用(管理费用)；- 需要项目明细； -[X]</li>
+<li>报销专利 - zh ， 受理通知为内部，不上网， 走管理费用；提 arp ； -[x]</li>
+<li>导入；</li>
+</ol>
+<p>[12.26]</p>
+<ol>
+<li>新的项目经费使用报告；<ol>
+<li>加上劳务合同以及聘用的说明；</li>
+</ol>
+</li>
+<li>管理费说明 - [X]</li>
+<li>重新盖章和制作；</li>
+</ol>
+<h2 id="经费使用"><a href="#经费使用" class="headerlink" title="经费使用"></a>经费使用</h2><p>专家意见：</p>
+<ol>
+<li>劳务人员明细需详细。实验室盖章，说明课题从几月聘用到几月。最好有劳务合同；项目聘用的证明。</li>
+<li>应付未付说明管理费，并盖章； - [x] 已写</li>
+<li>专利应该在管理费用而非事务费用； - [x] 已修改</li>
+<li>燃动费盖章；</li>
+</ol>
+<p>需要材料：</p>
+<ol>
+<li>2024.11项目聘用人员劳务费发放表；</li>
+<li>劳务人员聘用日期的说明；</li>
+<li>劳务合同证明；</li>
+</ol>
+<p>其他注意事项：</p>
+<ol>
+<li>合同打印扫描版，1 份，复印 2 份；</li>
+<li>附上专利发票；</li>
+</ol>
+<p>在编：<br>赵怡婧<br>刘雨蒙</p>
+<p>项目聘用<br>严林涛<br>李思登<br>王宇鑫<br>王中行<br>王潮<br>王碧聪<br>万梓航<br>唐尧<br>张炫炜<br>张宾<br>舒语</p>
+<h2 id="导入-key"><a href="#导入-key" class="headerlink" title="导入 key"></a>导入 key</h2><p>指挥控制 HHHH<br>指控 KKKK<br>作战 ZZZZ<br>GF</p>
+<p>原理样机集成验证技术<br>军委科技 JJJJ<br>166<br>秘密<br>智能防空反导体系技术 XXXX</p>
+<h2 id="后续流程"><a href="#后续流程" class="headerlink" title="后续流程"></a>后续流程</h2><p>用印 -打印非m 签字。<br>导入。</p>
+<ol>
+<li>合同打印一份，复制两份</li>
+<li>所有材料打印 2 份；</li>
+<li>制作，并且 + 标志和期限</li>
+</ol>
+<h2 id="总体评审材料修改"><a href="#总体评审材料修改" class="headerlink" title="总体评审材料修改"></a>总体评审材料修改</h2><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/work/distributedNet/%E5%BC%B1%E9%80%9A%E4%BF%A1.html">http://itheds.github.io/work/distributedNet/%E5%BC%B1%E9%80%9A%E4%BF%A1.html</a>
+            <p>发表日期：<a href="http://itheds.github.io/work/distributedNet/%E5%BC%B1%E9%80%9A%E4%BF%A1.html">May 27th 2024, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/work/distributedNet/%E5%BC%B1%E9%80%9A%E4%BF%A1.html">April 21st 2025, 11:20:07 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

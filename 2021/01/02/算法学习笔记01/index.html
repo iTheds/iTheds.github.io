@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="算法学习笔记01在本次学习中，C++与php各一份。程序 &#x3D; 算法 + 数据结构。本次学习内容全部为牛客网的基础刷题部分。 进度太慢了，需要加上时间来进行约束，超过时间直接看答案。 请使用标准输入输出(stdin，stdout) ；请把所有程序写在一个文件里勿使用图形、文件、网络、系统相关的操作，如sys&#x2F;stat.h , unistd.h , curl&#x2F;curl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法学习笔记01">
+<meta property="og:url" content="http://itheds.github.io/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="算法学习笔记01在本次学习中，C++与php各一份。程序 &#x3D; 算法 + 数据结构。本次学习内容全部为牛客网的基础刷题部分。 进度太慢了，需要加上时间来进行约束，超过时间直接看答案。 请使用标准输入输出(stdin，stdout) ；请把所有程序写在一个文件里勿使用图形、文件、网络、系统相关的操作，如sys&#x2F;stat.h , unistd.h , curl&#x2F;curl">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-01-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T05:49:55.878Z">
+<meta property="article:author" content="iTheds">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>算法学习笔记01 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">算法学习笔记01</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                算法学习笔记01
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+                    算法学习笔记01
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/01/02</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="算法学习笔记01"><a href="#算法学习笔记01" class="headerlink" title="算法学习笔记01"></a>算法学习笔记01</h1><p>在本次学习中，C++与php各一份。<br>程序 &#x3D; 算法 + 数据结构。<br>本次学习内容全部为牛客网的基础刷题部分。</p>
+<p>进度太慢了，需要加上时间来进行约束，超过时间直接看答案。</p>
+<p>请使用标准输入输出(stdin，stdout) ；请把所有程序写在一个文件里<br>勿使用图形、文件、网络、系统相关的操作，如sys&#x2F;stat.h , unistd.h , curl&#x2F;curl.h , process.h<br>编译命令：g++ Main.cc -o Main -O2 -fno-asm -Wall -lm -static</p>
+<h2 id="树和链表"><a href="#树和链表" class="headerlink" title="树和链表"></a>树和链表</h2><h3 id="重建二叉树-输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列-1-2-4-7-3-5-6-8-和中序遍历序列-4-7-2-1-5-3-8-6-，则重建二叉树并返回。"><a href="#重建二叉树-输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列-1-2-4-7-3-5-6-8-和中序遍历序列-4-7-2-1-5-3-8-6-，则重建二叉树并返回。" class="headerlink" title="重建二叉树 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。"></a>重建二叉树 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</h3><p>前序和中序遍历，指的是根节点在前和中。<br>所以主要的思想是截断，分块进行。</p>
+<p>前序遍历中第一位 1，是根节点，中序遍历分块：{4,7,2},<code>&#123;1&#125;</code>,{5,3,8,6}。<br>然后再看前序{2,4,7,3,5,6,8}，是2，<br>left分{4,7},<code>&#123;2&#125;</code> -&gt; <code>&#123;4&#125;</code>,{7}。<br>right分{5},<code>&#123;3&#125;</code>,{8,6} -&gt; {8},<code>&#123;6&#125;</code>。<br>所以确定要用到递归。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for binary tree</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">reBuild</span><span class="params">(vector&lt;<span class="type">int</span>&gt; pre,vector&lt;<span class="type">int</span>&gt; vin, <span class="type">int</span> p1, <span class="type">int</span> p2 ,<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( p1 &gt; p2 || v1 &gt; v2)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i = v1;i &lt;= v2 ;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vin[i] == pre [p1])&#123;</span><br><span class="line">                i = i - v1;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        TreeNode *node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pre[p1]);</span><br><span class="line">        node -&gt; left = <span class="built_in">reBuild</span>(pre, vin, p1 + <span class="number">1</span>, p1 + i , v1 , v1 + i - <span class="number">1</span>);</span><br><span class="line">        node -&gt; right = <span class="built_in">reBuild</span>(pre, vin, p1 + i + <span class="number">1</span>, p2, v1 + i + <span class="number">1</span>, v2);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">reConstructBinaryTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt; pre,vector&lt;<span class="type">int</span>&gt; vin)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pre.<span class="built_in">empty</span>() || vin.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode *node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pre[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">reBuild</span>(pre , vin , <span class="number">0</span> , pre.<span class="built_in">size</span>() - <span class="number">1</span> , <span class="number">0</span>, vin.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*class TreeNode&#123;</span></span><br><span class="line"><span class="comment">    var $val;</span></span><br><span class="line"><span class="comment">    var $left = NULL;</span></span><br><span class="line"><span class="comment">    var $right = NULL;</span></span><br><span class="line"><span class="comment">    function __construct($val)&#123;</span></span><br><span class="line"><span class="comment">        $this-&gt;val = $val;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pre int整型一维数组 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> vin int整型一维数组 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> TreeNode类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reConstructBinaryTree</span>(<span class="params"> <span class="variable">$pre</span> , <span class="variable">$vin</span> </span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><h3 id="用两个栈实现队列-用两个栈来实现一个队列，完成队列的Push和Pop操作。-队列中的元素为int类型。"><a href="#用两个栈实现队列-用两个栈来实现一个队列，完成队列的Push和Pop操作。-队列中的元素为int类型。" class="headerlink" title="用两个栈实现队列 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。"></a>用两个栈实现队列 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</h3><p>栈是先进后出，队列是先进先出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.<span class="built_in">push</span>(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(!stack2.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            tmp = stack2.<span class="built_in">top</span>();</span><br><span class="line">            stack2.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">return</span> tmp;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(stack1.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.<span class="built_in">empty</span>())&#123;</span><br><span class="line">                stack2.<span class="built_in">push</span>(stack1.<span class="built_in">top</span>());</span><br><span class="line">                stack1.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            tmp = stack2.<span class="built_in">top</span>();</span><br><span class="line">            stack2.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">return</span> tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; stack1;<span class="comment">//主要用于进栈</span></span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; stack2;<span class="comment">//主要用于出栈</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="variable">$stack</span> = <span class="keyword">new</span> <span class="title class_">\SplStack</span>();</span><br><span class="line"><span class="variable">$stack2</span> = <span class="keyword">new</span> <span class="title class_">\SplStack</span>();</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mypush</span>(<span class="params"><span class="variable">$node</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">global</span> <span class="variable">$stack</span>, <span class="variable">$stack2</span>;</span><br><span class="line">    <span class="variable">$stack</span>-&gt;<span class="title function_ invoke__">push</span>(<span class="variable">$node</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mypop</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">global</span> <span class="variable">$stack</span>, <span class="variable">$stack2</span>;</span><br><span class="line">    <span class="variable">$stack</span>-&gt;<span class="title function_ invoke__">rewind</span>();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="variable">$stack</span>-&gt;<span class="title function_ invoke__">isEmpty</span>()) &#123;</span><br><span class="line">         <span class="variable">$stack2</span>-&gt;<span class="title function_ invoke__">push</span>(<span class="variable">$stack</span>-&gt;<span class="title function_ invoke__">pop</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$dst</span> = <span class="variable">$stack2</span>-&gt;<span class="title function_ invoke__">pop</span>();</span><br><span class="line">    <span class="variable">$stack2</span>-&gt;<span class="title function_ invoke__">rewind</span>();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="variable">$stack2</span>-&gt;<span class="title function_ invoke__">isEmpty</span>()) &#123;</span><br><span class="line">         <span class="variable">$stack</span>-&gt;<span class="title function_ invoke__">push</span>(<span class="variable">$stack2</span>-&gt;<span class="title function_ invoke__">pop</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$dst</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实际问题"><a href="#实际问题" class="headerlink" title="实际问题"></a>实际问题</h2><h3 id="输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。"><a href="#输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。" class="headerlink" title="输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。"></a>输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。</h3><p>迭代，转换，与2相关。<br>数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function"><span class="type">int</span>  <span class="title">NumberOf1</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">         </span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="跳台阶-一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。"><a href="#跳台阶-一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。" class="headerlink" title="跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。"></a>跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</h3><p>两个解决方法，第一种遍历递归走一遍，第二种用理论知识数学计数原理。<br>看一下第一种解法，记忆并递归，走一遍所有可能性，绝对不会错，用count(j)进行计数。一开始是判断了 <code>i &gt; number</code> 和 <code>i ==number</code>，那么就会花费多有的资源进行无用的计算递归<code>i=number+1</code>的情况，所以直接在<code>number-1</code>的时候停止。<br>网上比较快的方式是动态规划，分成子问题，比如到n级的方法可以是基于n-2的，而n-2级的是基于n-4的。<br>所以n级的跳法$f(n)&#x3D;f(n-1)×1+f(n-2)×1$，为什么f(n-2)也是<code>1</code>种情况呢，因为f(n-1)种包含了f(n-2)到f(n)的跳1级方法。<br>以此类推，那么可以得知这是一个斐波那契数列。第一种方法的改良v2.0如代码v2。</p>
+<p>其实不需要用到动态规划的思想也可以发现是斐波那契数列，那么就是自上而下，从n开始往下走，这个时候就可以发现尾部数值都是1，所以在末尾的时候累加1也是可以的，这样就不需要一个<code>i</code>来进行存储进度了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种方法，运行时间 764ms 占用内存 504KB</span></span><br><span class="line"><span class="comment">//改良零头， 运行时间 442ms 占用内存 380KB</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">(<span class="type">int</span> number, <span class="type">int</span> i )</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= number<span class="number">-1</span>)&#123;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// if(i == number)&#123;</span></span><br><span class="line">        <span class="comment">//     j++;</span></span><br><span class="line">        <span class="comment">//     return;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="built_in">run</span>(number, i+<span class="number">1</span> );</span><br><span class="line">        <span class="built_in">run</span>(number, i+<span class="number">2</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="type">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(number &lt; <span class="number">0</span> )</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">run</span> (number, <span class="number">0</span> );</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种方法改良v2.0</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jumpFloor</span><span class="params">(<span class="type">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (number &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= number; ++i)&#123;</span><br><span class="line">            b = a + b;</span><br><span class="line">            a = b - a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>根本理论就是排序和组合，排序是取出的数亦有顺序，组合是没有顺序；<br>排序 $A\frac{m}{n}$ ，组合的思想是 $C\frac{m}{n}&#x3D;\frac{A\frac{m}{n}}{A\frac{m}{m}}$，组合按照排序的方法取出，之后除以按照取出的数的排序，从而锐减到组合的次序。</p>
+<p>插板子的思想，次数x可以取值的范围是(n为奇数)$[(n-1)&#x2F;2,n-1]$;<br>当 $x &#x3D; (n-1)&#x2F;2$时，只有一种可能就是全部都是1级跳，跳法 +1;<br>当 $x &#x3D; (n-1)&#x2F;2 +1$时，只存在1个2级跳，n-1个坑里面选一个不插板子，跳法 +(n-1);<br>当 $x &#x3D; (n-1)&#x2F;2 +2$时，存在2个2级跳，n-1个坑里面有2个不插板子，并且不可以相邻，跳法 + !(n-1-2);<br>当 $x &#x3D; (n-1)&#x2F;2 +3$时，存在3个2级跳，n-1个坑里面有3个不插板子，并且不可以相邻，跳法 + (n-1-1)(n-1-3)(n-1-6)&#x2F;!3;<br>当 $x &#x3D; (n-1)&#x2F;2 +m$时，存在m个2级跳，n-1个坑里面有m个不插板子，并且不可以相邻，跳法 + ?;</p>
+<p>问题是怎么处理相邻的位置，有两种情况。</p>
+<h3 id="矩阵覆盖-我们可以用21的小矩形横着或者竖着去覆盖更大的矩形。请问用n个21的小矩形无重叠地覆盖一个2-n的大矩形，总共有多少种方法？"><a href="#矩阵覆盖-我们可以用21的小矩形横着或者竖着去覆盖更大的矩形。请问用n个21的小矩形无重叠地覆盖一个2-n的大矩形，总共有多少种方法？" class="headerlink" title="矩阵覆盖 我们可以用21的小矩形横着或者竖着去覆盖更大的矩形。请问用n个21的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？"></a>矩阵覆盖 我们可以用2<em>1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2</em>1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？</h3><p>空间限制：C&#x2F;C++ 64M，其他语言128M<br>比如n&#x3D;3时，2*3的矩形块有3种覆盖方法。</p>
+<p>先找一下规律，2<em>n，因为一边的定长一定是2，先想到的是动态规划。<br>2</em>1，1种；2*2，2种。<br>f(n) &#x3D; f(n-1) + f(n-2);<br>也是一个斐波那契数列，没什么好说的，主要是要知道还有一种方法，用数组的方法，牺牲空间换取时间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rectCover</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">2</span>]=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i]=dp[i<span class="number">-1</span>]+dp[i<span class="number">-2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp.<span class="built_in">back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变态跳台阶-一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。"><a href="#变态跳台阶-一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。" class="headerlink" title="变态跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。"></a>变态跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</h3><p>这次还是用动态规划的思想。<br>$f(n) &#x3D; f(n-1) + f(n-2) +f(n-3) + … + f(2) + f(1) $<br>提供一些比较好的思路：</p>
+<ol>
+<li>用数组vector，进行累加，不用重复。</li>
+<li>$f(n) &#x3D; 2f(n-1) $ ，直接左移(×2)。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="comment">//15:14</span></span><br><span class="line">    <span class="comment">//15:21</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">run</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n;i ++)&#123;</span><br><span class="line">            j += <span class="built_in">run</span>(n - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jumpFloorII</span><span class="params">(<span class="type">int</span> number)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">run</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="comment">//     13:19</span></span><br><span class="line"><span class="comment">//     13:25</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jumpFloorII</span><span class="params">(<span class="type">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> index=<span class="number">2</span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; data;</span><br><span class="line">        data.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">        data.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">        data.<span class="built_in">push_back</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span>(index&lt;=number)&#123;</span><br><span class="line">            index++;</span><br><span class="line">            data.<span class="built_in">push_back</span>(<span class="number">2</span>*data[index<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[number];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相对基础"><a href="#相对基础" class="headerlink" title="相对基础"></a>相对基础</h2><h3 id="斐波那契数列-大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。n≤39"><a href="#斐波那契数列-大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。n≤39" class="headerlink" title="斐波那契数列 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。n≤39"></a>斐波那契数列 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。n≤39</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> a=<span class="number">0</span>,b=<span class="number">1</span>,c;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> a;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> b;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;n+<span class="number">1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            c=a+b;</span><br><span class="line">            a=b;</span><br><span class="line">            b=c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci</span>(<span class="params"><span class="variable">$n</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="variable">$dp</span>[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="variable">$dp</span>[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">2</span>;<span class="variable">$i</span>&lt;=<span class="variable">$n</span>;<span class="variable">$i</span>++) &#123;</span><br><span class="line">        <span class="variable">$dp</span>[<span class="variable">$i</span>] = <span class="variable">$dp</span>[<span class="variable">$i</span>-<span class="number">1</span>]+<span class="variable">$dp</span>[<span class="variable">$i</span>-<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$dp</span>[<span class="variable">$n</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="旋转数组的最小数字-局部有序寻找最小值。"><a href="#旋转数组的最小数字-局部有序寻找最小值。" class="headerlink" title="旋转数组的最小数字 局部有序寻找最小值。"></a>旋转数组的最小数字 局部有序寻找最小值。</h3><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。<br>输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。<br>NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
+<p>sync_with_stdio这个函数是一个“是否兼容stdio”的开关，C++为了兼容C，保证程序在使用了std::printf和std::cout的时候不发生混乱，将输出流绑到了一起。</p>
+<p>cin.tie()<br>cin.tie(NULL);只解除的是C++运行库层面的对数据传输的绑定。<br>STDIN和STDOUT应该在更底层的操作系统层面有绑定，没有解除<br>可以通过tie(0)（0表示NULL）<br>来解除cin与cout的绑定，进一步加快执行效率。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> x=[]&#123;</span><br><span class="line">    std::ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minNumberInRotateArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt; rotateArray)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(rotateArray.<span class="built_in">empty</span>())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> hight = rotateArray.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> mid = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(low &lt; hight)&#123;</span><br><span class="line">            mid = low + (hight - low)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(rotateArray[mid] &gt;= rotateArray[hight])</span><br><span class="line">                low =mid +<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                hight = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rotateArray[hight];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minNumberInRotateArray</span>(<span class="params"><span class="variable">$rotateArray</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">count</span>(<span class="variable">$rotateArray</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="variable">$low</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="variable">$high</span> = <span class="title function_ invoke__">count</span>(<span class="variable">$rotateArray</span>)-<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span>(<span class="variable">$high</span>-<span class="variable">$low</span>&gt;<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="variable">$mid</span> = (<span class="variable">$high</span> + <span class="variable">$low</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$rotateArray</span>[<span class="variable">$low</span>] &lt;= <span class="variable">$rotateArray</span>[<span class="variable">$mid</span>]) &#123;</span><br><span class="line">            <span class="variable">$low</span> = <span class="variable">$mid</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable">$high</span> = <span class="variable">$mid</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$rotateArray</span>[<span class="variable">$low</span>] &lt; <span class="variable">$rotateArray</span>[<span class="variable">$high</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$rotateArray</span>[<span class="variable">$low</span>];</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$rotateArray</span>[<span class="variable">$high</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="NC78-反转列表：输入一个链表，反转链表后，输出新链表的表头。-1-4"><a href="#NC78-反转列表：输入一个链表，反转链表后，输出新链表的表头。-1-4" class="headerlink" title="NC78 反转列表：输入一个链表，反转链表后，输出新链表的表头。(1.4)"></a>NC78 反转列表：输入一个链表，反转链表后，输出新链表的表头。(1.4)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">	int val;</span></span><br><span class="line"><span class="comment">	struct ListNode *next;</span></span><br><span class="line"><span class="comment">	ListNode(int x) :</span></span><br><span class="line"><span class="comment">			val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">ReverseList</span><span class="params">(ListNode* pHead)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//简单的置换操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ReverseList</span>(<span class="params"> <span class="variable">$head</span> </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$head</span> == <span class="literal">null</span> || <span class="variable">$head</span>-&gt;next == <span class="literal">null</span> )&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$head</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$x</span> = <span class="variable">$head</span>;</span><br><span class="line">    <span class="variable">$y</span> = <span class="variable">$x</span>-&gt;next;</span><br><span class="line">    <span class="variable">$x</span>-&gt;next = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="variable">$y</span>)&#123;</span><br><span class="line">        <span class="variable">$tmp</span> = <span class="variable">$y</span>-&gt;next;</span><br><span class="line">        <span class="variable">$y</span>-&gt;next = <span class="variable">$x</span>;</span><br><span class="line">        <span class="variable">$x</span> = <span class="variable">$y</span>;</span><br><span class="line">        <span class="variable">$y</span> = <span class="variable">$tmp</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$x</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二维数组中的查找-在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。"><a href="#二维数组中的查找-在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。" class="headerlink" title="二维数组中的查找 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。"></a>二维数组中的查找 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</h3><p>类二分法思想，首先要确定信标点在什么地方，肯定不可能是[x][l]为信标点，因为行末虽然更大，但是高行处也会有更小的数。<br>既然是二维数组，那么可以选择[x][x]作为信标。<br>最好的地方是[x&#x2F;√2]的位置，大概[2x&#x2F;3]。不对，思路有错误。<br>要确定区间，其实不能是[0][0]~[x][y]区间，而应该是排除法，进行取反是绝对可以排除的。<br>用count()计算数组大小。</p>
+<p>移动比较思路，从左下角开始，$t &gt; $x时，右移； $t &lt; $x 时，上移。向三个角移动，可以先用00和nn比较确定是否存在，那么就只剩下一个角，0n，比较完之后则可。<br>在这个思路下，我们可以直接从[n&#x2F;2][n&#x2F;2]开始，移动到任何一个临角(n0或0n)时结束。</p>
+<p>类二分法错误代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//该代码中信标选择错误。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"><span class="variable">$target</span> ,  <span class="variable">$array</span> , <span class="variable">$m</span> , <span class="variable">$n</span>, <span class="variable">$l</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$n</span> == <span class="variable">$m</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$x</span> = <span class="number">0</span>; <span class="variable">$x</span> &lt; <span class="variable">$l</span>; <span class="variable">$x</span>++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$array</span>[<span class="variable">$m</span>][<span class="variable">$x</span>] == <span class="variable">$target</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;true&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;false&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$array</span>[(<span class="variable">$n</span>-<span class="variable">$m</span>)/<span class="number">2</span> + <span class="variable">$m</span>][<span class="variable">$l</span> - <span class="number">1</span>] &gt; <span class="variable">$target</span> )&#123;</span><br><span class="line">        <span class="variable">$n</span> = (<span class="variable">$n</span>-<span class="variable">$m</span>)/<span class="number">2</span> + <span class="variable">$m</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$m</span> = (<span class="variable">$n</span>-<span class="variable">$m</span>)/<span class="number">2</span> + <span class="variable">$m</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_ invoke__">run</span>(<span class="variable">$target</span> ,  <span class="variable">$array</span> , <span class="variable">$m</span> , <span class="variable">$n</span>, <span class="variable">$l</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Find</span>(<span class="params"> <span class="variable">$target</span> ,  <span class="variable">$array</span> </span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="variable">$l</span> = <span class="title function_ invoke__">count</span>(<span class="variable">$array</span>) ;</span><br><span class="line">    <span class="variable">$m</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="variable">$n</span> = <span class="variable">$l</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">run</span>(<span class="variable">$target</span> ,  <span class="variable">$array</span> , <span class="variable">$m</span> , <span class="variable">$n</span>, <span class="variable">$l</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fscanf()函数：fscanf(file,format,mixed)，指定的格式对来自打开的文件的输入进行解析。<br>PHP CLI(command line interface)中，有三个系统常量，分别是STDIN、STDOUT、STDERR，代表文件句柄。<br>fscanf(STDIN, “%d,%s”, $a,$b)，其中变量可控，根据format决定mixed的数量，可以使用正则表达式。<br>eval(phpcode)把字符串按照 PHP 代码来计算。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$stdin</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;php://stdin&#x27;</span>,<span class="string">&#x27;r&#x27;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>遍历：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Find</span>(<span class="params"><span class="variable">$target</span>, <span class="variable">$array</span></span>)//直接遍历</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$array</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$val</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">in_array</span>(<span class="variable">$target</span>,<span class="variable">$val</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;true&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;false&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将输入识别并持续运行输出</span></span><br><span class="line"><span class="keyword">while</span>(<span class="title function_ invoke__">fscanf</span>(STDIN, <span class="string">&quot;%d,%s&quot;</span>, <span class="variable">$a</span>,<span class="variable">$b</span>) == <span class="number">2</span>)&#123;<span class="comment">//facanf函数读取输入到 a,b</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="variable">$target</span> = <span class="variable">$a</span>;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="string">&#x27;$array = &#x27;</span>.<span class="variable">$b</span>.<span class="string">&quot;;&quot;</span>);<span class="comment">//解释内容为php代码</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="title function_ invoke__">Find</span>(<span class="variable">$target</span>, <span class="variable">$array</span>).<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(<span class="built_in">Exception</span> <span class="variable">$e</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="替换空格-请实现一个函数，将一个字符串中的每个空格替换成“-20”。例如，当字符串为We-Are-Happy-则经过替换之后的字符串为We-20Are-20Happy。"><a href="#替换空格-请实现一个函数，将一个字符串中的每个空格替换成“-20”。例如，当字符串为We-Are-Happy-则经过替换之后的字符串为We-20Are-20Happy。" class="headerlink" title="替换空格 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。"></a>替换空格 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</h3><p>考察替换函数str_replace();</p>
+<p>如果是使用C++实现，那么要注意从前往后和从后往前的区别。移动次数要数从后往前更少。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">replaceSpace</span>(<span class="params"><span class="variable">$str</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span>,<span class="variable">$str</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从尾到头打印链表-输入一个链表，按链表从尾到头的顺序返回一个ArrayList。"><a href="#从尾到头打印链表-输入一个链表，按链表从尾到头的顺序返回一个ArrayList。" class="headerlink" title="从尾到头打印链表 输入一个链表，按链表从尾到头的顺序返回一个ArrayList。"></a>从尾到头打印链表 输入一个链表，按链表从尾到头的顺序返回一个ArrayList。</h3><p>递归调用返回例子如下。但是内存机制限制，php似乎并不会另外开辟空间进行运算。<br>可以直接使用array_unshift()从头部插入。<br>array_push()为从尾部插入数据。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*class ListNode&#123;</span></span><br><span class="line"><span class="comment">    var $val;</span></span><br><span class="line"><span class="comment">    var $next = NULL;</span></span><br><span class="line"><span class="comment">    function __construct($x)&#123;</span></span><br><span class="line"><span class="comment">        $this-&gt;val = $x;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head ListNode类 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> int整型一维数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printListFromTailToHead</span>(<span class="params"> <span class="variable">$head</span> </span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="variable">$array</span> = [];</span><br><span class="line">    <span class="title function_ invoke__">run</span>(<span class="variable">$array</span>,<span class="variable">$head</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"><span class="variable">$array</span>,<span class="variable">$head</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$head</span>-&gt;next != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="title function_ invoke__">array_unshift</span>(<span class="variable">$array</span>,<span class="variable">$head</span>-&gt;val);</span><br><span class="line">        <span class="title function_ invoke__">run</span>(<span class="variable">$array</span>,<span class="variable">$head</span>-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// return array_push($array,$head-&gt;val);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printListFromTailToHead</span>(<span class="params"> <span class="variable">$head</span> </span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="variable">$array</span> = <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">while</span>(<span class="variable">$head</span> != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="title function_ invoke__">array_unshift</span>(<span class="variable">$array</span>,<span class="variable">$head</span>-&gt; val);</span><br><span class="line">        <span class="variable">$head</span> = <span class="variable">$head</span>-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$array</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。-1"><a href="#输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。-1" class="headerlink" title="输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。"></a>输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。</h3><p>模2 并移位 ， 移位异或 都是32次。</p>
+<p>val 和 (val - 1) 进行与操作。赋值给val，直到val为0。<br>空间复杂度直接就是O(n)，n为1的个数。</p>
+<p>怎么理解？<br>val - 1.<br>10000 - 1 &#x3D; 1111<br>10001 - 1 &#x3D; 10000</p>
+<p>一种理解是，利用与的特性。反正val 和 任何数取与，得到的数中包含的 1 ，都不会超过val。那不如就是找一个方法，消除val中的1。并且消除1的个数还是一个一个消除的，那么就得到了本题结果。而一个一个消除的方法，就是取d &#x3D; 1，这样就跳过了一段0很多的情况。关于d取其他数，可行性未知，有可能会适得其反。</p>
+<p>这是逆向思维，但是顺势思维未有多想。</p>
+<p>大佬的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function"><span class="type">int</span>  <span class="title">NumberOf1</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> val = n; <span class="comment">// input data</span></span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (val != <span class="number">0</span>) &#123;</span><br><span class="line">            ++ans;</span><br><span class="line">            val = val &amp; (val<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="请实现一个函数，将一个字符串中的每个空格替换成“-20”。例如，当字符串为We-Are-Happy-则经过替换之后的字符串为We-20Are-20Happy。"><a href="#请实现一个函数，将一个字符串中的每个空格替换成“-20”。例如，当字符串为We-Are-Happy-则经过替换之后的字符串为We-20Are-20Happy。" class="headerlink" title="请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。"></a>请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</h3><p>没什么好说的，如果是char*就是移位的方法。string直接+。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param s string字符串 </span></span><br><span class="line"><span class="comment">     * @return string字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">string <span class="title">replaceSpace</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">         string ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)ans+=s[i];</span><br><span class="line">            <span class="keyword">else</span> ans+=<span class="string">&quot;%20&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。"><a href="#给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。" class="headerlink" title="给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。"></a>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</h3><p>保证base和exponent不同时为0。不得使用库函数，同时不需要考虑大数问题，也不用考虑小数点后面0的位数。</p>
+<p>需要考虑正负问题。<br>正直接乘。<br>判断正负，如果是负数，1&#x2F;base。</p>
+<p>下例程序：</p>
+<ol>
+<li>逗号运算符，使得if语句不使用{}而执行多次操作。</li>
+<li>移位运算</li>
+<li>适应移位运算的res。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">Power</span><span class="params">(<span class="type">double</span> base, <span class="type">int</span> exponent)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">double</span> res = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span>(exponent&lt;<span class="number">0</span>)base = <span class="number">1.0</span>/base,exponent*=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(exponent)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(exponent&amp;<span class="number">1</span>)res = res*base;</span><br><span class="line">            base*= base;</span><br><span class="line">            exponent&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="EOF"><a href="#EOF" class="headerlink" title="EOF"></a>EOF</h1><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">http://itheds.github.io/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">January 2nd 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">April 21st 2025, 1:49:55 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="`Linux`编程笔记">
+                    <div class="nextTitle">`Linux`编程笔记</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2018/07/25/AntDesignPro/" title="RESTful架构与Ant Design Pro开发项目">
+                    <div class="prevTitle">RESTful架构与Ant Design Pro开发项目</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001"><span class="toc-number">1.</span> <span class="toc-text">算法学习笔记01</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%92%8C%E9%93%BE%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">树和链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91-%E8%BE%93%E5%85%A5%E6%9F%90%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%AF%B7%E9%87%8D%E5%BB%BA%E5%87%BA%E8%AF%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E3%80%82%E5%81%87%E8%AE%BE%E8%BE%93%E5%85%A5%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%AD%E9%83%BD%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97%E3%80%82%E4%BE%8B%E5%A6%82%E8%BE%93%E5%85%A5%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97-1-2-4-7-3-5-6-8-%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97-4-7-2-1-5-3-8-6-%EF%BC%8C%E5%88%99%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B9%B6%E8%BF%94%E5%9B%9E%E3%80%82"><span class="toc-number">1.1.1.</span> <span class="toc-text">重建二叉树 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97"><span class="toc-number">1.2.</span> <span class="toc-text">栈和队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%98%9F%E5%88%97%EF%BC%8C%E5%AE%8C%E6%88%90%E9%98%9F%E5%88%97%E7%9A%84Push%E5%92%8CPop%E6%93%8D%E4%BD%9C%E3%80%82-%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%BAint%E7%B1%BB%E5%9E%8B%E3%80%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">用两个栈实现队列 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">实际问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%EF%BC%8C%E8%BE%93%E5%87%BA%E8%AF%A5%E6%95%B032%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82%E5%85%B6%E4%B8%AD%E8%B4%9F%E6%95%B0%E7%94%A8%E8%A1%A5%E7%A0%81%E8%A1%A8%E7%A4%BA%E3%80%82"><span class="toc-number">1.3.1.</span> <span class="toc-text">输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E5%8F%B0%E9%98%B6-%E4%B8%80%E5%8F%AA%E9%9D%92%E8%9B%99%E4%B8%80%E6%AC%A1%E5%8F%AF%E4%BB%A5%E8%B7%B3%E4%B8%8A1%E7%BA%A7%E5%8F%B0%E9%98%B6%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%B3%E4%B8%8A2%E7%BA%A7%E3%80%82%E6%B1%82%E8%AF%A5%E9%9D%92%E8%9B%99%E8%B7%B3%E4%B8%8A%E4%B8%80%E4%B8%AAn%E7%BA%A7%E7%9A%84%E5%8F%B0%E9%98%B6%E6%80%BB%E5%85%B1%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E8%B7%B3%E6%B3%95%EF%BC%88%E5%85%88%E5%90%8E%E6%AC%A1%E5%BA%8F%E4%B8%8D%E5%90%8C%E7%AE%97%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%89%E3%80%82"><span class="toc-number">1.3.2.</span> <span class="toc-text">跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E8%A6%86%E7%9B%96-%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E7%94%A821%E7%9A%84%E5%B0%8F%E7%9F%A9%E5%BD%A2%E6%A8%AA%E7%9D%80%E6%88%96%E8%80%85%E7%AB%96%E7%9D%80%E5%8E%BB%E8%A6%86%E7%9B%96%E6%9B%B4%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2%E3%80%82%E8%AF%B7%E9%97%AE%E7%94%A8n%E4%B8%AA21%E7%9A%84%E5%B0%8F%E7%9F%A9%E5%BD%A2%E6%97%A0%E9%87%8D%E5%8F%A0%E5%9C%B0%E8%A6%86%E7%9B%96%E4%B8%80%E4%B8%AA2-n%E7%9A%84%E5%A4%A7%E7%9F%A9%E5%BD%A2%EF%BC%8C%E6%80%BB%E5%85%B1%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="toc-number">1.3.3.</span> <span class="toc-text">矩阵覆盖 我们可以用21的小矩形横着或者竖着去覆盖更大的矩形。请问用n个21的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6-%E4%B8%80%E5%8F%AA%E9%9D%92%E8%9B%99%E4%B8%80%E6%AC%A1%E5%8F%AF%E4%BB%A5%E8%B7%B3%E4%B8%8A1%E7%BA%A7%E5%8F%B0%E9%98%B6%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%B3%E4%B8%8A2%E7%BA%A7%E2%80%A6%E2%80%A6%E5%AE%83%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%B3%E4%B8%8An%E7%BA%A7%E3%80%82%E6%B1%82%E8%AF%A5%E9%9D%92%E8%9B%99%E8%B7%B3%E4%B8%8A%E4%B8%80%E4%B8%AAn%E7%BA%A7%E7%9A%84%E5%8F%B0%E9%98%B6%E6%80%BB%E5%85%B1%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E8%B7%B3%E6%B3%95%E3%80%82"><span class="toc-number">1.3.4.</span> <span class="toc-text">变态跳台阶 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%9F%BA%E7%A1%80"><span class="toc-number">1.4.</span> <span class="toc-text">相对基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97-%E5%A4%A7%E5%AE%B6%E9%83%BD%E7%9F%A5%E9%81%93%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%EF%BC%8C%E7%8E%B0%E5%9C%A8%E8%A6%81%E6%B1%82%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0n%EF%BC%8C%E8%AF%B7%E4%BD%A0%E8%BE%93%E5%87%BA%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%E7%9A%84%E7%AC%ACn%E9%A1%B9%EF%BC%88%E4%BB%8E0%E5%BC%80%E5%A7%8B%EF%BC%8C%E7%AC%AC0%E9%A1%B9%E4%B8%BA0%EF%BC%8C%E7%AC%AC1%E9%A1%B9%E6%98%AF1%EF%BC%89%E3%80%82n%E2%89%A439"><span class="toc-number">1.4.1.</span> <span class="toc-text">斐波那契数列 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。n≤39</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97-%E5%B1%80%E9%83%A8%E6%9C%89%E5%BA%8F%E5%AF%BB%E6%89%BE%E6%9C%80%E5%B0%8F%E5%80%BC%E3%80%82"><span class="toc-number">1.4.2.</span> <span class="toc-text">旋转数组的最小数字 局部有序寻找最小值。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NC78-%E5%8F%8D%E8%BD%AC%E5%88%97%E8%A1%A8%EF%BC%9A%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8%E5%90%8E%EF%BC%8C%E8%BE%93%E5%87%BA%E6%96%B0%E9%93%BE%E8%A1%A8%E7%9A%84%E8%A1%A8%E5%A4%B4%E3%80%82-1-4"><span class="toc-number">1.4.3.</span> <span class="toc-text">NC78 反转列表：输入一个链表，反转链表后，输出新链表的表头。(1.4)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE-%E5%9C%A8%E4%B8%80%E4%B8%AA%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%EF%BC%88%E6%AF%8F%E4%B8%AA%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%E7%9B%B8%E5%90%8C%EF%BC%89%EF%BC%8C%E6%AF%8F%E4%B8%80%E8%A1%8C%E9%83%BD%E6%8C%89%E7%85%A7%E4%BB%8E%E5%B7%A6%E5%88%B0%E5%8F%B3%E9%80%92%E5%A2%9E%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%AF%8F%E4%B8%80%E5%88%97%E9%83%BD%E6%8C%89%E7%85%A7%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E9%80%92%E5%A2%9E%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F%E3%80%82%E8%AF%B7%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E8%BE%93%E5%85%A5%E8%BF%99%E6%A0%B7%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E5%92%8C%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%EF%BC%8C%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E8%AF%A5%E6%95%B4%E6%95%B0%E3%80%82"><span class="toc-number">1.4.4.</span> <span class="toc-text">二维数组中的查找 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC-%E8%AF%B7%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%86%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E7%A9%BA%E6%A0%BC%E6%9B%BF%E6%8D%A2%E6%88%90%E2%80%9C-20%E2%80%9D%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%BD%93%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%BAWe-Are-Happy-%E5%88%99%E7%BB%8F%E8%BF%87%E6%9B%BF%E6%8D%A2%E4%B9%8B%E5%90%8E%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%BAWe-20Are-20Happy%E3%80%82"><span class="toc-number">1.4.5.</span> <span class="toc-text">替换空格 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8-%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%8C%E6%8C%89%E9%93%BE%E8%A1%A8%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AAArrayList%E3%80%82"><span class="toc-number">1.4.6.</span> <span class="toc-text">从尾到头打印链表 输入一个链表，按链表从尾到头的顺序返回一个ArrayList。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%EF%BC%8C%E8%BE%93%E5%87%BA%E8%AF%A5%E6%95%B032%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82%E5%85%B6%E4%B8%AD%E8%B4%9F%E6%95%B0%E7%94%A8%E8%A1%A5%E7%A0%81%E8%A1%A8%E7%A4%BA%E3%80%82-1"><span class="toc-number">1.4.7.</span> <span class="toc-text">输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%86%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E7%A9%BA%E6%A0%BC%E6%9B%BF%E6%8D%A2%E6%88%90%E2%80%9C-20%E2%80%9D%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%BD%93%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%BAWe-Are-Happy-%E5%88%99%E7%BB%8F%E8%BF%87%E6%9B%BF%E6%8D%A2%E4%B9%8B%E5%90%8E%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%BAWe-20Are-20Happy%E3%80%82"><span class="toc-number">1.4.8.</span> <span class="toc-text">请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AAdouble%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0base%E5%92%8Cint%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B4%E6%95%B0exponent%E3%80%82%E6%B1%82base%E7%9A%84exponent%E6%AC%A1%E6%96%B9%E3%80%82"><span class="toc-number">1.4.9.</span> <span class="toc-text">给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EOF"><span class="toc-number">2.</span> <span class="toc-text">EOF</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

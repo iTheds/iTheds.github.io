@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="算法导论理论方式算法是一种计算方式，而其合理性的与否则需要我们单独的论证。  子集树和排列树 两种问题解空间树的常用类型  显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o(n+e) 算法思想 二分查找法 算法的时间复杂度是O(log2n)  递归算法 关键在于找出，边界条件和递归方程。  动态规划 自底向上求解 基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论">
+<meta property="og:url" content="http://itheds.github.io/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="算法导论理论方式算法是一种计算方式，而其合理性的与否则需要我们单独的论证。  子集树和排列树 两种问题解空间树的常用类型  显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o(n+e) 算法思想 二分查找法 算法的时间复杂度是O(log2n)  递归算法 关键在于找出，边界条件和递归方程。  动态规划 自底向上求解 基">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T05:50:12.538Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>算法导论 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">算法导论</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                算法导论
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+                    这篇文章请君留步
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="JAVA">JAVA</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="C/C++">C/C++</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="算法">算法</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2018/06/18</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><h2 id="理论方式"><a href="#理论方式" class="headerlink" title="理论方式"></a>理论方式</h2><p>算法是一种计算方式，而其合理性的与否则需要我们单独的论证。</p>
+<blockquote>
+<h3 id="子集树和排列树-两种问题解空间树的常用类型"><a href="#子集树和排列树-两种问题解空间树的常用类型" class="headerlink" title="子集树和排列树 两种问题解空间树的常用类型"></a>子集树和排列树 两种问题解空间树的常用类型</h3></blockquote>
+<blockquote>
+<h3 id="显示图-显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o-n-e"><a href="#显示图-显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o-n-e" class="headerlink" title="显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o(n+e)"></a>显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o(n+e)</h3></blockquote>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><blockquote>
+<h3 id="二分查找法-算法的时间复杂度是O-log2n"><a href="#二分查找法-算法的时间复杂度是O-log2n" class="headerlink" title="二分查找法 算法的时间复杂度是O(log2n)"></a>二分查找法 算法的时间复杂度是O(log2n)</h3></blockquote>
+<blockquote>
+<h3 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h3></blockquote>
+<p>关键在于找出，<code>边界条件</code>和<code>递归方程</code>。</p>
+<blockquote>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3></blockquote>
+<p>自底向上求解</p>
+<p>基本要素:</p>
+<ul>
+<li>最优子结构  当问题的最优解包含了其子问题的最优解时，称该问题具有最优子结构性质。问题的最优子结构性质提供了该问题可用动态规划算法求解的重要线索。在动态规划算法中，利用问题的最优子结构性质，以自底向上的方式递归地从子问题的最优解逐步构造出整个问题的最优解。</li>
+<li>重叠子问题  可用动态规划算法求解的问题应具备的另一个基本要素是子问题的重叠性质。在用递归算法自顶向下求解问题时，每次产生的子问题并不总是新问题，有些子问题被反复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只解一次，而后将<code>其解保存在一个表格中</code>，当再次需要此子问题时，只要简单地用<code>常数时间</code>查看一下结果。通常，不同的子问题个数随问题的大小呈多项式增长。因此，用动态规划算法通常只需要多项式时间，从而获得较高的解题效率。</li>
+</ul>
+<p>重叠子问题则表明动态规划不需要满足被分解成的小问题彼此独立。</p>
+<blockquote>
+<h3 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h3></blockquote>
+<p>子问题不能重复<br>子问题可以合并<br>原问题和子问题使用相同方法求解</p>
+<blockquote>
+<h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3></blockquote>
+<ul>
+<li><code>概念</code></li>
+</ul>
+<p>顾名思义，贪心算法总是作出在当前看来最好的选择。也就是说贪心算法并不从整体最优考虑，它所作出的选择只是在某种意义上的局部最优选择。当然，希望贪心算法得到的最终结果也是整体最优的。虽然贪心算法不能对所有问题都得到整体最优解，但对许多问题它能产生整体最优解。如单源最短路经问题，最小生成树问题等。在一些情况下，即使贪心算法不能得到整体最优解，其最终结果却是最优解的很好近似。</p>
+<p>贪心算法中最重要的核心就在于证明在一种当前情况下最好的选择对于总体来说是最好的选择。<br>一般会设计一个递归算法来实现贪心策略。然后将递归算法转换为迭代算法。</p>
+<ul>
+<li><code>基本要素</code></li>
+</ul>
+<ol>
+<li><code>贪心选择性质</code>    所谓贪心选择性质是指所求问题的整体最优解可以通过一系列局部最优的选择，即贪心选择来达到。这是贪心算法可行的第一个基本要素，也是贪心算法与动态规划算法的主要区别。</li>
+</ol>
+<p>动态规划算法通常以自底向上的方式解各子问题，而贪心算法则通常以自顶向下的方式进行，以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题。</p>
+<p>对于一个具体问题，要确定它是否具有贪心选择性质，必须证明每一步所作的贪心选择最终导致问题的整体最优解。</p>
+<ol start="2">
+<li><code>最优子结构性质</code>    当一个问题的最优解包含其子问题的最优解时，称此问题具有最优子结构性质。问题的最优子结构性质是该问题可用动态规划算法或贪心算法求解的关键特征。</li>
+</ol>
+<ul>
+<li><code>基本思路</code></li>
+</ul>
+<p>从问题的某一个初始解出发逐步逼近给定的目标，以尽可能快的地求得更好的解。当达到算法中的某一步不能再继续前进时，算法停止。</p>
+<p>该算法存在问题：</p>
+<ol>
+<li><p>不能保证求得的最后解是最佳的；</p>
+</li>
+<li><p>不能用来求最大或最小解问题；</p>
+</li>
+<li><p>只能求满足某些约束条件的可行解的范围。</p>
+</li>
+</ol>
+<p>实现该算法的过程：</p>
+<p>从问题的某一初始解出发；</p>
+<p>while 能朝给定总目标前进一步 do</p>
+<p>　　 求出可行解的一个解元素；</p>
+<p>由所有解元素组合成问题的一个可行解；</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718">参考网站</a></p>
+<blockquote>
+<h3 id="分支限界法"><a href="#分支限界法" class="headerlink" title="分支限界法"></a>分支限界法</h3></blockquote>
+<p>搜索方式：<br>广度优先<br>最小消耗有限</p>
+<blockquote>
+<h3 id="舍伍德算法"><a href="#舍伍德算法" class="headerlink" title="舍伍德算法"></a>舍伍德算法</h3></blockquote>
+<p>这是一种随机化算法</p>
+<hr>
+<blockquote>
+<h3 id="辨析"><a href="#辨析" class="headerlink" title="辨析"></a>辨析</h3></blockquote>
+<ul>
+<li>回溯法和分支限界法</li>
+</ul>
+<p>相同点：二者都是一种在问题的解空间树T上搜索问题解的算法。<br>不同点：1.在一般情况下，分支限界法与回溯法的求解目标不同。<br>回溯法的求解目标是找出T中满足约束条件的所有解，而分支限界法的求解目标则是找出满足约束条件的一个解，或是在满足约束条件的解中找出使某一目标函数值达到极大或极小的解，即在某种意义下的最优解。<br>2.回溯法与分支-限界法对解空间的搜索方式不同，回溯法通常采用尝试深度优先搜索，而分支限界法则通常采用广度优先搜索。<br>3.对节点存储的常用数据结构以及节点存储特性也各不相同，除由搜索方式决定的不同的存储结构外，分支限界法通常需要存储一些额外的信息以利于进一步地展开搜索。</p>
+<h2 id="具体问题"><a href="#具体问题" class="headerlink" title="具体问题"></a>具体问题</h2><blockquote>
+<h3 id="哈弗曼编码-Huffman编码"><a href="#哈弗曼编码-Huffman编码" class="headerlink" title="哈弗曼编码(Huffman编码)"></a>哈弗曼编码(Huffman编码)</h3></blockquote>
+<p>用于压缩数据，使用贪心算法来解决。主要是使用Full二叉树来求解出最优的编码方案。最优方案是变长编码。<br>如何证明其有贪心选择性，是使用此算法的关键所在。<br>首先比较的是变长编码和定长编码的优劣，使频率最高的长度最小自然是最好的方法。</p>
+<blockquote>
+<h3 id="最小生成树-Minimum-spanning-tree"><a href="#最小生成树-Minimum-spanning-tree" class="headerlink" title="最小生成树(Minimum-spanning-tree)"></a>最小生成树(Minimum-spanning-tree)</h3></blockquote>
+<p>使用贪心算法求解</p>
+<blockquote>
+<h3 id="最长公共子序列问题-Longest-common-subsequence-problem"><a href="#最长公共子序列问题-Longest-common-subsequence-problem" class="headerlink" title="最长公共子序列问题(Longest-common-subsequence problem)"></a>最长公共子序列问题(Longest-common-subsequence problem)</h3></blockquote>
+<p>使用动态规划来解决，主要构造了一个表格。</p>
+<blockquote>
+<h3 id="最优二叉搜索树-Optimal-binary-search"><a href="#最优二叉搜索树-Optimal-binary-search" class="headerlink" title="最优二叉搜索树(Optimal binary search)"></a>最优二叉搜索树(Optimal binary search)</h3></blockquote>
+<p>使用动态规划来解决问题。</p>
+<blockquote>
+<h3 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h3></blockquote>
+<p>0-1背包可以用两种方法解决</p>
+<ul>
+<li>贪心算法</li>
+</ul>
+<p>时间复杂度：</p>
+<ul>
+<li>动态规划</li>
+</ul>
+<p>动态规划法求解0&#x2F;1背包问题的时间复杂度为：n*C，即是O(n)。</p>
+<ul>
+<li>回溯法求解</li>
+</ul>
+<p>时间复杂度为O(n2^n)</p>
+<ul>
+<li>分支限界</li>
+</ul>
+<p>时间复杂度为O(2^n)</p>
+<blockquote>
+<h3 id="最小生成树，Prime算法和Kruskal算法区别程序演示"><a href="#最小生成树，Prime算法和Kruskal算法区别程序演示" class="headerlink" title="最小生成树，Prime算法和Kruskal算法区别程序演示"></a>最小生成树，Prime算法和Kruskal算法区别程序演示</h3></blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 求图最小生成树的PRIM算法</span></span><br><span class="line"><span class="comment">     * 基本思想：假设N=(V,&#123;E&#125;)是联通网，TE是N上的最想生成树中的变得集合。算法从U=&#123;u0&#125;(u0属于V)，</span></span><br><span class="line"><span class="comment">     * TE=&#123;&#125;开始，重复执行下述操作：在所有的u属于U，v属于V-U的边（u，v）属于E中找到一条代价最小</span></span><br><span class="line"><span class="comment">     * 的边（u0，v0）并入集合TE，同事v0并入U，直至U=V为止。此时TE中必有n-1条边，则T=(V,&#123;TE&#125;)</span></span><br><span class="line"><span class="comment">     * 为N的最小生成树。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  graph  图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> start 开始节点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n     图中节点数</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="最大团问题"><a href="#最大团问题" class="headerlink" title="最大团问题"></a>最大团问题</h3></blockquote>
+<p>分支限界，活结点表的组织形式使用最大堆</p>
+<blockquote>
+<h3 id="旅行售货员问题"><a href="#旅行售货员问题" class="headerlink" title="旅行售货员问题"></a>旅行售货员问题</h3></blockquote>
+<ul>
+<li>分支限界，活结点表的组织形式使用最小堆</li>
+</ul>
+<p>回溯法 ，时间复杂度为O(n!)</p>
+<blockquote>
+<h3 id="随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间"><a href="#随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间" class="headerlink" title="随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间"></a>随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</h3></blockquote>
+<p>sort_compare.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已经调试</span></span><br><span class="line"><span class="comment">//随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">sort_compare</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">10000</span>; </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">M</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成随机数组，长度为N</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] getRand() &#123;</span><br><span class="line">        <span class="type">int</span> [] tmpList = <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;N;i++) &#123;</span><br><span class="line">            tmpList[i] = (<span class="type">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tmpList;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//冒泡法排序 从大到小 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] bubbleSort(<span class="type">int</span> [] target ) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span> ,k =<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)</span><br><span class="line">            <span class="keyword">for</span>(k=i+<span class="number">1</span>;k&lt;N;k++)</span><br><span class="line">                <span class="keyword">if</span>(target[k]&gt;target[i])&#123;</span><br><span class="line">                    tmp=target[k];</span><br><span class="line">                    target[k]=target[i];</span><br><span class="line">                    target[i]=tmp;</span><br><span class="line">                &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//选择法排序 从大到小 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] selectSort(<span class="type">int</span> [] target)&#123;</span><br><span class="line">        <span class="type">int</span> i,k,j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)&#123;<span class="comment">//注意控制范围 </span></span><br><span class="line">          <span class="keyword">for</span>(k=i+<span class="number">1</span>,j=i;k&lt;N;k++)</span><br><span class="line">            <span class="keyword">if</span>(target[k]&gt;target[j]) j=k;</span><br><span class="line">              <span class="keyword">if</span>(j!=i)&#123;</span><br><span class="line">                  target[j]=target[j]+target[i];</span><br><span class="line">                  target[i]=target[j]-target[i];</span><br><span class="line">                  target[j]=target[j]-target[i];</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//插入法排序 从大到小</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> [] insertSort(<span class="type">int</span> a[])&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &gt; a[i])&#123;</span><br><span class="line">                a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            a[i + <span class="number">1</span>] = key;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//检查方输出函数 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">print_f</span><span class="params">(<span class="type">int</span> <span class="keyword">var</span>[])</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            System.out.print(<span class="keyword">var</span>[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="keyword">if</span>((i+<span class="number">1</span>)%<span class="number">10</span> ==<span class="number">0</span>) System.out.println();</span><br><span class="line">            <span class="keyword">if</span>(i == N-<span class="number">1</span>) System.out.print(<span class="string">&quot;end\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实验方使用的从小到大的排序 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] Reverse(<span class="type">int</span> a[])&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &lt; a[i])&#123;</span><br><span class="line">                a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            a[i + <span class="number">1</span>] = key;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//重组随机数组，长度为N </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] makeRand(<span class="type">int</span> s[])&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            s[i] = (<span class="type">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//实验方模拟产生含大量重复元素的数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] repeatIn(<span class="type">int</span> <span class="keyword">var</span>[])&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span>[i] = (<span class="type">int</span>)(Math.random()*M+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">var</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//实验方模拟 产生接近于排列完全的数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] closeTo(<span class="type">int</span> <span class="keyword">var</span>[])&#123;</span><br><span class="line">        insertSort(<span class="keyword">var</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=M;i=i+<span class="number">10</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span>[i] = (<span class="type">int</span>)(Math.random()*N+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">var</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//时间计算函数 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> <span class="title function_">getTimetoSort</span><span class="params">(<span class="type">int</span> pf,<span class="type">int</span> []<span class="keyword">var</span>)</span>&#123;</span><br><span class="line">            <span class="type">double</span> time=<span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="type">long</span> startTime=System.nanoTime();   <span class="comment">//获取开始时间</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">//            beVary(pf,var);</span></span><br><span class="line">            onSorting(pf,<span class="keyword">var</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="type">long</span> endTime=System.nanoTime(); <span class="comment">//获取结束时间 </span></span><br><span class="line">            time=(<span class="type">double</span>)(endTime-startTime)/(<span class="number">10e9</span>);<span class="comment">//计算程序执行时间单位为s</span></span><br><span class="line"><span class="comment">//            print_f(var);</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> time;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//预处理变化函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">beVary</span><span class="params">(<span class="type">int</span> pf,<span class="type">int</span> []<span class="keyword">var</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span>(pf) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> :makeRand(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> :closeTo(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> :Reverse(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> :repeatIn(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//排序方法选择函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">onSorting</span><span class="params">(<span class="type">int</span> pf,<span class="type">int</span> []<span class="keyword">var</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span>(pf)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> :bubbleSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> :selectSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> :insertSort(<span class="keyword">var</span>);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//主函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> []<span class="keyword">var</span> = <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line">        <span class="type">double</span> [][]time=<span class="keyword">new</span> <span class="title class_">double</span>[<span class="number">4</span>][<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">var</span> = getRand();</span><br><span class="line">        <span class="type">int</span> pt=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> pf=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> : pt=<span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> : pt=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> : pt=<span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span> : pt=<span class="number">3</span>;<span class="keyword">break</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span><span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span> :pf = <span class="number">0</span>;<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span> :pf = <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span> :pf = <span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                beVary(pt,<span class="keyword">var</span>);</span><br><span class="line">                time[i][j]=getTimetoSort(pf,<span class="keyword">var</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        time = getTimetoSort(var);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> : System.out.print(<span class="string">&quot;\n\t第一种情况：数组完全随机：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> : System.out.print(<span class="string">&quot;\n\t第二种情况：接近排序完成：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> : System.out.print(<span class="string">&quot;\n\t第三种情况：数组倒序排列：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span> : System.out.print(<span class="string">&quot;\n\t第四种情况：相似元素居多：\n\t&quot;</span>);<span class="keyword">break</span>; </span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span><span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">                    <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span> :System.out.print(<span class="string">&quot;\t冒泡法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span> :System.out.print(<span class="string">&quot;\t\t选择法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span> :System.out.print(<span class="string">&quot;\t\t插入法排序时间： &quot;</span>);<span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                    System.out.print(time[i][j]+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;\n说明：此排序为从大到小排序，随机生成10000个1-10000内的随机数，时间单位为s，仅用于三个排序方法对比使用，具体时间由于函数调用于配置问题有差异。完全代码由iTheds书写&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="整数划分问题"><a href="#整数划分问题" class="headerlink" title="整数划分问题"></a>整数划分问题</h3></blockquote>
+<p>将正整数n表示成一系列正整数之和：n&#x3D; + …+  ，其中  ,k≥1。正整数n的这种表示称为正整数n的划分。求正整数n的不同划分的个数。例如正整数6有如下11种不同的划分：</p>
+<p>6；<br>5+1；<br>4+2，4+1+1；<br>3+3，3+2+1，3+1+1+1；<br>2+2+2，2+2+1+1，2+1+1+1+1；<br>1+1+1+1+1+1。</p>
+<p>使用递归算法实现</p>
+<p>Integer_division.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已经经过调试，该程序不做保留数据，只负责输出正确集，作者iTheds</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 将正整数n表示成一系列正整数之和：n= + ...+  ，其中  ,k≥1</span></span><br><span class="line"><span class="comment">正整数n的这种表示称为正整数n的划分。求正整数n的不同划分的个数。例如正整数6有如下11种不同的划分：</span></span><br><span class="line"><span class="comment">6；</span></span><br><span class="line"><span class="comment">5+1；</span></span><br><span class="line"><span class="comment">4+2，4+1+1；</span></span><br><span class="line"><span class="comment">3+3，3+2+1，3+1+1+1；</span></span><br><span class="line"><span class="comment">2+2+2，2+2+1+1，2+1+1+1+1；</span></span><br><span class="line"><span class="comment">1+1+1+1+1+1。</span></span><br><span class="line"><span class="comment">使用递归算法实现</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Integer_division</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">target</span> <span class="operator">=</span><span class="number">0</span> ;</span><br><span class="line">    <span class="comment">//主要执行函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">divid</span><span class="params">(<span class="type">int</span> tmp,<span class="type">int</span> x, String s)</span> &#123;</span><br><span class="line"><span class="comment">//        System.out.println(s);//调试方</span></span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> x ; i &gt; <span class="number">0</span> ; i --) &#123;</span><br><span class="line">            <span class="keyword">if</span>(tmp - i == <span class="number">0</span>) divid( tmp - i ,i,s +         String.valueOf(i));</span><br><span class="line">            <span class="keyword">else</span> divid( tmp - i,i&gt;(tmp - i)?(tmp -<span class="number">1</span>):i,s + String.valueOf(i)+ <span class="string">&quot;+&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String [] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        target = input.nextInt();</span><br><span class="line">        divid(target,target,<span class="string">&quot;&quot;</span>);</span><br><span class="line">        input.close();</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="Strassen矩阵乘法"><a href="#Strassen矩阵乘法" class="headerlink" title="Strassen矩阵乘法"></a>Strassen矩阵乘法</h3></blockquote>
+<p>使用分治算法实现</p>
+<p><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_7e9a88f70100zj2h.html">参考链接</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h3></blockquote>
+<p>使用回溯算法实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="走迷宫问题"><a href="#走迷宫问题" class="headerlink" title="走迷宫问题"></a>走迷宫问题</h3></blockquote>
+<p>有一个m*n格的迷宫（表示有m行、n列），其中有可走的也有不可走的，如果用1表示可以走，0表示不可以走，文件读入这m*n个数据和起始点、结束点（起始点和结束点都是用两个数据来描述的，分别表示这个点的行号和列号）。编程找出所有可行的道路，要求所走的路中没有重复的点，走时只能是上下左右四个方向（搜索顺寻：左上右下）。如果一条路都不可行，则输出相应信息（用-1表示无路）。</p>
+<p>使用回溯法实现</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013474436/article/details/47977867">参考链接</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## 问题代码C/C++实现</span><br><span class="line"></span><br><span class="line">&gt; ### 随机生成<span class="number">10000</span>个<span class="number">1</span>-<span class="number">10000</span>内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span><br><span class="line"></span><br><span class="line">```C++</span><br><span class="line"><span class="comment">//仅为模板，由于一开始时发现一些逻辑错误重写，未经调试运行</span></span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;time.h&gt;</span><br><span class="line">#include&lt;windows.h&gt;   </span><br><span class="line">using namespace std;</span><br><span class="line">#define N <span class="number">10000</span></span><br><span class="line">#define M <span class="number">1000</span></span><br><span class="line"><span class="comment">//typedef double(int[])* PF;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成随机数组，长度为N</span></span><br><span class="line"><span class="type">int</span>*  getRand()&#123;</span><br><span class="line"><span class="comment">//    int i;</span></span><br><span class="line"><span class="comment">//    srand((unsigned)time(NULL));</span></span><br><span class="line">    srand(<span class="number">5</span>);</span><br><span class="line"><span class="comment">//    int s[10000];</span></span><br><span class="line">    <span class="type">int</span> *s= <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        s[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//冒泡法排序 从大到小 </span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span> a[])</span>&#123;<span class="type">int</span> i,k;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)</span><br><span class="line">        <span class="keyword">for</span>(k=i+<span class="number">1</span>;k&lt;N;k++)</span><br><span class="line">         <span class="keyword">if</span>(a[k]&gt;a[i])&#123;a[k]=a[k]+a[i];</span><br><span class="line">                       a[i]=a[k]-a[i];</span><br><span class="line">                       a[k]=a[k]-a[i];&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//选择法排序 从大到小 </span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">selectSort</span><span class="params">(<span class="type">int</span> a[])</span>&#123;<span class="type">int</span> i,k,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)&#123;<span class="comment">//注意控制范围 </span></span><br><span class="line">      <span class="keyword">for</span>(k=i+<span class="number">1</span>,j=i;k&lt;N;k++)</span><br><span class="line">        <span class="keyword">if</span>(a[k]&gt;a[j]) j=k;</span><br><span class="line">      <span class="keyword">if</span>(j!=i)&#123;a[j]=a[j]+a[i];</span><br><span class="line">               a[i]=a[j]-a[i];</span><br><span class="line">               a[j]=a[j]-a[i];&#125;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//插入法排序 从大到小</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">insertSort</span><span class="params">(<span class="type">int</span> a[])</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &gt; a[i])&#123;</span><br><span class="line">            a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i + <span class="number">1</span>] = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检查方输出函数 </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">print_f</span><span class="params">(<span class="type">int</span> <span class="keyword">var</span>[])</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="keyword">var</span>[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>((i+<span class="number">1</span>)%<span class="number">10</span> ==<span class="number">0</span>) cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(i == N-<span class="number">1</span>) cout&lt;&lt;<span class="string">&quot;end&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实验方使用的从小到大的排序 </span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">Reverse</span><span class="params">(<span class="type">int</span> a[])</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;N; j++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> a[j]; <span class="comment">//待排序第一个元素</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> j - <span class="number">1</span>;  <span class="comment">//代表已经排过序的元素最后一个索引数</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; key &lt; a[i])&#123;</span><br><span class="line">            a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i + <span class="number">1</span>] = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//重组随机数组，长度为N </span></span><br><span class="line"><span class="keyword">void</span>  <span class="title function_">makeRand</span><span class="params">(<span class="type">int</span> s[])</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        s[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    return s;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实验方模拟产生含大量重复元素的数组 </span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">repeatIn</span><span class="params">(<span class="type">int</span> <span class="keyword">var</span>[])</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span>[i] = rand()%M+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实验方模拟 产生接近于排列完全的数组 </span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">closeTo</span><span class="params">(<span class="type">int</span> <span class="keyword">var</span>[])</span>&#123;</span><br><span class="line">    insertSort(<span class="keyword">var</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=M;i=i+<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span>[i] = rand()%N+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//时间计算函数 </span></span><br><span class="line"><span class="type">double</span> <span class="title function_">getTimetoSort</span><span class="params">(<span class="keyword">void</span> (*pf)</span><span class="params">(<span class="type">int</span>[])</span>,<span class="type">int</span> <span class="keyword">var</span>[])&#123;</span><br><span class="line">        <span class="type">double</span> time=<span class="number">0</span>; </span><br><span class="line"><span class="comment">//      double counts=0;  </span></span><br><span class="line">        LARGE_INTEGER nFreq;  </span><br><span class="line">        LARGE_INTEGER nBeginTime;  </span><br><span class="line">        LARGE_INTEGER nEndTime;  </span><br><span class="line">        QueryPerformanceFrequency(&amp;nFreq);  </span><br><span class="line">        </span><br><span class="line"><span class="comment">//        bubbleSort(var);</span></span><br><span class="line">        </span><br><span class="line">        QueryPerformanceCounter(&amp;nBeginTime);<span class="comment">//开始计时  </span></span><br><span class="line">        (*pf)(<span class="keyword">var</span>);</span><br><span class="line">           QueryPerformanceCounter(&amp;nEndTime);<span class="comment">//停止计时  </span></span><br><span class="line">        time=(<span class="type">double</span>)(nEndTime.QuadPart-nBeginTime.QuadPart)/(<span class="type">double</span>)nFreq.QuadPart;<span class="comment">//计算程序执行时间单位为s  </span></span><br><span class="line"><span class="comment">//        print_f(var);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> *<span class="keyword">var</span>;</span><br><span class="line">    <span class="type">double</span> time[<span class="number">4</span>][<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">var</span> = getRand();</span><br><span class="line"><span class="comment">//    cout&lt;&lt;var[N]&lt;&lt;endl;</span></span><br><span class="line">    <span class="keyword">void</span> (*pf)(<span class="type">int</span>[]);</span><br><span class="line">    <span class="keyword">void</span> (*pt)(<span class="type">int</span>[]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> : pt=makeRand;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> : pt=closeTo;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> : pt=Reverse;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> : pt=repeatIn;<span class="keyword">break</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span><span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> :pf = bubbleSort;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> :pf = selectSort;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> :pf = insertSort;<span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pt(<span class="keyword">var</span>);</span><br><span class="line">            time[i][j]=getTimetoSort(pf,<span class="keyword">var</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//    time = getTimetoSort(var);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span> : cout&lt;&lt;<span class="string">&quot;\n\t第一种情况：数组完全随机：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> : cout&lt;&lt;<span class="string">&quot;\n\t第二种情况：接近排序完成：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> : cout&lt;&lt;<span class="string">&quot;\n\t第三种情况：数组倒序排列：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> : cout&lt;&lt;<span class="string">&quot;\n\t第四种情况：相似元素居多：\n\t&quot;</span>;    <span class="keyword">break</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span><span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">switch</span>(j)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span> :cout&lt;&lt;<span class="string">&quot;\t冒泡法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span> :cout&lt;&lt;<span class="string">&quot;\t\t选择法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span> :cout&lt;&lt;<span class="string">&quot;\t\t插入法排序时间： &quot;</span>;    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cout&lt;&lt;time[i][j]&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n说明：此排序为从大到小排序，随机生成10000个1-10000内的随机数，时间单位为s&quot;</span>&lt;&lt;endl; </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>以下代码含金量比较低，仅用于自我参考，读者不必深究</p>
+<hr>
+<blockquote>
+<h3 id="Strassen矩阵乘法-1"><a href="#Strassen矩阵乘法-1" class="headerlink" title="Strassen矩阵乘法"></a>Strassen矩阵乘法</h3></blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//Strassen矩阵乘法，时间复杂度O(n^log_2_7) </span></span><br><span class="line"><span class="function"><span class="type">int</span> **<span class="title">Strassen</span><span class="params">(<span class="type">int</span> a[<span class="number">2</span>][<span class="number">2</span>],<span class="type">int</span> b[<span class="number">2</span>][<span class="number">2</span>])</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> **c=<span class="keyword">new</span> <span class="type">int</span>*[<span class="number">2</span>];</span><br><span class="line">    c[<span class="number">0</span>]=<span class="keyword">new</span> <span class="type">int</span>[<span class="number">2</span>];</span><br><span class="line">    c[<span class="number">1</span>]=<span class="keyword">new</span> <span class="type">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> m[<span class="number">7</span>];</span><br><span class="line">    m[<span class="number">0</span>]=a[<span class="number">0</span>][<span class="number">0</span>]*(b[<span class="number">0</span>][<span class="number">1</span>]-b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">1</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]+a[<span class="number">0</span>][<span class="number">1</span>])*b[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">    m[<span class="number">2</span>]=(a[<span class="number">1</span>][<span class="number">0</span>]+a[<span class="number">1</span>][<span class="number">1</span>])*b[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    m[<span class="number">3</span>]=a[<span class="number">1</span>][<span class="number">1</span>]*(b[<span class="number">1</span>][<span class="number">0</span>]-b[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line">    m[<span class="number">4</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]+a[<span class="number">1</span>][<span class="number">1</span>])*(b[<span class="number">0</span>][<span class="number">0</span>]+b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">5</span>]=(a[<span class="number">0</span>][<span class="number">1</span>]-a[<span class="number">1</span>][<span class="number">1</span>])*(b[<span class="number">1</span>][<span class="number">0</span>]+b[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    m[<span class="number">6</span>]=(a[<span class="number">0</span>][<span class="number">0</span>]-a[<span class="number">1</span>][<span class="number">0</span>])*(b[<span class="number">0</span>][<span class="number">0</span>]+b[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    c[<span class="number">0</span>][<span class="number">0</span>]=m[<span class="number">4</span>]+m[<span class="number">3</span>]-m[<span class="number">1</span>]+m[<span class="number">5</span>];</span><br><span class="line">    c[<span class="number">0</span>][<span class="number">1</span>]=m[<span class="number">0</span>]+m[<span class="number">1</span>];</span><br><span class="line">    c[<span class="number">1</span>][<span class="number">0</span>]=m[<span class="number">2</span>]+m[<span class="number">3</span>];</span><br><span class="line">    c[<span class="number">1</span>][<span class="number">1</span>]=m[<span class="number">4</span>]+m[<span class="number">0</span>]-m[<span class="number">2</span>]-m[<span class="number">6</span>];</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> b[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Please input matrix a:&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            cin&gt;&gt;a[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Please input matrix b:&quot;</span>&lt;&lt;endl;    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            cin&gt;&gt;b[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Output matrix a:&quot;</span>&lt;&lt;endl;    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            cout&lt;&lt;a[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Output matrix b:&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            cout&lt;&lt;b[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> **c = <span class="built_in">Strassen</span>(a,b);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Output matrix c:&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">            cout&lt;&lt;c[i][j]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="八皇后问题-1"><a href="#八皇后问题-1" class="headerlink" title="八皇后问题"></a>八皇后问题</h3></blockquote>
+<p>代码来自网络，如有侵权，请联系作者。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// queen.cpp: 定义控制台应用程序的入口点。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gEightQueen[<span class="number">8</span>] = &#123; <span class="number">0</span> &#125;, gCount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span><span class="comment">//输出每一种情况下棋盘中皇后的摆放情况</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> inner;</span><br><span class="line">        <span class="keyword">for</span> (inner = <span class="number">0</span>; inner &lt; gEightQueen[i]; inner++)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;#&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (inner = gEightQueen[i] + <span class="number">1</span>; inner &lt; <span class="number">8</span>; inner++)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;==========================\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">check_pos_valid</span><span class="params">(<span class="type">int</span> loop, <span class="type">int</span> value)</span><span class="comment">//检查是否存在有多个皇后在同一行/列/对角线的情况</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> index;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; loop; index++)</span><br><span class="line">    &#123;</span><br><span class="line">        data = gEightQueen[index];</span><br><span class="line">        <span class="keyword">if</span> (value == data)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ((index + data) == (loop + value))</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ((index - data) == (loop - value))</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">eight_queen</span><span class="params">(<span class="type">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> loop;</span><br><span class="line">    <span class="keyword">for</span> (loop = <span class="number">0</span>; loop &lt; <span class="number">8</span>; loop++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check_pos_valid</span>(index, loop))</span><br><span class="line">        &#123;</span><br><span class="line">            gEightQueen[index] = loop;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">7</span> == index)</span><br><span class="line">            &#123;</span><br><span class="line">                gCount++, <span class="built_in">print</span>();</span><br><span class="line">                gEightQueen[index] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">eight_queen</span>(index + <span class="number">1</span>);</span><br><span class="line">            gEightQueen[index] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>*argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">eight_queen</span>(<span class="number">0</span>);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;total=&quot;</span> &lt;&lt; gCount &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">http://itheds.github.io/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">June 18th 2018, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">April 21st 2025, 1:50:12 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/" title="通信原理">
+                    <div class="nextTitle">通信原理</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2018/05/01/JWT/" title="JWT(JSON Web Token)验证方式">
+                    <div class="prevTitle">JWT(JSON Web Token)验证方式</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">算法导论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">理论方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E9%9B%86%E6%A0%91%E5%92%8C%E6%8E%92%E5%88%97%E6%A0%91-%E4%B8%A4%E7%A7%8D%E9%97%AE%E9%A2%98%E8%A7%A3%E7%A9%BA%E9%97%B4%E6%A0%91%E7%9A%84%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">子集树和排列树 两种问题解空间树的常用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%9B%BE-%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%9A%84%E7%A9%B7%E4%B8%BE%E6%90%9C%E7%B4%A2%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E5%92%8C%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E3%80%82%E7%94%A8%E9%82%BB%E6%8E%A5%E8%A1%A8%E5%AD%98%E5%82%A8%E5%85%B7%E6%9C%89n%E4%B8%AA%E9%A1%B6%E7%82%B9%E5%92%8Ce%E6%9D%A1%E8%BE%B9%E7%9A%84%E6%98%BE%E7%A4%BA%E5%9B%BE%EF%BC%8C%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%BAo-n-e"><span class="toc-number">1.1.2.</span> <span class="toc-text">显示图 显示图的穷举搜索有两种方式，深度优先和广度优先。用邻接表存储具有n个顶点和e条边的显示图，图的搜索算法的时间复杂度为o(n+e)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">1.2.</span> <span class="toc-text">算法思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95-%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO-log2n"><span class="toc-number">1.2.1.</span> <span class="toc-text">二分查找法 算法的时间复杂度是O(log2n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">递归算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.2.3.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.4.</span> <span class="toc-text">分治算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.5.</span> <span class="toc-text">贪心算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C%E6%B3%95"><span class="toc-number">1.2.6.</span> <span class="toc-text">分支限界法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%88%8D%E4%BC%8D%E5%BE%B7%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.7.</span> <span class="toc-text">舍伍德算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%A8%E6%9E%90"><span class="toc-number">1.2.8.</span> <span class="toc-text">辨析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">具体问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%BC%97%E6%9B%BC%E7%BC%96%E7%A0%81-Huffman%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">哈弗曼编码(Huffman编码)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-Minimum-spanning-tree"><span class="toc-number">1.3.2.</span> <span class="toc-text">最小生成树(Minimum-spanning-tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98-Longest-common-subsequence-problem"><span class="toc-number">1.3.3.</span> <span class="toc-text">最长公共子序列问题(Longest-common-subsequence problem)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-Optimal-binary-search"><span class="toc-number">1.3.4.</span> <span class="toc-text">最优二叉搜索树(Optimal binary search)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.5.</span> <span class="toc-text">0-1背包问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%8CPrime%E7%AE%97%E6%B3%95%E5%92%8CKruskal%E7%AE%97%E6%B3%95%E5%8C%BA%E5%88%AB%E7%A8%8B%E5%BA%8F%E6%BC%94%E7%A4%BA"><span class="toc-number">1.3.6.</span> <span class="toc-text">最小生成树，Prime算法和Kruskal算法区别程序演示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E5%9B%A2%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.7.</span> <span class="toc-text">最大团问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.8.</span> <span class="toc-text">旅行售货员问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%9010000%E4%B8%AA1-10000%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B4%E6%95%B0%EF%BC%8C%E5%88%86%E5%88%AB%E4%BD%BF%E7%94%A8%E5%86%92%E6%B3%A1%E6%B3%95%EF%BC%8C%E9%80%89%E6%8B%A9%E6%B3%95%EF%BC%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%B9%B6%E4%B8%94%E8%BE%93%E5%87%BA%E6%AF%8F%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-number">1.3.9.</span> <span class="toc-text">随机生成10000个1-10000内的随机整数，分别使用冒泡法，选择法，插入排序方法排序，并且输出每种算法的运行时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%88%92%E5%88%86%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.10.</span> <span class="toc-text">整数划分问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strassen%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-number">1.3.11.</span> <span class="toc-text">Strassen矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.12.</span> <span class="toc-text">八皇后问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B0%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.13.</span> <span class="toc-text">走迷宫问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strassen%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95-1"><span class="toc-number">1.3.14.</span> <span class="toc-text">Strassen矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-1"><span class="toc-number">1.3.15.</span> <span class="toc-text">八皇后问题</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

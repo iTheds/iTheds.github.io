@@ -19,23 +19,23 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="和鸢">
-<meta property="og:url" content="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">
+    <meta name="description" content="Linux命令总集与系统基础工具安装下载工具wget，后台下载使用wget -b + url，可以在当前目录wget-log文件查看进度。 1yum install -y wget  安装可以上传rz和从vps上下载东西sz的命令： 1yum install -y lrzsz  系统信息查看查看版本信息： 1234cat &#x2F;proc&#x2F;versioncat &#x2F;etc&#x2F;redhat-release">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux命令总集与系统">
+<meta property="og:url" content="http://itheds.github.io/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="和鸢计划八月份的硬性计划。 [8.2]忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。 害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。 [8.5]可不可能？关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。 凡事，都要问一句，有没有用心。">
+<meta property="og:description" content="Linux命令总集与系统基础工具安装下载工具wget，后台下载使用wget -b + url，可以在当前目录wget-log文件查看进度。 1yum install -y wget  安装可以上传rz和从vps上下载东西sz的命令： 1yum install -y lrzsz  系统信息查看查看版本信息： 1234cat &#x2F;proc&#x2F;versioncat &#x2F;etc&#x2F;redhat-release">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-07-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-21T03:20:07.911Z">
+<meta property="article:published_time" content="2021-02-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T03:16:59.718Z">
 <meta property="article:author" content="iTheds">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>和鸢 · iTheds&#39;s Studio</title>
+    <title>Linux命令总集与系统 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -222,6 +222,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -251,6 +253,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">iTheds&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Linux命令总集与系统</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -277,24 +290,78 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                Linux命令总集与系统
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+                    Linux系统管理常用命令速查手册
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="linux">linux</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/02/03</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -428,30 +495,66 @@
     <article class="article-entry">
         <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
 
-<h1 id="和鸢计划"><a href="#和鸢计划" class="headerlink" title="和鸢计划"></a>和鸢计划</h1><p>八月份的硬性计划。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>[8.2]<br>忽然觉得，自己像个智障一样，睡觉又不好好睡，每天脑子都昏沉。</p>
-<p>害，真的是道阻且长。这是一个特别艰难的事情，但不是艰难在难以实现，而是难以开头，难以坚持，难以收束自己，难以放开自我。</p>
-<p>[8.5]<br>可不可能？<br>关于可不可能这件事，我已经不具备话语权了。因为错过了较好的时间。<br>但是倘若，8月能够冲刺，在9月中旬进行测试，那还有一线希望。</p>
-<p>凡事，都要问一句，有没有用心。</p>
-<p>心理上的压力是巨大的。<br>不要问以后，时间，总是回不去的。作出改变，才会有机会。</p>
-<p>是现实压的我喘不过气吗，不，是寻求改变的路途，好似有杀死自己的危机。</p>
-<p>想念一个人是十分痛苦的，这和实践自我有异曲同工之秒。</p>
-<p>[8.7]<br>大厂工资可真高啊。真好啊。<br>人生有那么多想得到的。我也考虑过德不配位的自我放失，但更多的是面对风雨尘仆，我只能选择更具有力量积蓄的方式，未来会怎么样，其不确定性都来源于自身的力量不足么。于是我说，哭吧，笑吧，奔跑吧。时光太短，又何必要压抑自我。只此一遭，便是孓然无物，也唯证心语。</p>
-<p>[8.8]<br>得失之意还是会环绕我。我选择，安静的面对。</p>
-<p>[8.12]<br>怕得不到<br>我有时候会想，工作了三四年了，可是存的钱却没有达到目标，按理来说，手上至少也应该有个 15 ，中间个中花费，大抵上有 4,但是不必要的花费也有 4,再加上 3 的设备花费，这样看来好似真的没有存下多少。但倘若不必要的花费能够节省，目下手中也是有 8 的。<br>而对于目标，我却在想，到底是选择哪个好？如果实力确定都达标了，那么我会选择什么。<br>我的目的是什么呢？我在想。</p>
-<p>[8.21]<br>很迷茫， Redis 都不知道，又何谈分布式开发。<br>这方面的经验，真的有吗，我所做的事情，看不到确切的意义。<br>我期望者深刻的改变，但是目下，却被疲惫所困扰着。</p>
-<p>[8.28]<br>焦虑。大厂还是考公。<br>这是两个完全不同的路线分支。也是对我影响最为巨大的。<br>在这件事情的考虑上我不得不着重分析。</p>
-<p>其追根溯源是我期望选择什么样的生活的问题。<br>一方面，我不愿意安与现状。我期望能够尽可能到达更高的地方。可是，我却不知道如何用力。并且我不太确定我是否愿意着力到高强度的工作中。<br>我也许有着骄傲的自信。<br>一方面， 我期望能够有更多的时间来打磨自身所期望做的事情，去表达自我和宣扬情怀，变得深刻而荣誉等身。当然，这是比较夸张的说法，抑或是真实的想法。<br>换一个说法，那便还是不甘于平庸的热忱了。</p>
-<p>我很想说可能就是上班累了。但是实际却是，我也不知道。<br>就好像必然要在某个年纪，明确自我的追求一般。</p>
-<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+<h1 id="Linux命令总集与系统"><a href="#Linux命令总集与系统" class="headerlink" title="Linux命令总集与系统"></a>Linux命令总集与系统</h1><h2 id="基础工具安装"><a href="#基础工具安装" class="headerlink" title="基础工具安装"></a>基础工具安装</h2><p>下载工具wget，后台下载使用wget -b + url，可以在当前目录wget-log文件查看进度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br></pre></td></tr></table></figure>
+
+<p>安装可以上传rz和从vps上下载东西sz的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y lrzsz</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统信息查看"><a href="#系统信息查看" class="headerlink" title="系统信息查看"></a>系统信息查看</h2><p>查看版本信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version</span><br><span class="line"><span class="built_in">cat</span> /etc/redhat-release</span><br><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="文件查看与编辑"><a href="#文件查看与编辑" class="headerlink" title="文件查看与编辑"></a>文件查看与编辑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /path/to/file    <span class="comment"># 查看文件内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate filename      <span class="comment"># 快速查找文件</span></span><br></pre></td></tr></table></figure>
+<p>有时候出现问题：<code>locate: can not stat () </code>&#x2F;var&#x2F;lib&#x2F;mlocate&#x2F;mlocate.db<code>: No such file or directory</code>，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mlocate</span><br></pre></td></tr></table></figure>
+
+<h3 id="目录结构查看"><a href="#目录结构查看" class="headerlink" title="目录结构查看"></a>目录结构查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree                 <span class="comment"># 以树形结构显示目录</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><h3 id="传统方式"><a href="#传统方式" class="headerlink" title="传统方式"></a>传统方式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service httpd restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="systemd方式"><a href="#systemd方式" class="headerlink" title="systemd方式"></a>systemd方式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd.service     <span class="comment"># 启动服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> httpd.service    <span class="comment"># 设置开机启动</span></span><br><span class="line">systemctl status httpd.service    <span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status mysqld           <span class="comment"># 查看MySQL服务状态</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="进程查看与终止"><a href="#进程查看与终止" class="headerlink" title="进程查看与终止"></a>进程查看与终止</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep process_name        <span class="comment"># 查找特定进程</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="kill命令"><a href="#kill命令" class="headerlink" title="kill命令"></a>kill命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> [-s &lt;信息名称或编号&gt;][进程ID]  <span class="comment"># 或 kill [-l &lt;信息编号&gt;]</span></span><br></pre></td></tr></table></figure>
+<p>常用信号：</p>
+<ul>
+<li>1 (HUP)：重新加载进程</li>
+<li>9 (KILL)：强制杀死进程</li>
+<li>15 (TERM)：正常停止进程</li>
+</ul>
+<h2 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h2><h3 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rpm -q package_name              <span class="comment"># 查询一个包是否被安装</span></span><br><span class="line">rpm -qa                          <span class="comment"># 列出所有已安装的rpm包</span></span><br><span class="line">rpm -ivh package.rpm             <span class="comment"># 安装软件包</span></span><br><span class="line">rpm -Uvh package.rpm             <span class="comment"># 升级软件包</span></span><br><span class="line">rpm -e package_name              <span class="comment"># 卸载软件包</span></span><br><span class="line">rpm -qpi package.rpm             <span class="comment"># 查询软件包的详细信息</span></span><br><span class="line">rpm -qf /path/to/file            <span class="comment"># 查询某个文件属于哪个rpm包</span></span><br><span class="line">rpm -qpl package.rpm             <span class="comment"># 查询软件包会向系统写入哪些文件</span></span><br><span class="line">rpm -qa | grep name              <span class="comment"># 查看某个包是否被安装</span></span><br></pre></td></tr></table></figure>
+
+<p>常用参数说明：</p>
+<ul>
+<li>q &#x3D; query（查询）</li>
+<li>p &#x3D; package（包）</li>
+<li>i &#x3D; info（信息）</li>
+<li>l &#x3D; list（列表）</li>
+<li>f &#x3D; file（文件）</li>
+<li>c &#x3D; conf（配置）</li>
+</ul>
+<h3 id="YUM包管理"><a href="#YUM包管理" class="headerlink" title="YUM包管理"></a>YUM包管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yum install package_name         <span class="comment"># 安装软件包</span></span><br><span class="line">yum search keyword               <span class="comment"># 使用YUM查找软件包</span></span><br><span class="line">yum list                         <span class="comment"># 列出所有可安装的软件包</span></span><br><span class="line">yum list updates                 <span class="comment"># 列出所有可更新的软件包</span></span><br><span class="line">yum list installed               <span class="comment"># 列出所有已安装的软件包</span></span><br><span class="line">yum list extras                  <span class="comment"># 列出所有已安装但不在Yum Repository内的软件包</span></span><br><span class="line">yum info package_name            <span class="comment"># 使用YUM获取软件包信息</span></span><br><span class="line">yum info updates                 <span class="comment"># 列出所有可更新的软件包信息</span></span><br><span class="line">yum info installed               <span class="comment"># 列出所有已安装的软件包信息</span></span><br><span class="line">yum info extras                  <span class="comment"># 列出所有已安装但不在Yum Repository内的软件包信息</span></span><br><span class="line">yum provides file_name           <span class="comment"># 列出软件包提供哪些文件</span></span><br><span class="line">yum repolist enabled | grep mysql <span class="comment"># 查看启用的MySQL相关仓库</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DNF包管理"><a href="#DNF包管理" class="headerlink" title="DNF包管理"></a>DNF包管理</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010105234/article/details/50481461/">DNF</a>是新一代的RPM软件包管理器。它首先出现在Fedora 18这个发行版中，而后来取代了YUM，正式成为Fedora 22的包管理器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dnf -y install dnf-utils          <span class="comment"># 安装DNF工具集</span></span><br></pre></td></tr></table></figure>
+
+<p>启用PHP 7.4的Remi模块并进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dnf module <span class="built_in">enable</span> php:7.4</span><br><span class="line">dnf install php</span><br></pre></td></tr></table></figure>
+
+<h2 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h2><h3 id="端口与进程查看"><a href="#端口与进程查看" class="headerlink" title="端口与进程查看"></a>端口与进程查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ss -tnlp | grep <span class="string">&quot;:22&quot;</span>            <span class="comment"># 查看22端口的监听情况</span></span><br><span class="line">netstat -ano | grep 3060          <span class="comment"># 查看3060端口的连接情况</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="文件统计"><a href="#文件统计" class="headerlink" title="文件统计"></a>文件统计</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lR | grep <span class="string">&quot;^-&quot;</span> | <span class="built_in">wc</span> -l        <span class="comment"># 统计当前目录及子目录下的文件数量</span></span><br></pre></td></tr></table></figure><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
-            <p>原文链接：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html</a>
-            <p>发表日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">July 28th 2024, 12:00:00 am</a>
-            <p>更新日期：<a href="http://itheds.github.io/topic/%E5%92%8C%E9%B8%A2.html">April 21st 2025, 11:20:07 am</a>
+            <p>原文链接：<a href="http://itheds.github.io/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">http://itheds.github.io/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/</a>
+            <p>发表日期：<a href="http://itheds.github.io/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">February 3rd 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">April 21st 2025, 11:16:59 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,8 +562,18 @@
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" title="C/C++问题收录与知识积累">
+                    <div class="nextTitle">C/C++问题收录与知识积累</div>
+                </a>
+            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="Ps学习札记">
+                    <div class="prevTitle">Ps学习札记</div>
+                </a>
             
         </li>
     </ul>
@@ -584,6 +697,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">Linux命令总集与系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">基础工具安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.2.</span> <span class="toc-text">系统信息查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E7%9C%8B%E4%B8%8E%E7%BC%96%E8%BE%91"><span class="toc-number">1.3.1.</span> <span class="toc-text">文件查看与编辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE"><span class="toc-number">1.3.2.</span> <span class="toc-text">文件查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">目录结构查看</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text">传统方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.2.</span> <span class="toc-text">systemd方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">1.5.</span> <span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%9F%A5%E7%9C%8B%E4%B8%8E%E7%BB%88%E6%AD%A2"><span class="toc-number">1.5.1.</span> <span class="toc-text">进程查看与终止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kill%E5%91%BD%E4%BB%A4"><span class="toc-number">1.5.2.</span> <span class="toc-text">kill命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text">包管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RPM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.1.</span> <span class="toc-text">RPM包管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YUM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.2.</span> <span class="toc-text">YUM包管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNF%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">1.6.3.</span> <span class="toc-text">DNF包管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">1.7.</span> <span class="toc-text">网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E4%B8%8E%E8%BF%9B%E7%A8%8B%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.7.1.</span> <span class="toc-text">端口与进程查看</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.8.</span> <span class="toc-text">文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%9F%E8%AE%A1"><span class="toc-number">1.8.1.</span> <span class="toc-text">文件统计</span></a></li></ol></li></ol></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1242,6 +1372,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         

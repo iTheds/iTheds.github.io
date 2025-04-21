@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="创新创业项目库管理系统项目立意 项目立项文档分配   项目简介 项目实施的目的、意义 项目研究现状与分析 项目研究内容和目标 项目技术路线（方法）与进度 项目预期成果及说明 项目经费使用情况   需求分析   项目基本信息及数据要求约束 项目基本信息 用户分配  工作流程 学生网上申报项目，是否指定学生学号可申报，或者是所有学生皆可申报，考虑邀请码网上申报后由审核者审核通过之后开始需要项目书，">
+<meta property="og:type" content="website">
+<meta property="og:title" content="创新创业项目库管理系统">
+<meta property="og:url" content="http://itheds.github.io/archives/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="创新创业项目库管理系统项目立意 项目立项文档分配   项目简介 项目实施的目的、意义 项目研究现状与分析 项目研究内容和目标 项目技术路线（方法）与进度 项目预期成果及说明 项目经费使用情况   需求分析   项目基本信息及数据要求约束 项目基本信息 用户分配  工作流程 学生网上申报项目，是否指定学生学号可申报，或者是所有学生皆可申报，考虑邀请码网上申报后由审核者审核通过之后开始需要项目书，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T05:43:53.791Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="参考文档">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>创新创业项目库管理系统 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="创新创业项目库管理系统"><a href="#创新创业项目库管理系统" class="headerlink" title="创新创业项目库管理系统"></a>创新创业项目库管理系统</h1><h2 id="项目立意"><a href="#项目立意" class="headerlink" title="项目立意"></a>项目立意</h2><blockquote>
+<p>项目立项文档分配</p>
+</blockquote>
+<ul>
+<li>项目简介</li>
+<li>项目实施的目的、意义</li>
+<li>项目研究现状与分析</li>
+<li>项目研究内容和目标</li>
+<li>项目技术路线（方法）与进度</li>
+<li>项目预期成果及说明</li>
+<li>项目经费使用情况</li>
+</ul>
+<blockquote>
+<p>需求分析</p>
+</blockquote>
+<blockquote>
+<h3 id="项目基本信息及数据要求约束"><a href="#项目基本信息及数据要求约束" class="headerlink" title="项目基本信息及数据要求约束"></a>项目基本信息及数据要求约束</h3></blockquote>
+<p>项目基本信息</p>
+<p>用户分配</p>
+<blockquote>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3></blockquote>
+<p>学生网上申报项目，是否指定学生学号可申报，或者是所有学生皆可申报，考虑邀请码<br>网上申报后由审核者审核<br>通过之后开始需要项目书，项目书是纸质版或者是电子版，电子版可以在申报时就提交</p>
+<blockquote>
+<h3 id="环境语言要求"><a href="#环境语言要求" class="headerlink" title="环境语言要求"></a>环境语言要求</h3></blockquote>
+<blockquote>
+<p>接口规范</p>
+</blockquote>
+<ul>
+<li>项目名称</li>
+<li>项目类别</li>
+<li>负责人</li>
+<li>负责人联系方式</li>
+<li>指导老师</li>
+<li>学院</li>
+<li>所属学科</li>
+<li>开始时间</li>
+<li>结束时间</li>
+<li>项目经费</li>
+<li>纸质版文件是否上交</li>
+<li>项目是否结项</li>
+<li>审批人</li>
+<li>word文档</li>
+<li>结题报告</li>
+<li>项目经费申报情况（待定）</li>
+</ul>
+<blockquote>
+<p>逻辑图</p>
+</blockquote>
+<hr>
+<p> 系统审核机制工作流程</p>
+<hr>
+<p>1.学生信息录入报名</p>
+<p>2.提交项目书，审批过程</p>
+<p>3.确定项目通过</p>
+<hr>
+<p>系统管理方机制</p>
+<hr>
+<p>学生可修改的时间段为，通过之前</p>
+<p>老师修改内容：</p>
+<ul>
+<li>纸质版文件是否上交</li>
+<li>项目是否结项</li>
+</ul>
+<p>审批人登入的管理员</p>
+<p>一次未通过的项目信息删去，发邮箱</p>
+<blockquote>
+<p>功能模块</p>
+</blockquote>
+<ul>
+<li>查询关键字来显示分析信息</li>
+</ul>
+<blockquote>
+<p>建库</p>
+</blockquote>
+<p>冗余性考虑，多表连接，访问限制</p>
+<p>数据库名称 ProMS</p>
+<ol>
+<li>表1：user表(userd)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 用户名    username    <span class="type">varchar</span>(<span class="number">15</span>)<span class="operator">/</span><span class="operator">/</span>key</span><br><span class="line"><span class="operator">*</span> 密码      password    <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 权限      role        <span class="type">char</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>表2：项目负责人表(student)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 学号      stdnum      <span class="type">varchar</span>(<span class="number">10</span>)<span class="operator">/</span><span class="operator">/</span>key</span><br><span class="line"><span class="operator">*</span> 姓名      sname       <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 联系电话  sphone      <span class="type">varchar</span>(<span class="number">11</span>)</span><br><span class="line"><span class="operator">*</span> 邮箱      sEmile      <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line"><span class="operator">*</span> 学院      college     <span class="type">char</span>(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>表3：项目表(project)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 项目编号  pronum      <span class="type">varchar</span>(<span class="number">15</span>)<span class="operator">/</span><span class="operator">/</span>key</span><br><span class="line"><span class="operator">*</span> 负责人    stdnum      <span class="type">varchar</span>(<span class="number">10</span>)<span class="operator">/</span><span class="operator">/</span>pre_key 与stdnum一致</span><br><span class="line"><span class="operator">*</span> 名称      proname     <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 学科      subject     <span class="type">char</span>(<span class="number">3</span>)</span><br><span class="line"><span class="operator">*</span> 指导老师  teacher     <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 项目类别  prosort     <span class="type">char</span>(<span class="number">2</span>)</span><br><span class="line"><span class="operator">*</span> 项目书    rules       <span class="type">varchar</span>(<span class="number">150</span>)</span><br><span class="line"><span class="operator">*</span> 经费      funds       <span class="type">int</span></span><br><span class="line"><span class="operator">*</span> 开始时间  starttime   datetime</span><br><span class="line"><span class="operator">*</span> 结束时间  endtime     datetime</span><br><span class="line"><span class="operator">*</span> 状态标识  isDone      <span class="type">char</span>(<span class="number">1</span>)</span><br><span class="line"><span class="operator">*</span> 审批人    reviewer    <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 结项书    conclusion  <span class="type">varchar</span>(<span class="number">150</span>)</span><br><span class="line"><span class="operator">*</span> 审批意见  suggestion  <span class="type">varchar</span>(<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>表:4：学院编号表(college)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 学院编号  college     <span class="type">char</span>(<span class="number">2</span>)<span class="operator">/</span><span class="operator">/</span>key</span><br><span class="line"><span class="operator">*</span> 学院      name        <span class="type">varchar</span>(<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>表5：学科编号表(subject)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 学科编号  subject     <span class="type">char</span>(<span class="number">2</span>)<span class="operator">/</span><span class="operator">/</span>key</span><br><span class="line"><span class="operator">*</span> 学科      name        <span class="type">varchar</span>(<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>表6：状态标识表(status)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 状态名    name    <span class="type">varchar</span>(<span class="number">10</span>)</span><br><span class="line"><span class="operator">*</span> 编号      isDone  <span class="type">char</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>表7：权限标识表(restrict)</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 权限名    name    <span class="type">varchar</span>(<span class="number">15</span>)</span><br><span class="line"><span class="operator">*</span> 权限编号  role    <span class="type">char</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>规则</p>
+</blockquote>
+<p>权限：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span> 管理者权限    <span class="number">1</span></span><br><span class="line"><span class="operator">*</span> 审核者权限    <span class="number">2</span></span><br><span class="line"><span class="operator">*</span> 查看者权限    <span class="number">3</span></span><br><span class="line"><span class="operator">*</span> 学生权限      <span class="number">4</span></span><br><span class="line"><span class="operator">*</span> 空权限        <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>状态表示<br>isDone：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* 未审核        <span class="number">0</span></span><br><span class="line">* 通过未结项    <span class="number">1</span></span><br><span class="line">* 已结项        <span class="number">2</span></span><br><span class="line">* 过期未结项    <span class="number">3</span></span><br><span class="line">* 延期项目      <span class="number">4</span></span><br><span class="line">* 不通过        <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<p>文件：</p>
+<p>文件储存为文件名，由路径寻址，路径前块不存。<br>例如：文件相对路径为 <code>\markdown\example.doc</code><br>文件名为 <code>example.doc</code>，那么只需要存储 <code>example.doc</code>。<br>规范 中存有路径。</p>
+<p>编号表：</p>
+<p>在数据存储时，考虑到一些可确定的信息如院名、学科名，在数据库中如果直接存储会占用大量空间，所以使用较少的编号来表示冗长的字符串。<br>学科和学院统一使用2个字符来标明。</p>
+<blockquote>
+<p>技术概要</p>
+</blockquote>
+<ul>
+<li>Bootstrap可视化布局系统</li>
+<li>SHA256</li>
+<li>JWT验证</li>
+<li>多种数据排序方式</li>
+<li>模糊查询</li>
+<li>word文挡显示处理</li>
+<li>一个页面实现root用户和普通用户登入，php写html</li>
+<li>Thinkphp框架</li>
+<li>git自动项目部署</li>
+<li>调度邮箱发送邮件</li>
+<li>微信小程序显示</li>
+</ul>
+<blockquote>
+<p>注意事项</p>
+</blockquote>
+<p>系统初期</p>
+<ul>
+<li>管理员邮箱输入，<a href="mailto:&#104;&#x73;&#100;&#x73;&#x6a;&#107;&#x32;&#x31;&#x39;&#64;&#49;&#x32;&#x36;&#46;&#x63;&#x6f;&#x6d;">&#104;&#x73;&#100;&#x73;&#x6a;&#107;&#x32;&#x31;&#x39;&#64;&#49;&#x32;&#x36;&#46;&#x63;&#x6f;&#x6d;</a></li>
+</ul>
+<p>搜索</p>
+<ul>
+<li>全部分开</li>
+<li>支持模糊查询</li>
+<li>BS分布式</li>
+</ul>
+<blockquote>
+<p>预期完成日期</p>
+</blockquote>
+<ul>
+<li>2018年6月前完成前端模型雏形</li>
+<li>2018年7月前完成数据对接，实体框架完善</li>
+<li>2018年8月前完成用户权限控制</li>
+<li>2018年9月中旬前完成垂直分布式数据存储，数据库海量信息有效存储建立</li>
+<li>2018年10月前完成数据挖掘搜索</li>
+<li>2018年11月完成项目拼接整合，提高稳定性，后期修缮</li>
+</ul>
+<h2 id="代码详情"><a href="#代码详情" class="headerlink" title="代码详情"></a>代码详情</h2><blockquote>
+<p>VB端</p>
+</blockquote>
+<p>针对管理者</p>
+<ol>
+<li><p>查看界面：</p>
+<p> 查看所有学生信息<br> 以各种方式进行查询<br> 根据指定字段查询<br> 以各种方式查看类别，以属性的方式，比如指定学院为计算机</p>
+</li>
+<li><p>查看单个指定项目信息</p>
+<p> 查看word文档</p>
+</li>
+<li><p>发放查看者账号，并且控制权限</p>
+</li>
+<li><p>审核者权限<br> 对项目添加附加审核信息</p>
+</li>
+</ol>
+<hr>
+<p>窗体布置：</p>
+<p>查询<br>单独查询 查看者<br>单独审批 审核者</p>
+<p>登入<br>注册<br>修改账号<br>人员(修改权限)</p>
+<p>审核<br>审批 管理员</p>
+<p>连接数据库字符串：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Provider=SQLOLEDB.<span class="number">1</span>;Integrated Security=SSPI;Persist Security Info=<span class="literal">False</span>;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>查询 管理员</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> con <span class="keyword">As</span> ADODB.Connection</span><br><span class="line"><span class="keyword">Public</span> constr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command_Find_Click()//查询按钮</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> Sdept <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">Sdept = Trim$(Combo1_Sdept.<span class="keyword">Text</span>)</span><br><span class="line"><span class="comment">&#x27;MsgBox ComboBox</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> <span class="keyword">key</span> <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"><span class="keyword">key</span> = Trim$(Text_Key.<span class="keyword">Text</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> strSQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">strSQL = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">If</span> Sdept = <span class="string">&quot;请选择&quot;</span> <span class="keyword">Then</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">key</span> = <span class="string">&quot;&quot;</span> <span class="keyword">Then</span></span><br><span class="line">        strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum&quot;</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum where pronum like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or student.stdnum like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or proname like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or subject like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or prosort like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or reviewer like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or college like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sEmile like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sphone  like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sname like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27;&quot;</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum join college on student.college = college.college where college.name = &#x27;&quot;</span> &amp; Sdept &amp; <span class="string">&quot;&#x27;&quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> str <span class="keyword">As</span> <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line"><span class="keyword">Set</span> str = Selectsql(strSQL)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> DataGrid1.DataSource = str</span><br><span class="line">DataGrid1.Refresh</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Function</span> Selectsql(SQL <span class="keyword">As</span> <span class="type">String</span>) <span class="keyword">As</span> ADODB.Recordset       <span class="comment">&#x27;返回ADODB.Recordset对象</span></span><br><span class="line">   <span class="keyword">Dim</span> ConnStr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> Conn <span class="keyword">As</span> ADODB.Connection</span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> rs = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> Conn = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line"></span><br><span class="line">    <span class="comment">&#x27;On Error GoTo MyErr:</span></span><br><span class="line">    ConnStr = constr</span><br><span class="line">    Conn.Open ConnStr</span><br><span class="line">    rs.CursorLocation = adUseClient</span><br><span class="line">    rs.Open Trim$(SQL), Conn, adOpenDynamic, adLockOptimistic</span><br><span class="line">    <span class="keyword">Set</span> Selectsql = rs</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Form_Load()</span><br><span class="line">constr = <span class="string">&quot;Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> SQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Dim</span> X <span class="keyword">As</span> <span class="type">Long</span></span><br><span class="line">    <span class="keyword">On</span> <span class="keyword">Error</span> <span class="keyword">GoTo</span> Err_box</span><br><span class="line">    SQL = <span class="string">&quot; select * from college&quot;</span></span><br><span class="line">    <span class="keyword">Set</span> rs = Selectsql(SQL)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">If</span> rs.RecordCount &gt; <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">        rs.MoveFirst</span><br><span class="line">        <span class="keyword">For</span> X = <span class="number">1</span> <span class="keyword">To</span> rs.RecordCount</span><br><span class="line">            Combo1_Sdept.AddItem rs.Fields(<span class="string">&quot;name&quot;</span>).Value</span><br><span class="line">            rs.MoveNext</span><br><span class="line">        <span class="keyword">Next</span> X</span><br><span class="line">        Combo1_Sdept.ListIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    rs.Close</span><br><span class="line">    <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="symbol">Err_box:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>审批 管理员</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> con <span class="keyword">As</span> ADODB.Connection</span><br><span class="line"><span class="keyword">Public</span> constr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command1_Click()</span><br><span class="line">Unload <span class="keyword">Me</span></span><br><span class="line">查询.Show</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command3_Click()</span><br><span class="line">Unload <span class="keyword">Me</span></span><br><span class="line">人员.Show</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command4_Click()</span><br><span class="line"><span class="keyword">Dim</span> Sdept <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">Sdept = Trim$(Combo2.<span class="keyword">Text</span>)</span><br><span class="line"><span class="comment">&#x27;MsgBox ComboBox</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> <span class="keyword">key</span> <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"><span class="keyword">key</span> = Trim$(Text1.<span class="keyword">Text</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> strSQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">strSQL = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">If</span> Sdept = <span class="string">&quot;请选择&quot;</span> <span class="keyword">Then</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">key</span> = <span class="string">&quot;&quot;</span> <span class="keyword">Then</span></span><br><span class="line">        strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum&quot;</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum where pronum like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or student.stdnum like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or proname like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or subject like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or prosort like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or reviewer like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or college like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sEmile like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sphone  like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27; or sname like &#x27;%&quot;</span> &amp; <span class="keyword">key</span> &amp; <span class="string">&quot;%&#x27;&quot;</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    strSQL = <span class="string">&quot;Select *  from project join student on project.stdnum = student.stdnum join college on student.college = college.college where college.name = &#x27;&quot;</span> &amp; Sdept &amp; <span class="string">&quot;&#x27;&quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> str <span class="keyword">As</span> <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line"><span class="keyword">Set</span> str = Selectsql(strSQL)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> DataGrid1.DataSource = str</span><br><span class="line">DataGrid1.Refresh</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command5_Click()</span><br><span class="line">审核.stdnum = DataGrid1.Columns(<span class="string">&quot;stdnum&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line">Unload <span class="keyword">Me</span></span><br><span class="line">审核.Show</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Form_Load()</span><br><span class="line">constr = <span class="string">&quot;Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> SQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Dim</span> X <span class="keyword">As</span> <span class="type">Long</span></span><br><span class="line">    <span class="keyword">On</span> <span class="keyword">Error</span> <span class="keyword">GoTo</span> Err_box</span><br><span class="line">    SQL = <span class="string">&quot; select * from college&quot;</span></span><br><span class="line">    <span class="keyword">Set</span> rs = Selectsql(SQL)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">If</span> rs.RecordCount &gt; <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">        rs.MoveFirst</span><br><span class="line">        <span class="keyword">For</span> X = <span class="number">1</span> <span class="keyword">To</span> rs.RecordCount</span><br><span class="line">            Combo2.AddItem rs.Fields(<span class="string">&quot;name&quot;</span>).value</span><br><span class="line">            rs.MoveNext</span><br><span class="line">        <span class="keyword">Next</span> X</span><br><span class="line">        Combo2.ListIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    rs.Close</span><br><span class="line">    <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="symbol">Err_box:</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Function</span> Selectsql(SQL <span class="keyword">As</span> <span class="type">String</span>) <span class="keyword">As</span> ADODB.Recordset       <span class="comment">&#x27;返回ADODB.Recordset对象</span></span><br><span class="line">   <span class="keyword">Dim</span> ConnStr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> Conn <span class="keyword">As</span> ADODB.Connection</span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> rs = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> Conn = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line">     </span><br><span class="line">    <span class="comment">&#x27;On Error GoTo MyErr:</span></span><br><span class="line">    ConnStr = constr</span><br><span class="line">    Conn.Open ConnStr</span><br><span class="line">    rs.CursorLocation = adUseClient</span><br><span class="line">    rs.Open Trim$(SQL), Conn, adOpenDynamic, adLockOptimistic</span><br><span class="line">    <span class="keyword">Set</span> Selectsql = rs</span><br><span class="line">    </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Display()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;MsgBox &quot;hello&quot;</span></span><br><span class="line"></span><br><span class="line">Text2.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;proname&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line">Text3.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;college&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line">Text4.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;sname&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> DataGrid1_Click()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Call</span> Display</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>人员(修改权限) 管理员</p>
+<p>审核</p>
+<p>单独查询 查看者</p>
+<p>单独审批 审核者</p>
+<p>登入<br>注册<br>修改账号</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/archives/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.html">http://itheds.github.io/archives/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.html</a>
+            <p>发表日期：<a href="http://itheds.github.io/archives/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.html">May 25th 2018, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/archives/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.html">April 21st 2025, 1:43:53 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

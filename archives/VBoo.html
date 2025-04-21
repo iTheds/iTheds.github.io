@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="VB学习手记 入门篇 前期我们可以使用ADO控件来连接VB工程和数据库，在入门篇里可以对VB语法有大概了解  1.ADO直接操作控件 1234Adodc1.Recordset.MoveNextAdodc1.Recordset.MoveFirstAdodc1.Recordset.MovePreviousAdodc1.Recordset.MoveLast  在这类中我们可以使用如下方法来让一个标签">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VB学习手记">
+<meta property="og:url" content="http://itheds.github.io/archives/VBoo.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="VB学习手记 入门篇 前期我们可以使用ADO控件来连接VB工程和数据库，在入门篇里可以对VB语法有大概了解  1.ADO直接操作控件 1234Adodc1.Recordset.MoveNextAdodc1.Recordset.MoveFirstAdodc1.Recordset.MovePreviousAdodc1.Recordset.MoveLast  在这类中我们可以使用如下方法来让一个标签">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T05:29:48.426Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="VB">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>VB学习手记 · iTheds&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>iTheds's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
+
+<h1 id="VB学习手记"><a href="#VB学习手记" class="headerlink" title="VB学习手记"></a>VB学习手记</h1><blockquote>
+<h2 id="入门篇"><a href="#入门篇" class="headerlink" title="入门篇"></a>入门篇</h2></blockquote>
+<p>前期我们可以使用ADO控件来连接VB工程和数据库，在入门篇里可以对VB语法有大概了解</p>
+<blockquote>
+<h3 id="1-ADO直接操作控件"><a href="#1-ADO直接操作控件" class="headerlink" title="1.ADO直接操作控件"></a>1.ADO直接操作控件</h3></blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Adodc1.Recordset.MoveNext</span><br><span class="line">Adodc1.Recordset.MoveFirst</span><br><span class="line">Adodc1.Recordset.MovePrevious</span><br><span class="line">Adodc1.Recordset.MoveLast</span><br></pre></td></tr></table></figure>
+
+<p>在这类中我们可以使用如下方法来让一个标签失效。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">If</span> Adodc1.Recordset.EOF = <span class="literal">True</span> <span class="keyword">Then</span></span><br><span class="line">   Command2.Enabled = <span class="literal">False</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.删除操作，在这块讲解中，我们还是利用ADO部件</p>
+</blockquote>
+<pre><code>Adodc1.Recordset.MoveNext
+Adodc1.Recordset.Delete
+</code></pre>
+<blockquote>
+<p>3.添加操作和删除操作一样，</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Adodc1.Recordset.AddNew</span><br><span class="line">Adodc1.Recordset.Fields(<span class="string">&quot;sno&quot;</span>) = Trim(Text4.<span class="keyword">Text</span>)</span><br><span class="line">Adodc1.Recordset.Fields(<span class="string">&quot;sname&quot;</span>) = Trim(Text5.<span class="keyword">Text</span>)</span><br><span class="line">Adodc1.Recordset.Fields(<span class="string">&quot;ssex&quot;</span>) = Trim(Text1.<span class="keyword">Text</span>)</span><br><span class="line">Adodc1.Recordset.Fields(<span class="string">&quot;sage&quot;</span>) = <span class="built_in">CInt</span>(Trim(Text2.<span class="keyword">Text</span>))</span><br><span class="line">Adodc1.Recordset.Fields(<span class="string">&quot;sdept&quot;</span>) = Trim(Text3.<span class="keyword">Text</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中，Trim函数用于将内容里面头和尾的空格删除<br>CInt函数的作用是四舍五入后取整</p>
+<p>添加后应该使用<code>Adodc1.Recordset.Update</code>来更新记录</p>
+<blockquote>
+<p>4.利用ADODB对象来连接数据库</p>
+</blockquote>
+<p>连接方式：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Set</span> conn = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line"> conn.ConnectionString = <span class="string">&quot;Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=xsglxt;Data Source=LONNIE\SQLEXPRESS&quot;</span></span><br><span class="line"> conn.Open</span><br></pre></td></tr></table></figure>
+
+<p>构造sql语句：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> strSQl <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"> strSQl = <span class="string">&quot;select * from userd where userid=&#x27;&quot;</span> &amp; Trim$(Text1.<span class="keyword">Text</span>) &amp; <span class="string">&quot;&#x27; and psw=&#x27;&quot;</span> &amp; Trim$(Text2.<span class="keyword">Text</span>) &amp; <span class="string">&quot;&#x27; &quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>执行sql语句</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> str <span class="keyword">As</span> <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line"><span class="keyword">Set</span> str = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">str.CursorLocation = adUseClient</span><br><span class="line">str.Open strSQl, conn, adOpenStatic, adLockReadOnly</span><br></pre></td></tr></table></figure>
+
+<p>其中，我们使用Dim定义一些变量，<code>conn.ConnectionString</code>其中的字符串我们可以参考ADO部件中的生存的String连接方式。<br>其<code>adLockReadOnly</code>表示只读，还可以设置诸如<code>adLockPessimistic</code>和<code>adLockOptimistic</code>这样的其他属性值，使得我们可以更改连接后的数据库。<br>其中str接受了其中的返回值。返回类型为一个表</p>
+<p>还有一种直接模拟ADO控件来连接数据库并且以DataGrid方式返回的方法：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Set</span> adoCon = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line">adoCon.Open constr//连接数据库字符串</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> adoRst = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">adoRst.ActiveConnection = adoCon</span><br><span class="line">adoRst.CursorLocation = adUseClient</span><br><span class="line">adoRst.CursorType = adOpenDynamic</span><br><span class="line">adoRst.LockType = adLockOptimistic</span><br><span class="line">adoRst.Source = <span class="string">&quot;Student&quot;</span></span><br><span class="line">adoRst.Open , , , , adCmdTable</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>5.窗口操作</p>
+</blockquote>
+<ul>
+<li>打开窗口：</li>
+</ul>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">窗口名.show</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭窗口：</li>
+</ul>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unload <span class="keyword">Me</span> //<span class="keyword">Me</span>代指所有的现在窗体</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>判断当前是什么窗体</li>
+</ul>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">&gt;<span class="number">6</span>.获取控件信息</span><br><span class="line"></span><br><span class="line">获取TextBox：</span><br><span class="line"></span><br><span class="line">```VB</span><br><span class="line"><span class="keyword">Dim</span> tmp <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">tmp = Trim$(Text1.<span class="keyword">Text</span>)</span><br></pre></td></tr></table></figure>
+
+<p>获取ComboBox：</p>
+<p><a target="_blank" rel="noopener" href="http://www.myexception.cn/vb-dotnet/54538.html">example without test</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.myexception.cn/vb-dotnet/54538.html">example without test</a></p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>7.vb中获取DataGrid选中行的值</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Text2.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;proname&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line">Text3.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;college&quot;</span>).CellText(DataGrid1.Bookmark)</span><br><span class="line">Text4.<span class="keyword">Text</span> = DataGrid1.Columns(<span class="string">&quot;sname&quot;</span>).CellText(DataGrid1.Bookmark)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>8.调试</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MsgBox ComboBox</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>9.数组</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> tmp()</span><br><span class="line">tmp = Array(<span class="string">&quot;pronum&quot;</span>, <span class="string">&quot;proname&quot;</span>, <span class="string">&quot;teacher&quot;</span>, <span class="string">&quot;sname&quot;</span>, <span class="string">&quot;sphone&quot;</span>, <span class="string">&quot;college&quot;</span>, <span class="string">&quot;suggestion&quot;</span>, <span class="string">&quot;funds&quot;</span>, <span class="string">&quot;starttime&quot;</span>, <span class="string">&quot;endtime&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> X <span class="keyword">In</span> tmp</span><br><span class="line">    <span class="keyword">If</span> IsNull(str.Fields(X).Value) <span class="keyword">Then</span></span><br><span class="line">       Controls(X).<span class="keyword">Text</span> = X</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        Controls(X).<span class="keyword">Text</span> = str.Fields(X).Value</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Next</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>选择疑问</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command_Del_Click()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> res <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line">res = MsgBox(<span class="string">&quot;确定删除该条记录？&quot;</span>, vbExclamation + vbYesNo + vbDefaultButton2)</span><br><span class="line"><span class="keyword">If</span> res = vbYes <span class="keyword">Then</span></span><br><span class="line">    adoRst.Delete</span><br><span class="line">    adoRst.MoveNext</span><br><span class="line">    <span class="keyword">If</span> adoRst.EOF = <span class="literal">True</span> <span class="keyword">Then</span></span><br><span class="line">       adoRst.MoveLast</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">If</span> a &lt;&gt; <span class="number">1</span> <span class="built_in">And</span> a &lt;&gt; <span class="number">4</span> <span class="keyword">Then</span></span><br><span class="line"><span class="keyword">Call</span> Display</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h2><p>在实际工程中，我们不免要用到高度灵活性的操作方式，通过ADO控件的操作方式已经不能满足在VB的各个作用域上、以及代码构造优化上的灵活性。</p>
+<p>在进阶篇中，我们介绍在基本的代码基础上来实现各种操作，包括直接使用验证字符串连接数据库并获得操作数据库的权限，在各个函数框架中灵活调用函数、并且规定函数执行顺序，动态生成标签来达到页面的高度可扩展性。当然对于数据的基本验证和甄别也应有所涉猎。在这些趋于完善之后，我们考虑VB工程的稳定性与安全性。</p>
+<blockquote>
+<p>1.使用字符串连接数据库</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">Set</span> con = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line"> con.ConnectionString = constr</span><br><span class="line"> con.Open</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> tmp <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">tmp = Trim$(Text1.<span class="keyword">Text</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;连接数据库</span></span><br><span class="line">  </span><br><span class="line"> <span class="keyword">Dim</span> strSQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"> strSQL = <span class="string">&quot;Select * from Student join  SC on Student.Sno = SC.Sno  join Course on  Sc.Cno = Course.Cno where Sname LIKE &#x27;&quot;</span> &amp; tmp &amp; <span class="string">&quot;&#x27; or Cname LIKE &#x27;&quot;</span> &amp; tmp &amp; <span class="string">&quot;&#x27; or SC.Cno LIKE &#x27;&quot;</span> &amp; Trim$(Text1.<span class="keyword">Text</span>) &amp; <span class="string">&quot;&#x27;  or Sdept LIKE &#x27;&quot;</span> &amp; tmp &amp; <span class="string">&quot;&#x27; or SC.Sno Like &#x27;&quot;</span> &amp; tmp &amp; <span class="string">&quot;&#x27; or Sage LIKE &#x27;&quot;</span> &amp; tmp &amp; <span class="string">&quot;&#x27;  &quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">&#x27;连接数据库中表的select语句</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> str <span class="keyword">As</span> <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line"><span class="keyword">Set</span> str = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">str.CursorLocation = adUseClient</span><br><span class="line">str.Open strSQL, con, adOpenStatic, adLockReadOnly</span><br><span class="line"></span><br><span class="line">str.MoveLast</span><br><span class="line"></span><br><span class="line"> Text1.<span class="keyword">Text</span> = str.Fields(<span class="string">&quot;Cno&quot;</span>).Value</span><br><span class="line"> Text2.<span class="keyword">Text</span> = str.Source</span><br><span class="line">---</span><br><span class="line"><span class="keyword">Set</span> DataGrid.DataSource = str</span><br><span class="line">DataGrid.Refresh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.构造全局变量并在窗口加载时赋值</p>
+</blockquote>
+<ul>
+<li>定义在窗体中使用的全局变量</li>
+</ul>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> con <span class="keyword">As</span> ADODB.Connection</span><br><span class="line"><span class="keyword">Public</span> constr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">---</span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Form_Load()</span><br><span class="line">constr = <span class="string">&quot;Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS&quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3.动态生成标签</p>
+</blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> <span class="keyword">Class</span> Form1</span><br><span class="line">    <span class="comment">&#x27;窗体的load事件，中加载控件。(当然你可以在任意地方加载)</span></span><br><span class="line">    <span class="keyword">Private</span> <span class="keyword">Sub</span> Form1_Load(<span class="keyword">ByVal</span> sender <span class="keyword">As</span> System.<span class="type">Object</span>, <span class="keyword">ByVal</span> e <span class="keyword">As</span> System.EventArgs) <span class="keyword">Handles</span> <span class="keyword">MyBase</span>.Load</span><br><span class="line">        My_Control_label() <span class="comment">&#x27;生成label1标签控件函数</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&#x27;生成label1标签控件函数</span></span><br><span class="line">    <span class="comment">&#x27;将标签控件添加到窗体中，然后定义标签的text属性、位置、颜色、字体等属性。并添加Click事件处理函数</span></span><br><span class="line">    <span class="keyword">Private</span> <span class="keyword">Sub</span> My_Control_label()</span><br><span class="line">        <span class="keyword">Dim</span> label1 <span class="keyword">As</span> <span class="built_in">New</span> Label <span class="comment">&#x27;定义一个标签控件对象</span></span><br><span class="line">        <span class="keyword">Me</span>.Controls.Add(label1) <span class="comment">&#x27;添加到窗体控件集中，你也可以添加到其他控件集中，</span></span><br><span class="line">        <span class="comment">&#x27;如(Panel1.Controls.Add(label1))就是添加到panel1控件中</span></span><br><span class="line">        <span class="keyword">With</span> label1</span><br><span class="line">            .<span class="keyword">Text</span> = <span class="string">&quot;新建标签&quot;</span></span><br><span class="line">            .Location = <span class="built_in">New</span> Point(<span class="number">10</span>, <span class="number">20</span>) <span class="comment">&#x27;定义控件位置，默认的是（0，0）</span></span><br><span class="line">            .AutoSize = <span class="literal">True</span></span><br><span class="line">            .ForeColor = Color.Red</span><br><span class="line">            .Font = <span class="built_in">New</span> Font(<span class="string">&quot;楷体&quot;</span>, <span class="number">20</span>) <span class="comment">&#x27;定义字体</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        <span class="keyword">AddHandler</span> label1.Click, <span class="built_in">AddressOf</span> label_Click <span class="comment">&#x27;添加click事件</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="comment">&#x27;标签的click事件，点击该标签后，释放该控件资源</span></span><br><span class="line">    <span class="keyword">Private</span> <span class="keyword">Sub</span> label_Click(<span class="keyword">ByVal</span> sender <span class="keyword">As</span> System.<span class="type">Object</span>, <span class="keyword">ByVal</span> e <span class="keyword">As</span> System.EventArgs)</span><br><span class="line">        <span class="keyword">Dim</span> label1 <span class="keyword">As</span> Label = CType(sender, Label) <span class="comment">&#x27;获取当前操作的控件对象，只有这样才能对该控件进行操作</span></span><br><span class="line">        <span class="keyword">Me</span>.Controls.Remove(label1) <span class="comment">&#x27;将控件移除</span></span><br><span class="line">        label1.Dispose() <span class="comment">&#x27;释放控件资源</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Class</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ComboBox与数据库数据相复用</p>
+</blockquote>
+<p>使用ComboBox控件加载数据库中的数据</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> con <span class="keyword">As</span> ADODB.Connection</span><br><span class="line"><span class="keyword">Public</span> constr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Function</span> Selectsql(SQL <span class="keyword">As</span> <span class="type">String</span>) <span class="keyword">As</span> ADODB.Recordset       <span class="comment">&#x27;返回ADODB.Recordset对象</span></span><br><span class="line">   <span class="keyword">Dim</span> ConnStr <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> Conn <span class="keyword">As</span> ADODB.Connection</span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> rs = <span class="built_in">New</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Set</span> Conn = <span class="built_in">New</span> ADODB.Connection</span><br><span class="line">     </span><br><span class="line">    <span class="comment">&#x27;On Error GoTo MyErr:</span></span><br><span class="line">    ConnStr = constr</span><br><span class="line">    Conn.Open ConnStr</span><br><span class="line">    rs.CursorLocation = adUseClient</span><br><span class="line">    rs.Open Trim$(SQL), Conn, adOpenDynamic, adLockOptimistic</span><br><span class="line">    <span class="keyword">Set</span> Selectsql = rs</span><br><span class="line">    <span class="comment">&#x27;Exit Function</span></span><br><span class="line"><span class="comment">&#x27;MyErr:</span></span><br><span class="line">    <span class="comment">&#x27;Set rs = Nothing</span></span><br><span class="line">    <span class="comment">&#x27;Set Conn = Nothing &#x27;释放相关的系统资源</span></span><br><span class="line">    <span class="comment">&#x27;MsgBox Err.Description, vbInformation, &quot;系统提示&quot; &#x27;显示出错信息</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Form_Load()</span><br><span class="line">constr = <span class="string">&quot;Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS&quot;</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">Dim</span> SQL <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> rs <span class="keyword">As</span> ADODB.Recordset</span><br><span class="line">    <span class="keyword">Dim</span> X <span class="keyword">As</span> <span class="type">Long</span></span><br><span class="line">    <span class="keyword">On</span> <span class="keyword">Error</span> <span class="keyword">GoTo</span> Err_box</span><br><span class="line">    SQL = <span class="string">&quot; select * from college&quot;</span></span><br><span class="line">    <span class="keyword">Set</span> rs = Selectsql(SQL)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">If</span> rs.RecordCount &gt; <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">        rs.MoveFirst</span><br><span class="line">        <span class="keyword">For</span> X = <span class="number">1</span> <span class="keyword">To</span> rs.RecordCount</span><br><span class="line">            Combo1_Sdept.AddItem rs.Fields(<span class="string">&quot;name&quot;</span>).Value</span><br><span class="line">            rs.MoveNext</span><br><span class="line">        <span class="keyword">Next</span> X</span><br><span class="line">        Combo1_Sdept.ListIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    rs.Close</span><br><span class="line">    <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="symbol">Err_box:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>函数和方法</p>
+</blockquote>
+<p>sub和function方法区别：</p>
+<blockquote>
+<p>窗体中互相传值</p>
+</blockquote>
+<p>下面展示将数据从窗口1传递到窗口2</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;窗口1代码</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Command2_Click()</span><br><span class="line"></span><br><span class="line">窗口<span class="number">1</span>.stdnum = <span class="string">&quot;Test&quot;</span></span><br><span class="line">窗口<span class="number">1</span>.Show</span><br><span class="line">Unload <span class="keyword">Me</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;窗口二代码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> stdnum <span class="keyword">As</span> <span class="type">String</span><span class="comment">&#x27;主要通过此变量来传值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Form_Load()</span><br><span class="line"><span class="comment">&#x27;MsgBox stdnum&#x27;测试是否传递成功</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>此处代码顺序很重要，如果先.Show后赋值，如：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">窗口<span class="number">1</span>.Show</span><br><span class="line">窗口<span class="number">1</span>.stdnum = <span class="string">&quot;Test&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>会发现，窗口1中的stdnum并没有被立马改变，在From_Load中无法使用，此处必须尤为重要的注意。小记一失误，程序在编写中时，我希望实现一次性修改链接sql server字符串，所以在所有的窗口中不断传值，但是没有考虑到顺序问题，在展示程序的时候频繁出现连接错误，ODBC啊，以此谨记工程之严谨性！！！</p>
+<blockquote>
+<p>VB实现窗口Tab键顺序</p>
+</blockquote>
+<p>设定各控件的Tab键的顺序可以通过设置控件的TabIndex大小来设定，<br>第一个tab键到的地方应该设置成最小的值。</p>
+<blockquote>
+<p>打印</p>
+</blockquote>
+<p>朋友的帮助，是我最大的幸运(没错，我就是个划水的~~\飘过)</p>
+<p>Public Function prnt(X As Variant, Y As Variant, fnt As Variant, txt0 As Variant)<br>Printer.CurrentX &#x3D; X<br>Printer.CurrentY &#x3D; Y<br>Printer.FontSize &#x3D; fnt<br>Printer.Print txt0<br>End Function</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">Dim</span> fnt <span class="keyword">As</span> <span class="type">Single</span></span><br><span class="line"><span class="keyword">Dim</span> pp <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line">pp = <span class="number">0</span> <span class="comment">&#x27;设置开始页码0</span></span><br><span class="line"><span class="keyword">Dim</span> stry, strx, strx1, stry1, linw, page1, p <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Static</span> a(<span class="number">8</span>) <span class="keyword">As</span> <span class="type">Integer</span> <span class="comment">&#x27;定义打印的列数</span></span><br><span class="line">ss$ = <span class="string">&quot;审批表&quot;</span> <span class="comment">&#x27;定义表头</span></span><br><span class="line">kan = <span class="number">0</span></span><br><span class="line">DataGrid1.Row = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    a(i) = <span class="number">2000</span> <span class="comment">&#x27; 定义每列宽</span></span><br><span class="line">    kan = <span class="number">9000</span> <span class="comment">&#x27;计算表格总宽度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">page1 = <span class="number">15</span>  <span class="comment">&#x27;定义每页行数</span></span><br><span class="line">strx = <span class="number">200</span></span><br><span class="line">strx1 = <span class="number">200</span> <span class="comment">&#x27;定义X方向起始位置</span></span><br><span class="line">stry = <span class="number">1400</span></span><br><span class="line">stry1 = <span class="number">1400</span> <span class="comment">&#x27;定义Y方向起始位置</span></span><br><span class="line">linw = <span class="number">240</span> <span class="comment">&#x27;定义行宽</span></span><br><span class="line">fnt = <span class="number">14</span> <span class="comment">&#x27;定义字体大小</span></span><br><span class="line"></span><br><span class="line">Printer.FontName = <span class="string">&quot;宋体&quot;</span> <span class="comment">&#x27;定义字体</span></span><br><span class="line">dd = prnt(<span class="number">4000</span>, <span class="number">700</span>, <span class="number">18</span>, ss$) <span class="comment">&#x27;打印标题</span></span><br><span class="line">Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27; 打印学号，姓名...</span></span><br><span class="line"><span class="keyword">Dim</span> attr <span class="keyword">As</span> Variant</span><br><span class="line">attr = Array(<span class="string">&quot;项目编号&quot;</span>, <span class="string">&quot;项目名称&quot;</span>, <span class="string">&quot;所属学院&quot;</span>, <span class="string">&quot;负责人&quot;</span>, <span class="string">&quot;指导老师&quot;</span>, <span class="string">&quot;联系电话&quot;</span>, <span class="string">&quot;项目经费&quot;</span>, <span class="string">&quot;开始时间&quot;</span>, <span class="string">&quot;结束时间&quot;</span>, <span class="string">&quot;审批意见&quot;</span>)</span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">2</span></span><br><span class="line">    DataGrid1.Col = i</span><br><span class="line">    strx = strx1</span><br><span class="line"></span><br><span class="line">    Printer.Line (strx1 - <span class="number">50</span>, stry - <span class="number">50</span>)-(strx1 - <span class="number">50</span>, stry + <span class="number">400</span>)  <span class="comment">&#x27;</span></span><br><span class="line">    tmp = prnt(strx1, stry, fnt, attr(i)) <span class="comment">&#x27;打印属性</span></span><br><span class="line">    Printer.Line (strx, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">    p = p + <span class="number">1</span></span><br><span class="line">   <span class="comment">&#x27;For X = 0 To 4</span></span><br><span class="line">       <span class="comment">&#x27;DataGrid1.Row = X</span></span><br><span class="line">        tmp = prnt(strx + <span class="number">1500</span>, stry, fnt, DataGrid1.<span class="keyword">Text</span>) <span class="comment">&#x27;打印内容</span></span><br><span class="line">        Printer.Line (strx + <span class="number">1500</span>, stry - <span class="number">50</span>)-(strx + <span class="number">1500</span>, stry + <span class="number">400</span>) <span class="comment">&#x27;打印竖线</span></span><br><span class="line">        <span class="comment">&#x27;Printer.Line (strx - 50, stry - 30)-(strx + kan - 10, stry - 30) &#x27;打印行线</span></span><br><span class="line">        strx = strx + a(i)</span><br><span class="line">   <span class="comment">&#x27; Next</span></span><br><span class="line">    stry = stry + <span class="number">400</span></span><br><span class="line">    Printer.Line (strx - <span class="number">7500</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">3</span></span><br><span class="line">  <span class="keyword">For</span> m = <span class="number">0</span> <span class="keyword">To</span> <span class="number">2</span></span><br><span class="line">    strx = strx1</span><br><span class="line"><span class="keyword">For</span> j = <span class="number">0</span> <span class="keyword">To</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    DataGrid1.Col = i</span><br><span class="line">    i = i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">50</span>)-(strx - <span class="number">50</span>, stry + <span class="number">400</span>)  <span class="comment">&#x27;打印竖线</span></span><br><span class="line">    tmp = prnt(strx, stry, fnt, attr(i)) <span class="comment">&#x27;</span></span><br><span class="line">    strx = strx + <span class="number">1500</span></span><br><span class="line">    tmp = prnt(strx, stry, fnt, DataGrid1.<span class="keyword">Text</span>)  <span class="comment">&#x27;打印表格内容</span></span><br><span class="line">   <span class="comment">&#x27; strx = strx + 3000</span></span><br><span class="line">    Printer.Line (strx, stry - <span class="number">50</span>)-(strx, stry + <span class="number">400</span>)   <span class="comment">&#x27;打印竖线</span></span><br><span class="line">    strx = strx + <span class="number">3000</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line">stry = stry + <span class="number">400</span></span><br><span class="line">Printer.Line (strx1, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)  <span class="comment">&#x27;打印行线</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line">strx = strx1</span><br><span class="line"></span><br><span class="line">stry = stry + <span class="number">600</span></span><br><span class="line">Printer.Line (strx1 - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>) <span class="comment">&#x27;打印横线</span></span><br><span class="line">tmp = prnt(strx1, stry, fnt, attr(i)) <span class="comment">&#x27;打印属性</span></span><br><span class="line">Printer.Line (strx1, stry - <span class="number">30</span>)-(strx1, stry + <span class="number">2000</span>) <span class="comment">&#x27;打印左竖线</span></span><br><span class="line"><span class="comment">&#x27;Printer.Line (strx - 50, stry - 30)-(strx - 50, stry + 2000)</span></span><br><span class="line"></span><br><span class="line">Printer.EndDoc  <span class="comment">&#x27;打印结束</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> fnt <span class="keyword">As</span> <span class="type">Single</span></span><br><span class="line">    <span class="keyword">Dim</span> pp <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line">    pp = <span class="number">0</span> <span class="comment">&#x27;设置开始页码0</span></span><br><span class="line">    <span class="keyword">Dim</span> stry, strx, strx1, stry1, linw, page1, p <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line">    <span class="keyword">Static</span> a(<span class="number">8</span>) <span class="keyword">As</span> <span class="type">Integer</span> <span class="comment">&#x27;定义打印的列数</span></span><br><span class="line">    ss$ = <span class="string">&quot;项目信息统计表&quot;</span> <span class="comment">&#x27;定义表头</span></span><br><span class="line">    kan = <span class="number">0</span></span><br><span class="line">    DataGrid1.Row = <span class="number">1</span></span><br><span class="line">    <span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">6</span></span><br><span class="line">    a(i) = <span class="number">1500</span> <span class="comment">&#x27; 定义每列宽</span></span><br><span class="line">    kan = kan + a(i) <span class="comment">&#x27;计算表格总宽度</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">    page1 = <span class="number">15</span>  <span class="comment">&#x27;定义每页行数</span></span><br><span class="line">    strx = <span class="number">200</span></span><br><span class="line">    strx1 = <span class="number">200</span> <span class="comment">&#x27;定义X方向起始位置</span></span><br><span class="line">    stry = <span class="number">1400</span></span><br><span class="line">    stry1 = <span class="number">1400</span> <span class="comment">&#x27;定义Y方向起始位置</span></span><br><span class="line">    linw = <span class="number">240</span> <span class="comment">&#x27;定义行宽</span></span><br><span class="line">    fnt = <span class="number">8</span> <span class="comment">&#x27;定义字体大小</span></span><br><span class="line">    Printer.FontName = <span class="string">&quot;宋体&quot;</span> <span class="comment">&#x27;定义字体</span></span><br><span class="line">    dd = prnt(<span class="number">4000</span>, <span class="number">700</span>, <span class="number">18</span>, ss$) <span class="comment">&#x27;打印标题</span></span><br><span class="line">    Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line">    <span class="keyword">For</span> j = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">     <span class="comment">&#x27;gridrow为所要打印的行数</span></span><br><span class="line">     DataGrid1.Row = j</span><br><span class="line">     strx = strx1</span><br><span class="line">     Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line">     p = p + <span class="number">1</span></span><br><span class="line">     <span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">4</span></span><br><span class="line">      DataGrid1.Col = i</span><br><span class="line">      dd = prnt(strx, stry, fnt, DataGrid1.<span class="keyword">Text</span>)</span><br><span class="line">      strx = strx + a(i)</span><br><span class="line">     <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">If</span> p &gt; page1 <span class="keyword">Then</span> <span class="comment">&#x27;next page</span></span><br><span class="line">     p = <span class="number">0</span></span><br><span class="line">     strx = strx1</span><br><span class="line">     Printer.Line (strx - <span class="number">50</span>, stry + linw)-(strx + kan - <span class="number">10</span>, stry + linw)</span><br><span class="line">     stry = stry1</span><br><span class="line">     <span class="keyword">For</span> n = <span class="number">0</span> <span class="keyword">To</span> <span class="number">8</span></span><br><span class="line">     Printer.Line (strx - <span class="number">30</span>, stry - <span class="number">30</span>)-(strx - <span class="number">30</span>, stry + (page1 + <span class="number">2</span>) * linw)</span><br><span class="line">     strx = strx + a(n)</span><br><span class="line">     <span class="keyword">Next</span></span><br><span class="line">     Printer.Line (strx - <span class="number">30</span>, stry - <span class="number">30</span>)-(strx - <span class="number">30</span>, stry + (page1 + <span class="number">2</span>) * linw)</span><br><span class="line">     pp = pp + <span class="number">1</span></span><br><span class="line">     foot$ = <span class="string">&quot;第 &quot;</span> + <span class="built_in">CStr</span>(pp) + <span class="string">&quot; 页&quot;</span></span><br><span class="line">     dd = prnt(strx - <span class="number">30</span> - <span class="number">1000</span>, stry + (page1 + <span class="number">2</span>) * linw + <span class="number">100</span>, <span class="number">10</span>, foot$) <span class="comment">&#x27;打印页脚码</span></span><br><span class="line">     Printer.NewPage <span class="comment">&#x27;next page</span></span><br><span class="line">     dd = prnt(<span class="number">4000</span>, <span class="number">700</span>, <span class="number">18</span>, ss$) <span class="comment">&#x27;打印标题</span></span><br><span class="line">     strx = strx1</span><br><span class="line">     stry = stry1</span><br><span class="line">     Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>) <span class="comment">&#x27;打印第一行</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">     stry = stry + linw</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">     st = stry</span><br><span class="line">    <span class="keyword">If</span> p &lt; page1 <span class="keyword">Then</span> <span class="comment">&#x27;在最后页剩余划空行</span></span><br><span class="line">    <span class="keyword">For</span> o = p <span class="keyword">To</span> page1 + <span class="number">1</span></span><br><span class="line">     strx = strx1</span><br><span class="line">     Printer.Line (strx - <span class="number">50</span>, stry - <span class="number">30</span>)-(strx + kan - <span class="number">10</span>, stry - <span class="number">30</span>)</span><br><span class="line">     stry = stry + linw</span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    stry = stry1</span><br><span class="line">    strx = strx1</span><br><span class="line">    stry = stry1 <span class="comment">&#x27;line col</span></span><br><span class="line">    <span class="keyword">For</span> n = <span class="number">0</span> <span class="keyword">To</span> <span class="number">8</span></span><br><span class="line">      Printer.Line (strx - <span class="number">30</span>, stry - <span class="number">30</span>)-(strx - <span class="number">30</span>, stry + (page1 + <span class="number">2</span>) * linw)</span><br><span class="line">      strx = strx + a(n)</span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">    Printer.Line (strx - <span class="number">30</span>, stry - <span class="number">30</span>)-(strx - <span class="number">30</span>, stry + (page1 + <span class="number">2</span>) * linw)</span><br><span class="line">     pp = pp + <span class="number">1</span></span><br><span class="line">     foot$ = <span class="string">&quot;第 &quot;</span> + <span class="built_in">CStr</span>(pp) + <span class="string">&quot; 页&quot;</span></span><br><span class="line">     dd = prnt(strx - <span class="number">30</span> - <span class="number">1000</span>, stry + (page1 + <span class="number">2</span>) * linw + <span class="number">100</span>, <span class="number">10</span>, foot$) <span class="comment">&#x27;打印页脚码</span></span><br><span class="line">     Printer.EndDoc  <span class="comment">&#x27;打印结束</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>VB打开文件</p>
+</blockquote>
+<p>打开txt文件</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;txt为路径 ，App.Path为系统exe文件路径</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> read(txt <span class="keyword">As</span> <span class="type">String</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> strSj <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    <span class="keyword">Dim</span> s <span class="keyword">As</span> <span class="type">String</span></span><br><span class="line">    Open App.Path &amp; <span class="string">&quot;\file\&quot;</span> &amp; txt <span class="keyword">For</span> Input <span class="keyword">As</span> #<span class="number">1</span></span><br><span class="line">        <span class="keyword">Do</span> <span class="keyword">Until</span> EOF(<span class="number">1</span>)</span><br><span class="line">            Line Input #<span class="number">1</span>, s</span><br><span class="line">            strSj = strSj &amp; s &amp; vbCrLf</span><br><span class="line">        <span class="keyword">Loop</span></span><br><span class="line">    Close #<span class="number">1</span></span><br><span class="line">    <span class="keyword">Text</span> = strSj</span><br><span class="line">    <span class="comment">&#x27;设置Text的属性MultiLine为True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="DateTimePicker控件"><a href="#DateTimePicker控件" class="headerlink" title="DateTimePicker控件"></a>DateTimePicker控件</h3></blockquote>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Ddate <span class="keyword">As</span> <span class="type">Date</span></span><br><span class="line"><span class="keyword">If</span> DTPicker1.Enabled = <span class="literal">True</span> <span class="keyword">Then</span></span><br><span class="line">    Ddate = DTPicker1.Value</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line">Ddate = <span class="literal">#6/7/2018#</span> <span class="comment">&#x27;月/日/年</span></span><br><span class="line"></span><br><span class="line">DTPicker1.Value = Now</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>动态变化<br>验证<br>多表连接<br>统计数据生成图表<br>自主按需求建表<br>前端设计之from自适应大小<br>VB中的身份验证<br>VB实现打印<br>VB连接各种数据库管理器<br>DataGrid1.ApproxCount</p>
+<p>项目编号”, “负责人”, “名称”, “学科”, “项目类别”, “开始时间”, “结束时间”, “状态标识”, “审批人”</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://itheds.github.io">iTheds</a>
+            <p>原文链接：<a href="http://itheds.github.io/archives/VBoo.html">http://itheds.github.io/archives/VBoo.html</a>
+            <p>发表日期：<a href="http://itheds.github.io/archives/VBoo.html">May 23rd 2018, 12:00:00 am</a>
+            <p>更新日期：<a href="http://itheds.github.io/archives/VBoo.html">April 21st 2025, 1:29:48 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span>
+            <a class="archive-post-title" href="/2024/12/23/OpenEuler/">OpenEuler入门指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2024/03/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">算法学习笔记03</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据中的流式计算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2023/03/10/docker_use/">Docker Used Node</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2022/11/07/Mysql_Read_record/">Mysql_Read_record</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2022/08/18/Python%E5%92%8CCpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/">Python和Cpp混合编程</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">`Linux`编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/AntDesignPro/">RESTful架构与Ant Design Pro开发项目</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/JWT/">JWT(JSON Web Token)验证方式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenEuler">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenEuler
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                Docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="虚拟化">
+                <span class="iconfont-archer">&#xe606;</span>
+                虚拟化
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="流式计算">
+                <span class="iconfont-archer">&#xe606;</span>
+                流式计算
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="docker">
+                <span class="iconfont-archer">&#xe606;</span>
+                docker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="服务器">
+            <span class="iconfont-archer">&#xe60a;</span>
+            服务器
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编程
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="算法">
+            <span class="iconfont-archer">&#xe60a;</span>
+            算法
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="项目管理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            项目管理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="数据库">
+            <span class="iconfont-archer">&#xe60a;</span>
+            数据库
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tools">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tools
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="web">
+            <span class="iconfont-archer">&#xe60a;</span>
+            web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="通信原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            通信原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="大数据">
+            <span class="iconfont-archer">&#xe60a;</span>
+            大数据
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
