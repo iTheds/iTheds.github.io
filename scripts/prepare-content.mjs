@@ -1,8 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const SOURCE_ROOT = "/home/hexo-backup/markdown";
-const TARGET_ROOT = "/home/hexo-backup/.astro-migration";
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
+const SOURCE_ROOT = path.join(REPO_ROOT, "markdown");
+const TARGET_ROOT = REPO_ROOT;
 const BLOG_DIR = path.join(TARGET_ROOT, "src/content/blog");
 const PUBLIC_DIR = path.join(TARGET_ROOT, "public");
 
