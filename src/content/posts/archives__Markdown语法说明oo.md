@@ -96,7 +96,9 @@ markdown是有严格的代码规范的，但是同时，它的容错方案也是
 相对路径hexo：
 
 ```
-![test1](img/http.png "img/http.png")
+
+> Omitted unresolved image: test1 (img/http.png "img/http.png")
+
 ```
 
 可以使用如下格式进行居中：

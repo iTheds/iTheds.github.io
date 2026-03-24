@@ -79,7 +79,9 @@ ODBC的架构：
 4. 数据源
     数据源也有两种情况，是否提供数据库引擎，内容不再赘述。
 
-![程序架构图](\ODBC_Research\程序架构图.png)
+
+> Omitted unresolved image: 程序架构图 (\ODBC_Research\程序架构图.png)
+
 
 ### 功能点
 
@@ -185,7 +187,9 @@ Mysql依照特定的指令方式，使用可识别的通信协议，进行传输
 HKEY_LOCAL_MACHINE\SOFTWARE\ODBC\Odbcinst.ini
 ```
 
-![windowsODBC标准模型](\ODBC_Research\windowsODBC标准模型.png)
+
+> Omitted unresolved image: windowsODBC标准模型 (\ODBC_Research\windowsODBC标准模型.png)
+
 
 ## 四、其他接口方式
 

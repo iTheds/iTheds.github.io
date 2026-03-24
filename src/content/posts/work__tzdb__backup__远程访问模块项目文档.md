@@ -31,7 +31,9 @@ slug: "work/tzdb/backup/远程访问模块项目文档"
 
 ## 二、概要设计(参照文档)
 
-![](ODBC_Research\ODBC概要设计.png)
+
+> Omitted unresolved image: image (ODBC_Research\ODBC概要设计.png)
+
 
 ### 1. 程序形式
 

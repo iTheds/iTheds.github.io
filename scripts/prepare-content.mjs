@@ -112,7 +112,11 @@ function normalizeMarkdown(body) {
     .replace(/<link rel="stylesheet"[^>]*auto-number-title\.css[^>]*>\s*/gi, "")
     .replace(/\]\(\.\.\/image\//g, "](/image/")
     .replace(/\]\(image\//g, "](/image/")
-    .replace(/\]\(\.\.\/\.\.\/image\//g, "](/image/");
+    .replace(/\]\(\.\.\/\.\.\/image\//g, "](/image/")
+    .replace(
+      /!\[([^\]]*)\]\(((?!https?:\/\/|\/image\/|\.\.\/image\/|image\/)[^)]+)\)/g,
+      (_match, alt, target) => `\n> Omitted unresolved image: ${alt || "image"} (${target})\n`
+    );
 }
 
 async function ensureCleanDir(dir) {
