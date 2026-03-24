@@ -4,16 +4,7 @@ import path from "node:path";
 const SOURCE_ROOT = "/home/hexo-backup/markdown";
 const TARGET_ROOT = "/home/hexo-backup/.astro-migration";
 const BLOG_DIR = path.join(TARGET_ROOT, "src/content/blog");
-const PAGES_DIR = path.join(TARGET_ROOT, "src/content/pages");
 const PUBLIC_DIR = path.join(TARGET_ROOT, "public");
-
-const CONTENT_DIRECTORIES = new Set([
-  "_posts",
-  "archives",
-  "security",
-  "topic",
-  "work"
-]);
 
 function slugify(input) {
   return input
@@ -27,16 +18,6 @@ function slugify(input) {
         .replace(/[?#%]/g, "")
     )
     .join("/");
-}
-
-function normalizeContentPath(relativePath) {
-  const segments = relativePath.replace(/\\/g, "/").split("/");
-  const [topLevel, ...rest] = segments;
-  if (topLevel === "_posts") {
-    return rest.join("/");
-  }
-  const normalizedTopLevel = topLevel.replace(/^_/, "");
-  return [normalizedTopLevel, ...rest].join("/");
 }
 
 function splitFrontmatter(raw) {
@@ -183,15 +164,10 @@ function toFrontmatter(data) {
 
 async function main() {
   await ensureCleanDir(BLOG_DIR);
-  await ensureCleanDir(PAGES_DIR);
   await ensureCleanDir(PUBLIC_DIR);
 
   const allFiles = await collectMarkdownFiles(SOURCE_ROOT);
-  const published = allFiles.filter((file) => {
-    const relative = path.relative(SOURCE_ROOT, file);
-    const topLevel = relative.split(path.sep)[0];
-    return CONTENT_DIRECTORIES.has(topLevel) || relative.startsWith(`about${path.sep}`);
-  });
+  const published = allFiles.filter((file) => !path.relative(SOURCE_ROOT, file).startsWith(`image${path.sep}`));
 
   for (const file of published) {
     const relative = path.relative(SOURCE_ROOT, file);
@@ -199,10 +175,11 @@ async function main() {
     const { data, body } = splitFrontmatter(raw);
     const normalizedBody = normalizeMarkdown(body);
     const topLevel = relative.split(path.sep)[0];
-    const isAbout = relative.startsWith(`about${path.sep}`);
     const sourcePath = `markdown/${relative.replace(/\\/g, "/")}`;
-    const normalizedRelative = normalizeContentPath(relative);
-    const slug = isAbout ? "about" : slugify(normalizedRelative);
+    const normalizedRelative = relative.replace(/\\/g, "/");
+    const slug = topLevel === "_posts"
+      ? slugify(normalizedRelative.replace(/^_posts\//, ""))
+      : slugify(normalizedRelative);
     const title = typeof data.title === "string" ? data.title : path.basename(file, ".md");
     const tags = Array.isArray(data.tags)
       ? data.tags
@@ -223,16 +200,13 @@ async function main() {
       author: data.author || undefined,
       tags,
       categories,
-      draft: topLevel === "_drafts",
-      section: isAbout ? "page" : topLevel.replace(/^_/, ""),
+      draft: topLevel === "_drafts" || topLevel === "_backup",
+      section: topLevel === "_posts" ? "posts" : topLevel.replace(/^_/, ""),
       sourcePath,
       slug
     };
 
-    const targetDir = isAbout ? PAGES_DIR : BLOG_DIR;
-    const targetFile = isAbout
-      ? path.join(targetDir, "about.md")
-      : path.join(targetDir, normalizedRelative);
+    const targetFile = path.join(BLOG_DIR, normalizedRelative);
     await fs.mkdir(path.dirname(targetFile), { recursive: true });
     await fs.writeFile(targetFile, `${toFrontmatter(frontmatter)}${normalizedBody}`);
   }

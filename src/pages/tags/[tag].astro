@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog")).filter((entry) => !entry.data.draft);
+  const publishedSections = new Set(["posts", "archives", "security", "topic", "work"]);
+  const posts = (await getCollection("blog"))
+    .filter((entry) => !entry.data.draft && publishedSections.has(entry.data.section || ""));
   const tags = new Set();
   for (const post of posts) {
     for (const tag of post.data.tags || []) {
@@ -18,9 +20,14 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
+const publishedSections = new Set(["posts", "archives", "security", "topic", "work"]);
 const getPostPath = (post) => post.data.slug || post.id.replace(/\.md$/, "");
 const posts = (await getCollection("blog"))
-  .filter((entry) => !entry.data.draft && (entry.data.tags || []).includes(tag))
+  .filter((entry) =>
+    !entry.data.draft &&
+    publishedSections.has(entry.data.section || "") &&
+    (entry.data.tags || []).includes(tag)
+  )
   .sort((a, b) => {
     const left = a.data.date ? a.data.date.getTime() : 0;
     const right = b.data.date ? b.data.date.getTime() : 0;

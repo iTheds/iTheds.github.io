@@ -2,7 +2,7 @@
 import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const about = await getEntry("pages", "about");
+const about = await getEntry("blog", "about/总概");
 const { Content } = await about.render();
 ---
 <BaseLayout title="About">

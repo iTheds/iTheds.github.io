@@ -16,23 +16,6 @@ const blogCollection = defineCollection({
   })
 });
 
-const pageCollection = defineCollection({
-  schema: z.object({
-    title: z.string().optional().default(""),
-    date: z.coerce.date().optional(),
-    updated: z.coerce.date().optional(),
-    tags: z.array(z.string()).optional().default([]),
-    categories: z.array(z.string()).optional().default([]),
-    subtitle: z.string().optional(),
-    author: z.string().optional(),
-    draft: z.boolean().optional().default(false),
-    section: z.string().optional().default("page"),
-    sourcePath: z.string().optional(),
-    slug: z.string().optional()
-  })
-});
-
 export const collections = {
-  blog: blogCollection,
-  pages: pageCollection
+  blog: blogCollection
 };

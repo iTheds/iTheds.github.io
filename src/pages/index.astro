@@ -3,8 +3,9 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 
+const PUBLISHED_SECTIONS = new Set(["posts", "archives", "security", "topic", "work"]);
 const posts = (await getCollection("blog"))
-  .filter((entry) => !entry.data.draft)
+  .filter((entry) => !entry.data.draft && PUBLISHED_SECTIONS.has(entry.data.section || ""))
   .sort((a, b) => {
     const left = a.data.date ? a.data.date.getTime() : 0;
     const right = b.data.date ? b.data.date.getTime() : 0;

@@ -2,7 +2,9 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const posts = (await getCollection("blog")).filter((entry) => !entry.data.draft);
+const PUBLISHED_SECTIONS = new Set(["posts", "archives", "security", "topic", "work"]);
+const posts = (await getCollection("blog"))
+  .filter((entry) => !entry.data.draft && PUBLISHED_SECTIONS.has(entry.data.section || ""));
 const tagMap = new Map();
 
 for (const post of posts) {

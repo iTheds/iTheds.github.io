@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog")).filter((entry) => !entry.data.draft);
+  const publishedSections = new Set(["posts", "archives", "security", "topic", "work"]);
+  const posts = (await getCollection("blog"))
+    .filter((entry) => !entry.data.draft && publishedSections.has(entry.data.section || ""));
   return posts.map((post) => ({
     params: { slug: post.data.slug || post.id.replace(/\.md$/, "") },
     props: { post }
