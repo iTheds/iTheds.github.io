@@ -1,0 +1,671 @@
+---
+title: "20260108work_data"
+date: "2026-01-08"
+author: "Lonnie iTheds"
+tags:
+  - work
+draft: false
+section: "work"
+sourcePath: "markdown/work/20260108work_data.md"
+slug: "work/20260108work_data"
+---
+
+# 工作日志
+
+## [x] [1.9] 文档编写
+
+我现在正在为数据库编写接口测试文档，@interface_test.md#L4-27 其接口有21个，现在我已经写了一个接口测试了@interface_test.md#L31-65 ，参照该格式，并且阅读代码src/api_sql，严格参照代码，编写数据库打开接口的测试用例
+
+@interface_test.md#L163 这些样本表格的列的数目应该保持不变，比如@interface_test.md#L93 总共有9列，其中样本数目的最大值为5列，即s1,s2,s3,s4,s5，然后呢有的测试用例样本可能没有到S5,只有s1,s2@interface_test.md#L93 ，所以有三列是空着的占位符- ；有的可能有s1,s2,s3,s4，那么就只有一个空的列，即只有一个占位符- 的列，比如@interface_test.md#L305-306 ，试着查验是否有样本表格不符合该规则
+
+该文档的样本表格有个规律，但有些样本表格没有这个规律，所以需要你进行修复。这个规律是，@interface_test.md#L236 其必定像这样一样有9列，其中，s1,s2,s3,s4,s5表示样本，失败为F1等，然后如果不满足有5个样本的时候，比如此处@interface_test.md#L236-237 只有四个样本，那么就会有一个- 占位符，来表示占位。而如果有s1,s2两个样本，例如@interface_test.md#L129-130 ，那么其就会有三个占位符号。该规律很重要，但是这里很多的样本表格没有遵循该规律，帮我修改
+---
+
+典型应用场景：
+模拟1架长机和2架僚机组成的变对开展协同任务。
+模拟长机和僚机进行巡航飞行。
+当僚机执行侦察任务探测到目标时回传目标数据给长机，长机通过机载目标识别和判断形成新的打击任务，经导航应用计算得到新的飞行计划，长机更新飞行计划。
+拟开展的数据库构建方法：在三台主机(FT2000D处理器+天脉3操作系统)上部署数据库环境，分别模拟一个长机节点和两个僚机节点，在长机节点上创建飞行计划库、侦察数据库两个数据库，侦察数据库开启数据同步，并且在僚机节点中创建相同的侦察数据库，搭建分布式集群并进行数据同步。两种数据库中至少应该包括的数据类型如下：
+侦察表：（图像id：int），（图像数据：blob），（位置坐标：int[]），（拍摄时间：time）；
+飞行计划表：（路线id：int），（计划类型：uint），（计划高度：int），（必经点：bool），（航迹点坐标，coordtype）；
+struct：CoordType:(经度：double)，（纬度：double），（高度：double）。
+
+典型验证流程：
+1.长机与僚机巡航阶段：
+长机节点：周期性（任务周期为200ms）对飞行计划库进行增删改查，模拟正常巡航飞机对飞行计划的数据操作，长机将僚机的飞行计划修改内容同步给僚机飞行计划库。
+2.僚机侦察阶段
+向僚机节点中的侦察图像数据库中录入一条带有地方飞机图像的目标数据，模拟传感器侦察数据。
+僚机节点：采集到图像数据，标注相应的结构化信息，通过分布式数据库将目标的图像数据同步至长机节点。
+长机节点：周期性对图像数据库进行检索，当查询到图像目标数据时，进入目标识别和判断阶段。
+3.长机目标识别和判断阶段
+长机节点：将僚机同步的图像数据向量化并通过VGG16模型进行目标识别，得出机型判断结果返回到应用中进行飞行计划的修改判断，模拟侦察到敌机时的判断与反馈。
+4.飞行计划修改阶段
+长机节点：由于侦察到敌方目标需要应战，长机经过决策和导航应用计算得到新的飞行计划信息，并对飞行计划数据库进行更新。
+---
+
+完成文档剩余内容。
+
+## [x] [1.13] 广播查找连接
+
+前提：
+1. [x] udp 支持广播形式；
+2. 调用 raft 成员变更进行支持；
+
+添加一个注册服务的功能，在 RunServer 的基础上，新开发一个新的 Runserver 无需 members 入参，dataserver 调用 Initialize 之前，启动注册服务，允许设置等待时间和 udp 广播地址，比如等待 5 s，
+然后启动注册服务，注册服务可以使用 netpool 代码，在其中添加一个 udp 广播的接收连接，并且开启一个线程进行 recv。
+并且启动一个心跳线程，每隔 1 分钟(该时间也可以设置)，触探一次。启动注册服务的时候立即发起一次触探。
+触探发送一个消息，继承了 DataInfoFormat 的结构体， 里面包括自身的 ip 信息、port 信息等，然后接收方接收到节点信息后，将其进行注册到节点注册器中。
+节点注册服务器中，收到该节点信息后，调用 dataserver 中的 raft 成员变更接口，将节点加入。
+
+广播已经支持。
+
+广播用于发送，单播普通的 upd 用于接收数据。
+
+参考 forward 的实现形式，和广播的实现形式；
+阅读tests/unit_test/common/communicate/udp_broadcast_test.cpp。学习其实现的逻辑。然后开发一个新的功能：
+
+添加一个节点注册服务的功能，在 RunServer 的基础上，新开发一个新的 RunServer 无需 members 入参。
+启动注册服务，允许设置等待时间和 udp 广播地址，比如等待 5 s，等其他配置项目。
+并且获取自身的 ip 信息，设定一个默认的端口， 默认采用一个随机的端口 rand_port，
+启动注册服务后，生成一个 udp 进行监听广播信息。
+情况1： 如果超过 3 s 如果没有接收到任何消息，那么就默认自身为主节点，调用原来 forward 的配置信息，并且传入 members(此时只有自身一个节点的 ip)；
+    此时，作为主节点，启动一个线程进行心跳发送，x 秒发送一次(x为设定值)广播，广播[自身的节点信息(ip, port),最大的节点号 max_node_id ]。
+
+情况2： 如果收到了消息，该消息及情景 1 中节点发送的信息，其为主节点信息和最大节点号 max_node_id ，那么就将自身的节点信息以单播的方式发送给主节点，并且请求 id 号， 默认为 max_node_id + 1；
+    主节点收到消息后，为其分配一个 id，并且将(主节点信息(主节点id，ip，port)，目标从节点信息(分配的从节点 id，ip，port))单播发送给目标节点。
+    主节点更新 max_node_id 后继续广播。
+    该节点收到消息后，判定自身为从节点，并且组合成 members(自身节点和主节点信息)，然后调用原 RunServer();
+
+这个节点注册服务功能应该是 dataInstance 的一个成员，再后台进行一直的接收，而非现在的某一瞬间的逻辑。
+先把架构搭建好，使用 netpool 来进行数据的接收和发送。发送的数据作为心跳包需要继承 DataInfoFormat ， 因为凡网络内容都需要。
+而且序列化也有专门的工具 ： tests/unit_test/common/serialize/segmented_reader_test.cpp。
+
+part 2
+修改成节点一上线，先进行一次广播，主节点进行接收，接收到消息后为该节点分配 id ， 然后单播回信[自身的节点信息(ip, port), 分配的 id 号],
+有回信，那么就以从的形式启动，如果超时没有回信，那么就以主启动。
+
+part 3
+将功能开发到 odbc 上。
+
+ok，最后我需要修改odbc的接口使得其也能支持此项功能。其调用位于@connection_handle.cpp#L327 ，但是ODBC架构似乎并不是很好，所以允许你改变Tzdbodbc的接口，使得用户在使用@odbc_api.cpp#L271 SQLDriverConnect时可以传入字符串来控制选择forward或者raft，如果选择forward，目前可以不传入任何的节点信息，并且修改@odbc_api.h#L175 处的说明。
+
+[x] uoe 接口应该重新加上的。
+[ ] windows select 需要测试， udp 广播数据比较大时是否能够响应。
+[x] 测试用例端口随机化。
+[x] 广播和普通的 udp 没有区分开，仍然可以取到 udp 连接。
+[x] socket build 支持 port 为 0。
+
+RunServerWithAutoDiscovery 也允许失败。
+
+[x] 交互式测试用例需要进行修改，将 .cpp 改为可拆卸形式。删除冗余代码，进行测试。
+
+是否应该改成和微秒或者纳秒相关的强随机
+
+GenerateTimeBasedRandomUint32
+
+GeneratePlatformRandomUint32
+
+[Database] Checkpoint completed successfully
+[Database] Calling RemoveMemoryTable
+[Database] RemoveMemoryTable completed
+[Database] Destructor finished
+unknown file:
+C++ exception with description "write-write conflict" thrown in the test body.
+
+Process finished with exit code 1
+
+DBInstance::DestroyAllInstancesForTest();
+
+然后，是否每个广播的信息都需要回复？那么是否能够用类似callrpc的逻辑，来需求对方的回应？
+
+梳理一下当前的逻辑，以及消息的发送逻辑放到docs中。
+
+## [] [1.15]
+
+下周节点，整理一个最小裁剪的功能。将通信内容进行裁剪。
+
+[ ] 裁剪功能 ci 测试。
+
+## [x] [1.19] 拆分测试用例
+
+学习并分析 tests/project_613_test 下的测试用例和架构
+我了解到，其其是是有很多的公用内容的。而且项目tests/interactive_test中也有很多的地方和该项目有重复的内容。能否确定一个准确的tests/project_613_test/test_utils.h，在interactive_test中也有该文件。然后对比两个项目中tests/project_613_test/tests_impl.cpp的不同之处，我理解这两个文件都应该是用来放测试文件的，所以应该抽象出一个test_impl.cpp，其中不同的功能放在不同的test_impl_xxx.cpp中，例如tests/project_613_test/test_impl_rpc.cpp。。。只修改这两个文件夹下的文件即可，允许两个文件夹下有相同的文件，并指出
+
+能否有什么方法让两个项目没有代码的重复？tests/interactive_test
+tests/project_613_test，将这两个项目合并为一个项目，在先有的 interactive_test 基础上，键入0的时候运行 project_613_test 中的测试用例，将 q 作为退出的键入。
+
+然后是否能够有功能，比如我后续开发了新的功能，作为test_impl_odbc.cpp， 然后该 cpp 如果放入到本项目中的时候，运行 project_613_test 自然而然的能够运行，但是该 cpp 如果没有放入，那么就不运行？
+
+开发类似 gtest 的注册测试工具。
+
+## [1.19]
+
+拆分测试用例。
+添加 odbc 测试用例。
+
+接下来要做的几件事：
+1. dbeaver 闭环；
+
+## [] [1.26] 扬州院内核态需求
+
+在天脉 linux 上尝试安装 pytorch。
+跑一个 minist 。
+
+## [x] [1.29] 数据库内核态需求
+
+10.5.235.10
+18
+22
+26
+
+acorelinux
+acorelinux631
+
+```bash
+/home/acorelinux
+
+scp -r acorelinux@10.5.235.10:/home/acorelinux/sdk/ ./
+
+[acorelinux@acorelinux631 ~]$ ldd --version
+ldd (GNU libc) 2.38
+$Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+$Written by Roland McGrath and Ulrich Drepper.
+
+[acorelinux@acorelinux631 ~]$ cmake -version
+-bash: cmake: command not found
+[acorelinux@acorelinux631 ~]$ make -version
+GNU Make 4.4.1
+Built for aarch64-acoreeuler-linux-gnu
+Copyright (C) 1988-2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+[acorelinux@acorelinux631 ~]$ python3 --version
+Python 3.10.9
+
+[acorelinux@acorelinux631 ~]$ uname -r
+5.10.0-kp920-acore-euler-1.3.0.0.4-rt
+```
+
+交叉编译环境：
+acorelinux-beta-glibc-x86_64-acore-image-betasdk-aarch64-kp920-toolchain-1.3.0.0.sh
+
+```Markdown
+1.将文件拷入/opt目录，执行./文件名.sh
+2./opt/acorelinux-beta/1.3.0.0目录下执行`source ./environment-setup-aarch64-acoreeuler-linux`
+3.sysroots/aarch64-acoreeuler-linux/lib/modules/5.10.0-kp920-acore-euler-1.3.0.0.4-rt/build/scripts目录下Makefile文件注释掉15行：#hostprogs-always-$(CONFIG_SYSTEM_TRUSTED_KEYRING)	+= extract-cert
+4.在该终端下可直接使用$CC编译，配置的环境变量仅在该终端生效。
+```
+
+高度明确是 OpenEmbedded/Yocto SDK 体系生成的 environment-setup-* 脚本，属于“基于开源项目的产物/模板”，但你拿到的这份是被发行版/厂商（acoreeuler/acorelinux-beta）定制过的 SDK 交付物。
+
+为什么我能这么判断（从内容特征）
+脚本里出现了一整套 Yocto/OE 的典型变量与结构：
+```bash
+OECORE_NATIVE_SYSROOT、OECORE_TARGET_SYSROOT
+OECORE_ACLOCAL_OPTS
+OECORE_BASELIB
+CONFIG_SITE=.../site-config-<triplet>
+environment-setup.d/*.sh 的“子脚本拼装机制”
+PKG_CONFIG_SYSROOT_DIR、PKG_CONFIG_PATH
+TARGET_PREFIX、CONFIGURE_FLAGS="--target ... --host ... --build ..."
+这些几乎就是 Yocto/OpenEmbedded SDK 环境脚本的“指纹”。
+```
+
+musl 是一个轻量级、遵循 MIT 许可的 Linux 系统 C 标准库，严格实现 ISO C 与 POSIX 规范，主打精简、高效与安全，适合嵌入式、容器化等资源受限场景，是 Alpine Linux 与鸿蒙系统的默认 C 库。
+
+内核里没有“进程”这个概念来运行你的数据库（内核里有线程/任务，但不是用户态那种独立进程边界），你最终要做的是——在内核里实现一套服务能力，然后通过某种内核对用户态的 ABI 暴露出去，让多个用户态进程并发访问。
+
+```bash
+65  $CC hello.c -o hello
+66  file hello
+67  echo "$SDKTARGETSYSROOT"
+68  grep -nE "syncconfig|oldconfig|olddefconfig|make -C|lib/modules/.*/build" /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+69  grep -nE "syncconfig|oldconfig|olddefconfig|make -C|lib/modules/.*/build" /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+70  grep -nE "syncconfig|oldconfig|olddefconfig|make -C|lib/modules/.*/build" /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+71  head -n 80 /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+72  uname -r
+73  echo $CC
+74  KVER="5.10.0-kp920-acore-euler-1.3.0.0.4-rt"
+75  ls -l $SDKTARGETSYSROOT/lib/modules
+76  ls -l $SDKTARGETSYSROOT/lib/modules/$KVER
+77  ls -l $SDKTARGETSYSROOT/lib/modules/$KVER/build
+78  mkdir -p ~/work/mychardev
+79  cd ~/work/mychardev
+80  ls
+81  touch mychardev.c
+82  ls
+83  cat mychardev.c 
+84  vim mychardev.c 
+85  cat mychardev.c 
+86  touch Makefile
+87  vim Makefile 
+88  make -j$(nproc)
+89  file mychardev.ko
+90  modinfo mychardev.ko | egrep 'vermagic|name'
+91  ls
+92  pwd
+93  ls
+94  touch mychardev_ioctl.h
+95  vim mychardev_ioctl.h 
+96  history
+```
+
+复写环境：
+```bash
+chmod +x scripts/sdk-env.sh
+```
+
+./scripts/sdk-env.sh cmake -S . -B build -G Ninj
+
+ok接下来查看项目本身，这个项目是一个数据库内核态的实验demo。现在我希望能够kernel中有更多的代码，其中加入c++ 代码，要求用到类，并且具备类的继承，enum之类的C++11语法；做一个简单的hash，完成简单的数据存取功能；并且user中采用多线程来访问我们的数据库demo
+
+hash， tcp 网络，主动发起链接后接收数据。
+
+C/S 架构 或 IPC 通信。
+
+依赖于事件。
+
+IPC 实验；
+
+使得数据库在内核态中运行为单例
+
+内核态 DEMO；
+
+整理一个进程间通信。
+
+## [x] [1.29] IPC 开发
+
+@db_instance.h#L50 我现在需要开发一个功能, 写一个 client /server的模式，让本机的app 使用该 client ，就能够访问Database层的本地接口，参考用例tests/integration_test/sql_test/issue/issue_631.cpp中的用法。然后需要在@db_instance.h#L50 中加上一个ipc响应服务，这个client和server通过ipc服务来进行交互，达到类似ipc+rpc的感觉，分析是否可行？先不用写代码。
+
+共享内存 + 无锁队列 + 条件变量
+
+Eventfd（Linux）+ Epoll + 共享内存 + 无锁队列
+
+ipc_rpc_server_中是否也应该注册很多的消息体，来应对client的响应?然后，client是否也应该编写在某个地方。
+
+方案 A：每个 Client 独立共享内存（推荐）
+方案 B：共享队列 + Session ID
+
+ok，总结成一个文档，包括任务要求，进度，方案之类的
+
+是否需要测试 分布式开启的情况。
+
+测试内容：
+```bash
+source /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+
+cmake --build build --target kmod
+
+cmake -S . -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
+cmake --build cmake-build-release --target cs_ipc_server cs_ipc_multi_client cs_ipc_multi_process
+
+./cs_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 0 1 2000 3
+
+./cs_ipc_multi_process ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 0 1 2000 3 200
+
+./cs_ipc_multi_table ./cs_db tzdb_cs tzdb 8388608 64 8 10000 500 1
+
+
+# 参数错误
+./cs_odbc_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 0 1 2000 3
+
+# 对照测试
+./cs_odbc_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 1000 200 1 200 0
+
+./cs_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 1000 200 1 200 0 0
+
+# 第一次
+./cs_odbc_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 0
+
+# 第二次（start_id=10000）
+./cs_odbc_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 10000
+
+# 第三次（start_id=20000）
+./cs_odbc_ipc_multi_client ./cs_db tzdb_cs tzdb 4194304 64 4 2000 200 1 2000 20000
+
+
+# 单机模式
+./cs_ipc_server
+
+# 分布式模式
+./cs_ipc_server -n 1 -i tzdb1
+./cs_ipc_server -n 2 -i tzdb
+./cs_ipc_server -n 3 -i tzdb3
+
+
+./cs_ipc_server -n 4 -i tzdb
+```
+
+IPC 实机环境测试总结：
+
+A. 单机单节点（多线程/多进程）
+
+| 组别 | 模式 | Run | 写条数（rows） | 写时间（ms） | 写吞吐（rows/s） | 写延迟（µs/row） | 写倍率（×，对第二组同模式） | 读条数（rows） | 读时间（ms） | 读吞吐（rows/s） | 读延迟（µs/row） | 读倍率（×，对第二组同模式） |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 单机单节点 | multi_client | 1 | 8000 | 303.264 | 26379.7 | 37.91 | 4.27× | 8000 | 127.026 | 62979.3 | 15.88 | 8.53× |
+| 单机单节点 | multi_client | 2 | 8000 | 310.903 | 25731.5 | 38.86 | 4.16× | 8000 | 148.908 | 53724.4 | 18.61 | 7.28× |
+| 单机单节点 | multi_client | 3 | 8000 | 308.509 | 25931.2 | 38.56 | 4.19× | 8000 | 170.240 | 46992.6 | 21.28 | 6.36× |
+| 单机单节点 | multi_process | 1 | 8000 | 307.271 | 26035.6 | 38.41 | 4.09× | 8000 | 147.036 | 54408.6 | 18.38 | 7.73× |
+| 单机单节点 | multi_process | 2 | 8000 | 316.500 | 25276.5 | 39.56 | 3.97× | 8000 | 172.358 | 46415.0 | 21.54 | 6.60× |
+| 单机单节点 | multi_process | 3 | 8000 | 352.779 | 22677.1 | 44.10 | 3.57× | 8000 | 174.306 | 45896.3 | 21.79 | 6.53× |
+
+---
+
+B. 单机多节点（基准组）
+
+| 组别 | 模式 | Run | 写条数（rows） | 写时间（ms） | 写吞吐（rows/s） | 写延迟（µs/row） | 写倍率（×） | 读条数（rows） | 读时间（ms） | 读吞吐（rows/s） | 读延迟（µs/row） | 读倍率（×） |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 单机多节点 | multi_process | 1 | 8000 | 1208.21 | 6621.35 | 151.03 | 1.04× | 8000 | 1123.32 | 7121.75 | 140.42 | 1.01× |
+| 单机多节点 | multi_process | 2 | 8000 | 1312.54 | 6095.08 | 164.07 | 0.96× | 8000 | 1151.87 | 6945.22 | 143.98 | 0.99× |
+| 单机多节点 | multi_client | 1 | 8000 | 1288.03 | 6211.02 | 161.00 | 1.00× | 8000 | 1066.71 | 7499.70 | 133.34 | 1.02× |
+| 单机多节点 | multi_client | 2 | 8000 | 1298.57 | 6160.62 | 162.32 | 1.00× | 8000 | 1100.79 | 7267.50 | 137.60 | 0.98× |
+---
+
+C. 4主机4节点（跨机）
+
+| 组别 | 模式 | Run | 写条数（rows） | 写时间（ms） | 写吞吐（rows/s） | 写延迟（µs/row） | 写倍率（×，对第二组同模式） | 读条数（rows） | 读时间（ms） | 读吞吐（rows/s） | 读延迟（µs/row） | 读倍率（×，对第二组同模式） |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 4主机4节点 | multi_client | 1 | 8000 | 1828.76 | 4374.56 | 228.60 | 0.71× | 8000 | 2136.65 | 3744.18 | 267.08 | 0.51× |
+| 4主机4节点 | multi_client | 2 | 8000 | 3366.30 | 2376.50 | 420.79 | 0.38× | 8000 | 3458.41 | 2313.20 | 432.30 | 0.31× |
+| 4主机4节点 | multi_client | 3 | 8000 | 5170.40 | 1547.27 | 646.30 | 0.25× | 8000 | 4974.94 | 1608.06 | 621.87 | 0.22× |
+| 4主机4节点 | multi_process | 1 | 8000 | 2344.86 | 3411.71 | 293.11 | 0.54× | 8000 | 1968.69 | 4063.61 | 246.09 | 0.58× |
+| 4主机4节点 | multi_process | 2 | 8000 | 4109.13 | 1946.88 | 513.64 | 0.31× | 8000 | 3444.62 | 2322.46 | 430.58 | 0.33× |
+| 4主机4节点 | multi_process | 3 | 8000 | 4969.56 | 1609.80 | 621.20 | 0.25× | 8000 | 4285.26 | 1866.86 | 535.66 | 0.27× |
+
+按三组整体大概范围总结（单位：微秒/条）：
+
+- 单机单节点**：写约 **38–59 us/条**，读约 **16–45 us/条**（前期更低，数据变多后升高）
+- **单机多节点（同机多 server）**：写约 **151–164 us/条**，读约 **133–144 us/条**
+- **4主机4节点（跨机）**：写约 **229–759 us/条**，读约 **246–673 us/条**（并发下有明显超时抖动）
+
+做一个梯度测试，每次的数据量增长在 8000 行，直到 40 w 数据量。
+
+该项目在wsl中，根据/tests/cs_test/cs_ipc_multi_process.cpp
+，写一个新的测试用例，测试多个表的表现能力，包括范围表的单行数据从8字节 2倍递增到64k，尽可能限制在10列,语法限制C++11。
+
+/home/tzdb/work/tzdb-rebuild/tests/cs_test/cs_ipc_multi_process.cpp
+
+不要未经过运行编写 md 文件，不要未经运行编写 example 文件，如果是C++限制语法为C++11
+
+## [2.4] 联合调试
+
+2主机2节点数据同步成功即可。
+
+10 和 18 ，有 tsn 的网卡；
+tsn_0
+10.22.3.2
+
+```bash
+source /opt/acorelinux-beta/1.3.0.0/environment-setup-aarch64-acoreeuler-linux
+
+cmake -S . -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
+cmake --build cmake-build-release --target tzdb tzdb-odbc
+cmake --build cmake-build-release --target tzdb-odbc
+
+cmake --build cmake-build-release --target cs_ipc_server cs_ipc_multi_client cs_ipc_multi_process
+```
+
+支持情况：
+支持：COUNT（计数） LIKE GROUPBY（分组）ORDER（排序）
+暂不支持： INTERSERT（交叉） IN AND OR  UNION（合并）
+
+| 组件/命令       | 输出结果                                  | 核心解读                     |
+|-----------------|-------------------------------------------|------------------------------|
+| glibc 版本      | 2.38（通过 `ldd --version` 获取）         | GNU C 库版本，系统底层核心库 |
+| CMake           | `cmake: command not found`                | 未安装 CMake 构建工具        |
+| Make 版本       | GNU Make 4.4.1（aarch64 架构）            | 编译构建工具，版本较新      |
+| Python3 版本    | 3.10.9                                    | Python 运行环境，版本稳定    |
+| 内核版本        | 5.10.0-kp920-acore-euler-1.3.0.0.4-rt    | 实时内核（RT），基于 Euler  |
+| 系统架构        | aarch64（从 Make 输出可见）               | ARM 64位架构                 |
+
+交叉编译一个库
+
+### 工作情况
+
+1. 添加 odbc 的支持，重构 odbc；
+
+另外，autocommit_on也应该在tzodbcconfig中体现?其应该被某个句柄持有。
+
+1970-01-01 06:08:29 [1069261077] [query_context.cpp:413:Execute] ERROR - execute sql error: binary op || is not supported yet
+
+2. [ ] 多种模式性能测试比较；
+
+
+public ResultBase
+
+try fix: remote apply exec error result get
+
+用例有问题，主进程和子进程都需要启动服务，应该让触发错误的进程作为主进程，这样可以进行判断其是否捕获了异常，或者说现在就能捕获异常进行校验？然后触发异常的线程后续应该进行插入数据，再进行查询，验证后续事务的正确性
+
+### bugs
+
+1. [x] shell show tables , 每次只能看一个；
+
+2. [x] 开文件如果没有该文件回失败；
+
+[root@acorelinux631 /home/acorelinux/tzdb/bin]$ ./shell /home/acorelinux/631/SMC/21/distribute_data/node1/mcLog.db
+Opening database: /home/acorelinux/631/SMC/21/distribute_data/node1/mcLog.db
+1970-01-01 08:02:02 [4155480429] [disk_engine.cpp:117:DiskEngine] ERROR - Open database '/home/acorelinux/631/SMC/21/distribute_data/node1//mcLog.db' failed: Cannot open file "/home/acorelinux/631/SMC/21/distribute_data/node1//mcLog.db": No such file or directory [Context: errno=2]
+terminate called after throwing an instance of 'tzdb::IOException'
+  what():  Cannot open file "/home/acorelinux/631/SMC/21/distribute_data/node1//mcLog.db": No such file or directory [Context: errno=2]
+Aborted (core dumped)
+
+3. [x] app forward 插入数据，shell table 每次执行的都不一样；
+    可能是文件系统 io 有用户态缓冲区，延迟刷盘；
+
+4. [x] 10 节点启动后启动 18，10 的数据未键入， 18 的数据是正确；
+   1. 归结于节点发现的问题；
+
+5. [x] DetectsErrorAndRollsBack 中，发生写写冲突后似乎执行 DBInstance::DestroyAllInstancesForTest(); 有问题；
+   1. 解决
+
+6. [x] DetectsErrorAndRollsBack 所代表的分布式接口中，query 不抛出异常，这个和 local session query interface 有所区别，这种判断方式也不够优雅；
+   1. raft forward 部分未处理部分错误判断
+
+7. [x] 写写冲突可能破坏了内存，第二次打开时， int 值 的排列变成了 64 位的排列，导致数据错误；
+
+解决：
+
+```cmake
+# TODO: ODBC 目前没有支持 64 位系统和 32 位系统的考虑，导致给到甲方的头文件始终 SQLINTEGER 为 long
+# 交叉使用的时候，具有 odbc 功能的系统采用的是系统头文件，这本来是合理的，但是用户却使用的是 long
+# 导致测试用例和 tzdb odbc库编译所采用的头文件不同的问题
+# 在后续，可以通过保证头文件的相同，来确保测试的无误；同时在后续应该考虑适配 64 和 32 位系统的差别来解决驱动程序的问题
+```
+
+问题描述备份：
+
+即便测试声明的是 `INTEGER`，tzdb 内部的 INTEGER 存储/返回通常是 64 位（LogicalTypeId::BIGINT），`GetIntValue` 再截断到 32 位时就可能产生垃圾值。为避免这种底层宽度差异，我在 `SQL_C_SLONG/SQL_C_LONG` 读取时改为按字符串取值再 `stoll` 转成 64 位后截断，保证得到正确的 1、2（已改 @tools/tzdb-odbc/src/statement_handle.cpp#935-950）。如果想更直接，也可以在测试里把绑定类型改成 `SQL_C_SBIGINT`，两种方式都能规避底层 64 位返回导致的错位。请重新跑测试确认。
+
+证据在代码里可以看到返回的是 32 位：RemoteResult/LocalResult 的 GetIntValue 都直接 `tzdb::Value v = tuple_.GetValue(...); return v.GetValue<int32_t>();`，见 @src/api_sql/cpp-api.cpp#449-457、#634-642；Value 的 32 位特化用的是内部的 `value_.integer_` 槽 @src/common/type/value.cpp#788-808。如果 Tuple 中的这个列实际按 BIGINT 存（比如引擎内部统一用 64 位存整数），调用 GetValue<int32_t>() 会读 32 位槽，导致错读/溢出成大负数。
+
+所以绑定 INTEGER 时最好用 SQL_C_SBIGINT（或继续使用我们在 ODBC 层字符串→stoll→截断的防御处理）。目前 ODBC 已做字符串转换避免错读。建议测试里也可改绑成 SQL_C_SBIGINT 以匹配可能的 64 位返回。
+
+第一次运行成功；第二次运行：mnt/d/project/tzdb-rebuild/tests/integration_test/odbc_test/odbc_forward_pk_conflict_test.cpp:182: Failure
+Expected equality of these values:
+  count
+    Which is: -4629771064853921789
+  3；；第三次运行：/mnt/d/project/tzdb-rebuild/tests/integration_test/odbc_test/odbc_forward_pk_conflict_test.cpp:169: Failure
+Expected equality of these values:
+  id
+    Which is: -4629948348218998783
+  rows
+    Which is: 1
+/mnt/d/project/tzdb-rebuild/tests/integration_test/odbc_test/odbc_forward_pk_conflict_test.cpp:169: Failure
+Expected equality of these values:
+  id
+    Which is: -4629948348218998782
+  rows
+    Which is: 2
+
+
+@odbc_forward_pk_conflict_test.cpp#L27 这个测试有问题，但是和其逻辑相同的测试tests/integration_test/distribute_test/forward_pk_conflict_fork_test.cpp就没有问题，试着分析原因。其中@odbc_forward_pk_conflict_test.cpp#L27 只不过是使用的odbc接口，odbc的底层也是tests/integration_test/distribute_test/forward_pk_conflict_fork_test.cpp测试的db接口。试着分析。其中@odbc_forward_pk_conflict_test.cpp#L27 错误为
+
+@odbc_api.cpp#L534 这个odbc是本项目实现的，试着分析其问题。因为其参照测试tests/integration_test/distribute_test/issue_auto_discovery.cpp是能够通过的
+
+8. [x]  DetectsErrorAndRollsBack 一起关闭疑似会产生无法关闭的问题。
+   1. 解决，同步问题
+
+9. [] DISABLED_update_returns_affected_row_count 的支持；
+
+    config.rpc_timeout = -1;
+    config.commit_timeout = -1;
+
+10. [x] 新版节点发现出现如下。ip 更换成 127.255.255.255 或者 10.5.235.255 就 ok。
+    1.  解决，系统问题
+
+```log
+1970-01-01 03:43:56 [1988804095] [net_pool_rpc.cpp:1193:sendUdpBroadcast] ERROR - Failed to send UDP broadcast: [Socket Initialization Error] Send failed: Network is unreachable
+1970-01-01 03:43:56 [1988804095] [node_discovery_service.cpp:486:AnnounceLeader] WARN  - Failed to broadcast leader announcement
+发送分区心跳
+1970-01-01 03:43:57 [1988804095] [udp_connect.cpp:234:netWrite] ERROR - Send error for package 0 [GetNetErrno():101]
+1970-01-01 03:43:57 [1988804095] [net_pool_impl.cpp:613:send] ERROR - Failed to send data to IP: 255.255.255.255, Port: 19999, error: [Socket Initialization Error] Send failed: Network is unreachable
+1970-01-01 03:43:57 [1988804095] [net_pool_rpc.cpp:1193:sendUdpBroadcast] ERROR - Failed to send UDP broadcast: [Socket Initialization Error] Send failed: Network is unreachable
+```
+
+11. [ ] 数据准确性问题， 631 程序 ，只启动 10 节点，数据就是正常，如果 10 和 18 节点都启动，那么就会出现数据双倍的情况。这还是旧版的节点发现情况下。
+
+## [2.10] [x] 新策略解决情况
+
+shell --distributed --broadcast-address=10.5.235.255 --broadcast-port=29999 mydb
+
+./shell --distributed --broadcast-address=10.5.235.255 --broadcast-port=39999 test_db
+
+constexpr const char *CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS %s (data string);";
+constexpr const char *INSERT_PREPARE_TABLE_SQL = "INSERT INTO %s VALUES($1);";
+constexpr const char *SELECT_TABLE_SQL = "SELECT data FROM %s;";
+
+那就在从广播的基础上，在消息里加上自己的服务发现开启时间戳，然后比消息里边开启时间早的从节点也能收到这个广播消息并且回应，晚的就不回应，这样开启晚的节点收到时间戳更早的消息话没有升主的权限就行了
+
+中心化协调中，采用带优先级的退让式选主，类似 bully election：
+可以让每个节点启动的时候生成一个key，该key是和启动时期的时间戳、和线程号相关的，其中时间权值更大，如果时间权值相同再使用线程号权值。key 可以比较大小，随着时间的推迟，key 的优先策略变小，即尽可能的先开启的作为主。
+在此基础和前提下，节点启动时期额外启动广播监听，并且进行广播，仍然是随机超时和重复广播，但是广播信息加入 key。
+广播消息中，如果遇到 key 比自己更小的，那么就向该节点发送信息 A(暂时命名，你可自拟)；
+如果收到信息 A， 那么停止自身的广播监听服务，并且延长超时机制，注意，单播监听不会停止，并且降低广播的频率，变成直到接收到消息，再停止广播；
+如果超时无人回应，那么自身就升级为主，保持自身的广播监听。
+
+dnf install unixodbc
+unixodbc
+scp -r acorelinux@10.5.235.10:/home/acorelinux/tzdb/bin* ./
+
+## [2.25] 工作开发
+
+1. [x] odbc 连接为单例模式；
+2. [x] server 移动；
+3. [x] 节点发现策略调整。
+6. [x] odbc 采用 IPC 模式；
+   1. [x] 发现 cs odbc ipc test 的 bugs;
+   本质是同一个事务下 drop & create same_table 时期，只判断表名而命中了旧表，导致的 catalog index name未找到的问题；
+8. [x] 路径问题，疑似在 单机版本中仍然会有 distribute_data 作为前缀；
+
+@data_server.h#L40 太过臃肿，每个子模块的配置应该像`DiscoveryConfig`一样分隔开来
+
+ok，提交后继续。
+
+## [2.25] [x] 文档编写
+
+充实文档后转为 word。
+
+要求：
+2. 红/蓝雷达装备数字模型可调控辐射频段、角域、功率、探测范围等；可模拟的装备型号和工作参数由甲方提供，或乙方调研后经过甲方确认；
+3. 目标特征模型包括典型船和飞机、模型的 RCS、一维、二维、红外、射频等特征， RCS、一维、二维、红外具备频率色散和角度色散特征；模型参数由甲方提供，或乙方调研后经过甲方确认;
+
+模型数据导入导出功能实现加上批量。
+模型库数据库设计进行删除，接入层不涉及表的涉及；
+校验其中的sql 语句， tzdb 数据库并不支持嵌套 select；
+数据库暂时不提到 TZDB，不必提及具体的数据库产品，只需要知道是有一个数据库即可。
+
+模型库数据库设计进行删除后，后续的示例都没有办法描述了，所以需要加上一个示例的模型？或者将库访问/管理服务中的那些示例改成抽象逻辑最好。
+然后在技术方案中删除第一页的内容和要求。
+
+## [3.2] 开发
+
+4. [ ] shell 远程模式 ci 测试；
+5. [x] 多种模式性能测试比较;
+6. [x] pg server 开发；
+7. [ ] odbc 测试也应该分本地和远程
+8. [x] 节点发现还是有双主问题；
+   1.  [x] 首先要补充测试用例；
+   2.  因为网络消息未发送导致，find 连接寻找到了单播中；
+9.  [x] 分布式测试很多都没有修改 data_root 导致目录没有定位到 test_data 下;
+    1.  无需解决。
+
+可以去uni3 hbuild中得到需要的组件库。
+
+区域管理我理解是否也是和地图相关的？也加上。
+
+## [3.6] [x] 写完
+
+文档部分：
+1. 同步控制器修改标题，和模块交互的内容；
+2. 整理完成后刻录并直接导入；
+3. 合并文档，在 SM 电脑中校验投标要求和指标实现内容；
+4. 完成后提交制作进行打印；
+5. 打印后应该需要盖章；
+6. 之后将文件提交携带外出和复制流程；
+7. 慧翔打印；
+
+## [3.9] [] 多种模式性能测试比较
+
+多种数据类型 - 多进程
+
+1. 单机，三个测试的单个运行测试；
+2. 单机，三个测试的梯度运行测试；
+3. 多主机多节点，三个测试的单独运行测试；
+4. 多主机多节点，三个测试的梯度运行测试；
+
+其中生成四份子报告，一个份总报告，把 1 和 3 在同表格比较，把 2 和 4 在同表格比较；
+
+1, 2, 3,4 分别加入到 ci 中。
+
+保留配置，随机点读；
+
+## [3.12] [] dbeaver 新功能定制 mco .h/.c 输出
+
+我现在需要做一件事，在 dbeaver 中开发一个定制化的功能。类似 ../tzdbtools ，输入某些东西后导出一个 .h 和 .c 。是否有方案？
+
+基本完成；
+后续进入测试阶段；
+
+## [3.16] 开发工作
+
+1. [ ] 远程接口测试并不是十分理想；
+2. [ ] db eaver 新界面的开发；
+
+Fix:
+1. 修复：稳定 lruk 发布路径和性能测试超时；
+2. 修复(存储、索引、MVCC)：提高并发性并添加回归测试；
+3. 解决 forward 模式节点发现功能中的双主问题，从选举策略改为带优先级的退让式选主；
+
+## THE END
+
+1. [x] 报销相关，进行核对校验；
+2. [x] 资产转移；
+3. [x] 脱m;
+4. [] 交接完成告知所级；
+
+##
+
+Fpbrobesonpearl40z8@alumni.com
+----
+NCdzz2wc5u2qM7J
+----7414713ab6151dc9604fff64a3ce2b49----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
+
+ZL202418009129.3
+
+
+查新模板，
+按时间要求收费，
+项目上是否有查新模板，和查新单位资质要求；
+
+
+buildBind 之类的接口应该换成 NetInfo 作为入参。
+
+
+台北市中正區延平南路136巷16號
+台北市
+台湾 196849

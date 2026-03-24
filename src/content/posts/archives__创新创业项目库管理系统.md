@@ -1,0 +1,479 @@
+---
+title: "创新创业项目库管理系统"
+date: "2018-5-25"
+subtitle: "很多东西，其实一开始的时候就要坚定，希望你一直都如一，一直都愿意去改变，不妄言，不放弃"
+author: "Lonnie iTheds"
+tags:
+  - 参考文档
+categories:
+  - 项目管理
+draft: false
+section: "archives"
+sourcePath: "markdown/archives/创新创业项目库管理系统.md"
+slug: "archives/创新创业项目库管理系统"
+---
+
+# 创新创业项目库管理系统
+
+[^_^]:<> (很多东西，其实一开始的时候就要坚定，希望你一直都如一，一直都愿意去改变，不妄言，不放弃)
+
+## 项目立意
+
+> 项目立项文档分配
+
+* 项目简介
+* 项目实施的目的、意义
+* 项目研究现状与分析
+* 项目研究内容和目标
+* 项目技术路线（方法）与进度
+* 项目预期成果及说明
+* 项目经费使用情况
+
+> 需求分析
+
+> ### 项目基本信息及数据要求约束
+
+项目基本信息
+
+用户分配
+
+> ### 工作流程
+
+学生网上申报项目，是否指定学生学号可申报，或者是所有学生皆可申报，考虑邀请码
+网上申报后由审核者审核
+通过之后开始需要项目书，项目书是纸质版或者是电子版，电子版可以在申报时就提交
+
+> ### 环境语言要求
+
+> 接口规范
+
+* 项目名称
+* 项目类别
+* 负责人
+* 负责人联系方式
+* 指导老师
+* 学院
+* 所属学科
+* 开始时间
+* 结束时间
+* 项目经费
+* 纸质版文件是否上交
+* 项目是否结项
+* 审批人
+* word文档
+* 结题报告
+* 项目经费申报情况（待定）
+
+> 逻辑图
+
+---
+
+ 系统审核机制工作流程
+
+---
+1.学生信息录入报名
+
+2.提交项目书，审批过程
+
+3.确定项目通过
+
+---
+
+系统管理方机制
+
+---
+学生可修改的时间段为，通过之前
+
+老师修改内容：
+
+* 纸质版文件是否上交
+* 项目是否结项
+
+审批人登入的管理员
+
+一次未通过的项目信息删去，发邮箱
+
+> 功能模块
+
+* 查询关键字来显示分析信息
+
+> 建库
+
+冗余性考虑，多表连接，访问限制
+
+数据库名称 ProMS
+
+1. 表1：user表(userd)
+
+```SQL
+* 用户名    username    varchar(15)//key
+* 密码      password    varchar(15)
+* 权限      role        char(1)
+```
+
+2. 表2：项目负责人表(student)
+
+```SQL
+* 学号      stdnum      varchar(10)//key
+* 姓名      sname       varchar(15)
+* 联系电话  sphone      varchar(11)
+* 邮箱      sEmile      varchar(20)
+* 学院      college     char(2)
+```
+
+3. 表3：项目表(project)
+
+```SQL
+* 项目编号  pronum      varchar(15)//key
+* 负责人    stdnum      varchar(10)//pre_key 与stdnum一致
+* 名称      proname     varchar(15)
+* 学科      subject     char(3)
+* 指导老师  teacher     varchar(15)
+* 项目类别  prosort     char(2)
+* 项目书    rules       varchar(150)
+* 经费      funds       int
+* 开始时间  starttime   datetime
+* 结束时间  endtime     datetime
+* 状态标识  isDone      char(1)
+* 审批人    reviewer    varchar(15)
+* 结项书    conclusion  varchar(150)
+* 审批意见  suggestion  varchar(300)
+```
+
+4. 表:4：学院编号表(college)
+
+```SQL
+* 学院编号  college     char(2)//key
+* 学院      name        varchar(30)
+```
+
+5. 表5：学科编号表(subject)
+
+```SQL
+* 学科编号  subject     char(2)//key
+* 学科      name        varchar(30)
+```
+
+6. 表6：状态标识表(status)
+
+```SQL
+* 状态名    name    varchar(10)
+* 编号      isDone  char(1)
+```
+
+7. 表7：权限标识表(restrict)
+
+```SQL
+* 权限名    name    varchar(15)
+* 权限编号  role    char(1)
+```
+
+> 规则
+
+权限：
+
+```SQL
+* 管理者权限    1
+* 审核者权限    2
+* 查看者权限    3
+* 学生权限      4
+* 空权限        0
+```
+
+状态表示
+isDone：
+
+```VB
+* 未审核        0
+* 通过未结项    1
+* 已结项        2
+* 过期未结项    3
+* 延期项目      4
+* 不通过        5
+```
+
+文件：
+
+文件储存为文件名，由路径寻址，路径前块不存。
+例如：文件相对路径为 `\markdown\example.doc`
+文件名为 `example.doc`，那么只需要存储 `example.doc`。
+规范 中存有路径。
+
+编号表：
+
+在数据存储时，考虑到一些可确定的信息如院名、学科名，在数据库中如果直接存储会占用大量空间，所以使用较少的编号来表示冗长的字符串。
+学科和学院统一使用2个字符来标明。
+
+> 技术概要
+
+* Bootstrap可视化布局系统
+* SHA256
+* JWT验证
+* 多种数据排序方式
+* 模糊查询
+* word文挡显示处理
+* 一个页面实现root用户和普通用户登入，php写html
+* Thinkphp框架
+* git自动项目部署
+* 调度邮箱发送邮件
+* 微信小程序显示
+
+> 注意事项
+
+系统初期
+
+* 管理员邮箱输入，hsdsjk219@126.com
+
+搜索
+
+* 全部分开
+* 支持模糊查询
+* BS分布式
+
+> 预期完成日期
+
+* 2018年6月前完成前端模型雏形
+* 2018年7月前完成数据对接，实体框架完善
+* 2018年8月前完成用户权限控制
+* 2018年9月中旬前完成垂直分布式数据存储，数据库海量信息有效存储建立
+* 2018年10月前完成数据挖掘搜索
+* 2018年11月完成项目拼接整合，提高稳定性，后期修缮
+
+## 代码详情
+
+> VB端
+
+针对管理者
+
+1. 查看界面：
+
+    查看所有学生信息
+    以各种方式进行查询
+        根据指定字段查询
+    以各种方式查看类别，以属性的方式，比如指定学院为计算机
+
+2. 查看单个指定项目信息
+
+    查看word文档
+
+3. 发放查看者账号，并且控制权限
+
+4. 审核者权限
+    对项目添加附加审核信息
+
+---
+
+窗体布置：
+
+查询
+单独查询 查看者
+单独审批 审核者
+
+登入
+注册
+修改账号
+人员(修改权限)
+
+审核
+审批 管理员
+
+连接数据库字符串：
+
+```VB
+Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS
+```
+
+---
+
+查询 管理员
+
+```VB
+Public con As ADODB.Connection
+Public constr As String
+
+Private Sub Command_Find_Click()//查询按钮
+
+Dim Sdept As String
+Sdept = Trim$(Combo1_Sdept.Text)
+'MsgBox ComboBox
+
+Dim key As String
+key = Trim$(Text_Key.Text)
+
+Dim strSQL As String
+strSQL = ""
+
+If Sdept = "请选择" Then
+    If key = "" Then
+        strSQL = "Select *  from project join student on project.stdnum = student.stdnum"
+    Else
+        strSQL = "Select *  from project join student on project.stdnum = student.stdnum where pronum like '%" & key & "%' or student.stdnum like '%" & key & "%' or proname like '%" & key & "%' or subject like '%" & key & "%' or prosort like '%" & key & "%' or reviewer like '%" & key & "%' or college like '%" & key & "%' or sEmile like '%" & key & "%' or sphone  like '%" & key & "%' or sname like '%" & key & "%'"
+    End If
+Else
+    strSQL = "Select *  from project join student on project.stdnum = student.stdnum join college on student.college = college.college where college.name = '" & Sdept & "'"
+End If
+
+Dim str As New ADODB.Recordset
+Set str = Selectsql(strSQL)
+
+Set DataGrid1.DataSource = str
+DataGrid1.Refresh
+
+End Sub
+
+Option Explicit
+Private Function Selectsql(SQL As String) As ADODB.Recordset       '返回ADODB.Recordset对象
+   Dim ConnStr As String
+    Dim Conn As ADODB.Connection
+    Dim rs As ADODB.Recordset
+    Set rs = New ADODB.Recordset
+    Set Conn = New ADODB.Connection
+
+    'On Error GoTo MyErr:
+    ConnStr = constr
+    Conn.Open ConnStr
+    rs.CursorLocation = adUseClient
+    rs.Open Trim$(SQL), Conn, adOpenDynamic, adLockOptimistic
+    Set Selectsql = rs
+End Function
+Private Sub Form_Load()
+constr = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS"
+
+    Dim SQL As String
+    Dim rs As ADODB.Recordset
+    Dim X As Long
+    On Error GoTo Err_box
+    SQL = " select * from college"
+    Set rs = Selectsql(SQL)
+    
+    If rs.RecordCount > 0 Then
+        rs.MoveFirst
+        For X = 1 To rs.RecordCount
+            Combo1_Sdept.AddItem rs.Fields("name").Value
+            rs.MoveNext
+        Next X
+        Combo1_Sdept.ListIndex = 0
+    End If
+    rs.Close
+    Exit Sub
+Err_box:
+
+End Sub
+
+```
+
+审批 管理员
+
+```VB
+Public con As ADODB.Connection
+Public constr As String
+Private Sub Command1_Click()
+Unload Me
+查询.Show
+End Sub
+
+
+Private Sub Command3_Click()
+Unload Me
+人员.Show
+End Sub
+
+Private Sub Command4_Click()
+Dim Sdept As String
+Sdept = Trim$(Combo2.Text)
+'MsgBox ComboBox
+
+Dim key As String
+key = Trim$(Text1.Text)
+
+Dim strSQL As String
+strSQL = ""
+
+If Sdept = "请选择" Then
+    If key = "" Then
+        strSQL = "Select *  from project join student on project.stdnum = student.stdnum"
+    Else
+        strSQL = "Select *  from project join student on project.stdnum = student.stdnum where pronum like '%" & key & "%' or student.stdnum like '%" & key & "%' or proname like '%" & key & "%' or subject like '%" & key & "%' or prosort like '%" & key & "%' or reviewer like '%" & key & "%' or college like '%" & key & "%' or sEmile like '%" & key & "%' or sphone  like '%" & key & "%' or sname like '%" & key & "%'"
+    End If
+Else
+    strSQL = "Select *  from project join student on project.stdnum = student.stdnum join college on student.college = college.college where college.name = '" & Sdept & "'"
+End If
+
+Dim str As New ADODB.Recordset
+Set str = Selectsql(strSQL)
+
+Set DataGrid1.DataSource = str
+DataGrid1.Refresh
+End Sub
+
+Private Sub Command5_Click()
+审核.stdnum = DataGrid1.Columns("stdnum").CellText(DataGrid1.Bookmark)
+Unload Me
+审核.Show
+End Sub
+
+Private Sub Form_Load()
+constr = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ProMS;Data Source=LONNIE\SQLEXPRESS"
+
+    Dim SQL As String
+    Dim rs As ADODB.Recordset
+    Dim X As Long
+    On Error GoTo Err_box
+    SQL = " select * from college"
+    Set rs = Selectsql(SQL)
+    
+    If rs.RecordCount > 0 Then
+        rs.MoveFirst
+        For X = 1 To rs.RecordCount
+            Combo2.AddItem rs.Fields("name").value
+            rs.MoveNext
+        Next X
+        Combo2.ListIndex = 0
+    End If
+    rs.Close
+    Exit Sub
+Err_box:
+End Sub
+Private Function Selectsql(SQL As String) As ADODB.Recordset       '返回ADODB.Recordset对象
+   Dim ConnStr As String
+    Dim Conn As ADODB.Connection
+    Dim rs As ADODB.Recordset
+    Set rs = New ADODB.Recordset
+    Set Conn = New ADODB.Connection
+     
+    'On Error GoTo MyErr:
+    ConnStr = constr
+    Conn.Open ConnStr
+    rs.CursorLocation = adUseClient
+    rs.Open Trim$(SQL), Conn, adOpenDynamic, adLockOptimistic
+    Set Selectsql = rs
+    
+End Function
+Private Sub Display()
+
+'MsgBox "hello"
+
+Text2.Text = DataGrid1.Columns("proname").CellText(DataGrid1.Bookmark)
+Text3.Text = DataGrid1.Columns("college").CellText(DataGrid1.Bookmark)
+Text4.Text = DataGrid1.Columns("sname").CellText(DataGrid1.Bookmark)
+
+End Sub
+
+Private Sub DataGrid1_Click()
+
+Call Display
+
+End Sub
+```
+
+人员(修改权限) 管理员
+
+审核
+
+单独查询 查看者
+
+单独审批 审核者
+
+登入
+注册
+修改账号

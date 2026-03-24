@@ -1,0 +1,38 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  subtitle?: string;
+  excerpt: string;
+  date?: string;
+  section?: string;
+  tags?: string[];
+}
+
+const {
+  href,
+  title,
+  subtitle,
+  excerpt,
+  date,
+  section,
+  tags = []
+} = Astro.props;
+---
+<article class="card">
+  <a href={href}>
+    <h3>{title || "Untitled"}</h3>
+  </a>
+  <p>{subtitle || excerpt}</p>
+  <div class="meta-row">
+    {date && <span>{date}</span>}
+    {section && <span>{section}</span>}
+  </div>
+  {tags.length > 0 && (
+    <div class="tag-row">
+      {tags.slice(0, 5).map((tag) => (
+        <a class="tag" href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+      ))}
+    </div>
+  )}
+</article>

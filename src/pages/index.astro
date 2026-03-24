@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+
+const posts = (await getCollection("posts"))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => {
+    const left = a.data.date ? a.data.date.getTime() : 0;
+    const right = b.data.date ? b.data.date.getTime() : 0;
+    return right - left;
+  });
+
+const latest = posts.slice(0, 12);
+const sectionMap = new Map();
+const tagMap = new Map();
+
+for (const post of posts) {
+  const section = post.data.section || "post";
+  sectionMap.set(section, (sectionMap.get(section) || 0) + 1);
+  for (const tag of post.data.tags || []) {
+    tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+  }
+}
+
+const sections = [...sectionMap.entries()].map(([name, count]) => ({ name, count }));
+const tags = [...tagMap.entries()]
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 10);
+
+const totalPosts = posts.length;
+const oldest = posts.at(-1)?.data.date?.getFullYear();
+const newest = posts.at(0)?.data.date?.getFullYear();
+---
+<BaseLayout title="iTheds's Studio" description="Astro migration of the iTheds Hexo blog">
+  <section class="hero">
+    <h1>iTheds&apos;s Studio</h1>
+    <p class="lede">
+      This site now uses Astro with a minimal default-style layout. Existing Markdown content,
+      tags, categories, and static assets were migrated from the Hexo source.
+    </p>
+    <div class="stats">
+      <span class="pill">{totalPosts} posts</span>
+      {oldest && newest && <span class="pill">{oldest} - {newest}</span>}
+      <span class="pill">Markdown first</span>
+    </div>
+  </section>
+  <section class="section">
+    <h2>Latest Posts</h2>
+    <div class="stack">
+      {latest.map((post) => (
+        <PostCard
+          href={`/posts/${post.slug}/`}
+          title={post.data.title || post.slug}
+          subtitle={post.data.subtitle}
+          excerpt={post.body.slice(0, 180).replace(/\n+/g, " ")}
+          date={post.data.date?.toISOString().slice(0, 10)}
+          section={post.data.section}
+          tags={post.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+  <section class="section">
+    <h2>Sections</h2>
+    <div class="tag-row">
+      {sections.map((section) => (
+        <span class="pill">{section.name}: {section.count}</span>
+      ))}
+    </div>
+  </section>
+  <section class="section">
+    <h2>Popular Tags</h2>
+    <div class="tag-row">
+      {tags.map((tag) => (
+        <a class="tag" href={`/tags/${encodeURIComponent(tag.name)}`}>#{tag.name} ({tag.count})</a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

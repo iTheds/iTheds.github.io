@@ -1,0 +1,476 @@
+---
+title: "软件总集以及网站"
+date: "2021-1-21"
+subtitle: "软件总集"
+author: "Lonnie iTheds"
+categories:
+  - tools
+draft: false
+section: "archives"
+sourcePath: "markdown/archives/软件总集.md"
+slug: "archives/软件总集"
+---
+
+# 软件总集
+
+## 命令剪辑工具 asciinema ，控制台命令行 gif 
+
+https://asciinema.org
+
+但是其生成的是 .cast ， 需要额外工具生成 gif .
+
+## Fedora Labs
+
+Fedora Labs 为程序员、科学家、学生等各类人群提供各类专业化的 Linux 发行版，内置各类专业软件、包和工具。很多人并没有意识到 Fedora Labs 的优势，只要经过适当的配置，这些版本都是非常优秀的发行版。
+
+我们来总结一下这些 Fedora Labs：
+
+Fedora Scientific：
+
+    采用 KDE Plasma 桌面，集成科学和数学领域的各种开源工具
+    软件清单如下：
+        基于 C/C++ 的 GNU Scientific Library
+        兼容 MATLAB 的 MGNU Octave
+        LaTeX
+        Gnuplot：用于绘制 2D 与 3D 图像
+        Pandas：用于数据处理的 Python 库
+        IPython
+        Java 和 R 程序语言相关包
+
+
+https://labs.fedoraproject.org/zh_Hans_CN/scientific/
+
+## 虚拟串口软件 VSPD
+
+## comsol multiphysics
+
+软件平台提供了创建基于物理场的仿真模型和 App 的多种工具：“模型开发器”支持灵活耦合多个物理场，模拟真实世界的各种现象；“App 开发器”提供了定制开发仿真 App 的易用工具；“模型管理器”帮助您更加高效地管理模型和仿真 App。
+
+Comsol 是一款有限元分析仿真软件，其次正如软件全称Comsol Multiphysics，它是一款多物理场数值分析软件。有限元分析、工程仿真的本质其实就是数学，Comsol是从Matlab有限元工具箱分离出来的，优势明显。它植根于数学物理理论，从最底层的理论出发，用户的自由度很高，其 PDE(偏微分方程)模块更是别的软件无法比拟的。Ansys 等仿真软件是将许多底层内容封装，用户只能使用其固定功能，很难像 Comsol 这样进行二次开发。
+
+## BurnInTest 
+
+让 cpu 满负载
+
+## CpuLimit
+
+可知 cpu 占用量
+
+## Origin
+
+绘图软件。
+
+## Cppcheck
+
+Cppcheck is a static analysis tool for C/C++ code. It provides unique code analysis to detect bugs and focuses on detecting undefined behaviour and dangerous coding constructs. The goal is to have very few false positives. Cppcheck is designed to be able to analyze your C/C++ code even if it has non-standard syntax (common in embedded projects). 
+
+## bloomRpc
+
+for RPC test.
+
+## VisualLeakDetector
+
+软件内存泄漏检测工具
+
+## rufus
+
+制作U盘启动盘的工具。
+
+## Acrobat
+
+pdf软件查看器。
+
+## IDA
+
+反汇编软件。
+
+## focusky-演示软件
+
+一款和ppt类似的演示软件。不过更侧重于动画而不拘泥于格式。
+
+## Apifox
+
+替代 postmen 的线上产品。
+
+## xmind-思维导图
+
+一款思维导图软件。
+目前存有对11.0v的破解版，存放在网盘中。
+
+[2025.2.14]
+其破解版本
+
+## joomla-管理系统
+
+Joomla!是一套全球知名的内容管理系统。 Joomla!是使用PHP语言加上MySQL数据库所开发的软件系统，目前最新版本是3.9.27 。可以在Linux、 Windows、MacOSX等各种不同的平台上执行。目前是由Open Source Matters（见扩展阅读）这个开放源码组织进行开发与支持，这个组织的成员来自全世界各地，小组成员约有150人，包含了开发者、设计者、系统管理者、文件撰写者，以及超过2万名的参与会员。
+
+## [GNS3](https://www.gns3.com/software/download)
+
+网络模拟器。
+
+## [C2R](https://filecr.com/windows/office-c2r-install/)-Office破解器
+
+Microsoft Office 全家桶。从下载到破解。
+
+## Visio
+
+绘图软件。
+下载地址：https://msdn.itellyou.cn/
+
+破解： HEU_KMS_Activator
+
+使用 HEU_KMS_Activator 破解之后将会出现过一段时间变为未激活状态。
+而且很恶心的是，它会挂载浏览器主页。因为这一点，每次 360 扫描都会出现问题。
+[2022.11.30]因为下载的是别人封装过的啊喂
+
+[2021.12.07]
+使用 <VisioPro2019 包含32 64位//microKMS.exe>进行破解。
+该方法被废弃，也没有用处。
+
+[2021.12.07]
+使用 office Tool Plus 进行破解。
+频繁出现问题。
+首先是尝试清理了激活状态，然后又是清除了所有安装许可证。
+在工具中修复无法激活的问题(重置 Software Protection 服务的配置信息)。
+依然没有奏效。
+在安装了 visio 专业版 2019 VL (VL表示批量， Retail 表示零售版)许可证，然后配置 kms 地址`kms.03k.org`， 之后激活成功。但是 office 仍然没有激活成功，疑似是许可证的问题。
+在安装了 office 标准版 2019 VL 许可证之后，激活成功。
+
+总结：
+1. 一般情况下不需要清楚许可证。
+2. 激活的原理是，部署相关的KMS服务器，然后进行修改相关配置文件等。然后就可以激活啦。
+3. 之前失败是因为没有配置 kms 地址。
+
+## Office
+
+激活方法：
+[HEU__KMS_Activator](https://github.com/zbezj/HEU_KMS_Activator/releases)
+KMSpico
+
+## XQilla
+
+XQilla 是一个用 C++ 编写的XQuery ∞和XPath 2 ∞库和命令行实用程序，在Xerces-C ∞库之上实现。它是根据Apache License v2的条款提供的。
+
+http://xqilla.sourceforge.net/homepage
+
+## Dependency Walker 2.2
+
+解析dll动态连接库文件。
+
+Dependency Walker is a free utility that scans any 32-bit or 64-bit Windows module (exe, dll, ocx, sys, etc.) and builds a hierarchical tree diagram of all dependent modules. 
+
+http://dependencywalker.com/
+
+## ILSpy
+
+将exe程序逆转为dll库文件。
+如果没有使用加密可以直接转。
+
+https://github.com/icsharpcode/ILSpy/releases
+
+## UltraEdit
+
+超文本编辑器。
+
+## keil μVision
+
+MCU开发软件。
+注册机已收录。keil.rar
+
+https://www.keil.com/demo/eval/arm.htm#!#DOWNLOAD
+
+## IWYU
+
+IWYU 是include what you use的首字母缩写
+IWYU 使用clang分析符号的引用。是google的一个项目，它可以给出应该引用和移除的头文件，但并不能保证 100% 是正确的（当然都是语言特性的原因）。
+
+https://github.com/include-what-you-use/include-what-you-use/releases
+
+## SQLite
+
+轻量级开源数据库
+https://www.sqlite.org/download.html
+
+## Beyond Compare[官网](https://www.scootersoftware.com/download.php?zz=dl4)
+
+文件比较器。
+存有破解方法。
+
+## 010 Editor
+
+二进制文件读取器。
+
+未破解
+
+## WinHex
+
+二进制文件读取器。
+
+未破解。
+
+## Intellij idea
+
+IDEA 全称 IntelliJ IDEA，是java编程语言开发的集成环境。IntelliJ在业界被公认为最好的java开发工具，尤其在智能代码助手、代码自动提示、重构、JavaEE支持、各类版本工具(git、svn等)、JUnit、CVS整合、代码分析、 创新的GUI设计等方面的功能可以说是超常的。IDEA是JetBrains公司的产品，这家公司总部位于捷克共和国的首都布拉格，开发人员以严谨著称的东欧程序员为主。它的旗舰版本还支持HTML，CSS，PHP，MySQL，Python等。免费版只支持Java,Kotlin等少数语言。
+
+破解方法：
+
+https://www.exception.site/essay/how-to-free-use-intellij-idea-2019-3
+
+文件已存留
+
+[2024.10.13]
+jihuo-tool-2024.1.zip
+文件已存留
+
+http://jet.idejihuo.com/v2/
+
+## Pycharm idea
+
+破解方法：
+https://www.exception.site/essay/how-to-free-use-pycharm-2020
+
+文件已存留
+
+## Pandoc[官网](https://www.pandoc.org/index.html)
+
+这些软件根本上就是Tex转换到Doc，希望能除了在word中使用公式外，还能转化成markdown中能使用的公式。
+
+文档格式转换工具
+If you need to convert files from one markup format into another, pandoc is your swiss-army knife. Pandoc can convert between the following formats:
+
+(← = conversion from; → = conversion to; ↔︎ = conversion from and to)
+...
+TeX formats
+↔︎ LaTeX
+→ ConTeXt
+
+## Acrobat
+
+软件查看器。
+
+一款markdown编辑器。
+
+- 免费
+
+## mathpix[官网](https://mathpix.com/)
+
+Mathpix Snip digitizes handwritten or printed text, and copies outputs to the clipboard that can be pasted into LaTeX editors like Overleaf, Markdown editors like Typora, Microsoft Word, and more.
+识别图片并且转换成LaTeX格式或者KaTeX格式。
+[markdown方面的公式语法](https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference)。
+LaTex格式是一种基于TEX的排版系统，对数学公式表现突出。
+
+每个月有50次免费机会，可以调用API免费1000次但是需要信用卡与CVV
+而不能使用Debit Card。破解方式似乎只能逆向破解exe文件，网络未有。
+
+[在线公式examples](https://mathpix.com/examples.pdf)
+
+另外推荐两个在线的：
+[Equation Editor](https://private.codecogs.com/)-[Click](https://www.codecogs.com/latex/eqneditor.php)
+[公式王](https://gongshi.wang/)
+
+## Axmath 
+
+与MathType类似。
+Mathtype普及率高，AxMath是初创软件，普及率低，迁移难度大。
+许可证是不可更新的机器码、不可转移。难以破解。
+
+## Overleaf[官网](https://www.overleaf.com/)
+
+LaTeX排版书写工具。
+
+## Lunacy
+
+平面设计软件，含内置素材
+内置图标、照片、矢量插图等等。
+与Sketch完全兼容。可以打开sketch文件。
+
+## iVcam
+
+https://www.e2esoft.com/ivcam/
+电脑使用手机摄像头的软件。
+手机端与电脑端同时下载即可。
+
+## PS
+
+存档中有CC2018安装包。
+
+激活，使用AMTEmu。选择框无 Adobe Pro CC 2019，但可以通过选择 Adobe Pro CC 2017 来破解。
+默认安装目录是 C:\Program Files\Adobe\Adobe Pro CC 2019，双击该文件夹内的 amtlib.dll，完成激活。
+其显示如下：
+
+ ```C++
+ ---START WORKING---
+
+WOW64 File System Redirection : disabled
+
+Loading file:
+C:\Program Files\Adobe\Adobe Photoshop CC 2018\amtlib.dll [x64]
+Backup file:
+C:\Program Files\Adobe\Adobe Photoshop CC 2018\amtlib.dll.DEL
+Extract DLL: OK
+Extract INI: OK
+
+WOW64 File System Redirection : enabled
+
+---WORKING DONE---
+```
+
+## AMTEmu
+
+AMTEmu is a tool that is used to activate Adobe Products. It is the best and the only tool that can give you the lifetime activation of all the Adobe Products. This tool is also famous with the name of Universal Adobe Patcher (UAP) among people.
+
+## Axure
+
+Axure RP是一款专业的快速原型设计工具。Axure（发音：Ack-sure），代表美国Axure公司；RP则是Rapid Prototyping（快速原型）的缩写。
+Axure RP是美国Axure Software Solution公司旗舰产品，是一个专业的快速原型设计工具，让负责定义需求和规格、设计功能和界面的专家能够快速创建应用软件或Web网站的线框图、流程图、原型和规格说明文档。作为专业的原型设计工具，它能快速、高效的创建原型，同时支持多人协作设计和版本控制管理 [1] 
+
+code : 
+
+`cc020a2f1fb346acb00d5ffcb0c7bb5b`
+
+## Spine
+
+Spine 是一款针对游戏开发的 2D 骨骼动画编辑工具。
+
+## windows自带记事本
+
+千万不要使用Windows自带的记事本编辑任何文本文件。原因是Microsoft开发记事本的团队使用了一个非常弱智的行为来保存UTF-8编码的文件，他们自作聪明地在每个文件开头添加了0xefbbbf（十六进制）的字符，你会遇到很多不可思议的问题，比如，网页第一行可能会显示一个“?”，明明正确的程序一编译就报语法错误，等等
+
+## Visual stdio
+
+visual激活码：
+NYWVH-HT4XC-R2WYW-9Y3CM-X4V3Y
+
+## [V2rayN](https://github.com/2dust/v2rayN/releases)
+
+vpn代理软件。
+https://github.com/2dust/v2rayN/releases
+
+只下载core即可。v2rayN-Core.zip
+
+## 破解rar密码软件
+
+https://www.crark.net/crark-7zip.html
+
+感谢答主的介绍，已经用上了该工具。
+
+分享一下使用方法：
+1. 大家需要同时下载GUI版和RAR版的两个文件，GUI版缺少配置文件，因此无法直接使用。
+2. RAR版的密码确实是UTF-16。
+3. 把RAR版的文件解压出来后，把GUI拖入解压后的文件夹，运行。
+4. 此时再点击下拉箭头，即可显示RAR版的各种配置文件，选择English即可，运行。
+
+https://zhuanlan.zhihu.com/p/260412613?utm_source=qq
+
+## ZIP Password Unlocker
+
+暴力破解zip密码。
+https://download.cnet.com/ZIP-Password-Unlocker/3000-2094_4-10967931.html
+
+## ODBC 测试工具 
+
+官方给出了一个测试工具.可以连接整个数据库进行各个函数的操作.
+
+https://www.microsoft.com/en-us/download/details.aspx?id=21995
+
+## Navicat Premium 16
+
+多种数据库连接软件。
+
+破解方法：
+https://www.cnbiancheng.com/?p=63495
+
+包存在于 value1 目录下 。Navicat16Premiumjhbd_jb51
+
+## doxygen
+
+分析工程的内容。
+
+## VSCODE 插件
+
+markmap : markdown 思维导图；
+
+# 网站集合
+
+## 柳叶刀https://www.thelancet.com/
+
+医学权威网站
+
+## 激活软件官网
+
+http://win.xinzhijiaa.com/
+
+## 图床
+
+[Gimhoy图床]:https://pic.gimhoy.com/
+
+## 天文图
+
+https://www.eso.org/public/images/eso1242a/zoomable/
+
+## hyper-resolution
+
+hyper-resolution.org is the future home for Prof. dr. R.G. Erdmann's work on high-resolution imaging, data fusion, analysis, and visualization for cultural heritage. It features Erdmann's Curtain Viewer technology. 
+
+https://hyper-resolution.org/
+
+## 哈希文档markdown
+
+https://www.hashspace.cn/markdown/
+
+## 书签整理
+
+https://blog.0wning.me/
+
+http://192.168.1.1/cgi-bin/index2.asp
+http://192.168.0.1/login.html
+
+牛客网 https://www.nowcoder.com/
+
+力扣 https://leetcode-cn.com/
+
+CCF http://cspro.org/
+
+CTF比赛平台 https://ctftime.org/
+
+i春秋 https://www.ichunqiu.com/
+
+MATLAB程式設計教程 http://mirlab.org/jang/books/matlabProgramming4beginner/
+
+The RFC series https://www.rfc-editor.org/
+
+程序设计类实验辅助平台 https://pintia.cn/
+
+安全漏洞门户 http://cve.scap.org.cn/
+
+## 谷歌访问9插件](https://www.jianshu.com/p/affe949d4bd6)
+
+## [Postman](https://www.postman.com/)
+
+拦截器，目前已经改版为可独立软件，谷歌插件上PostWoman Http接口调试插件。
+
+## Tampermonkey chrome  插件脚本过滤
+
+https://www.tampermonkey.net/
+
+## Modify Header Value (HTTP Headers)
+
+http 伪造插件。
+
+https://mybrowseraddon.com/modify-header-value.html?v=0.1.7&type=install
+
+## EditThisCookie
+
+谷歌插件，查看cookie。
+
+# 框架合集
+
+## Scrapy 
+
+Scrapy 是用 Python 实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架。
+
+Scrapy 常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。
+
+通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片。
+
+# EOF 

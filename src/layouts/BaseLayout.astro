@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "iTheds's Studio",
+  description = "Migrated from Hexo to Astro."
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <div class="brand">
+          <a href="/">
+            <h1>iTheds's Studio</h1>
+          </a>
+          <p>Astro default-style migration</p>
+        </div>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/archives">Archives</a>
+          <a href="/tags">Tags</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>Powered by Astro. Content migrated from the original Hexo site.</p>
+    </footer>
+  </body>
+</html>

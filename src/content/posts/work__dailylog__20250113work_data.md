@@ -1,0 +1,1688 @@
+---
+title: "20250113work_data"
+date: "2025-01-13"
+author: "Lonnie iTheds"
+tags:
+  - work
+draft: false
+section: "work"
+sourcePath: "markdown/work/dailylog/20250113work_data.md"
+slug: "work/dailylog/20250113work_data"
+---
+
+# 工作日志
+
+## [2025.1.13]
+目前有两个主线.一个是农业项目要开始写;另一个是 14 场景调研。
+
+## [2.14]
+目前需要权衡一下时间.农业项目定 API . 14 调研分布式的实现。
+可以先进行农业项目 API 确定。
+
+## [3.6]
+下周需要确认弱通信项目的财务验收情况.确认是否需要开具借款之类的证明.证实该费用已经支出.应付未付可能不够具有说服力。
+
+## [3.13]
+1. 弱通信项目还要准备测试报告。
+
+2. openEuler 22.03 LTS 测试 TZ 分布式。
+3. unix 内核态. 与目前版本的差异.以及如何部署。
+   1. [x] 完成
+
+4. 额外的任务：
+    两个项目分析代码量.并且统计其组件.顺便分析其技术栈：
+    只需要模块组成的分析.用代码的形式.里面写markdown.这样方便我复制。然后用markdown的graph画图.表明模块之间的关系。
+    AI 生成结束。
+    - [x] 完成
+
+## [3.17]
+还是希望主线的农业项目先有进展。
+1. 对接元数据;
+2. 额外功能的开发;
+3. 手机 app 测验;
+
+## [4.18]
+后续考虑：
+1. 优化 udp 架构
+2. udp 分包:
+   1. 32 k;
+
+开始完善 UDP 等其他功能模块。
+
+测试种类需要：增伤改查、远程增删改查、远程每个节点均可以进行增删改查、多读单写事务、XML、CSV迁移、本地备份恢复、错误码（单元测试）、节点上线通过其他节点获取初始数据。
+
+* 技术栈：分布式技术 HDFS.数据库开发.网络编程 TCP/IP、HTTP 协议. 前后端开发 vue3 (uniapp) + GIN;
+* 基本：掌握数据结构、常用算法思想、设计模式.技术文档能力.基础软件架构能力;
+* 编程语言：
+T0：熟练使用 C++.C.STL库;
+T1：掌握 Java.Python.rust.基本用法;
+T2：了解 js, php.网站开发; 
+* 工具：熟练使用 Git (CI/CD) .docker 集群部署、Cmake 多系统适配;
+* 其他杂项：涉猎网络安全 web 方向.了解基本攻击手段与加密解密方式;
+* 编程思想：数据与程序分离思想.模块化编程.宏编程;
+* 开源技术库：Mysql、TDengine(分布式技术)、duckDB、datafusion(查询引擎)。
+
+职能范围：软件开发、产品需求定调、算法设计、前端开发;
+主要产品：数据库;
+
+船舶雷达数据系统数据库支撑
+2021.5 - 2022.7
+
+简述：一种采集-显控系统.多种采集设备(包括雷达、无线电、声波)围绕数据中台建立的 C/S 架构系统;
+工作：在现有嵌入式数据库基础上.独立开发：
+    1. 订阅发布功能.由一个额外的线程池.辅助采集的数据流直接转发给应用组件消费组;
+    2. blob数据类型支持;
+应用：中科海洋生物研究所使用;
+
+嵌入式数据库开发(C++) <主要>
+2021.3 - 2022.12
+
+简述：一种运行于国产操作系统天脉(POSIX C++11)应用于机载的数据数据库.原为嵌入式本地数据库.后续陆续改版为支持C/S服务数据库->分布式数据库;
+工作：
+   1. 底层的通信组件开发.包括封装基本的 tcp/udp 协议.支持组播广播;
+   2. 为解决粘包和分包(MTU)协议而开发协议层;采用生成器+抽象工厂方式.设计<通信组件.协议>灵活组合;
+   3. 开发线程池.实现其串行化设计;
+   4. 开发简易的内存管理.支持采用 STL;
+   5. 内核适配多个系统包括 Windows/Linux/天脉等国产操作系统、ODBC/JDBC/Python 接口适配;
+   6. 自动化测试件开发.进行黑盒测试.覆盖用户级接口;开发多进程测试组件.基于行为模式设计行为链;
+应用：长期维护.并且应用于某型号.C/S 模式下.client 64+ 稳定 10 ms 单条响应;
+
+时序分布式数据库开发(rust)
+2023.1 - 2024.6
+
+简述：部署在船载系统.处理时序数据的分布式数据库.支持C/S架构;
+工作：
+   1. 负责订阅发布实现.使用 binglog 进行主动推送模式.支持消费组;
+   2. 参与分布式网络搭建、流式计算基础件开发;
+   3. 参与sql引擎基础流式算子开发;
+应用：长期维护.应用于某小专项;
+
+多模数据库(多数据库 + QT客户端)
+2024.3 - 2024.12
+
+简述：一套同时管理嵌入式数据库和时序分布式数据库数据的多模数据库.于应用层实现.QT客户端管理;
+工作：
+   1. 设计适用多副本的网络架构.<udp + tcp>混合模式;
+应用：长期维护.应用于某小专项;
+
+弱通信条件下协同信息自适应管理技术
+2024.9 - 2024.12
+
+简述：科研项目.研究带宽有限情况下.碎片数据(100 byte~5MB)数据在允许按百分比裁剪时.针对一般数据和周期数据的优化策略.成果为网络工具;
+工作：
+   1. 前期需求调研.确定包括数据特征、需求方向.调研现有技术情况;
+   2. 独立搭建试验网络验环境(Gossip).设计以[发送任务队列+协议反馈检测]为核心概念的软件架构;
+   3. 进行测试试验;
+   4. 独立设计展示页面.QT开发界面;
+   5. 完成项目验收相关工作;
+应用：科研合同.短期小专项试验完成;
+
+农业项目数据平台
+2025.1 - 2025.5
+
+简述：一个 Vue(uniapp + Vue3) + GIN + 数据中台的表单采集与预警项目;
+工作：
+   1. 负责前端开发.包括确定业务.快速 uniapp 微信小程序内容;
+应用：已经上线初期试验版本.应用于中科植保所. B/S 架构;
+
+软件开发工程师
+
+## [5.7]
+文档工作：
+1. 配置管理报告
+   1. [x] 完成
+2. 质量保证报告
+   1. [x] 完成
+3. 产品规格说明
+   1. [x] 完成
+4. 软件版本说明
+   1. [x] 完成
+5. 测试计划
+6. 单元测试计划
+7. 单元测试说明
+
+## [5.8]
+1. [弱通信]其存在一个 bug . 日志的小区号并不对;
+   1. [x] 完成
+3. [611] 有个问题;
+   1. [x] 转移
+4. [分布式]一个长线的开发工作;
+   1. 分片开发.待对接;
+5. [通信]通信组件的结合;
+
+## [5.22]
+场景.使用方式.多模态增强式检索.典型场景.是否能给出灵感后续怎么去做。如何检索.如何应用。
+
+还有一个 fetch .csv传递数据
+
+## [6.2]
+1. fetch 开发;
+2. 测试 thread;
+3. 论文应用扩展;
+
+tips：旧版的 tzdb-win 中还有 distribute 项目代码。
+只有全量备份。 - 601
+
+1. udp select 上线.进行性能测试.测试分布式内容.全量备份版本;
+   1. linux 下. 分布式的测试. 使用 udp 。
+2. sql fetch 开发：
+   1. 备份节点向主节点拿整个表的数据;
+   2. 参考 MasterNode::trans_commit_request ;
+   3. 不需要考虑事务特征. 直接进行数据的传递;
+   4. 根据旧版本封装一个根据表名来获取数据的接口;
+   5. 元数据同步;
+   6. edb_db_csv_export_by_table
+   7. edb_db_csv_import_by_table
+
+雪花树下
+用户层参考 api:
+tzdb_export_csv
+分布式参照关键流程 api:
+send_register_node_request
+消息体参考：
+MASTER_META_RESPONSE
+
+CommonNest 发送消息
+
+## [6.10]
+各部门老师.您好！
+
+软件所2025年高级专业技术岗位招聘启事已经发布在所主页招聘专栏：http://www.iscas.ac.cn/rcdw2016/rczp2016/202505/t20250530_7794695.html
+请转发实验室、部门相关人员.按通知要求在规定的时间内提交材料。
+注：管理支撑岗位 申请高级工程师、工程师人员按此通知要求申请。
+另： 2025年中级专业技术岗位聘用工作已经启动.请各部门通知员工申报.并于2025年6月23日之前将《实验室中级岗位聘用汇总模板》（纸质和电子版）及《软件所专业技术岗位聘用审批表》交人力资源处。
+中级专业技术岗位聘用的基本要求为：
+助理研究员三级: 较系统地掌握本专业的基础理论知识和专业知识.有一定撰写论文的能力;具有外语和计算机应用能力;任研究实习员岗位满4年.或硕士研究生毕业任研究实习员岗位满2年;年度考核合格。任职时间计算截止至2025年7月31日。 
+工程师三级: 具有独立承担一般工程项目的能力.能解决本专业范围内比较复杂的技术问题.写出较高水平的技术报告;具有一定的外语基础;任助理工程师岗位满4年.或硕士研究生毕业任助理工程师岗位满2年;年度考核合格。任职时间计算截止至2025年7月31日。 
+申请研究系列还是工程系列请务必以实际工作为准.不能随意更改。
+
+## [7.7]
+play:
+1. fetch 接口开发：
+   接下来设计消息体.使得分布式部分可以识别该消息体.并且进行发送.抽象成一个接口;
+   如果后续需要通过 sql 进行.那么就让 sql 调用该接口;
+   默认只会从节点向主节点请求数据;
+   还需要同步元数据;
+   1. ~~GenerallyCode 指令 fetch_table;~~//暂不需要 cs 架构支持
+   2. DataInfoType, FETCH_TABLE_REQUEST , FETCH_TABLE_RESPONSE;
+   3. edb_db_open
+   4. handle_fetch_table_response
+
+Monday:
+1. 提交修改;
+2. 编写测试文档;
+
+Tuesday:
+1. 编写测试文档完成;
+2. 开发 fetch .设计消息体;
+
+Wednesday:
+1. [tzdb-rebuild] 引入内存管理器 TLSF. 测试 + 文档;
+
+Thursday:
+1. ODBC 本地接口的开发和测试;
+
+Friday:
+1. ODBC 测试完成.支持 big int. 适配天脉;
+2. 搭建新的网络架子;
+
+## [7.14]
+
+Monday:
+1. net 代码移植及优化;
+
+Tuesday:
+1. net 代码适配 windows;
+2. [601]编译动态库.发现其<string> 文件出现 max 宏冲突.采用 ACOREOS_CPP 解决;
+
+Wednesday:
+1. net 代码优化逻辑.及普通 net api os 适配;
+2. 修改其 new 为智能指针;
+
+Thursday:
+1. 移植 worker 和 queue;
+
+Friday:
+1. 参考移植 meta.考虑重构;
+
+## [7.21]
+
+Monday:
+1. [601]解决天脉动态库问题;
+2. 移植 net pool 工具集;
+
+Tuesday:
+1. 请假一天
+
+Wednesday:
+1. 分析旧版 tzdb 分布式缓慢原因;
+
+Thursday:
+1. 编写 net pool 测试用例;
+
+Friday:
+1. 设计 net pool 符合 rpc 的使用流程;
+
+## [7.28]
+
+Monday:
+1. 开发 net pool rpc;tcp 和 udp 协议切换;先开发 tcp 内容;
+2. 搭建 rpc 总体的架构.包括注册机制.消息体序列化;
+
+Tuesday:
+1. 开发网络上下文.消息回收;
+2. 开发 response 工具;
+
+Wednesday:
+1. 进行测试;
+2. 完善上下文.加入地址.以方便后续支持 udp ;
+3. 开发 server handle 注册;
+4. 
+Thursday:
+1. 基本测试完成;发现问题：
+   1. [ ] 单连接 tcp 并发发送存在数据混乱情况.因为发送数据时并非以一次性发送.而是分帧头和载荷两部分发送;
+2. 开发 meta 序列化;
+
+Friday:
+1. 解决 windows 的 io 模型适配问题;
+2. 解决 windows 上的 错误码问题.暂时使用临时策略;
+3. 为协议层添加跳过 net 层错误码功能;
+
+## [8.4]
+
+plan:
+1. [ ] 修改协议层.解决数据串流隐患;
+2. [x] MetaServer 开发.包括租户管理、集群管理、虚拟节点;
+3. [x] 测试元数据序列化.catalog 序列化;
+4. [x] 将上周的提交同步到 rebuild;
+
+question:
+1. [x] CMT 加上锁保证线程安全[暂时];
+2. [x] 去除 size_t - 多系统适配不兼容;
+
+Monday:
+1. 编写 schema 序列化.并且测试;
+2. [x] 错误码修订;
+
+Tuesday:
+1. 开发 meta manager 的合并操作;
+2. 设计 net pool 协议包号进行接收；
+
+Wednesday:
+1. 开发 net pool 协议包号进行接收；
+2. 修改部分内存泄漏问题；
+3. 熟悉 data server 的开发内容：
+   1. 对 meta 的使用，并且删除旧的 meta 部分并提供功能兼容，以防止后续难以修改；
+4. 拆分租户功能；
+
+Thursday:
+1. meta server 内容与 raft 整合完毕；
+2. 开发完毕基本接口；
+
+Friday:
+1. 重新梳理接口；
+2. 进行序列化测试；
+
+未完成内容：
+1. 设计完成 raft 对接流程，但未完成与 raft 的整合的测试；
+
+## [8.11]
+
+question:
+1. [x] net pool 的析构函数中不使用 close. 使 unique_ptr 用 reset;
+2. [x] io 使用 atomic 代替 swi;
+3. [x] net 中修改 reuse 的系统. 放在 os 层;linux 测试设置 time_wait;
+
+Tuesday:
+1. 整理完成两套接口:
+   1. 一个是针对客户端发出的方法 machine apply 所发出 request 内容， 实现在 meta server 的成员函数中；
+   2. 二是 server 的实现方法，其将会收到该信息，并且在本地进行执行, 该部分全权交给 meta data 进行实现。
+2. 测试完成 meta data 的接口功能;
+
+Wednesday:
+1. 优化 vector 序列化效能(从 1154.21/178.13 us 到 1.08/1.99 us(示例为 4KB))，使得其优于 string 表现;
+2. 先对协议进行优化;优化了 4KB 的数据效能；
+
+Thursday:
+1. 修复 bugs， 包括 epoll 中的 close 句柄消费问题，多线程时并发问题；
+2. 开发分段反序列化需求，用于协议中进行分段的读取数据；
+
+Friday:
+1. 测试分段反序列化；分段序列化开发测试完毕；
+2. 开始设计系统级，权限表格；
+3. 优化 io 多路复用模型为并发执行；
+4. 权限表格基本开发完毕
+
+## [8.18]
+
+Monday:
+1. 发现 rpc call接口延迟 80 ms 问题；
+   1. 进行测试解决，其为 tcp nagle + delayed out 算法中触发经典 “发->发->收” 模式导致；
+   2. 增加 tcp 性能 debug 模式，增加大量性能测试；
+   3. 其目前性能结果为(256B avg = 0.057ms);
+
+Tuesday:
+1. 解决 rpc 并发异常问题；
+2. 开发权限表，编写测试用例；
+
+Wednesday:
+1. 权限表修改完成；
+2. 权限表测试完成；
+
+Thursday:
+1. tsbs 环境搭建及其测试，目前在本机上搭建完成，并测试完成其中两个数据库；
+
+Friday:
+1. 解决 tcp 协议下，处理消息边界问题；
+
+
+## [8.25]
+
+Monday:
+1. 进行 tsbs 测试，修改源码，通过 tsdb 测试；
+2. 编写文档，整理初始资料；
+
+Tuesday:
+1. 编写文档，完成大部分修订，及图片；
+
+Wednesday:
+1. 编写文档完成；待修订；
+
+Thursday:
+1. 编写文档完成，总页数 111 - 39  = 72；
+
+Friday:
+1. 编写文档完成，修改之后页数为 40；
+2. tsbs 测试脚本编写完成；
+
+## [9.1]
+
+Monday:
+1. tsbs 本机测试完成；
+
+Tuesday:
+1. 权限表对接完毕；应指标要求，只针对权限的有无作出判断，但不需要将权限细化到列和表，故此，对接时未将表级权限进行判别，只在权限表中留有该功能；
+
+Wednesday:
+1. 阅读 duckdb 源码；参考其溢出页；
+
+Thursday:
+1. 阅读 tzdb 源码完成，设计溢出页；
+2. 编写文档，将文档中所有的不可动页面改成 visio 图片；
+
+Friday:
+1. 文档编写完成；
+
+# [9.8]
+question:
+1. [ ] rpc 注册建议严格分离,类的反序列化不需要绑定 server_name, method_name;
+5. [ ] 协议判断第一个参数 org_len < 0;建议修改协议，规整错误码
+6. [ ] queue 和 worker 结构改变;
+7. [ ] 底层协议包号;
+8. [ ] buffer 内存未释放；
+9.  [ ] DataInfoFormat 是否改为一个纯粹的泛型;
+10. [ ] 线程池优化为 function;
+11. [ ] 协议打包速度在 mac 下十分缓慢;
+
+Monday:
+1. 测试 tzdb-611 分布式；
+
+Tuesday:
+1. 测试 tzdb-611 分布式；
+
+Wednesday:
+1. 编写 MemEng 优化接口，使得其在现有架构中使用索引；
+
+Thursday:
+1. 测试 tzdb-611 分布式：
+   1. worker 数量不对导致的内存访问异常；
+
+Friday:
+1. tzdb-611 代码合并，代码基本一致，接下来则是版本控件控制；
+
+测试 udp 之类的
+
+索引恢复
+
+# [9.30]
+
+修改这个测试用例。Cannot jump from this goto statement to its label
+
+jump bypasses variable initialization
+
+# [10.7]
+
+1. [x] 合并 rebuild；
+2. [ ] [rebuild]修复 bug @ ConcurrentClientsPerformanceTest; -  怀疑是网络提前关闭了；
+3. [x] [tzdb win]odbc 的多线程使用方式及其测试；
+
+4. 增加主从互换接口的 ODBC 接口；
+5. driver connect 时支持设置数据库的大小；
+6. bind 等接口的内容；
+
+# [10.10]
+
+[ ] ConcurrentClientsPerformanceTest 仔细分析数据，发现其都是在下述数据包中出现的问题。
+
+```
+01 00 04 72   61 66 74 02   00 1b 54 65   73 74 54 79   │ ···raft···TestTy │
+70 65 43 6f   6e 66 69 67   2e 63 6c 69   65 6e 74 5f   │ peConfig.client_ │
+77 72 69 74   65 03 00 bd   87 1d 04 00   00 05 00 01   │ write··········· │
+06 00 00 07   00 01 00 7f   02 00 01 00   12 63 6f 6e   │ ·············con │
+63 75 72 72   65 6e 74 5f   63 6d 64 5f   31 5f 30 02   │ current_cmd_1_0· │
+00 01 03 00   00 ff ff ff   ff ff ff 65   6e 74 5f 63   │ ···········ent_c │
+6d 64 5f 32   5f 39 ff ff   01 00 01 02   00 24 03 00   │ md_2_9·······$·· │
+13 63 6f 6e   63 75 72 72   65 6e 74 5f   63 6d 64 5f   │ ·concurrent_cmd_ │
+30 5f 31 37   ff ff 06 00   22 ff ff ff   ff ff ff 12   │ 0_17····"······· │
+
+63 6f 6e 63   75 72 72 65   6e 74 5f 63   6d 64 5f 31   │ concurrent_cmd_1 │
+5f 37 ff ff   06 00 20 ff   ff ff ff ff   ff 6e 63 75   │ _7···· ······ncu │
+72 72 65 6e   74 5f 63 6d   64 5f 32 5f   32 ff ff 06   │ rrent_cmd_2_2··· │
+00 08 ff ff   ff ff ff ff   31 03 00 13   63 6f 6e 63   │ ········1···conc │
+75 72 72 65   6e 74 5f 63   6d 64 5f 32   5f 31 33 ff   │ urrent_cmd_2_13· │
+ff 06 00 30   ff ff ff ff   ff ff 00 00   00 00 00 00 
+
+
+01 00 04 72   61 66 74 02   00 1b 54 65   73 74 54 79   │ ···raft···TestTy │
+70 65 43 6f   6e 66 69 67   2e 63 6c 69   65 6e 74 5f   │ peConfig.client_ │
+77 72 69 74   65 03 00 b4   fc df 02 04   00 00 05 00   │ write··········· │
+01 06 00 00   07 00 01 00   7f 02 00 01   00 12 63 6f   │ ··············co │
+6e 63 75 72   72 65 6e 74   5f 63 6d 64   5f 31 5f 30   │ ncurrent_cmd_1_0 │
+02 00 01 03   00 00 ff ff   ff ff ff ff   65 6e 74 5f   │ ············ent_ │
+63 6d 64 5f   32 5f 30 ff   ff 01 00 01   02 00 04 03   │ cmd_2_0········· │
+00 12 63 6f   6e 63 75 72   72 65 6e 74   5f 63 6d 64   │ ··concurrent_cmd │
+5f 30 5f 31   ff ff 06 00   02 ff ff ff   ff ff ff 00   │ _0_1············ │
+
+13 63 6f 6e   63 75 72 72   65 6e 74 5f   63 6d 64 5f   │ ·concurrent_cmd_ │
+32 5f 31 39   ff ff 01 00   01 02 00 4b   03 00 13 63   │ 2_19·······K···c │
+6f 6e 63 75   72 72 65 6e   74 5f 63 6d   64 5f 30 5f   │ oncurrent_cmd_0_ │
+32 30 ff ff   01 00 01 02   00 4c 03 00   13 63 6f 6e   │ 20·······L···con │
+63 75 72 72   65 6e 74 5f   63 6d 64 5f   31 5f 33 34   │ current_cmd_1_34 │
+ff ff 06 00   49 ff ff ff   ff ff ff 00   00 00 00 00   │ ····I··········· │
+
+01 00 04 72   61 66 74 02   00 1b 54 65   73 74 54 79   │ ···raft···TestTy │
+70 65 43 6f   6e 66 69 67   2e 63 6c 69   65 6e 74 5f   │ peConfig.client_ │
+77 72 69 74   65 03 00 b2   c5 3c 04 00   00 05 00 01   │ write····<······ │
+06 00 00 07   00 01 00 7f   02 00 01 00   12 63 6f 6e   │ ·············con │
+63 75 72 72   65 6e 74 5f   63 6d 64 5f   31 5f 30 02   │ current_cmd_1_0· │
+00 01 03 00   00 ff ff ff   ff ff ff 00   00 00 00 00   │ ················ │
+```
+
+这是两次错误的内容。
+
+# [10.11]
+
+1. [x] 运行 tsbs iot 测试;
+2. [-] windows pipe ; - xw 在整
+3. [ ] rpc git bugs;
+
+# [10.13]
+
+1. [ ] rebuild 中设置优先级接口。
+
+# [10.16]
+
+1. [x] 继续测试 odbc 在 linux 的表现；
+2. [x] odbc 多线程测试；
+3. 测试 odbc 在 windows 上的表现；并且将代码上传；
+4. 重构 rpc 、 net pool;
+5. rpc 在 windows 上缓慢的问题；
+6. SequentialMultiNodeCommunicationTest 的bug
+
+# [10.19]
+
+以后每次周五找杨耀通汇报一次进度，无需文件汇报；
+
+# [10.21]
+
+1. [] varchar(100)索引
+4. [] rpc部分bug-这块可能需要两天重构一下；
+
+发现问题：
+1. [] 关闭数据库再打开，可以插入相同 primary key 的数据；而且这条语句还删不掉；
+2. [] 删除语句 `DELETE FROM kv_store WHERE id = %llu;` 报错 `Exception for id=100: bad option access`;
+3. [x] IsNull bug; - 修复，原因为 map 为空，仍然采用迭代器构建空返回值；
+4. [x] SELECT MAX(id) FROM kv_store; 查询空表时抛出异常； - 用法问题，投影需要必须有 id；
+
+# [10.23]
+
+new McoSqlEngine() 在天脉上失败：
+原因：
+动态库支持未开启；
+
+# [10.27]
+
+tzdb-win 在天脉上运行成功，因为没有打开动态库支持。
+之前没有怀疑是因为头文件中的类仍然能够识别。
+
+# [10.28]
+
+1. [X] 预查询使用？；
+2. [x] 631 fs 接口；
+3. [x] varbinary，bit类型支持；
+4. 事务部分，应该优化；
+
+1. [x] odbc 测试；
+2. [ ] win ci 退出问题；
+
+# [11.2]
+
+1. [x] odbc 头文件更新；
+2. [x] odbc default getdata 参数支持；
+3. [x] linux 测试；
+4. [X] pisox 支持在沈阳环境是否可以打开；
+
+SELECT cid, mname, cname, nid, did, mid, _type 
+FROM RegSubTable 
+WHERE name='Service_fde9' 
+  and valid=true 
+  and _type&1=1
+
+# [11.3]
+
+1. [x] 错误码；
+2. [] 事务问题；
+
+# [11.4]
+
+1. [] 613 udp 需求开发；
+2. [] 613 udp 测试；
+3. [] udp 测试；
+
+再编写一个新的测试用例文件，主要验证，三个主题下，数据发送的准确性。比如每个node都有一个主题，该主题下，其他node给这个node发送数据都走这个主题，而这个node发送
+
+修改一下NetPoolRpcTsn这个类的实现，startRpcServer的时候即建立一个只允许接收数据的 tsn 的 con ，其主题就是tzdb_自己的ip和port，然后设置回调函数；
+调用callRpc的时候就是向目标ipport组成的主题发送信息，不再用双向通信，而是DESTINATION和SOURCE的形式
+
+问题是进行响应数据包的时候，不知道对方的 topic name 是什么，所以应该再做一个处理，发送的时候，带上 topic name 的长度和 topic name 本身，之后才是载荷数据， 解析的时候就知道了。
+
+
+ConcurrentRequestsTest 表明数据可能有串的情况。
+
+
+@odbc_api.h#L167 这个接口中，我希望加上一个配置，配置指定何种存储引擎,有kDiskStorage, kMemoryStorage, kBustubStorage, kNullStorage这些选项，其中默认为kDiskStorage，允许设置为kMemoryStorage
+
+@statement_handle.cpp#L421 中，如果设置了存储引擎为内存，那么ExecDirect中的语句就把create table改成create temp table，来实现建立的表格都是内存模式
+
+# [11.6]
+
+一、服务注册配置与管理软件 - 613
+
+软件作用
+集注册中心与配置中心于一体，提供服务注册、配置存储与查询的分布式管理能力。
+核心功能
+服务注册：支持应用上电后热注册，接收并保存应用服务信息。
+配置管理：存储应用配置数据，支持分布式远程获取。
+架构保障：采用一主一备架构，提升可用性。
+数据特征与存储
+
+| 模块     | 存储模式 | 数据类型                | 存储形式                                  |
+| :------- | :------- | :---------------------- | :---------------------------------------- |
+| 配置中心 | 磁盘模式 | 文件数据（blob 格式）   | 表结构存储，表名作为 key，blob 为文件内容 |
+| 注册中心 | 内存模式 | 服务注册信息、blob 数据 | 上电后动态存储，遵循自定义规则与通信协议  |
+
+二、服务健康监控与追踪软件（SMC） - 631
+
+软件作用
+1、提供链路追踪监控能力。 
+2、提供服务日志收集、存储功能。
+3、提供服务运行状态变化监控功能。
+4、提供故障信息监控功能。
+核心功能
+日志管理：收集并存储服务运行日志，主要接收“服务注册配置与管理软件”的日志。
+
+数据特征与存储
+数据类型：接收 int、string 两个基础类型及相关日志数据。
+存储方式：之前采用分布式文件系统存储，现替换为分布式数据库。
+对接对象：响应应用数量暂未明确，核心对接 “服务注册配置与管理软件”。
+
+# [11.6]
+
+不要未经允许随便的创建什么总结优化文档。然后我发现 DataInfoFormat 中只存储了 reply_topic ， 即发送方的接收 topicname 没有存储 要发送目标的 topicname，试着加上，并且在回调函数中进行判断，即 回调函数中的 topicname 应该和消息体 DataInfoFormat 的 发送目标的 topicname 应该一致；
+
+主要是在关闭重开的情况下；
+假设 n = 3 ， 那么 6 + 3 个订阅/发布空闲；
+
+所以：
+1. 确定是什么地方导致的超时 - 是处理缓慢
+2. 要么主题全局存储，不再单独维护，作为全局变量，解决该问题；
+3. 要么加大优化力度；
+
+@net_pool_rpc_tsn.cpp#L231-265 这一大块可以抽象出一个方法。该方法的目的是寻找本地已经有的用于接收的id 和 其配套的 topicname，如果没有找到再进行创建。
+那么该方法中，必然是先判断 listen_channel_id_ 是否有效，如果有那么就用 listen_channel_id_；
+如果没有那么就判断 local ip 和 local port 是否有，有就创建，并记录到 listen_channel_id_；
+如果上述没有，那么再判断是否有 client_recv_conn_id_ ， 如果有那么就用client_recv_conn_id_；
+如果没有就创建 client_recv_conn_id_， 再返回；
+
+
+@net_pool_rpc_tsn.cpp#L447 接收的主题会注册到g_topic_to_rpc_map，但是这个主题是无法关闭的。所以，我希望g_topic_to_rpc_map能够做成一个可以获取指定主题的东西，创建接收主题的时候，从g_topic_to_rpc_map中查找是否有，如果有，并且其对应的NetPoolRpcTsn*为空，那么直接复用这个，并且将指针指向自身。关闭的时候，也不对g_topic_to_rpc_map中的主题进行操作，而仅仅是释放this的指针，将其置空。试着完善，g_topic_to_rpc_map可以作为一个管理类。
+
+ext
+
+ext_release
+
+third_party_project_only/placeholder
+
+0x000000000000001d (RUNPATH)            
+Library runpath: 
+[
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/bin:
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/lib:
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/third_party/ts_lib/source/FREE_Linux_Debug_x86_64/bin
+]
+
+```bash
+guang@oxygen:~/code/c/tzdb-rebuild/cmake-build-debug/bin$ LD_DEBUG=libs ./leader_test 2>&1 | grep -A2 -B6 'libddsc.so.0'
+    377012:       trying file=/home/guang/code/c/tzdb-rebuild/cmake-build-debug/bin/libc.so.6
+    377012:       trying file=/home/guang/code/c/tzdb-rebuild/cmake-build-debug/lib/libc.so.6
+    377012:       trying file=/home/guang/code/c/tzdb-rebuild/third_party/ts_lib/source/FREE_Linux_Debug_x86_64/bin/libc.so.6
+    377012:      search cache=/etc/ld.so.cache
+    377012:       trying file=/lib/x86_64-linux-gnu/libc.so.6
+    377012:     
+    377012:     find library=libddsc.so.0 [0]; searching
+    377012:      search cache=/etc/ld.so.cache
+    377012:      search path=/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3:/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3:/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2:/usr/lib/x86_64-linux-gnu:/lib/glibc-hwcaps/x86-64-v3:/lib/glibc-hwcaps/x86-64-v2:/lib:/usr/lib/glibc-hwcaps/x86-64-v3:/usr/lib/glibc-hwcaps/x86-64-v2:/usr/lib          (system search path)
+    377012:       trying file=/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3/libddsc.so.0
+    377012:       trying file=/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2/libddsc.so.0
+    377012:       trying file=/lib/x86_64-linux-gnu/libddsc.so.0
+    377012:       trying file=/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3/libddsc.so.0
+    377012:       trying file=/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2/libddsc.so.0
+    377012:       trying file=/usr/lib/x86_64-linux-gnu/libddsc.so.0
+    377012:       trying file=/lib/glibc-hwcaps/x86-64-v3/libddsc.so.0
+    377012:       trying file=/lib/glibc-hwcaps/x86-64-v2/libddsc.so.0
+    377012:       trying file=/lib/libddsc.so.0
+    377012:       trying file=/usr/lib/glibc-hwcaps/x86-64-v3/libddsc.so.0
+    377012:       trying file=/usr/lib/glibc-hwcaps/x86-64-v2/libddsc.so.0
+    377012:       trying file=/usr/lib/libddsc.so.0
+    377012:     
+./leader_test: error while loading shared libraries: libddsc.so.0: cannot open shared object file: No such file or directory
+guang@oxygen:~/code/c/tzdb-rebuild/cmake-build-debug/bin$
+```
+
+
+```bash
+ithedslonnie@fedora:~/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/bin$ LD_DEBUG=libs ./leader_test 2>&1 | grep -A2 -B6 'libddsc.so.0'
+     84611:       trying file=/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/bin/libc.so.6
+     84611:       trying file=/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/lib/libc.so.6
+     84611:       trying file=/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/third_party/ts_lib/source/FREE_Linux_Debug_x86_64/bin/libc.so.6
+     84611:      search cache=/etc/ld.so.cache
+     84611:       trying file=/lib64/libc.so.6
+     84611:     
+     84611:     find library=libddsc.so.0 [0]; searching
+     84611:      search path=glibc-hwcaps/x86-64-v3:glibc-hwcaps/x86-64-v2:             (LD_LIBRARY_PATH)
+     84611:       trying file=glibc-hwcaps/x86-64-v3/libddsc.so.0
+     84611:       trying file=glibc-hwcaps/x86-64-v2/libddsc.so.0
+     84611:       trying file=libddsc.so.0
+     84611:     
+     84611:     find library=libdl.so.2 [0]; searching
+--
+     84611:     calling init: /lib64/librt.so.1
+     84611:     
+     84611:     
+     84611:     calling init: /lib64/libdl.so.2
+     84611:     
+     84611:     
+     84611:     calling init: libddsc.so.0
+```
+
+# [11.8]
+
+
+@net_pool_rpc.cpp#L31 目前是这种方式返回的实例。但是在 debug 的时候，一开始的时候我看其指针是this=0x61600000a580，但是继续运行，我在另一个线程看到的这个是this=0x61600000a880
+
+0x61600000a580
+0x61600000a880
+
+一个回应都没有收到，难道在回应的时候，给反地址了？
+但是给反地址了，测试用例怎么会过？
+测试用例中的回调，是根据其接收来的，接收到之后，进行回应的地址，
+
+
+建立了监听吗，发送和监听是不一样的；
+
+
+等等，发送和接收的线程占用是一样的吗，所以导致占用了？
+
+
+grep -E "net_pool_rpc(|_tsn).cpp" leader_test.log > leader_rpc_only.log
+grep -E "net_pool_rpc(|_tsn).cpp" follower2_test.log > f2_rpc_only.log
+grep -E "net_pool_rpc(|_tsn).cpp" follower1_test.log > f1_rpc_only.log
+
+Created TS_Lib connection
+
+Callback parameters
+
+tsLibRecvCallback
+
+[TopicRpcMapManager] Registered topic
+
+is the Leader
+
+已开展：
+1.631所需的文件接口天脉测试完成；
+2. tsn 测试roject613测试完成；
+本周计划：
+1. 待解决：tsn 网络多进程中，分布式问题；
+2. uoe网络开发；
+
+connect 127.0.0.1 9000
+
+# [11.20]
+
+add uoe , tslib, fix odbc bugs
+
+
+192.168.3.164
+
+tzdb
+
+1. 编译天脉的 uoe 内容；
+2. 重构网络；
+3. 测试 odbc 分布式；
+
+关键是怎么优化，优化什么的问题。
+面对高并发的网络场景。
+
+首先根据最基本的 socket ， 记录其通信时间和指标。
+
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tzdb-rebuild/cmake-build-debug/bin/tests/performance_test/performance_test --gtest_filter=BaseTcpSocketTest.TcpPerformanceTest:BaseTcpSocketTest/*.TcpPerformanceTest:BaseTcpSocketTest.TcpPerformanceTest/*:*/BaseTcpSocketTest.TcpPerformanceTest/*:*/BaseTcpSocketTest/*.TcpPerformanceTest:BaseTcpSocketTest.InteractiveSmallPacketsTest:BaseTcpSocketTest/*.InteractiveSmallPacketsTest:BaseTcpSocketTest.InteractiveSmallPacketsTest/*:*/BaseTcpSocketTest.InteractiveSmallPacketsTest/*:*/BaseTcpSocketTest/*.InteractiveSmallPacketsTest --gtest_color=no
+Testing started at 3:53 PM ...
+
+=== TCP Socket Performance Test Results ===
+      Size   Avg RTT (ms)   Min RTT (ms)   Max RTT (ms)   P99 RTT (ms)   Throughput (MB/s)
+------------------------------------------------------------------------------------------
+       16B          0.016          0.011          0.286          0.056               1.929
+       32B          0.016          0.011          0.239          0.050               3.860
+       64B          0.017          0.011          0.159          0.050               7.270
+      128B          0.016          0.011          0.199          0.043              15.161
+      256B          0.015          0.012          0.154          0.038              31.823
+      512B          0.018          0.012          0.169          0.054              53.383
+       1KB          0.018          0.012          0.137          0.137             109.784
+       2KB          0.018          0.013          0.114          0.114             221.929
+       4KB          0.020          0.013          0.149          0.149             396.510
+       8KB          0.024          0.014          0.181          0.181             655.750
+      16KB          0.024          0.016          0.142          0.142            1277.499
+      32KB          0.025          0.020          0.111          0.111            2481.600
+      64KB          0.037          0.031          0.092          0.092            3340.140
+
+注: 吞吐量计算方式为 (数据大小 * 2) / 往返时间，单位为MB/s
+TCP是面向连接的可靠传输协议，确保数据的完整性和顺序性
+
+=== TCP Connect Performance Test ===
+      Size   Avg RTT (ms)   Min RTT (ms)   Max RTT (ms)   P99 RTT (ms)   Throughput (MB/s)
+------------------------------------------------------------------------------------------
+       16B          0.051          0.031          0.215          0.131               0.594
+       64B          0.053          0.034          0.136          0.130               2.324
+      256B          0.043          0.034          0.108          0.086              11.341
+       1KB          0.041          0.030          0.084          0.076              47.147
+       4KB          0.057          0.041          0.129          0.092             136.858
+      16KB          0.115          0.089          0.272          0.272             271.487
+
+注: 吞吐量计算方式为 (数据大小 * 2) / 平均往返时间，单位为MB/s
+P99表示99%的请求能够在该时间内完成，是衡量性能稳定性的重要指标
+
+读取数据的时候太。
+
+# [x] [11.24] odbc 并发问题
+
+根据此文件，编写一个多线程并发测试的用例，编写在tests/integration_test/sql_test/issue/issue_631_ctest.cpp中。
+1. 测试多个线程分别使用Database db(test_db_path, "update_data_test");的情况；
+2. 测试多个线程使用同一个 db， 分别使用Connection的情况；
+3. 测试多个用例，并发使用一个db，一个connect的情况。
+
+
+odbc 并行做一些多线程并发测试：
+1. [x] 测试每个线程分别用连接句柄；
+2. [x] 测试多个线程使用同一个连接句柄，分别使用不同语句句柄； - 粒度不够，先使用每个语句句柄都建立一个连接；
+3. [x] 测试多个线程，同时使用同一个语句句柄； - 关键是事务安全性；
+
+要修改其并发，根本是其吃有的内容不对，应该语句句柄使用不同的语句。但是我使用的上层接口，只使用了 session ，导致我无法控制到语句句柄的粒度。
+
+连接句柄 - DB Connect;
+语句句柄 - 无粒度；
+
+结束，能够支持一个线程一个 db 即可；
+
+# [ ] [11.24] 重构网络
+
+减少其读取的次数。
+
+使其访问更加固定；
+
+@protocol_format.h#L113-120 这个的实现@protocol_format.cpp#L77-78 放到这里，使得其可以通过creator来创建
+
+ok，我希望 tcp 的读取更加简单，首先TcpProtocol中，该类应该有两个部分，一个是长度标志位，另一个是其他数据。
+这个其他数据应该是一个类，其包括 pack 函数中的序列化内容，包括 帧头、包序列号、压缩类型等等最后是载荷，
+其序列化部分可以参考测试用例。
+
+然后 readsize 中控制的读取，只需要读出 len + buffer即可，后面的buffer可以反序列化为第二部分。
+
+@tcp_protocol.h#L83 pcode应该包括载荷内容，所以，pack虽然返回的是 vector，实际上是一个只有一个元素的 vector， 
+长度就是 pcode 序列化完成后的长度。
+
+@tcp_protocol.cpp#L204-209 getSize这个函数是否已经没有意义了，删除。。；然后，header_pb_也删除；@tcp_protocol.cpp#L122 然后getPayload如果反复被调用，岂不是执行了很多无用的操作，可以readSize中，读取结束后，自动进行解析，将数据整理在payload_pb_中，这可以是一个新的方法，与pack对应，然后getpayload的时候，直接返回payload_pb_？
+
+---
+
+感觉这个理念很奇怪；可以进行优化，首先ProtocolFormat 的 pack 应该可以将一切可以序列化的内容，都允许进行 pack，那么就需要使用模板T，其中 pcode 的有效载荷也是这个模板T， 然后 pack 的时候，入参应该是 T， 其返回的是std::vector<ProtocolBuffer>。
+这是发送时期的使用方法；
+
+然后接收的时候，应该是通过 readsize 还是不变的用法；
+而 upack ，应该将内部的数据解开，其参数不应该有；
+然后 getpayload 的时候返回一个 T；
+
+---
+
+为什么不直接把数据存入到 MemoryStream 中？然后进行序列化，将数据读出？
+
+---
+
+raw data -> raw ProtocolBuffer -> pcode -> send ProtocolBuffer
+
+recv ProtocolBuffer -> pcode -> raw ProtocolBuffer -> raw data
+
+# [12.17]
+
+1. [x] j代材料;
+2. [x] 设计文档；
+3. [] bm 培训 27 日；
+4. [x] bm 复查；
+5. [] 弱通信结项； - 正在等待传递 - 编写清单模板 - 递交王英 - 材料交付；
+6. [x] 报销；
+7. [] 开发 dbeaver 的适配驱动；
+8. [] 长期证；
+
+# [12.19] dbeaver 开发
+
+直接开始写 dbeaver 的适配内容。
+
+# [x] [12.22] 需求调研 - 最小功能集裁剪
+
+需求：
+1. 最小功能集裁剪。在一个界面工具中通过选定功能集合的方式，生成一个可以直接使用的产物；
+2. 直接读取文件方式的界面工具；shell 是否需要可裁剪性；
+3. 直接读取内存数据库的工具；
+
+ok ， 帮我增加一个界面，在菜单中 database 栏目中，加上一个 get database lib 的子栏目，点击的时候打开一个页面。
+该界面有一个下拉框，暂时只有一个内容，叫做 TZDB，然后下面有一个框，有很多条目，可以选择，其表示了该数据库有哪些功能的支持；
+最下面有几个按钮，生成，导出，按生成会产生一个.lib文件，导出的时候会将一个.lib文件放入到用户选择的路径下。
+
+很好，这个界面我看到了。但是能否分成有联级的那种，比如存储引擎有两个，内存和磁盘，必须选一个，然后sql引擎只有一个，是必选的，然后导入导出csv是可选的，raft是可选的，rpc是可选的，但是如果选择了raft那么rpc一定要选。
+
+这个功能实际上是，我会给出一部分的 .o 的库，每个功能有一个，然后点击生成的时候，会根据用户选择的功能，将这些 .o 组合成一个 lib。分析这个过程的可行性，告诉我 .o 文件放在哪里。
+
+ok，那么在cmkake中关闭LTO。。然后我们需要明确一下流程，项目开始的时候，，这个时候第一次 cmake + make， 尝试执行脚本，是没有任何 .o 文件的， 所以没有生成 tzdb_dist等 ， 允许不运行 variant_test_dist ；
+但是 build all 之后，如果其在 libs 文件下找到了 tzdb_dist 等，那么就应该允许运行 variant_test_dist。也就是通过是否能够找到 libs 下的 tzdb_dist 等文件来控制是否开启 variant_test_dist 项目。
+
+现在的项目情况是，项目有最小功能集合。我实现了两个脚本，
+```bash
+./scripts/extract_object_files.sh ./cmake-build-release/ ./object_files
+./scripts/combine_object_files.sh ./object_files ./libs
+```
+用来替换主cmake中通过小的 obj 来生成 TZDB_BUILD_VARIANTS 控制下 tzdb_kernel_lite_obj、tzdb_dist 等库的生成过程。
+现在我希望，能够将主中 TZDB_BUILD_VARIANTS 控制下的所有库生成删除。通过脚本生成库，并且 variant_test 项目通过找这些库，进行运行。
+试着分析当前脚本生成的是否有问题，并且完成上述。
+
+```bash
+./scripts/combine_libs_from_static.sh ./exported_libs ./libs
+```
+
+```bash
+./scripts/copy_variant_libs.sh
+```
+
+ok，现在在variant_test中设置一个宏，开启的时候用生成的库，没有开启的时候还是用之前编译产生的的tzdb_full
+
+修改一下这个界面，每个.a都要有对应的功能。然后参照脚本中，其能够生成哪些库？抽离出其中共性的内容，变成必选；
+设计界面，给出选项，可以直接指定选择直接生成某个库，也可以通过选择功能来达到使用某种库。
+
+# [] [12.22] bugs
+
+LeaderFailureAndElection 失败后就有 bug 会进行持续的阻塞。
+看起来有阻塞，实际是反复重新连接，造成的重连假象。
+频繁创造套接字倒是真的。
+加上关闭状态后，并且 runtime 先调用 netpool 的 close， 仍然无法快速退出。说明其是因为未关闭的 netpool 不断进行发送的问题。
+
+# [12.23]
+
+1. [x] 文档；
+2. [x] 25日， 完善文档；
+
+# [ ] [12.24] dbeaver 开发
+
+基本试验完毕。直接开始开发 pg 协议。
+
+需要写什么？
+
+其是 tcp ip 协议的。
+开启一个服务，应该基于当前的 client 模式才行。
+然后联动 协议层 ，发送预期的内容。
+
+能够进行基本 psql 操作。
+
+阅读关于 NetPoolRpc@net_pool_rpc_multil_node.cpp#L347 的内容，试着分析是否可以用 netpoolrpc 或者 netpool 来实现当前的结构，虽然服务段不需要主动 callrpc 来获取RTT的回环消息，但是仍然可以使用服务注册和其中的io模型来进行良性回应。
+
+@pg_protocol.cpp#L365 Member is inaccessible，，并且con_mt_其实不必维护，应该采用netpoolimpl代替netpool，然后这个send应该时sendtcp接口
+
+不断对网络进行重构，加上个各种测试用例，不然始终是隐患。
+
+ok,开始修改，先：
+1. [x] 异常重置；
+2. [x] 分离 TCP 特有接口;其实这一部分就是把连接的建立和使用完全分开，使用只是 send recv ，而建立连接的时候的 connect 和 accept 却不同；
+
+主要是扩展性差,CONNECT有很多子类，tcp和udp，而协议类@protocol_format.h#L60 有tcp协议，upd协议，pg协议，等等，@net_pool.cpp#L345 协议池和连接的绑定形式,改成模板函数。
+
+不希望以后添加协议类似 uoe 需要修改 netpool 的情况。
+
+接下来优化主要的发送等逻辑。
+
+分离RCP和network，从继承变组合。
+
+ok，现在直接优化协议；
+旧的打包 release ：
+
+```log
+Testing started at 9:51 AM ...
+Intel(R) Core(TM) i9-10900 CPU @ 2.80GHz
+Mem:            62Gi        40Gi       4.0Gi       1.1Gi        19Gi        21Gi
+CPU info: System memory info: 
+2026-01-08 09:51:30 [6149084400934708879] [tcp_protocol.cpp:129:getPayload] WARN  - No valid payload data to decompress
+2026-01-08 09:51:30 [6149084400934708879] [tcp_protocol.cpp:43:pack] ERROR - Invalid input parameters
+Performance comparison for 64k data:
+TCP protocol pack time: 68 us
+UDP protocol pack time: 183 us
+TCP produced 2 buffers
+UDP produced 2 buffers
+
+===== 详细性能测试结果 =====
+
+数据大小: 1 KB
+TCP 平均打包时间: 0 us (标准差: 0 us)
+UDP 平均打包时间: 2.42 us (标准差: 2.94 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 0
+
+数据大小: 16 KB
+TCP 平均打包时间: 2 us (标准差: 0 us)
+UDP 平均打包时间: 34.74 us (标准差: 2.71153 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 17.37
+
+数据大小: 64 KB
+TCP 平均打包时间: 9.9 us (标准差: 4.19643 us)
+UDP 平均打包时间: 147.16 us (标准差: 11.5436 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 2
+性能比率 (UDP/TCP): 14.8646
+
+数据大小: 256 KB
+TCP 平均打包时间: 273 us (标准差: 26.8075 us)
+UDP 平均打包时间: 584.32 us (标准差: 25.4703 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 5
+性能比率 (UDP/TCP): 2.14037
+
+===== 端到端通信性能测试 =====
+
+数据大小: 4 KB
+TCP 端到端平均时间: 0.06 us
+UDP 端到端平均时间: 20.16 us
+端到端性能比率 (UDP/TCP): 336
+
+数据大小: 64 KB
+TCP 端到端平均时间: 20.5 us
+UDP 端到端平均时间: 300.14 us
+端到端性能比率 (UDP/TCP): 14.641
+
+数据大小: 512 KB
+TCP 端到端平均时间: 781.1 us
+UDP 端到端平均时间: 3411.74 us
+端到端性能比率 (UDP/TCP): 4.36787
+
+===== Memcpy性能基准测试 =====
+
+数据大小: 4 KB
+Memcpy 平均时间: 0 us
+TCP 端到端平均时间: 1.06 us (vs Memcpy: infx)
+UDP 端到端平均时间: 22.1 us (vs Memcpy: infx)
+吞吐量比较:
+  Memcpy: inf MB/s
+  TCP: 3864.15 MB/s
+  UDP: 185.339 MB/s
+
+数据大小: 64 KB
+Memcpy 平均时间: 1.14 us
+TCP 端到端平均时间: 22.7 us (vs Memcpy: 19.9123x)
+UDP 端到端平均时间: 312.06 us (vs Memcpy: 273.737x)
+吞吐量比较:
+  Memcpy: 57487.7 MB/s
+  TCP: 2887.05 MB/s
+  UDP: 210.011 MB/s
+
+数据大小: 512 KB
+Memcpy 平均时间: 22.36 us
+TCP 端到端平均时间: 744.66 us (vs Memcpy: 33.3032x)
+UDP 端到端平均时间: 3247.94 us (vs Memcpy: 145.257x)
+吞吐量比较:
+  Memcpy: 23447.6 MB/s
+  TCP: 704.064 MB/s
+  UDP: 161.422 MB/s
+
+  YOU HAVE 3 DISABLED TESTS
+
+Process finished with exit code 0
+```
+如果要优化如何优化？是否应该不再采用buffer和buffer_len这种结构，而是返回一个ProtocolBuffer的内容会更好？而且每次运行的时候让ProtocolFormat来产生该ProtocolBuffer，通过移交所有权，让ProtocolFormat保持数据的纯粹性？
+
+流式和报文。
+
+先优化这个stream协议，@tcp_protocol.h#L61-62 头和协议分开的形式似乎有点问题。能否参考@segmented_reader_test.cpp#L160-166 此处的序列化方法，来改进该结构？序列化的时候会加上帧头，虽然无法完全替代@tcp_protocol.cpp#L74-94 手动序列化，但是可以将@tcp_protocol.h#L56 帧头和包长度这两个字符手动序列化，然后其他的信息就交给序列化类来实现。这样的话，除去包长度和帧头以外的数据就可以封装成一个类，进行特定的序列化
+
+然后压缩器也因该进行封装，这两者应该是什么关系？
+
+优化，使用结构序列化：
+
+```log
+Testing started at 9:52 AM ...
+Intel(R) Core(TM) i9-10900 CPU @ 2.80GHz
+Mem:            62Gi        40Gi       4.4Gi       1.1Gi        19Gi        22Gi
+CPU info: System memory info: 
+2026-01-08 09:52:37 [9850865305796753168] [tcp_protocol.cpp:136:getPayload] WARN  - No valid payload data to decompress
+2026-01-08 09:52:37 [9850865305796753168] [tcp_protocol.cpp:43:pack] ERROR - Invalid input parameters
+Performance comparison for 64k data:
+TCP protocol pack time: 130 us
+UDP protocol pack time: 214 us
+TCP produced 1 buffers
+UDP produced 2 buffers
+
+===== 详细性能测试结果 =====
+
+数据大小: 1 KB
+TCP 平均打包时间: 0.02 us (标准差: 0.14 us)
+UDP 平均打包时间: 2 us (标准差: 0 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 100
+
+数据大小: 16 KB
+TCP 平均打包时间: 3.18 us (标准差: 3.4796 us)
+UDP 平均打包时间: 34.18 us (标准差: 0.864639 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 10.7484
+
+数据大小: 64 KB
+TCP 平均打包时间: 18.64 us (标准差: 21.5961 us)
+UDP 平均打包时间: 145.42 us (标准差: 14.3723 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 2
+性能比率 (UDP/TCP): 7.8015
+
+数据大小: 256 KB
+TCP 平均打包时间: 426.3 us (标准差: 42.0838 us)
+UDP 平均打包时间: 589.8 us (标准差: 45.2478 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 5
+性能比率 (UDP/TCP): 1.38353
+
+===== 端到端通信性能测试 =====
+
+数据大小: 4 KB
+TCP 端到端平均时间: 1.5 us
+UDP 端到端平均时间: 20.28 us
+端到端性能比率 (UDP/TCP): 13.52
+
+数据大小: 64 KB
+TCP 端到端平均时间: 27.74 us
+UDP 端到端平均时间: 292.44 us
+端到端性能比率 (UDP/TCP): 10.5422
+
+数据大小: 512 KB
+TCP 端到端平均时间: 1376.22 us
+UDP 端到端平均时间: 3054.82 us
+端到端性能比率 (UDP/TCP): 2.21972
+
+===== Memcpy性能基准测试 =====
+
+数据大小: 4 KB
+Memcpy 平均时间: 0 us
+TCP 端到端平均时间: 1.12 us (vs Memcpy: infx)
+UDP 端到端平均时间: 22.84 us (vs Memcpy: infx)
+吞吐量比较:
+  Memcpy: inf MB/s
+  TCP: 3657.14 MB/s
+  UDP: 179.335 MB/s
+
+数据大小: 64 KB
+Memcpy 平均时间: 1.4 us
+TCP 端到端平均时间: 28.52 us (vs Memcpy: 20.3714x)
+UDP 端到端平均时间: 285.9 us (vs Memcpy: 204.214x)
+吞吐量比较:
+  Memcpy: 46811.4 MB/s
+  TCP: 2297.9 MB/s
+  UDP: 229.227 MB/s
+
+数据大小: 512 KB
+Memcpy 平均时间: 18.58 us
+TCP 端到端平均时间: 1401.4 us (vs Memcpy: 75.4252x)
+UDP 端到端平均时间: 3036.62 us (vs Memcpy: 163.435x)
+吞吐量比较:
+  Memcpy: 28217.9 MB/s
+  TCP: 374.117 MB/s
+  UDP: 172.655 MB/s
+
+  YOU HAVE 3 DISABLED TESTS
+
+Process finished with exit code 0
+```
+
+更慢了，简单结构没有必要用序列化。没有手动打包快。
+仍然选择手动打包，优化流式报文协议打包，只生成一个包，并且优化压缩表现，具体为改用 vector ，复用内存，压缩时不生成新内存(只扩大)，取的一定的性能优化：
+
+```log
+2026-01-08 11:21:54 [5134581875930967586] [tcp_protocol.cpp:113:getPayload] WARN  - No valid payload data to decompress
+2026-01-08 11:21:54 [5134581875930967586] [tcp_protocol.cpp:44:pack] ERROR - Invalid input parameters
+Performance comparison for 64k data:
+TCP protocol pack time: 43 us
+UDP protocol pack time: 168 us
+TCP produced 1 buffers
+UDP produced 2 buffers
+
+===== 详细性能测试结果 =====
+
+数据大小: 1 KB
+TCP 平均打包时间: 0 us (标准差: 0 us)
+UDP 平均打包时间: 2 us (标准差: 0 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 0
+
+数据大小: 16 KB
+TCP 平均打包时间: 1.02 us (标准差: 0.14 us)
+UDP 平均打包时间: 35.36 us (标准差: 2.52 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 34.6667
+
+数据大小: 64 KB
+TCP 平均打包时间: 7.18 us (标准差: 0.93145 us)
+UDP 平均打包时间: 143.78 us (标准差: 10.8042 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 2
+性能比率 (UDP/TCP): 20.0251
+
+数据大小: 256 KB
+TCP 平均打包时间: 201.36 us (标准差: 16.292 us)
+UDP 平均打包时间: 721.1 us (标准差: 29.4185 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 5
+性能比率 (UDP/TCP): 3.58115
+
+===== 端到端通信性能测试 =====
+
+数据大小: 4 KB
+TCP 端到端平均时间: 0.06 us
+UDP 端到端平均时间: 20.7 us
+端到端性能比率 (UDP/TCP): 345
+
+数据大小: 64 KB
+TCP 端到端平均时间: 19.38 us
+UDP 端到端平均时间: 297 us
+端到端性能比率 (UDP/TCP): 15.3251
+
+数据大小: 512 KB
+TCP 端到端平均时间: 1042.18 us
+UDP 端到端平均时间: 3128.38 us
+端到端性能比率 (UDP/TCP): 3.00177
+
+===== Memcpy性能基准测试 =====
+
+数据大小: 4 KB
+Memcpy 平均时间: 0 us
+TCP 端到端平均时间: 0.06 us (vs Memcpy: infx)
+UDP 端到端平均时间: 20.86 us (vs Memcpy: infx)
+吞吐量比较:
+  Memcpy: inf MB/s
+  TCP: 68266.7 MB/s
+  UDP: 196.357 MB/s
+
+数据大小: 64 KB
+Memcpy 平均时间: 1 us
+TCP 端到端平均时间: 27.12 us (vs Memcpy: 27.12x)
+UDP 端到端平均时间: 288.32 us (vs Memcpy: 288.32x)
+吞吐量比较:
+  Memcpy: 65536 MB/s
+  TCP: 2416.52 MB/s
+  UDP: 227.303 MB/s
+
+数据大小: 512 KB
+Memcpy 平均时间: 20.76 us
+TCP 端到端平均时间: 900.34 us (vs Memcpy: 43.369x)
+UDP 端到端平均时间: 3027.28 us (vs Memcpy: 145.823x)
+吞吐量比较:
+  Memcpy: 25254.7 MB/s
+  TCP: 582.322 MB/s
+  UDP: 173.188 MB/s
+```
+
+优化 报文协议 ,不使用 crc32 时，打包速度和流式基本相同 :
+```log
+2026-01-13 14:22:06 [17427010273870997958] [tcp_protocol.cpp:113:getPayload] WARN  - No valid payload data to decompress
+2026-01-13 14:22:06 [17427010273870997958] [tcp_protocol.cpp:44:pack] ERROR - Invalid input parameters
+Performance comparison for 64k data:
+TCP protocol pack time: 11 us
+UDP protocol pack time: 15 us
+TCP produced 1 buffers
+UDP produced 2 buffers
+
+===== 详细性能测试结果 =====
+
+数据大小: 1 KB
+TCP 平均打包时间: 0 us (标准差: 0 us)
+UDP 平均打包时间: 0 us (标准差: 0 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 0
+
+数据大小: 16 KB
+TCP 平均打包时间: 1.02 us (标准差: 0.14 us)
+UDP 平均打包时间: 1 us (标准差: 0 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 0.980392
+
+数据大小: 64 KB
+TCP 平均打包时间: 8.1 us (标准差: 0.7 us)
+UDP 平均打包时间: 9.44 us (标准差: 1.21918 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 2
+性能比率 (UDP/TCP): 1.16543
+
+数据大小: 256 KB
+TCP 平均打包时间: 214.34 us (标准差: 9.34582 us)
+UDP 平均打包时间: 210.02 us (标准差: 9.1553 us)
+TCP 生成缓冲区数量: 1
+UDP 生成缓冲区数量: 5
+性能比率 (UDP/TCP): 0.979845
+
+===== 端到端通信性能测试 =====
+
+数据大小: 4 KB
+TCP 端到端平均时间: 0.08 us
+UDP 端到端平均时间: 4.24 us
+端到端性能比率 (UDP/TCP): 53
+
+数据大小: 63.9365 KB
+TCP 端到端平均时间: 19.22 us
+UDP 端到端平均时间: 31.5 us
+端到端性能比率 (UDP/TCP): 1.63892
+
+数据大小: 512 KB
+TCP 端到端平均时间: 1104.14 us
+UDP 端到端平均时间: 1659.62 us
+端到端性能比率 (UDP/TCP): 1.50309
+
+===== Memcpy性能基准测试 =====
+
+数据大小: 4 KB
+Memcpy 平均时间: 0 us
+TCP 端到端平均时间: 1.36 us (vs Memcpy: infx)
+UDP 端到端平均时间: 5.22 us (vs Memcpy: infx)
+吞吐量比较:
+  Memcpy: inf MB/s
+  TCP: 3011.76 MB/s
+  UDP: 784.674 MB/s
+
+数据大小: 64 KB
+Memcpy 平均时间: 1.48 us
+TCP 端到端平均时间: 24.84 us (vs Memcpy: 16.7838x)
+UDP 端到端平均时间: 42.9 us (vs Memcpy: 28.9865x)
+吞吐量比较:
+  Memcpy: 44281.1 MB/s
+  TCP: 2638.33 MB/s
+  UDP: 1527.65 MB/s
+
+数据大小: 512 KB
+Memcpy 平均时间: 26.24 us
+TCP 端到端平均时间: 1444.9 us (vs Memcpy: 55.0648x)
+UDP 端到端平均时间: 1988.54 us (vs Memcpy: 75.7828x)
+吞吐量比较:
+  Memcpy: 19980.5 MB/s
+  TCP: 362.854 MB/s
+  UDP: 263.655 MB/s
+```
+
+找了一个旧版的对比，其虽然没有 crc32 ，但是提升也很大：
+```log
+5fc30cebb1a815886160638f1b7c6341817aa117
+2026-01-13 14:30:45 [protocol_format.cpp:201:getPayload] WARN  - [getPayload] No valid payload data to decompress
+2026-01-13 14:30:45 [protocol_format.cpp:115:pack] ERROR - [pack] Invalid input parameters
+Performance comparison for 64k data:
+TCP protocol pack time: 146 us
+UDP protocol pack time: 217 us
+TCP produced 2 buffers
+UDP produced 2 buffers
+
+===== 详细性能测试结果 =====
+
+数据大小: 1 KB
+TCP 平均打包时间: 4.94 us (标准差: 2.50926 us)
+UDP 平均打包时间: 8.52 us (标准差: 5.89658 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 1.7247
+
+数据大小: 16 KB
+TCP 平均打包时间: 45.72 us (标准差: 12.2655 us)
+UDP 平均打包时间: 49.28 us (标准差: 11.955 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 1
+性能比率 (UDP/TCP): 1.07787
+
+数据大小: 64 KB
+TCP 平均打包时间: 178.92 us (标准差: 47.7388 us)
+UDP 平均打包时间: 118.68 us (标准差: 30.4305 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 2
+性能比率 (UDP/TCP): 0.663313
+
+数据大小: 256 KB
+TCP 平均打包时间: 568.26 us (标准差: 108.163 us)
+UDP 平均打包时间: 504.54 us (标准差: 118.267 us)
+TCP 生成缓冲区数量: 2
+UDP 生成缓冲区数量: 5
+性能比率 (UDP/TCP): 0.887868
+
+===== 端到端通信性能测试 =====
+
+数据大小: 4 KB
+TCP 端到端平均时间: 23.22 us
+UDP 端到端平均时间: 131.9 us
+端到端性能比率 (UDP/TCP): 5.68045
+
+数据大小: 64 KB
+TCP 端到端平均时间: 240.54 us
+UDP 端到端平均时间: 384.32 us
+端到端性能比率 (UDP/TCP): 1.59774
+
+数据大小: 512 KB
+TCP 端到端平均时间: 1740.64 us
+UDP 端到端平均时间: 1792.06 us
+端到端性能比率 (UDP/TCP): 1.02954
+
+===== Memcpy性能基准测试 =====
+
+数据大小: 4 KB
+Memcpy 平均时间: 0 us
+TCP 端到端平均时间: 10.3 us (vs Memcpy: infx)
+UDP 端到端平均时间: 66.22 us (vs Memcpy: infx)
+吞吐量比较:
+  Memcpy: inf MB/s
+  TCP: 397.67 MB/s
+  UDP: 61.8544 MB/s
+
+数据大小: 64 KB
+Memcpy 平均时间: 1.14 us
+TCP 端到端平均时间: 109.94 us (vs Memcpy: 96.4386x)
+UDP 端到端平均时间: 123.72 us (vs Memcpy: 108.526x)
+吞吐量比较:
+  Memcpy: 57487.7 MB/s
+  TCP: 596.107 MB/s
+  UDP: 529.712 MB/s
+
+数据大小: 512 KB
+Memcpy 平均时间: 22.36 us
+TCP 端到端平均时间: 1742.7 us (vs Memcpy: 77.9383x)
+UDP 端到端平均时间: 1708.58 us (vs Memcpy: 76.4123x)
+吞吐量比较:
+  Memcpy: 23447.6 MB/s
+  TCP: 300.848 MB/s
+  UDP: 306.856 MB/s
+```
+
+不要分太多段，不要用你我它这样不专业的词，不要超出模板格式的量，用纯文本格式，方便复制。
+
+# [x] [12.29] support for shenyang
+
+之前是因为是动态库所以没有捕获到异常，后来改成静态库就 ok 。
+
+```log
+2000-01-01 00:00:18 [data_server.cpp:420:DataServer] INFO  - DataServer constructor called with is_cluster=false
+2000-01-01 00:00:18 [disk_engine.cpp:133:DiskEngine] INFO  - DiskStorage initialized Memory Mode (unlimited)
+2000-01-01 00:00:18 [disk_engine.cpp:115:DiskEngine] INFO  - buffer pool created in common mode
+2000-01-01 00:00:18 [disk_engine.cpp:121:DiskEngine] INFO  - DiskStorage initialized Disk Mode
+2000-01-01 00:00:18 [db.cpp:133:Open] INFO  - === DB::Open Stage 1: WAL Integration ===
+2000-01-01 00:00:18 [wal_manager.cpp:282:InitializeLogFile] INFO  - WAL scan: no valid records found, starting fresh
+2000-01-01 00:00:18 [db.cpp:520:EnsureWALIntegrationForStorage] INFO  - WAL: path=.//testfs.wal, current_lsn=0, flushed_lsn=0, last_ckpt=NONE
+2000-01-01 00:00:18 [db.cpp:140:Open] INFO  - === DB::Open Stage 2: Meta Page Initialization ===
+2000-01-01 00:00:18 [disk_engine.cpp:1489:InitMeta] INFO  - Init meta page id 0
+2000-01-01 00:00:18 [db.cpp:149:Open] INFO  - === DB::Open Stage 3: ARIES Recovery ===
+2000-01-01 00:00:18 [db.cpp:654:RunRecoveryAndReconcile] ERROR - Recovery failed with exception
+terminate called after throwing an instance of 'std::system_error'
+  what():  Invalid argument
+2000-01-01 00:00:18 [wal_manager.cpp:610:FlushLogBuffer] ERROR - Exception in FlushLogBuffer: Invalid argument
+2000-01-01 00:00:18 [wal_manager.cpp:610:FlushLogBuffer] ERROR - Exception in FlushLogBuffer: Invalid argument
+2000-01-01 00:00:18 [wal_manager.cpp:610:FlushLogBuffer] ERROR - Exception in FlushLogBuffer: Invalid argument
+```
+
+```log
+2000-01-01 00:00:19 [data_server.cpp:420:DataServer] INFO  - DataServer constructor called with is_cluster=false
+2000-01-01 00:00:19 [disk_engine.cpp:133:DiskEngine] INFO  - DiskStorage initialized Memory Mode (unlimited)
+2000-01-01 00:00:19 [disk_engine.cpp:115:DiskEngine] INFO  - buffer pool created in common mode
+2000-01-01 00:00:19 [disk_engine.cpp:121:DiskEngine] INFO  - DiskStorage initialized Disk Mode
+2000-01-01 00:00:19 [db.cpp:133:Open] INFO  - === DB::Open Stage 1: WAL Integration ===
+2000-01-01 00:00:19 [wal_manager.cpp:282:InitializeLogFile] INFO  - WAL scan: no valid records found, starting fresh
+2000-01-01 00:00:19 [db.cpp:520:EnsureWALIntegrationForStorage] INFO  - WAL: path=.//testfs.wal, current_lsn=0, flushed_lsn=0, last_ckpt=NONE
+2000-01-01 00:00:19 [db.cpp:140:Open] INFO  - === DB::Open Stage 2: Meta Page Initialization ===
+2000-01-01 00:00:19 [disk_engine.cpp:1489:InitMeta] INFO  - Init meta page id 0
+2000-01-01 00:00:19 [db.cpp:149:Open] INFO  - === DB::Open Stage 3: ARIES Recovery ===
+2000-01-01 00:00:19 [db.cpp:654:RunRecoveryAndReconcile] ERROR - Recovery failed with exception
+Caught system_error: code=22 (Invalid argument) what=Invalid argument
+2000-01-01 00:00:20 [wal_manager.cpp:610:FlushLogBuffer] ERROR - Exception in FlushLogBuffer: Invalid argument
+```
+```log
+2000-01-01 00:19:43 [data_server.cpp:420:DataServer] INFO  - DataServer constructor called with is_cluster=false
+2000-01-01 00:19:43 [disk_engine.cpp:133:DiskEngine] INFO  - DiskStorage initialized Memory Mode (unlimited)
+2000-01-01 00:19:43 [disk_engine.cpp:115:DiskEngine] INFO  - buffer pool created in common mode
+2000-01-01 00:19:43 [disk_engine.cpp:121:DiskEngine] INFO  - DiskStorage initialized Disk Mode
+2000-01-01 00:19:43 [disk_engine.cpp:1489:InitMeta] INFO  - Init meta page id 0
+Caught system_error: code=22 (Invalid argument) what=Invalid argument
+```
+
+```log
+ExcInfo in CPU Core6.EXCNo:36
+PC:0xc0173768   LR:0xc017372c
+SPSR:0x60000000 FAR:40000049c9ca0c30
+SP:0x0  INT:0
+KernelState:1   EXC_CNT:0x925a5110
+Exception Signal handler:DFL
+SI_SIGNO: 13
+SI_CODE: 2
+
+  Core Status Register(spsr):0x60000000,  ELR(PC):0xc0173768,  Link Register:0xc017372c
+  Syndrome Info:
+        ESR:0x92000005, Fault Address Register(FAR):0x40000049
+  Exception class:
+        Data Abort that caused entry from a lower exception level (AArch32 or AArch64).
+  Specific Syndrome:
+        Translation fault, first level
+  Exception Vector:36
+  GPR Info:
+        Reg0 : 0x16                       Reg1 : 0x40000049
+        Reg2 : 0x1                        Reg3 : 0xc069dff0
+        Reg4 : 0x0                        Reg5 : 0x0
+        Reg6 : 0x4                        Reg7 : 0xc9ca0bd0
+        Reg8 : 0x0                        Reg9 : 0x4
+        Reg10: 0x400                      Reg11: 0x6d
+        Reg12: 0x70                       Reg13: 0x53
+        Reg14: 0x6e                       Reg15: 0x61
+        Reg16: 0x61                       Reg17: 0x0
+        Reg18: 0x0                        Reg19: 0x20
+        Reg20: 0x40000049                 Reg21: 0x9
+        Reg22: 0xc9ca0e20                 Reg23: 0xc05bc000
+        Reg24: 0xc9ca0d90                 Reg25: 0x0
+        Reg26: 0x0                        Reg27: 0x0
+        Reg28: 0x0                        Reg29: 0xc9ca0c30
+  Call trace from stack(SP): 0xc9ca0c30
+0 sp:0xc9ca0c30 lr 0xc017372c(in Reg)
+1 sp:0xc9ca0c30 lr 0xc023251c
+2 sp:0xc9ca0c50 lr 0xc0260d4c
+3 sp:0xc9ca0ce0 lr 0xc008488c
+4 sp:0xc9ca0d10 lr 0xc00848e4
+5 sp:0xc9ca0d30 lr 0xc0000100
+6 sp:0xc9ca0d40 lr 0x0
+ENTRY:0x90076014
+InitPri:90
+RealPri:90
+resCount:0
+attr:0x2
+state:0x0
+name:amosTask4_0x901b9d40
+taskId:0x901b9d40
+stackSize:32KB
+Suspend exception task.
+
+```
+
+```log
+Thread #1 1 (Suspended : User Request)	
+	pthread_rwlock_init() at posixRwLock.c:404 0xc0173770	
+	tzdb::shared_mutex::shared_mutex() at 0xc023251c	
+	tzdb::ThreadLocal<bool>::ThreadLocal() at 0xc0260d4c	
+	__static_initialization_and_destruction_0() at 0xc0084894	
+	_GLOBAL__sub_I__ZN17duckdb_libpgquery28downcase_truncate_identifierEPKcib() at 0xc00848ec	
+	InitCplusplus() at lmain.c:73 0xc0000100	
+	appInit() at lmain.c:121 0xc0000100	
+	0x0	
+```
+
+好像都是阻塞在某个地方了，
+现在测试一下旧版本；
+
+不进行调试的时候，还是崩溃在 pthread_rwlock_init;
+多次都是一样的。
+
+把所有 zu 改成 llu 后就能进去了。
+
+首先总结一下：
+思登给的版本：
+1. 新版： 初始化的时候出错；  pthread_rwlockattr_init 对齐问题，解决后 ，pthread_rwlock_init 中 rwlock_ 地址为 0x40000049 ，该地址疑似无效；
+2. 旧版： wal 出错；在 TZMutex 中；
+目前回退后的仓库：
+```bash
+Thread #1 1 (Suspended : Signal : SIGTRAP:Trace/breakpoint trap)	
+	pthread_rwlock_init() at posixRwLock.c:404 0xc0173700	
+	tzdb::shared_mutex::shared_mutex() at 0xc02c30ec	
+	tzdb::TransactionManager::TransactionManager() at 0xc030b358	
+	tzdb::MVCCTransactionManager::MVCCTransactionManager() at 0xc00a5e08	
+	tzdb::DB::DB() at 0xc00543e8	
+	Database::Database() at 0xc001803c	
+	Database::Database() at 0xc0018368	
+	test_main() at 0xc0002e0c	
+	appMain() at 0xc0000a04	
+	appInit() at lmain.c:124 0xc0000120	
+	<...more frames...>	
+```
+应该和主仓库是一致的问题；
+
+[12.31]
+确定基本路线，直接用最新代码进行测试，编写测试用例测试 ReaderWriterLatch 和 shared_mutex ， 两次运行都没问题， test_transaction_acid 也能通过；
+但我疑问的是为什么天脉上会一直刷盘；退不出去；
+
+目前问题停止在：
+```log
+Thread #1 1 (Suspended : Signal : SIGTRAP:Trace/breakpoint trap)	
+	pthread_create() at posixThread.c:2,494 0xc0188704	
+	std_compat::thread::Start<void (&)(tzdb::ThPoolWorker<tzdb::Task*>*), tzdb::ThPoolWorker<tzdb::Task*>* const> at 0xc01fcb98	
+	std_compat::thread::thread<void (&)(tzdb::ThPoolWorker<tzdb::Task*>*), tzdb::ThPoolWorker<tzdb::Task*>* const> at 0xc01fc9c8	
+	tzdb::ThPoolWorker<tzdb::Task*>::start() at 0xc01fc76c	
+	tzdb::ThreadPool::startTask() at 0xc002560c	
+	tzdb::ThreadPool::init() at 0xc0025198	
+	tzdb::NetPool::init() at 0xc005bc00	
+	tzdb::NetPoolRpc::init() at 0xc0020268	
+	tzdb::raft::RaftIntegratedCLNode<TestTypeConfig>::RaftIntegratedCLNode() at 0xc01cf1f0	
+	tzdb::raft::RaftRuntime<TestTypeConfig>::RaftRuntime() at 0xc01cfb34	
+	tzdb::make_uniq<tzdb::raft::RaftRuntime<TestTypeConfig>, edb_ha_params_t&, std::unique_ptr<TestStateMachine, std::default_delete<TestStateMachine> > >() at 0xc01d0154	
+	operator() at 0xc00163a4	
+	std::function<void ()>::operator()() const at 0xc01901c8	
+	run_test() at 0xc01a46a8	
+	test_dynamic_cluster() at 0xc000cb28	
+	test_main() at 0xc0002ad4	
+	appMain() at 0xc00009f8	
+	appInit() at lmain.c:124 0xc0000120	
+	0x0	
+```
+
+@thread_pool.h#L103 看来 test_thread_pool 中的 ThreadPool 存在很多的不可知问题，不如把 @net_pool.h#L198 此处的线程池更换成 ThreadPoolIml
+
+但是这还是无法解释为什么 test_thread_pool_iml 就没有问题；
+
+lsd:
+上午测的内核里面的sizeof(attr_t)跟测试里面的大小不一样，，内核里面的大小是错的，不知道为什么
+
+即 sizeof(pthread_attr_t) 数据库内部 os 层运行的时候和上层调用的时候存在不一致的情况。
+
+目前现象是：
+1. netpool -> threadpool 的使用出现 pthread_attr_init 调用后 thread this 指针被破坏的情况；
+2. threadpooliml 测试用例是能够运行的，而 threadpool 是无法运行的；
+3. netpool 更换成 threadpooliml 后能够运行但是 test_concurrent_isolation 又出现了 pthread_rwlock_init 的问题：
+   1. [ReaderWriterLatch]Calling pthread_rwlock_init(&rwlock_=0x40000049, &attr=0xc9e025f8);
+   2. 其中 shared_mutex 是良好的，
+      1. [shared_mutex]shared_mutex() this=0xc080c7b0, &rwlock_=0xc080c7b0, sizeof(rwlock_)=16;
+      2. [shared_mutex]Calling pthread_rwlock_init(&rwlock_=0xc080c7b0, &attr=0xc9e028d0)
+   3. 可以看到 rwlock_ 被破坏，变成了 0x40000049 ;
+
+结合`sizeof(pthread_attr_t) 数据库内部 os 层运行的时候和上层调用的时候存在不一致的情况`，初步结论：
+1. pthread_attr_init 为代表的天脉 posix 接口或许存在问题；
+
+目前解决方案：
+1. 查看是否调用了不一致的实现；
+2. 使用 Aecore 接口封当前的实现；
+3. 等待进一步回应；
+
+结束了，加上 ACOREMCOS_64BIT 后就 ok 了。
+
+
+手动同步：
+最新仓库：
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/tzdb-rebuild/src
+C:/Users/tz/Documents/tianmai_ide_613_2025_10_27/ide/AcoreC1134R/tzdb/src
+
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/tzdb-rebuild/tests/tzdb_fs_test
+C:\Users\tz\Documents\tianmai_ide_613_2025_10_27\ide\AcoreC1134R\demo\src
+
+旧版手动同步：
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/old/tzdb-rebuild/src
+C:/Users/tz/Documents/tianmai_ide_613_2025_10_27/ide/AcoreC1134R/tzdb/src
+
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/old/tzdb-rebuild/tests/tzdb_fs_test
+C:\Users\tz\Documents\tianmai_ide_613_2025_10_27\ide\AcoreC1134R\demo\src
+
+反汇编：
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/tmp_elf
+C:/Users/tz/Documents/tianmai_ide_613_2025_10_27/ide/AcoreC1134R/demo/ftD2000_64_le_hard_usr_mcore
+
+景德镇测试仓库：
+/home/ithedslonnie/Projects/TZDB_PROJECT_WORK/tmp/backup/tzdb-rebuild/src
+C:/Users/tz/Documents/tianmai_ide_613_2025_10_27/ide/AcoreC1134R/tzdb/src
+
+C:\Users\tz\Documents\tianmai_ide_613_2025_10_27\ide\AcoreC1134R\demo\src
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

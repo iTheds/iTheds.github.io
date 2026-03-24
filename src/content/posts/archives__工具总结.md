@@ -1,0 +1,46 @@
+---
+title: "工具总结"
+date: "2021-1-5"
+subtitle: "工具总结"
+author: "Lonnie iTheds"
+tags:
+  - hexo
+  - git
+categories:
+  - tools
+draft: false
+section: "archives"
+sourcePath: "markdown/archives/工具总结.md"
+slug: "archives/工具总结"
+---
+
+# 工具总结
+
+### 图片识别公式
+
+### 公式格式转换
+
+主要是要找一个方法，把公式变成markdown中的格式也就是LaTeX。
+
+### 图片识别文字
+
+### 图片转成base64
+
+```php
+<?php
+//$file：图片地址
+//Filetype: JPEG,PNG,GIF
+$file = "encode.jpg";
+if($fp = fopen($file,"rb", 0))
+{
+    $gambar = fread($fp,filesize($file));
+    fclose($fp);
+
+     
+    $base64 = chunk_split(base64_encode($gambar));
+    // 输出
+    $encode = '<img src="data:image/jpg/png/gif;base64,' . $base64 .'" >';
+    echo $encode;
+}    
+?>
+```
