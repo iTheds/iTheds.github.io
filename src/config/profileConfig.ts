@@ -1,7 +1,7 @@
 import type { ProfileConfig } from "../types/config";
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/favicon/favicon.ico",
+	avatar: "/avatar/Misaka.jpg",
 
 	// 名字
 	name: "iTheds",
