@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("posts")).filter((entry) => !entry.data.draft);
+  const posts = (await getCollection("blog")).filter((entry) => !entry.data.draft);
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.data.slug || post.id.replace(/\.md$/, "") },
     props: { post }
   }));
 }
@@ -13,10 +13,10 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 ---
-<BaseLayout title={post.data.title || post.slug}>
+<BaseLayout title={post.data.title || post.id}>
   <article class="post-shell">
     <header class="post-header">
-      <h1>{post.data.title || post.slug}</h1>
+      <h1>{post.data.title || post.id}</h1>
       {post.data.subtitle && <p class="lede">{post.data.subtitle}</p>}
       <div class="meta-row">
         {post.data.date && <span>{post.data.date.toISOString().slice(0, 10)}</span>}

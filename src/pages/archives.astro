@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const posts = (await getCollection("posts"))
+const posts = (await getCollection("blog"))
   .filter((entry) => !entry.data.draft)
   .sort((a, b) => {
     const left = a.data.date ? a.data.date.getTime() : 0;
@@ -11,6 +11,7 @@ const posts = (await getCollection("posts"))
   });
 
 const groups = new Map();
+const getPostPath = (post) => post.data.slug || post.id.replace(/\.md$/, "");
 
 for (const post of posts) {
   const year = String(post.data.date?.getFullYear() || "Unknown");
@@ -29,7 +30,7 @@ for (const post of posts) {
         <ul class="list-reset">
           {entries.map((post) => (
             <li>
-              <a href={`/posts/${post.slug}/`}>{post.data.title || post.slug}</a>
+              <a href={`/posts/${getPostPath(post)}/`}>{post.data.title || getPostPath(post)}</a>
               {" · "}
               {post.data.date?.toISOString().slice(0, 10)}
             </li>

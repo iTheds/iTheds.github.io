@@ -3,7 +3,7 @@ import path from "node:path";
 
 const SOURCE_ROOT = "/home/hexo-backup/markdown";
 const TARGET_ROOT = "/home/hexo-backup/.astro-migration";
-const POSTS_DIR = path.join(TARGET_ROOT, "src/content/posts");
+const BLOG_DIR = path.join(TARGET_ROOT, "src/content/blog");
 const PAGES_DIR = path.join(TARGET_ROOT, "src/content/pages");
 const PUBLIC_DIR = path.join(TARGET_ROOT, "public");
 
@@ -27,6 +27,16 @@ function slugify(input) {
         .replace(/[?#%]/g, "")
     )
     .join("/");
+}
+
+function normalizeContentPath(relativePath) {
+  const segments = relativePath.replace(/\\/g, "/").split("/");
+  const [topLevel, ...rest] = segments;
+  if (topLevel === "_posts") {
+    return rest.join("/");
+  }
+  const normalizedTopLevel = topLevel.replace(/^_/, "");
+  return [normalizedTopLevel, ...rest].join("/");
 }
 
 function splitFrontmatter(raw) {
@@ -172,7 +182,7 @@ function toFrontmatter(data) {
 }
 
 async function main() {
-  await ensureCleanDir(POSTS_DIR);
+  await ensureCleanDir(BLOG_DIR);
   await ensureCleanDir(PAGES_DIR);
   await ensureCleanDir(PUBLIC_DIR);
 
@@ -191,7 +201,8 @@ async function main() {
     const topLevel = relative.split(path.sep)[0];
     const isAbout = relative.startsWith(`about${path.sep}`);
     const sourcePath = `markdown/${relative.replace(/\\/g, "/")}`;
-    const slug = isAbout ? "about" : slugify(relative);
+    const normalizedRelative = normalizeContentPath(relative);
+    const slug = isAbout ? "about" : slugify(normalizedRelative);
     const title = typeof data.title === "string" ? data.title : path.basename(file, ".md");
     const tags = Array.isArray(data.tags)
       ? data.tags
@@ -218,8 +229,11 @@ async function main() {
       slug
     };
 
-    const targetDir = isAbout ? PAGES_DIR : POSTS_DIR;
-    const targetFile = path.join(targetDir, `${slug.replace(/\//g, "__")}.md`);
+    const targetDir = isAbout ? PAGES_DIR : BLOG_DIR;
+    const targetFile = isAbout
+      ? path.join(targetDir, "about.md")
+      : path.join(targetDir, normalizedRelative);
+    await fs.mkdir(path.dirname(targetFile), { recursive: true });
     await fs.writeFile(targetFile, `${toFrontmatter(frontmatter)}${normalizedBody}`);
   }
 
