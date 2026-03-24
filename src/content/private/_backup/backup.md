@@ -6,6 +6,7 @@ tags: []
 draft: false
 ---
 # 使用 digest 拉取精确版本的镜像
+
 docker pull questdb/questdb@sha256:c7f8077aaa337afaa034e0141f2eb22ba8405078483921b2f38b3127767c9e13
 
 docker pull timescale/timescaledb@sha256:8d199415beb2f56d7655fc096521e1259430aed1dd156b15493ec57dea704fe0
