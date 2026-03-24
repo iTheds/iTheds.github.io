@@ -73,7 +73,7 @@ if (processedImage) {
 		const files = import.meta.glob<ImageMetadata>(
 			"../../**/*.{png,jpg,jpeg,gif,webp,avif,svg}",
 			{
-			import: "default",
+				import: "default",
 			},
 		);
 		let normalizedPath = path
@@ -100,7 +100,7 @@ if (posterAvatarUrl) {
 		const files = import.meta.glob<ImageMetadata>(
 			"../../**/*.{png,jpg,jpeg,gif,webp,avif,svg}",
 			{
-			import: "default",
+				import: "default",
 			},
 		);
 		const normalizedPath = path
