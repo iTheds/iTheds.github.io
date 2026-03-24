@@ -3,11 +3,17 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils";
 
+const PRIVATE_POST_PREFIXES = ["work/", "security/"];
+
+export function isPublicPostId(id: string) {
+	return !PRIVATE_POST_PREFIXES.some((prefix) => id.startsWith(prefix));
+}
+
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = (await getCollection("posts")).filter(
+		(post) => isPublicPostId(post.id) && post.data.draft !== true,
+	);
 
 	const sorted = allBlogPosts.sort((a, b) => {
 		// 首先按置顶状态排序，置顶文章在前
@@ -57,9 +63,9 @@ export type Tag = {
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = (await getCollection<"posts">("posts")).filter(
+		(post) => isPublicPostId(post.id) && post.data.draft !== true,
+	);
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
@@ -84,9 +90,9 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = (await getCollection<"posts">("posts")).filter(
+		(post) => isPublicPostId(post.id) && post.data.draft !== true,
+	);
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {
@@ -160,9 +166,9 @@ export async function getRelatedPosts(
 	currentPost: CollectionEntry<"posts">,
 	maxCount = 5,
 ): Promise<PostForList[]> {
-	const allPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allPosts = (await getCollection<"posts">("posts")).filter(
+		(post) => isPublicPostId(post.id) && post.data.draft !== true,
+	);
 
 	// 排除自身和加密文章
 	const candidates = allPosts.filter(
