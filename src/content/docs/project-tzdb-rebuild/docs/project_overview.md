@@ -1,0 +1,180 @@
+---
+title: "TZDB 项目总览"
+description: "TZDB 项目总览"
+---
+
+# TZDB 项目总览
+
+> 文档时间：2026-03-25（Asia/Shanghai）  
+> 适用仓库：`tzdb-rebuild`
+
+## 1. 项目是什么
+
+TZDB（TianZhi Embedded Real-Time Database）是一个以 C/C++ 实现的实时数据库项目，目标是同时支持：
+
+- 嵌入式进程内数据库（Local/Embedded）
+- 客户端-服务端数据库访问（IPC/TCP）
+- 单机执行与分布式一致性执行（Raft）
+- 可裁剪、多变体构建（minimal/memory/dist/full 等）
+
+项目核心特征是“**模块化 + 可裁剪 + 多运行模式统一接口**”。
+
+## 2. 主要功能
+
+- SQL 能力：包含 SQL API、解析绑定、规划与执行链路。
+- 存储引擎：支持内存、磁盘，并提供可选 RocksDB 后端。
+- 事务与日志：包含事务模块、WAL/binlog 等持久化与恢复相关能力。
+- 分布式能力：包含节点发现、网络池、RPC、Raft 状态机执行。
+- 服务化能力：支持 Local / Distributed / RPC Service 组合与自动选型。
+- 协议与生态：包含 PG Server、ODBC 工具链（驱动、安装器、配置工具）。
+- 工程能力：大量单测/集成测试/性能测试/变体测试，支持多平台构建。
+
+## 3. 应用场景
+
+- 端侧/嵌入式设备：以内存或轻量磁盘引擎运行，强调资源可控与低延迟。
+- 单机业务系统：本地部署，使用 SQL 与事务能力完成结构化数据处理。
+- 分布式数据服务：通过 Raft 保证一致性，支持多节点部署。
+- 对接外部工具：通过 PG/ODBC 通道接入标准数据库客户端与生态工具。
+
+## 4. 关键组件（按目录）
+
+- `src/api_sql`, `src/api_mco`：数据库 API 与接入层。
+- `src/binder`, `src/query`：SQL 绑定、规划、优化、执行。
+- `src/kernel`：元数据、索引等核心内核能力。
+- `src/storage`：`mem` / `disk` / `rocks` 存储引擎。
+- `src/transaction`, `src/binlog`, `src/storage/wal`：事务与日志恢复链路。
+- `src/distribution`：网络通信、RPC、Raft、分布式元数据。
+- `src/server`, `src/pgserver`：服务端运行与 PG 协议相关组件。
+- `tools/tzdb-odbc*`, `tools/pg_server`：生态工具和协议服务工具。
+- `tests/*`：单元、集成、分布式、性能、变体与兼容性测试。
+
+## 5. 架构视角（逻辑分层）
+
+1. 接入层  
+`API/ODBC/PG/RPC` 对外暴露连接与调用入口。
+
+2. 服务路由层  
+`SqlRpcHandler + SqlServiceRouter + *Service` 根据运行模式路由到本地或分布式执行路径。
+
+3. 执行层  
+`binder/query/kernel` 负责 SQL 到执行计划与执行动作。
+
+4. 数据层  
+`transaction + storage + wal/binlog` 负责事务一致性、存储与恢复。
+
+5. 分布式层（可选）  
+`distribution/raft/network` 负责节点通信、一致性与状态机提交。
+
+## 6. 运行模式（核心）
+
+根据 `docs/service-usage.md`，项目将“运行形态”和“执行模型”拆分：
+
+- `RuntimeMode::Embedded`：进程内调用为主。
+- `RuntimeMode::ClientServer`：客户端/服务端边界，走 IPC/RPC 通道。
+- `DistributionMode::Single`：单机本地执行。
+- `DistributionMode::Raft`：分布式一致性执行。
+
+这两个维度可组合为常见四类：`Embedded+Single`、`Embedded+Raft`、`CS+Single`、`CS+Raft`。
+
+## 7. 构建与变体能力
+
+- 支持跨平台构建（Linux/Windows 等）与交叉编译配置。
+- 支持多变体产物（如 `tzdb_minimal`、`tzdb_memory`、`tzdb_dist`、`tzdb_full`）。
+- 可通过脚本组合静态库生成不同功能级别库，用于端侧裁剪和场景化部署。
+
+## 8. 一句话总结
+
+TZDB 是一个面向嵌入式与实时场景的可裁剪数据库平台，统一了本地与分布式执行路径，并通过多存储引擎、服务化路由和多变体构建满足不同资源与部署要求。
+
+## 9. 事务与并发控制（详细）
+
+### 9.1 当前主实现：MVCC
+
+从当前代码路径看，`DB` 默认构造的是 `MVCCTransactionManager`（见 `src/kernel/db.cpp`），因此 MVCC 是当前实际生效的事务实现。
+
+核心机制：
+
+- 时间戳模型：事务持有 `read_ts` 与 `commit_ts`，写事务提交时推进 `last_commit_ts_`。
+- 版本链：通过 `UndoLog + UndoLink + VersionUndoLink` 管理多版本可见性（见 `src/inc/transaction/mvcc/transaction.h`、`src/inc/transaction/mvcc/transaction_manager.h`）。
+- 提交流程：写事务提交由 `commit_mutex_` 串行化，先更新元组元数据，再写 WAL，再标记事务状态为 `COMMITTED`。
+- 只读事务优化：只读事务走快速路径，尽量减少全局锁竞争；提交/回滚时直接释放 watermark 与对象。
+- GC 机制：通过 `Watermark` 跟踪活跃读时间戳，后台线程周期触发 `GarbageCollection()` 清理可回收版本。
+
+### 9.2 隔离级别与事务类型
+
+事务接口定义了以下隔离级别（`src/inc/transaction/transaction_interface.h`）：
+
+- `READ_UNCOMMITTED`
+- `READ_COMMITTED`
+- `SNAPSHOT_ISOLATION`（默认）
+- `SERIALIZABLE`
+
+事务类型包括：
+
+- `TRANS_TYPE_READ_ONLY`
+- `TRANS_TYPE_UPDATE`
+- `TRANS_TYPE_READ_WRITE`
+- `TRANS_TYPE_EXCLUSIVE`
+
+其中当前 MVCC 路径对只读事务有专门优化，对可串行化级别在提交阶段包含校验入口（`VerifyTxn`）。
+
+### 9.3 2PL（两阶段锁）现状
+
+项目中存在 `LockManager` 的完整接口与规则说明（`src/inc/transaction/2pl/lock_manager.h`），包括：
+
+- 表/行级锁模式（S/X/IS/IX/SIX）
+- 锁升级规则
+- 多级锁约束
+- 死锁检测框架接口
+
+但 `src/transaction/2pl/lock_manager.cpp` 当前实现以占位为主（多函数为 stub/空实现），因此 2PL 目前更偏框架能力，**不是主事务执行路径**。
+
+### 9.4 MRSW 现状
+
+`MRSWTransactionManager` 代码与头文件主体目前处于注释态（`src/transaction/mrsw/*` 与 `src/inc/transaction/mrsw/*`），可视为历史/实验实现，当前默认构建与运行并不依赖它。
+
+### 9.5 与 WAL/恢复的关系
+
+事务与持久化链路是联动的：
+
+- 提交阶段通过 WAL 集成写入事务提交记录；
+- 数据库打开时对磁盘引擎执行 ARIES 恢复流程（Analysis -> Redo -> Undo）；
+- 恢复后会进行事务计数器/时间戳对齐与 Catalog 加载。
+
+这意味着 TZDB 当前是“**MVCC 并发控制 + WAL/ARIES 崩溃恢复**”的组合架构（Rocks 引擎路径与 ARIES 参与范围存在差异，见仓库 WAL 文档说明）。
+
+## 10. Buffer Pool 与页缓存管理
+
+Buffer Pool 是 TZDB 存储层的关键组件，负责在“内存页缓存”和“磁盘页”之间做统一管理，核心职责包括：
+
+- 页面生命周期：`NewPage / FetchPage / UnpinPage / DeletePage`
+- 脏页管理与刷盘：`FlushPage / FlushAllPages`
+- 页访问并发控制：基于 Page Guard（Basic/Read/Write）保证访问安全
+- 与 WAL 协同：提供 WAL 集成接口，支持先日志后落盘约束
+
+主要实现结构：
+
+- 抽象接口：`src/inc/storage/common/buffer_pool/bufferpool.h`
+- 通用 LRU-K 实现：`src/storage/common/buffer_pool/buffer_pool_lru_k.cpp`
+- 替换器：`src/storage/common/buffer_pool/lru_k_replacer.cpp`、`src/storage/common/buffer_pool/lru_replacer.cpp`
+- 磁盘侧管理器：`src/storage/disk/buffer/bufferpool_manager.cpp`
+
+策略与能力要点：
+
+- 支持 LRU / LRU-K 替换策略（数据库参数中可配置策略选择）。
+- 支持按页面 Pin/Unpin 计数防止误淘汰。
+- 支持从元页恢复分配游标（`InitializeFromMeta`），服务重启后保持页分配连续性。
+- 支持性能观测（例如 Buffer Pool profile 统计）以辅助压测与调优。
+
+在架构上，Buffer Pool 位于“数据层”的核心位置，连接了执行层读写请求、事务/WAL 持久化语义和底层磁盘页面管理，是保证性能与一致性的关键枢纽。
+
+## 11. 技术亮点（可对外介绍）
+
+- 可裁剪变体库机制：提供 `minimal / memory / dist / full` 等功能分级构建，便于同一代码基线覆盖端侧与服务端部署。
+- 多协议接入能力：支持本地 API、IPC/RPC、PG 协议与 ODBC 工具链，兼容多种上层接入方式和生态工具。
+- 分布式一致性架构：基于 Raft、节点发现与网络池实现分布式执行路径，可与单机模式统一共存。
+- 崩溃恢复能力：事务提交链路与 WAL 集成，数据库启动阶段执行 ARIES 恢复流程，保障重启后数据一致性。
+- 多存储后端抽象：支持内存、磁盘及可选 RocksDB 后端，且对跨引擎写事务有明确约束策略。
+- Buffer Pool 体系：具备 LRU/LRU-K 页面替换、页级并发访问控制与刷盘机制，支撑高频读写负载。
+- 完整测试工程：覆盖单元、集成、分布式、性能、变体与兼容性测试，提升回归质量与交付稳定性。
+- 跨平台与交叉编译：支持 Linux/Windows 与 aarch64 交叉编译链路，适配不同硬件与部署环境。

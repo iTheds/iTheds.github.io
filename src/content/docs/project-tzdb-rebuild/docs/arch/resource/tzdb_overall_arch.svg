@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="TZDB overall architecture placeholder">
+  <rect width="960" height="540" fill="#f5f7fa"/>
+  <rect x="60" y="60" width="840" height="420" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="255" text-anchor="middle" font-size="34" fill="#334155" font-family="Arial, sans-serif">TZDB Overall Architecture</text>
+  <text x="480" y="300" text-anchor="middle" font-size="18" fill="#64748b" font-family="Arial, sans-serif">Placeholder image generated during migration</text>
+</svg>
