@@ -16,32 +16,44 @@ export default defineConfig({
 					content: `
 (() => {
   const applyProjectScopedSidebar = () => {
-    const path = location.pathname || '/';
+    const path = (location.pathname || '/').toLowerCase();
     if (path === '/') return;
 
     const sidebar = document.getElementById('starlight__sidebar');
     if (!sidebar) return;
+
+    const projectPrefixes = [
+      '/project-tzdb/',
+      '/project-tzdb-rebuild/',
+      '/project-tsdb/',
+      '/project-ippcaas/',
+      '/project-distributednet/',
+      '/project-tzmultimodel/',
+      '/dailylog/',
+      '/record-manual/',
+      '/personal-resume/',
+    ];
+
+    const activePrefix = projectPrefixes
+      .filter((p) => path.startsWith(p))
+      .sort((a, b) => b.length - a.length)[0];
+
+    if (!activePrefix) return;
 
     const groups = [...sidebar.querySelectorAll('ul.top-level > li')].filter((li) =>
       li.querySelector(':scope > details')
     );
     if (!groups.length) return;
 
-    let matched = false;
     for (const li of groups) {
       const rootLink = li.querySelector(':scope > details > ul > li > a');
-      const href = rootLink?.getAttribute('href');
-      const keep = Boolean(href && path.startsWith(href));
+      const href = (rootLink?.getAttribute('href') || '').toLowerCase();
+      const keep = href === activePrefix;
       li.hidden = !keep;
       if (keep) {
-        matched = true;
         const details = li.querySelector(':scope > details');
         if (details) details.open = true;
       }
-    }
-
-    if (!matched) {
-      for (const li of groups) li.hidden = false;
     }
   };
 
