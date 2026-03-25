@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+	site: 'https://itheds.github.io',
 	integrations: [
 		starlight({
 			title: 'iTheds Project Docs',
