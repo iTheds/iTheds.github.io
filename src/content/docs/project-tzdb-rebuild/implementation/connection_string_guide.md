@@ -1,0 +1,180 @@
+---
+title: "Connection String Guide"
+description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/odbc/CONNECTION_STRING_GUIDE.md）"
+---
+
+# TZDB ODBC 连接字符串指南
+
+## 概述
+
+TZDB ODBC 驱动支持两种连接方式：**标准连接** 和 **分布式连接**。两种方式都支持通过连接字符串指定数据库路径。
+
+## 连接字符串参数
+
+### 通用参数
+
+| 参数         | 类型     | 必需   | 说明                                           |
+|------------|--------|------|----------------------------------------------|
+| `DSN`      | string | 条件必需 | 数据源名称，用于从 ODBC.ini 查询数据库路径。当未指定 `DBPATH` 时必需 |
+| `DBPATH`   | string | 否    | 直接指定数据库文件路径，优先于 `DSN`                        |
+| `DATABASE` | string | 否    | 数据库名称（默认为 "tzdb"）                            |
+| `UID`      | string | 否    | 用户名                                          |
+| `PWD`      | string | 否    | 密码                                           |
+
+### 分布式连接专用参数
+
+| 参数            | 类型      | 必需 | 说明                               |
+|---------------|---------|----|----------------------------------|
+| `DISTRIBUTED` | boolean | 是  | 设置为 `TRUE` 启用分布式连接               |
+| 其他 HA 参数      | -       | 否  | 由 `ParseDistributedConnStr()` 处理 |
+
+## 连接字符串示例
+
+### 1. 标准连接 - 使用 DSN
+
+```
+DSN=mydb;UID=user;PWD=password
+```
+
+**流程**：
+
+1. 从连接字符串提取 `DSN=mydb`
+2. 调用 `SQLGetPrivateProfileString()` 从 ODBC.ini 查询 "mydb" 的数据库路径
+3. 使用查询到的路径创建数据库连接
+
+**优点**：
+
+- 符合 ODBC 标准
+- 数据库路径集中管理在 ODBC.ini
+- 便于维护和修改
+
+### 2. 标准连接 - 直接指定路径
+
+```
+DBPATH=/path/to/database.db;DATABASE=mydb;UID=user;PWD=password
+```
+
+**流程**：
+
+1. 从连接字符串提取 `DBPATH=/path/to/database.db`
+2. 直接使用指定的路径创建数据库连接
+3. 跳过 DSN 查询，性能更快
+
+**优点**：
+
+- 无需配置 ODBC.ini
+- 连接字符串自包含
+- 适合快速测试和开发
+
+### 3. 分布式连接 - 使用 DSN
+
+```
+DISTRIBUTED=TRUE;DSN=mydb;UID=user;PWD=password
+```
+
+**流程**：
+
+1. 检测到 `DISTRIBUTED=TRUE`，转发到 `DriverConnectDistributed()`
+2. 从连接字符串提取 `DSN=mydb`
+3. 调用 `SQLGetPrivateProfileString()` 查询数据库路径
+4. 初始化 HA 环境并创建分布式连接
+
+### 4. 分布式连接 - 直接指定路径
+
+```
+DISTRIBUTED=TRUE;DBPATH=/path/to/database.db;DATABASE=mydb
+```
+
+**流程**：
+
+1. 检测到 `DISTRIBUTED=TRUE`，转发到 `DriverConnectDistributed()`
+2. 从连接字符串提取 `DBPATH=/path/to/database.db`
+3. 跳过 DSN 查询
+4. 初始化 HA 环境并创建分布式连接
+
+## 参数优先级
+
+### 路径解析优先级
+
+1. **DBPATH** - 如果指定，直接使用此路径（最高优先级）
+2. **DSN** - 如果未指定 DBPATH，从 ODBC.ini 查询此 DSN 对应的路径
+3. **默认值** - 如果两者都未指定，返回错误
+
+### 数据库名称解析优先级
+
+1. **DATABASE** - 如果指定，使用此名称
+2. **DSN** - 如果未指定 DATABASE，使用 DSN 值作为数据库名称
+3. **默认值** - 如果两者都未指定，使用 "tzdb"
+
+## 实现细节
+
+### 参数提取函数
+
+```cpp
+static std::string ExtractConnectionParam(const std::string &connStr, const std::string &key)
+```
+
+此函数从连接字符串中提取指定参数的值，支持以下格式：
+
+- `KEY=value;` - 分号分隔
+- `KEY=value` - 字符串末尾
+
+### 两种连接方法的区别
+
+| 特性     | DriverConnect            | DriverConnectDistributed       |
+|--------|--------------------------|--------------------------------|
+| 连接类型   | 标准连接                     | 分布式连接                          |
+| 分布式检测  | 检查 `DISTRIBUTED=TRUE` 参数 | 直接处理分布式连接                      |
+| HA 初始化 | 不初始化                     | 调用 `InitializeHAEnvironment()` |
+| 参数支持   | DSN, DBPATH, DATABASE    | DSN, DBPATH, DATABASE + HA 参数  |
+
+## 错误处理
+
+### 常见错误
+
+| 错误              | 原因                         | 解决方案                                |
+|-----------------|----------------------------|-------------------------------------|
+| "未找到DSN或DBPATH" | 连接字符串中既未指定 DSN 也未指定 DBPATH | 添加 `DSN=xxx` 或 `DBPATH=/path/to/db` |
+| "无效的分布式连接参数"    | 分布式连接字符串格式错误               | 检查 `DISTRIBUTED=TRUE` 和其他 HA 参数     |
+| "数据库路径不存在"      | DSN 查询失败或路径无效              | 检查 ODBC.ini 配置或 DBPATH 路径           |
+
+## 日志输出
+
+连接过程中会输出详细的日志信息：
+
+```
+[TZDB ODBC] Connection string: DSN=mydb;UID=user;PWD=password
+[TZDB ODBC] Connection established to database: mydb (path: /path/to/database.db)
+```
+
+## 最佳实践
+
+### 开发环境
+
+使用 DBPATH 直接指定路径，避免 ODBC.ini 配置：
+
+```
+DBPATH=/home/user/tzdb/dev.db;DATABASE=dev
+```
+
+### 生产环境
+
+使用 DSN 从 ODBC.ini 集中管理路径：
+
+```
+DSN=production;UID=admin;PWD=secure_password
+```
+
+### 分布式部署
+
+使用 DISTRIBUTED=TRUE 启用 HA 功能：
+
+```
+DISTRIBUTED=TRUE;DSN=cluster;UID=admin;PWD=password
+```
+
+## 参考
+
+- ODBC 官方文档：https://learn.microsoft.com/en-us/sql/odbc/reference/
+- SQLGetPrivateProfileString：用于从 ODBC.ini 读取配置
+- 连接字符串格式：KEY1=value1;KEY2=value2;...

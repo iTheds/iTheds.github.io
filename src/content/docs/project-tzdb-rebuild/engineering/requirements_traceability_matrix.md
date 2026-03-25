@@ -1,0 +1,67 @@
+---
+title: "Requirements Traceability Matrix"
+description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/test/requirements_traceability_matrix.md）"
+---
+
+# 需求追踪表
+
+| 序号 | 需求描述 | 需求项标识 | 需求类型 | 需求等级 | 测试用例标识 |
+|------|----------|------------|----------|----------|--------------|
+| 1 | 功能可裁剪测试 | DSS-GN-1.1 | 功能需求 | 高 | DSS_VARIANT_TRIM |
+| 2 | 功能组件集成测试 | DSS-GN-1.2 | 功能需求 | 高 | DSS_COMPONENT_INTEGRATION |
+| 3 | 数据操作功能测试 | DSS-GN-2.1 | 功能需求 | 高 | DSS_DATA_OPERATION |
+| 4 | 内存运行模式测试 | DSS-GN-2.2 | 功能需求 | 高 | DSS_MEMORY_MODE |
+| 5 | 内存文件混合存储功能测试 | DSS-GN-2.2 | 功能需求 | 高 | DSS_MEMORY_FILE_STORAGE |
+| 6 | 资源分配管理功能测试 | DSS-GN-2.2 | 功能需求 | 高 | DSS_RESOURCE_ALLOCATION |
+| 7 | 分布式数据存储管理功能测试 | DSS-GN-3.1 | 功能需求 | 高 | DSS_DISTRIBUTED_STORAGE |
+| 8 | 集群节点动态添加与主节点指定功能测试 | DSS-GN-3 | 功能需求 | 高 | DSS_CLUSTER_NODE_MANAGEMENT |
+| 9 | 集群监控与节点选举功能测试 | DSS-GN-3 | 功能需求 | 高 | DSS_CLUSTER_MONITOR |
+| 10 | 分布式数据同步功能测试 | DSS-GN-3.2 | 功能需求 | 高 | DSS_DISTRIBUTED_SYNC |
+| 11 | 分布式数据迁移管理功能测试 | DSS-GN-3 | 功能需求 | 高 | DSS_DISTRIBUTED_MIGRATION |
+| 12 | SQL语句预处理功能测试 | DSS-GN-4.1 | 功能需求 | 高 | DSS_SQL_PREPARED |
+| 13 | 查询优化器功能测试 | DSS-GN-4.2 | 功能需求 | 高 | DSS_QUERY_OPTIMIZER |
+| 14 | 查询计划缓存功能测试 | DSS-GN-4.3 | 功能需求 | 高 | DSS_QUERY_PLAN_CACHE |
+| 15 | B+树索引测试 | DSS-GN-5 | 功能需求 | 高 | DSS_BTREE_INDEX |
+| 16 | 哈希索引测试 | DSS-GN-5 | 功能需求 | 高 | DSS_HASH_INDEX |
+| 17 | 主键索引测试 | DSS-GN-5 | 功能需求 | 高 | DSS_PRIMARY_INDEX |
+| 18 | 实时事务准入管理测试 | DSS-GN-6.1 | 功能需求 | 高 | DSS_ADMISSION_CONTROL |
+| 19 | 并发事务预分析技术测试 | DSS-GN-6.2 | 功能需求 | 高 | DSS_CONCURRENT_ANALYSIS |
+| 20 | 关联事务调度管理测试 | DSS-GN-6.3 | 功能需求 | 高 | DSS_SCHEDULING |
+| 21 | 模型量化存储测试 | DSS-GN-7.1 | 功能需求 | 高 | DSS_QUANTIZATION_STORAGE |
+| 22 | 数据库AI算子联合优化测试 | DSS-GN-7.2 | 功能需求 | 高 | DSS_AI_OPTIMIZATION |
+| 23 | 多模型资源共享和调度测试 | DSS-GN-7.3 | 功能需求 | 高 | DSS_MULTI_MODEL_SCHEDULING |
+| 24 | 嵌入式命令工具测试 | DSS-GN-9.6 | 功能需求 | 高 | DSS_EMBEDDED_SHELL |
+| 25 | GUI 操作界面测试 | DSS-GN-9.1 | 功能需求 | 高 | DSS_GUI_INTERFACE |
+| 26 | 数据库连接管理测试 | DSS-GN-9.2 | 功能需求 | 高 | DSS_DB_CONNECTION |
+| 27 | 数据查看编辑测试 | DSS-GN-9.3 | 功能需求 | 高 | DSS_DATA_EDIT |
+| 28 | 表结构设计测试 | DSS-GN-9.4 | 功能需求 | 高 | DSS_TABLE_DESIGN |
+| 29 | 查询结果管理测试 | DSS-GN-9.5 | 功能需求 | 高 | DSS_QUERY_RESULT_MGMT |
+| 30 | 内存开销需求测试 | DSS-XN-1 | 性能需求 | 高 | DSS_MEMORY_OVERHEAD |
+| 31 | 响应时间需求测试 | DSS-XN-2 | 性能需求 | 高 | DSS_RESPONSE_TIME |
+| 32 | 查询吞吐量需求测试 | DSS-XN-3 | 性能需求 | 高 | DSS_QUERY_THROUGHPUT |
+| 33 | 事务吞吐量需求测试 | DSS-XN-3 | 性能需求 | 高 | DSS_TRANSACTION_THROUGHPUT |
+| 34 | 长机与僚机巡航飞行计划管理 | DSS-JC-10.1 | 应用集成需求 | 高 | DSS_FPM |
+| 35 | 机侦察数据采集与同步 | DSS-JC-10.2 | 应用集成需求 | 高 | DSS_DRCA |
+| 36 | 长机目标识别与判断处理 | DSS-JC-10.3 | 应用集成需求 | 高 | DSS_TRP |
+| 37 | 飞行计划动态更新与决策执行 | DSS-JC-10.4 | 应用集成需求 | 高 | DSS_FPU |
+| 38 | 数据库打开 | DSS-JK-CUSTIN-1.1 | 接口需求 | 高 | DSS-JK-CUSTIN-1.1 |
+| 39 | 数据库连接 | DSS-JK-CUSTIN-1.2 | 接口需求 | 高 | DSS-JK-CUSTIN-1.2 |
+| 40 | 数据库断开连接 | DSS-JK-CUSTIN-1.3 | 接口需求 | 高 | DSS-JK-CUSTIN-1.3 |
+| 41 | 数据库关闭 | DSS-JK-CUSTIN-1.4 | 接口需求 | 高 | DSS-JK-CUSTIN-1.4 |
+| 42 | 执行SQL语句 | DSS-JK-CUSTIN-1.5 | 接口需求 | 高 | DSS-JK-CUSTIN-1.5 |
+| 43 | 预处理SQL语句 | DSS-JK-CUSTIN-1.6 | 接口需求 | 高 | DSS-JK-CUSTIN-1.6 |
+| 44 | 执行预处理语句 | DSS-JK-CUSTIN-1.7 | 接口需求 | 高 | DSS-JK-CUSTIN-1.7 |
+| 45 | 事务开始 | DSS-JK-CUSTIN-1.8 | 接口需求 | 高 | DSS-JK-CUSTIN-1.8 |
+| 46 | 事务提交 | DSS-JK-CUSTIN-1.9 | 接口需求 | 高 | DSS-JK-CUSTIN-1.9 |
+| 47 | 事务回滚 | DSS-JK-CUSTIN-1.10 | 接口需求 | 高 | DSS-JK-CUSTIN-1.10 |
+| 48 | 获取结果集元数据信息 | DSS-JK-CUSTIN-1.11 | 接口需求 | 高 | DSS-JK-CUSTIN-1.11 |
+| 49 | 获取结果集行数 | DSS-JK-CUSTIN-1.12 | 接口需求 | 高 | DSS-JK-CUSTIN-1.12 |
+| 50 | 获取结果集列数 | DSS-JK-CUSTIN-1.13 | 接口需求 | 高 | DSS-JK-CUSTIN-1.13 |
+| 51 | 获取当前行数据 | DSS-JK-CUSTIN-1.14 | 接口需求 | 高 | DSS-JK-CUSTIN-1.14 |
+| 52 | 检查列是否为NULL | DSS-JK-CUSTIN-1.15 | 接口需求 | 高 | DSS-JK-CUSTIN-1.15 |
+| 53 | 移动到下一行 | DSS-JK-CUSTIN-1.16 | 接口需求 | 高 | DSS-JK-CUSTIN-1.16 |
+| 54 | 创建布尔值参数 | DSS-JK-CUSTIN-1.17 | 接口需求 | 高 | DSS-JK-CUSTIN-1.17 |
+| 55 | 创建整数参数 | DSS-JK-CUSTIN-1.18 | 接口需求 | 高 | DSS-JK-CUSTIN-1.18 |
+| 56 | 创建浮点数参数 | DSS-JK-CUSTIN-1.19 | 接口需求 | 高 | DSS-JK-CUSTIN-1.19 |
+| 57 | 创建字符串参数 | DSS-JK-CUSTIN-1.20 | 接口需求 | 高 | DSS-JK-CUSTIN-1.20 |
+| 58 | 创建时间戳参数 | DSS-JK-CUSTIN-1.21 | 接口需求 | 高 | DSS-JK-CUSTIN-1.21 |

@@ -1,0 +1,19 @@
+---
+title: "Network Test Analysis 601"
+description: "601 阶段 UDP Socket / CONNECT / NetPool 网络测试分析"
+---
+
+# Network Test Analysis 601
+
+601 测试覆盖以下网络路径：
+
+1. UDP Socket 一发一收
+2. UDP Socket 回传
+3. UDP CONNECT API 回传
+4. UDP NetPool API 回传
+
+结论摘要：
+
+- 直连 Socket 路径表现最佳。
+- CONNECT / NetPool 路径存在额外抽象开销。
+- 某些 64KB 场景出现计时异常值，需优先排查时钟与采样逻辑。

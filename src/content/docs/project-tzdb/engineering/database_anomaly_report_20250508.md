@@ -1,0 +1,136 @@
+---
+title: "Database Anomaly Report 20250508"
+description: "2025-05-08 数据库异常问题分析与复现记录"
+---
+
+# 20250508 数据库异常问题报告
+
+## 基本情况
+
+| 项目 | 详情 |
+| --- | --- |
+| 发现系统 | 天脉 |
+| 出现频次 | 偶发 |
+| 已插入数据量 | 较小 |
+
+## 异常接口分析
+
+输入数据均为新数据（非 `update`）。
+
+| 接口名称 | 功能描述 | 异常表现 | 可能原因 |
+| --- | --- | --- | --- |
+| `BoderAreaType_a12NodeCoord_at` | 访问边界区域节点坐标数组 | 偶发异常 | 待确认 |
+| `NodeCoordType_Long_put` | 设置节点经度值 | 偶发异常 | 待确认 |
+| `NodeCoordType_Lat_put` | 设置节点纬度值 | 偶发异常 | 待确认 |
+| `BoderAreaType_a12NodeCoord_put` | 更新边界区域节点坐标 | 偶发异常 | 内存分配失败（怀疑） |
+
+## 环境与参照信息
+
+| 环境因素 | 详细信息 | 影响程度 |
+| --- | --- | --- |
+| 系统版本 | 天脉系统 | 中等 |
+| 运行内存 | 未知 | 待评估 |
+| 并发情况 | 非并发 | 待评估 |
+| 数据库负载 | 较小数据量 | 低 |
+
+## 复现条件
+
+| 条件 | 状态 | 备注 |
+| --- | --- | --- |
+| 特定数据集 | 未确认 | 需进一步测试不同数据集 |
+| 操作顺序 | 未确认 | 可能与边界区域形状为扇形有关 |
+| 系统负载 | 未确认 | 需在不同负载条件下测试 |
+| 循环迭代 | 可能相关 | 问题出现在循环处理节点坐标时（`inti=0;i<19;i++`） |
+
+## 当前观察与方向
+
+- 现象记录：Windows 与机载环境未复现，机上环境出错。
+- 排查方向：重点回归边界区域节点写入链路与内存分配路径。
+- 已测结论：在前 10 条记录中，第 7、8、9 条可稳定触发相关问题。
+
+## 前 10 条记录分析（节选）
+
+| 序号 | 消息收发链路 | 消息收发标识 | 目标编识号 | 强制告知标识 | 模拟标识 | 演习标识 | 特殊区域形状 | 特殊区域类型 | 总点数 | 时间说明 | 经度 | 纬度 |
+| ---: | --- | --- | ---: | --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: |
+| 1 | JIDS | RECEIVE | 270803 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1588.04085 | 662.75522 |
+| 2 | JIDS | RECEIVE | 270802 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1590.15907 | 662.12005 |
+| 3 | JIDS | RECEIVE | 270807 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | LINE | 30001 | 2 | N/A | 1806.09093 | 688.71757 |
+| 4 | JIDS | RECEIVE | 382925 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30008 | 1 | N/A | 1393.62668 | 636.90522 |
+| 5 | JIDS | RECEIVE | 270803 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1588.04085 | 662.75522 |
+| 6 | JIDS | RECEIVE | 270802 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1590.15907 | 662.12005 |
+| **7** | JIDS | RECEIVE | 270803 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1588.04085 | 662.75522 |
+| **8** | JIDS | RECEIVE | 270802 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | DOT | 30001 | 1 | N/A | 1590.15907 | 662.12005 |
+| **9** | JIDS | RECEIVE | 270808 | NOT_FORCIBLY | NOT_SIMULATION | NOT_REHEARSE | LINE | 30001 | 1 | N/A | 1802.21253 | 680.14583 |
+
+## 附件：MCO 结构定义（原始摘录）
+
+```cpp
+/*******************************************************************
+ * Copyright (c) 2001-2010 McObject LLC. All Rights Reserved.
+ *******************************************************************/
+
+/*******************************************************************
+ * 基本类型定义
+ *******************************************************************/
+#define int1    signed<1>
+#define int2    signed<2>
+#define int4    signed<4>
+#define int8    signed<8>
+#define uint8   unsigned<8>
+#define uint4   unsigned<4>
+#define uint2   unsigned<2>
+#define uint1   unsigned<1>
+#define bool    unsigned<1>
+/*******************************************************************
+ * 结构说明
+ *******************************************************************/
+/*declare database    expimpdb; */
+declare database     BoderAreaDB;
+/**
+ * 节点坐标类型
+ */
+struct NodeCoordType
+{
+    double Lat;     /* 纬度 */
+    double Long;    /* 经度 */
+};
+/**
+ * 当前显示设置
+ */
+class CurrentDisplay
+{
+    uint2 a01BoderAreaGroup;       /* 边界区域组 */
+    uint2 a02BoderAreaLineWidth;   /* 边界区域线宽 */
+};
+/**
+ * 边界区域类型
+ * struct PlanDataType
+ */
+class BoderAreaType
+{
+    uint8  a01BoderAreaNum;        /* 边界区域编号 */
+    uint2  a011BoderAreaGroup;     /* 边界区域组别 */
+    string a012BoderAreaGroupName; /* 边界区域组名 */
+    uint2  a02BoderAreaType;       /* 边界区域类型 */
+    uint2  a021BoderAreaColor;     /* 边界区域颜色 */
+    uint2  a022BoderAreaLineType;  /* 边界区域线型 */
+    uint2  a03BoderAreaShape;      /* 边界区域形状 */
+    uint2  a04NodeNum;             /* 节点数量 */
+    string a041BoderAreaName;      /* 边界区域名称 */
+    double a042BoderAreaNameLong;  /* 边界区域名称经度 */
+    double a043BoderAreaNameLat;   /* 边界区域名称纬度 */
+    double a05Long;                /* 经度 */
+    double a06Lat;                 /* 纬度 */
+    double a07Alt;                 /* 高度 */
+    double a08LongAxis;            /* 长轴 */
+    double a09ShortAxis;           /* 短轴 */
+    double a10StartAz;             /* 起始方位角 */
+    double a11EndAz;               /* 结束方位角 */
+    NodeCoordType a12NodeCoord[20]; /* 节点坐标数组 */
+    list;
+
+    tree<a01BoderAreaNum>   tree1;
+    tree<a011BoderAreaGroup> tree2;
+    tree<a011BoderAreaGroup, a01BoderAreaNum> tree3;
+};
+```

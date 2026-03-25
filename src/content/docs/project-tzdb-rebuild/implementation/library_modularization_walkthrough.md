@@ -1,0 +1,52 @@
+---
+title: "Library Modularization Walkthrough"
+description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/design/library_modularization_walkthrough.md）"
+---
+
+# Library Modularization Walkthrough
+
+## Summary
+
+Completed modularization of tzdb library with feature-specific variants and simplified tool linking.
+
+## Library Variants
+
+| Library | Size | Features |
+|---------|------|----------|
+| `tzdb_minimal` | 106 MB | Storage + WAL, no SQL/binlog |
+| `tzdb_memory` | 242 MB | Memory storage + SQL API |
+| `tzdb_dist` | 308 MB | Distributed + SQL + binlog |
+| `tzdb_full` | 308 MB | All features + extensions |
+| `tzdb` | 308 MB | Full library (default) |
+
+## Tool Linking Cleanup
+
+Simplified CMakeLists.txt files to use aggregated libraries:
+
+| File | Before | After |
+|------|--------|-------|
+| `tools/tzdb_fs` | 12 component libs | `tzdb` |
+| `tools/tzdb-odbc` | 13 component libs | `tzdb` |
+| `tests/unit_test` | 12 component libs | `tzdb` |
+| `tests/pathological_test` | 12 component libs | `tzdb` |
+| `tests/tmp_test` | 8 component libs | `tzdb_full` |
+| `tools/tpcc_bench` | 3 component libs | `tzdb_minimal` |
+| `tools/bpm_bench` | *(kept as-is - needs specific headers)* | component libs |
+
+## Key Changes
+
+**New Files:**
+- [server_api.cpp](file:///Users/xwg/dev/cpp/new/niw/tzdb-rebuild/src/server/server_api.cpp) - Public API with `ServerConfig` conversion
+
+**Architecture:**
+```
+tzdb_full ⊃ tzdb_dist ⊃ tzdb_memory ⊃ tzdb_minimal
+    ↑              ↑            ↑            ↑
+extensions   distribution    sql_api    storage+wal
+```
+
+## Verification
+
+✅ All library variants build successfully  
+✅ All tools link and build correctly  
+✅ All tests compile

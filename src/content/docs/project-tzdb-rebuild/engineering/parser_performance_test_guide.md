@@ -1,0 +1,171 @@
+---
+title: "Parser Performance Test Guide"
+description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/parser/PARSER_PERFORMANCE_TEST_GUIDE.md）"
+---
+
+# Parser 性能与并发验证指南
+
+## 先说结论
+
+当前 parser 已经没有 `THREAD_LOCAL` / `MUTEX` 两种运行模式，也没有 `FORCE_MUTEX_PARSER` 开关。
+
+现在所有平台都走同一套实现：
+
+- 显式 `parser_state*`
+- `yyextra` 承载本次 parse 的状态
+- `PostgresParser`/`Tokenize()` 各自管理自己的 state 生命周期
+
+所以这份指南的重点不再是“切模式”，而是：
+
+1. 验证 parser 的并发正确性
+2. 观察单线程和多线程吞吐
+3. 在不同提交之间做性能对比
+
+## 当前应该怎么测
+
+### 1. 构建
+
+```bash
+ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
+```
+
+### 2. 跑并发正确性测试
+
+```bash
+/Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
+  --gtest_color=yes \
+  --gtest_filter='ParserThreadSafety.BasicMultiThreadTest:ParserThreadSafety.HighConcurrencyStressTest:ParserThreadSafety.ParserInstanceIndependence'
+```
+
+这几项主要验证：
+
+- 多线程并发 parse 不互相覆盖状态
+- 高并发下不崩溃、不串错结果
+- 不同 parser 实例的 parse tree 不共享内存
+
+### 3. 跑性能对比测试
+
+```bash
+/Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
+  --gtest_color=yes \
+  --gtest_filter='ParserThreadSafety.PerformanceComparison'
+```
+
+这项测试会输出：
+
+- 单线程总耗时
+- 多线程总耗时
+- 吞吐量（queries/sec）
+
+## 怎么理解结果
+
+### 当前模型下，应该关注什么
+
+关注这几件事：
+
+- 多线程吞吐是否明显优于单线程
+- 多线程下是否出现异常、失败计数或 parse tree 互相污染
+- 改动前后，同一台机器上的吞吐是否回退
+
+### 不该再关注什么
+
+下面这些比较已经没有意义，因为当前实现里不存在对应模式：
+
+- `THREAD_LOCAL mode vs MUTEX mode`
+- `FORCE_MUTEX_PARSER=0/1`
+- “TMOS 自动退化成串行 parser”
+
+如果你想比较“旧方案 vs 新方案”，正确做法是：
+
+- 切不同 git commit / branch
+- 用同一台机器、同一条测试命令分别跑
+- 记录耗时和吞吐
+
+## 推荐的对比方式
+
+### 方案 A：比较两个提交
+
+```bash
+git checkout <old_commit>
+ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
+/Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
+  --gtest_filter='ParserThreadSafety.PerformanceComparison'
+
+git checkout <new_commit>
+ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
+/Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
+  --gtest_filter='ParserThreadSafety.PerformanceComparison'
+```
+
+### 方案 B：比较不同平台
+
+在 macOS / Linux / Windows / TMOS 上分别运行同一条命令：
+
+```bash
+/Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
+  --gtest_filter='ParserThreadSafety.*'
+```
+
+然后比较：
+
+- 正确性是否一致
+- 性能是否受平台线程库、分配器、编译器差异影响
+
+## 平台说明
+
+当前文档口径应该是：
+
+| 平台 | parser 模型 | 说明 |
+|------|-------------|------|
+| macOS | 显式 `parser_state` | 与其他平台同实现 |
+| Linux | 显式 `parser_state` | 与其他平台同实现 |
+| Windows | 显式 `parser_state` | 与其他平台同实现 |
+| TMOS | 显式 `parser_state` | 不再依赖 TLS fallback |
+
+差异主要来自平台运行时和工具链，不来自 parser 自身的模式切换。
+
+## 额外建议
+
+### 1. 先跑正确性，再看性能
+
+顺序建议：
+
+1. `BasicMultiThreadTest`
+2. `HighConcurrencyStressTest`
+3. `ParserInstanceIndependence`
+4. `PerformanceComparison`
+
+### 2. 对性能数字要看趋势，不要只看一次
+
+建议每次至少跑 3 轮，取中位值，避免被：
+
+- CPU 频率波动
+- 文件系统抖动
+- 其他后台任务
+
+影响判断。
+
+### 3. 如果要做 TMOS 验证
+
+优先看两件事：
+
+- 是否还能顺利通过 `ParserThreadSafety.*`
+- 多线程吞吐是否符合预期，没有因为隐式线程态残留而异常退化
+
+## 相关代码位置
+
+- [pg_functions.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/pg_functions.cpp)
+- [src_backend_parser_parser.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/src_backend_parser_parser.cpp)
+- [postgres_parser.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/postgres_parser.cpp)
+- [parser_thread_safety_test.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/tests/unit_test/binder/parser_thread_safety_test.cpp)
+
+## 过时信息说明
+
+以下说法已过时，不应继续作为当前实现说明：
+
+- `FORCE_MUTEX_PARSER`
+- `Parser: Using THREAD_LOCAL mode`
+- `Parser: Using MUTEX mode`
+- “TMOS 因为不支持 thread_local，所以 parser 只能串行”
+
+这些描述对应的是历史上的过渡方案，不是当前代码。当前代码的核心特征是：**状态显式、无 TLS 依赖、同一实现跨平台复用。**
