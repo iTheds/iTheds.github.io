@@ -1,6 +1,6 @@
 ---
 title: "文档RPC"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/rpc/rpc.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/distribution/rpc/rpc.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
@@ -46,7 +46,7 @@ description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distr
 
 ---
 
-**符号说明：**
+**符号说明:**
 - ✓ = 已支持
 - ✗ = 不计划支持  
 - ○ = 有限支持/计划支持
@@ -197,7 +197,7 @@ transport_t http_transport = {
 typedef struct {
     uint32_t magic;           // 魔数，用于协议识别
     uint32_t version;         // 协议版本
-    uint32_t message_type;    // 消息类型：REQUEST/RESPONSE/ERROR
+    uint32_t message_type;    // 消息类型:REQUEST/RESPONSE/ERROR
     uint32_t request_id;      // 请求ID，用于匹配请求响应
     uint32_t method_id;       // 方法ID或方法名哈希
     uint32_t payload_len;     // 负载长度
@@ -529,7 +529,7 @@ user_server.h      # 服务端骨架
 | **rpclib** | 10-30 | 500-2000 | 低 | 中等 | 1万+ |
 | **rest_rpc** | 5-15 | 1000-5000 | 中等 | 高 | 5000+ |
 
-**注释**：
+**注释**:
 - ⭐ 表示性能/支持程度(5星最高)
 - ✅ 表示支持良好
 - ⚠️ 表示部分支持或需要额外工作

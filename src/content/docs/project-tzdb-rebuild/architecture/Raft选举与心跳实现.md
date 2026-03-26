@@ -1,6 +1,6 @@
 ---
 title: "Raft选举与心跳实现"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Election_Heartbeat_Implementation.md）"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/raft/Raft_Election_Heartbeat_Implementation.md）"
 ---
 
 # Raft选举和心跳机制实现总结
@@ -258,7 +258,7 @@ g++ -std=c++17 -I inc examples/raft_election_example.cpp -o raft_example
 
 ## 🎉 总结
 
-这个Raft选举和心跳实现为你的分布式数据库提供了：
+这个Raft选举和心跳实现为你的分布式数据库提供了:
 
 1. **高可用性**: 自动故障检测和恢复
 2. **强一致性**: 符合Raft协议保证

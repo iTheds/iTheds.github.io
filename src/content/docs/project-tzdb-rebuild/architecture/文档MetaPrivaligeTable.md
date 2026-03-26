@@ -1,6 +1,6 @@
 ---
 title: "文档MetaPrivaligeTable"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/meta/meta_privalige_table.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/distribution/meta/meta_privalige_table.md)"
 ---
 
 # TZDB 权限系统设计文档
@@ -11,7 +11,7 @@ TZDB 权限系统是一个基于角色的访问控制(RBAC)机制，通过系统
 
 ## 2. 权限表结构
 
-权限信息存储在系统表 `__pg_permission` 中，该表在数据库初始化时自动创建。表结构如下：
+权限信息存储在系统表 `__pg_permission` 中，该表在数据库初始化时自动创建。表结构如下:
 
 | 列名 | 数据类型 | 描述 |
 |------|---------|------|
@@ -22,7 +22,7 @@ TZDB 权限系统是一个基于角色的访问控制(RBAC)机制，通过系统
 
 ## 3. 权限类型
 
-权限类型采用位掩码设计，允许组合多种权限：
+权限类型采用位掩码设计，允许组合多种权限:
 
 | 权限类型 | 值 | 描述 |
 |---------|-----|------|
@@ -34,11 +34,11 @@ TZDB 权限系统是一个基于角色的访问控制(RBAC)机制，通过系统
 | Drop | 32 | 删除权限(DDL) |
 | All | 63 | 所有权限(Select \| Insert \| Update \| Delete \| Create \| Drop) |
 
-权限可以通过位运算组合，例如：`Select | Update = 5` 表示同时拥有查询和更新权限。
+权限可以通过位运算组合，例如:`Select | Update = 5` 表示同时拥有查询和更新权限。
 
 ## 4. 对象类型
 
-权限系统支持对不同类型对象的权限控制：
+权限系统支持对不同类型对象的权限控制:
 
 | 对象类型 | 值 | 描述 |
 |---------|-----|------|
@@ -49,7 +49,7 @@ TZDB 权限系统是一个基于角色的访问控制(RBAC)机制，通过系统
 
 ## 5. 权限检查机制
 
-权限检查使用 `HasPermission` 辅助函数实现，该函数通过位运算检查用户是否拥有所需权限：
+权限检查使用 `HasPermission` 辅助函数实现，该函数通过位运算检查用户是否拥有所需权限:
 
 ```cpp
 inline bool HasPermission(int current_permissions, int required_permission) {
@@ -57,7 +57,7 @@ inline bool HasPermission(int current_permissions, int required_permission) {
 }
 ```
 
-例如，检查用户是否拥有 Select 和 Update 权限：
+例如，检查用户是否拥有 Select 和 Update 权限:
 ```cpp
 bool can_select_and_update = HasPermission(user_permissions, 
     static_cast<int>(PermissionType::Select) | static_cast<int>(PermissionType::Update));
@@ -65,7 +65,7 @@ bool can_select_and_update = HasPermission(user_permissions,
 
 ## 6. 系统初始化
 
-权限表在数据库初始化过程中通过 `BootstrapSystemTablesIfNeeded` 函数创建。初始化时会创建一个占位行，确保权限表有一个有效的根页面：
+权限表在数据库初始化过程中通过 `BootstrapSystemTablesIfNeeded` 函数创建。初始化时会创建一个占位行，确保权限表有一个有效的根页面:
 
 ```cpp
 // 创建占位行以确保权限表有一个根页面
@@ -84,7 +84,7 @@ bool can_select_and_update = HasPermission(user_permissions,
 
 ## 7. 权限加载
 
-系统启动时，通过 `LoadCatalogFromSystemTables` 函数从持久化存储中加载权限信息到内存中：
+系统启动时，通过 `LoadCatalogFromSystemTables` 函数从持久化存储中加载权限信息到内存中:
 
 ```cpp
 // 从TableHeap迭代器加载权限(如果权限表存在)
@@ -157,16 +157,16 @@ if (permission_record &&
 
 ## 10. 安全考虑
 
-1. **权限检查时机**：在执行任何数据库操作前，应先进行权限检查。
-2. **默认拒绝**：遵循"默认拒绝"原则，即除非明确授予权限，否则拒绝所有操作。
-3. **系统表保护**：系统表(如 `__pg_permission`)应受到特殊保护，只有管理员角色可以修改。
+1. **权限检查时机**:在执行任何数据库操作前，应先进行权限检查。
+2. **默认拒绝**:遵循"默认拒绝"原则，即除非明确授予权限，否则拒绝所有操作。
+3. **系统表保护**:系统表(如 `__pg_permission`)应受到特殊保护，只有管理员角色可以修改。
 
 ## 11. 未来扩展
 
-1. **角色表**：添加 `__pg_roles` 表存储角色信息，支持角色层次和继承。
-2. **组权限**：支持将用户分组，并对组授予权限。
-3. **行级安全**：实现行级安全策略，允许基于行内容控制访问。
-4. **权限审计**：记录权限变更和权限检查失败的事件，用于安全审计。
+1. **角色表**:添加 `__pg_roles` 表存储角色信息，支持角色层次和继承。
+2. **组权限**:支持将用户分组，并对组授予权限。
+3. **行级安全**:实现行级安全策略，允许基于行内容控制访问。
+4. **权限审计**:记录权限变更和权限检查失败的事件，用于安全审计。
 
 ## 12. 结论
 

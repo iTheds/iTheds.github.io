@@ -7,34 +7,34 @@ description: "iTheds(别名 iThed* / Lintao*)贡献总结"
 
 ## 1. 统计范围与口径
 
-- 人员别名合并：`iTheds`、`LintaoYan`(按用户要求将 `iThed*`、`Lintao*` 视为同一人)。
-- 统计方式：从 Git 历史提取上述作者提交，按 commit hash 去重后汇总。
-- 统计时间：`2023-02-10` 至 `2024-10-29`。
-- 注意：仓库历史中包含旧路径(如 `tztsdb/`)与文档大文件(如 `doc/disk_test/resource/*.svg`)，会显著抬高“总代码量”；因此同时给出“非 merge + 代码口径”统计。
+- 人员别名合并:`iTheds`、`LintaoYan`(按用户要求将 `iThed*`、`Lintao*` 视为同一人)。
+- 统计方式:从 Git 历史提取上述作者提交，按 commit hash 去重后汇总。
+- 统计时间:`2023-02-10` 至 `2024-10-29`。
+- 注意:仓库历史中包含旧路径(如 `tztsdb/`)与文档大文件(如 `doc/disk_test/resource/*.svg`)，会显著抬高“总代码量”；因此同时给出“非 merge + 代码口径”统计。
 
 ## 2. 总体贡献数据
 
 ### 2.1 提交规模
 
-- 去重后提交总数：`106`
-- 其中：
-1. 非 merge 提交：`64`
-2. merge 提交：`42`
+- 去重后提交总数:`106`
+- 其中:
+1. 非 merge 提交:`64`
+2. merge 提交:`42`
 
 ### 2.2 作者身份分布(去重后)
 
-1. `iTheds <lintao_yan@163.com>`：`59` 次
-2. `iTheds <lonnieitheds@gmail.com>`：`25` 次
-3. `LintaoYan <lintao_yan@163.com>`：`22` 次
+1. `iTheds <lintao_yan@163.com>`:`59` 次
+2. `iTheds <lonnieitheds@gmail.com>`:`25` 次
+3. `LintaoYan <lintao_yan@163.com>`:`22` 次
 
 ### 2.3 代码量统计
 
-全口径(含 merge、文档与测试资源)：
-- 新增：`1,108,391`
-- 删除：`745,355`
-- 变更文件记录数(numstat 行)：`4,963`
+全口径(含 merge、文档与测试资源):
+- 新增:`1,108,391`
+- 删除:`745,355`
+- 变更文件记录数(numstat 行):`4,963`
 
-非 merge + 代码口径(剔除 doc/tests/benchmarks、二进制与 `Cargo.lock`)：
+非 merge + 代码口径(剔除 doc/tests/benchmarks、二进制与 `Cargo.lock`):
 - 新增：`78,692`
 - 删除：`44,930`
 - 变更文件记录数：`1,039`

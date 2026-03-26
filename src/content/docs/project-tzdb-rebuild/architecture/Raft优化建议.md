@@ -1,6 +1,6 @@
 ---
 title: "Raft优化建议"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Optimization_Recommendations.md）"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/raft/Raft_Optimization_Recommendations.md）"
 ---
 
 # 🚀 Raft 组件优化建议
@@ -237,7 +237,7 @@ TEST(RaftRecoveryTest, NodeFailure) {
 
 ## 📈 性能预期
 
-实施这些优化后，预期性能提升：
+实施这些优化后，预期性能提升:
 
 | 指标   | 当前  | 优化后    | 提升  |
 |------|-----|--------|-----|
@@ -278,7 +278,7 @@ class SecureRaft {
 
 ## 🎉 总结
 
-这些优化建议主要是为了：
+这些优化建议主要是为了:
 
 1. **完善功能** - 补充网络层集成
 2. **提升性能** - 优化内存和网络使用

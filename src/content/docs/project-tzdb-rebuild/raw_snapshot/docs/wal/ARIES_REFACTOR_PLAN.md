@@ -16,7 +16,7 @@ description: "ARIES Physical Redo 改造方案"
 
 1. **WAL 日志不完整**
    - 只记录了 `(table_id, rid, data)`
-   - 缺少物理布局信息：`tuple_offset`, `overflow_page_id`
+   - 缺少物理布局信息:`tuple_offset`, `overflow_page_id`
    
 2. **Redo 时执行非幂等操作**
    - `VacuumPage()` - 改变页面布局
@@ -30,7 +30,7 @@ description: "ARIES Physical Redo 改造方案"
 
 ## 改造方案
 
-### 阶段 1：扩展 WAL 日志格式
+### 阶段 1:扩展 WAL 日志格式
 
 #### 1.1 新增物理布局信息结构
 
@@ -38,7 +38,7 @@ description: "ARIES Physical Redo 改造方案"
 // inc/storage/wal/log_record.h
 
 /**
- * @brief 物理布局信息：记录元组在页面中的物理存储方式
+ * @brief 物理布局信息:记录元组在页面中的物理存储方式
  */
 struct PhysicalLayout {
     // 主页面信息
@@ -130,7 +130,7 @@ class DeleteRecord : public LogRecord {
 
 ---
 
-### 阶段 2：修改正常执行路径(记录物理信息)
+### 阶段 2:修改正常执行路径(记录物理信息)
 
 #### 2.1 修改 DiskEngine::Insert
 
@@ -172,7 +172,7 @@ Rid DiskEngine::Insert(const Schema *schema, const Tuple &tuple,
 }
 ```
 
-#### 2.2 新增辅助函数：收集 Overflow 页面 ID
+#### 2.2 新增辅助函数:收集 Overflow 页面 ID
 
 ```cpp
 // storage/disk/disk_engine.cpp
@@ -199,7 +199,7 @@ std::vector<page_id_t> DiskEngine::CollectOverflowPages(page_id_t head) {
 
 ---
 
-### 阶段 3：重写 Redo 逻辑(Physical Redo)
+### 阶段 3:重写 Redo 逻辑(Physical Redo)
 
 #### 3.1 新的 RedoInsert 实现
 
@@ -290,7 +290,7 @@ TZDB_RET DiskEngine::RedoInsert(const Schema *schema, const Rid &rid,
 }
 ```
 
-#### 3.2 新增：Redo Overflow Chain
+#### 3.2 新增:Redo Overflow Chain
 
 ```cpp
 // storage/disk/disk_engine.cpp
@@ -408,7 +408,7 @@ TZDB_RET RecoveryManager::ApplyRedoDataChange(PhysicalOp op, const PhysicalParam
 
 ---
 
-### 阶段 4：修改 Update 和 Delete
+### 阶段 4:修改 Update 和 Delete
 
 #### 4.1 RedoUpdate
 
@@ -445,7 +445,7 @@ TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
 - [ ] 添加 `PhysicalLayout` 结构
 - [ ] 修改 `InsertRecord/UpdateRecord/DeleteRecord`，添加 `layout_` 字段
 - [ ] 修改序列化/反序列化逻辑
-- [ ] **保持向后兼容**：如果 `layout_` 为空，使用旧逻辑
+- [ ] **保持向后兼容**:如果 `layout_` 为空，使用旧逻辑
 
 ### Step 2: 修改正常执行路径
 - [ ] 修改 `DiskEngine::Insert`，记录 `PhysicalLayout`
@@ -460,10 +460,10 @@ TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
 - [ ] 重写 `RedoDelete()`，使用 Physical Redo
 
 ### Step 4: 测试
-- [ ] 单元测试：验证 `PhysicalLayout` 序列化
-- [ ] 集成测试：验证正常插入/更新/删除
-- [ ] 恢复测试：验证 Redo 的幂等性
-- [ ] 压力测试：验证 Overflow 场景
+- [ ] 单元测试:验证 `PhysicalLayout` 序列化
+- [ ] 集成测试:验证正常插入/更新/删除
+- [ ] 恢复测试:验证 Redo 的幂等性
+- [ ] 压力测试:验证 Overflow 场景
 
 ### Step 5: 清理旧代码
 - [ ] 移除 Redo 中的 `VacuumPage()` 调用
@@ -474,16 +474,16 @@ TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
 
 ## 优势
 
-1. **严格幂等**：Redo 操作可以安全地重复执行
-2. **符合 ARIES 标准**：Physical Redo + Logical Undo
-3. **性能提升**：Redo 变成简单的字节拷贝，速度更快
-4. **可并行恢复**：不同页面的 Redo 可以并行执行
+1. **严格幂等**:Redo 操作可以安全地重复执行
+2. **符合 ARIES 标准**:Physical Redo + Logical Undo
+3. **性能提升**:Redo 变成简单的字节拷贝，速度更快
+4. **可并行恢复**:不同页面的 Redo 可以并行执行
 
 ## 劣势
 
-1. **WAL 日志变大**：需要记录 `PhysicalLayout` 信息
-2. **实现复杂度**：需要修改多个模块
-3. **迁移成本**：需要处理旧格式日志的兼容性
+1. **WAL 日志变大**:需要记录 `PhysicalLayout` 信息
+2. **实现复杂度**:需要修改多个模块
+3. **迁移成本**:需要处理旧格式日志的兼容性
 
 ---
 
@@ -501,6 +501,6 @@ TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
 
 ## 备注
 
-1. **向后兼容性**：在 Step 1-3 期间，保持对旧格式日志的支持
-2. **渐进式迁移**：可以先实现 Insert，再实现 Update/Delete
-3. **测试驱动**：每个 Step 完成后都要通过测试再继续
+1. **向后兼容性**:在 Step 1-3 期间，保持对旧格式日志的支持
+2. **渐进式迁移**:可以先实现 Insert，再实现 Update/Delete
+3. **测试驱动**:每个 Step 完成后都要通过测试再继续

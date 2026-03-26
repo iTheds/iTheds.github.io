@@ -11,9 +11,9 @@ Apache HTTP Server(简称Apache)是世界使用排名领先的Web服务器软件
 
 ## 基本信息
 
-- **配置文件路径**：`/etc/httpd/conf/httpd.conf`
-- **网站根目录**：`/var/www/html/`
-- **默认监听端口**：80
+- **配置文件路径**:`/etc/httpd/conf/httpd.conf`
+- **网站根目录**:`/var/www/html/`
+- **默认监听端口**:80
 
 ## 安装与启动
 
@@ -49,23 +49,23 @@ firewall-cmd --reload
 - `/var/www/html` - Apache的默认网站根目录
 - `/var/www/html/index.html` - 默认首页文件
 
-创建默认首页示例：
+创建默认首页示例:
 ```bash
 vim /var/www/html/index.html
 ```
 
 ## 查看服务状态
 
-查看Apache默认端口监听情况：
+查看Apache默认端口监听情况:
 ```bash
 netstat -antlupe | grep httpd
 ```
 
 ## 配置镜像源
 
-镜像配置文件目录：`/etc/yum.repos.d/`
+镜像配置文件目录:`/etc/yum.repos.d/`
 
-替换为国内镜像源(以阿里云为例)：
+替换为国内镜像源(以阿里云为例):
 ```bash
 sed -i 's|^#baseurl=https://download.fedoraproject.org/pub|baseurl=https://mirrors.aliyun.com|' /etc/yum.repos.d/epel*
 sed -i 's|^metalink|#metalink|' /etc/yum.repos.d/epel*
@@ -73,7 +73,7 @@ sed -i 's|^metalink|#metalink|' /etc/yum.repos.d/epel*
 
 ## 主要配置文件解析
 
-Apache的主要配置参数说明：
+Apache的主要配置参数说明:
 
 ```apache
 # 服务器根目录
@@ -103,7 +103,7 @@ DocumentRoot "/var/www/html"
 
 Apache支持基于名称和IP的虚拟主机配置，可以在一台服务器上托管多个网站。
 
-基本虚拟主机配置示例：
+基本虚拟主机配置示例:
 ```apache
 <VirtualHost *:80>
     ServerName www.example.com
@@ -117,6 +117,6 @@ Apache支持基于名称和IP的虚拟主机配置，可以在一台服务器上
 
 ### 文件命名注意事项
 
-在Windows系统上，文件名不能包含以下字符：`？\ * | " < > : /`，且不能使用URL编码。
+在Windows系统上，文件名不能包含以下字符:`？\ * | " < > : /`，且不能使用URL编码。
 
-例如：写C/C++相关文章时，如果命名为`C%2fC%2b%2b`，解析时将无法正常打开该文章。
+例如:写C/C++相关文章时，如果命名为`C%2fC%2b%2b`，解析时将无法正常打开该文章。

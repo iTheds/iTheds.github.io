@@ -7,33 +7,33 @@ description: "TZDB 变体库使用指南"
 
 ## 概述
 
-TZDB 项目现在使用脚本生成变体库，而不是通过 CMake 直接生成。这样做的好处是：
+TZDB 项目现在使用脚本生成变体库，而不是通过 CMake 直接生成。这样做的好处是:
 - 减少 CMake 构建时间
 - 更灵活的库组合方式
 - 更清晰的依赖关系
 
-提供了两种组合方案：
+提供了两种组合方案:
 - **方案 1(推荐)**: 从静态库(`.a`)组合 - 更高效，文件更小
 - **方案 2(备选)**: 从对象文件(`.o`)组合 - 更底层，完全控制
 
 ## RocksDB 可选引擎说明
 
-当需要构建 RocksDB 存储后端时，必须显式打开：
+当需要构建 RocksDB 存储后端时，必须显式打开:
 
 ```bash
 cmake -S . -B build-rocks -DTZDB_ENABLE_ROCKSDB=ON
 ```
 
-约束：
+约束:
 - 默认 `TZDB_ENABLE_ROCKSDB=ON`，如需关闭可显式传 `-DTZDB_ENABLE_ROCKSDB=OFF`。
 - RocksDB 通过独立 vendor 构建产出静态库，不直接并入主工程。
-- 固定产物路径(Linux/macOS)：`${CMAKE_BINARY_DIR}/third_party/rocksdb/install/lib/librocksdb.a`。
-- 固定产物路径(Windows)：`${CMAKE_BINARY_DIR}/third_party/rocksdb/install/lib/rocksdb.lib`。
+- 固定产物路径(Linux/macOS):`${CMAKE_BINARY_DIR}/third_party/rocksdb/install/lib/librocksdb.a`。
+- 固定产物路径(Windows):`${CMAKE_BINARY_DIR}/third_party/rocksdb/install/lib/rocksdb.lib`。
 - Rocks 表使用 `kRocksStorage` + `TransactionDB`，不参与 ARIES redo/undo。
 
 ## 快速开始
 
-### 方案 1：从静态库组合(推荐)⭐
+### 方案 1:从静态库组合(推荐)⭐
 
 #### 1. 构建项目(生成静态库)
 
@@ -69,7 +69,7 @@ ctest -R variant_test --verbose
 
 ---
 
-### 方案 2：从对象文件组合(备选)
+### 方案 2:从对象文件组合(备选)
 
 #### 1. 构建项目(生成对象文件)
 
@@ -114,7 +114,7 @@ ctest -R variant_test --verbose
 
 ## 生成的库文件
 
-两种方案都会生成以下库文件：
+两种方案都会生成以下库文件:
 - `libtzdb_kernel_lite.a` - Level 0: 纯存储引擎变体(仅内存)
 - `libtzdb_storage_disk_only.a` - Level 0b: 纯存储引擎变体(仅磁盘)
 - `libtzdb_minimal.a` - Level 1: 最小功能集
@@ -260,7 +260,7 @@ ctest -R variant_test --verbose
 
 **包含的 OBJECT 库**:
 - 与 Level 3 相同的所有库
-- 注意：扩展模块需要单独处理
+- 注意:扩展模块需要单独处理
 
 ## 方案对比
 
@@ -270,7 +270,7 @@ ctest -R variant_test --verbose
 | **文件大小** | 小(443MB) | 大(5.4GB) |
 | **对象文件数** | 少(297个) | 多(3256个，有重复) |
 | **依赖** | CMake 生成的 `.a` | CMake 生成的 `.o` |
-| **复杂度** | 简单(一步完成) | 复杂(两步：提取+组合) |
+| **复杂度** | 简单(一步完成) | 复杂(两步:提取+组合) |
 | **适用场景** | 推荐日常使用 | 需要精细控制时 |
 
 **推荐使用方案 1**，除非你需要对对象文件进行精细控制。
@@ -281,7 +281,7 @@ ctest -R variant_test --verbose
 A: 需要先运行脚本生成库文件，然后重新运行 `cmake ..` 让 CMake 识别这些库。
 
 ### Q: 如何验证库文件是否正确？
-A: 使用以下命令：
+A: 使用以下命令:
 ```bash
 # 查看库中包含的对象文件
 ar t ./libs/libtzdb_full.a
@@ -309,7 +309,7 @@ cd cmake-build-release && make -j$(nproc) && cd ..
 ```
 
 ### Q: 两种方案生成的库有什么区别？
-A: 功能完全相同，都能正常链接和运行。主要区别：
+A: 功能完全相同，都能正常链接和运行。主要区别:
 - **方案 1**: 文件更小，无重复，速度更快
 - **方案 2**: 文件较大，可能有重复对象文件(因为名称冲突加前缀)
 
@@ -317,7 +317,7 @@ A: 功能完全相同，都能正常链接和运行。主要区别：
 A: 方案 1 直接合并静态库，每个对象文件只出现一次。方案 2 从对象文件重新打包，可能因为文件名冲突而添加前缀导致重复。
 
 ### Q: 什么时候应该使用方案 2？
-A: 当你需要：
+A: 当你需要:
 - 精确控制哪些对象文件被包含
 - 调试特定的对象文件问题
 - 自定义对象文件的组合方式
@@ -340,7 +340,7 @@ A: 当你需要：
 
 ### 方案 1 实现原理
 
-使用 `ar` 的 MRI(Multiple Response Input)脚本功能：
+使用 `ar` 的 MRI(Multiple Response Input)脚本功能:
 
 ```bash
 # 创建 MRI 脚本
@@ -356,19 +356,19 @@ END
 ar -M < script.mri
 ```
 
-**优势**：
+**优势**:
 - `ar` 原生支持，无需额外工具
 - 自动去重，每个符号只保留一份
 - 保持对象文件的原始结构
 
 ### 方案 2 实现原理
 
-两步流程：
+两步流程:
 
-1. **提取阶段**：递归查找 `CMakeFiles/xxx_obj.dir/` 下的所有 `.o` 文件
-2. **组合阶段**：使用 `ar rcs` 将对象文件打包成静态库
+1. **提取阶段**:递归查找 `CMakeFiles/xxx_obj.dir/` 下的所有 `.o` 文件
+2. **组合阶段**:使用 `ar rcs` 将对象文件打包成静态库
 
-**注意**：
+**注意**:
 - 必须递归提取(不能使用 `-maxdepth 1`)
 - 文件名冲突时自动添加库名前缀
 - 可能产生重复的对象文件

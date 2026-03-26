@@ -26,14 +26,14 @@ description: "CLNode 优化总结"
 
 **修改**: `CLNode` 构造函数
 ```cpp
-// 修复前：直接根据配置设置为Leader/Follower
+// 修复前:直接根据配置设置为Leader/Follower
 switch (config.role) {
     case Role::MASTER:
         type_ = Leader;  // ❌ 违反Raft协议
         break;
 }
 
-// 修复后：所有节点从Follower开始
+// 修复后:所有节点从Follower开始
 type_ = Follower;  // ✅ 符合Raft协议
 // raft_core_ 默认初始化为Follower状态
 ```
@@ -57,12 +57,12 @@ type_ = Follower;  // ✅ 符合Raft协议
 
 **示例**:
 ```cpp
-// 优化前：整个Apply过程持锁
+// 优化前:整个Apply过程持锁
 log_mtx_.lock();
 DEFER_REF(log_mtx_.unlock());
 // ... 包含网络IO的长时间操作
 
-// 优化后：最小化锁范围
+// 优化后:最小化锁范围
 {
     std::lock_guard<TZMutex> lock(log_mtx_);
     // 只有关键的内存操作在锁内
@@ -87,8 +87,8 @@ class CLNode {
     NodeType type_;
     
     // Raft core components
-    RaftCore raft_core_;           // ✅ 新增：Raft状态管理
-    RaftLog<TypeConfig> raft_log_; // ✅ 新增：日志管理
+    RaftCore raft_core_;           // ✅ 新增:Raft状态管理
+    RaftLog<TypeConfig> raft_log_; // ✅ 新增:日志管理
     
     // Existing components
     std::unique_ptr<StateMachine<TypeConfig>> state_machine_;
@@ -183,7 +183,7 @@ DistributeResponse<TypeConfig> CLNode<TypeConfig>::Apply(
 
 ## 总结
 
-通过这次优化，CLNode类已经：
+通过这次优化，CLNode类已经:
 - ✅ 符合Raft协议的基本要求
 - ✅ 改进了并发安全性
 - ✅ 分离了职责，提高了代码可维护性

@@ -35,7 +35,7 @@ description: "UOE 测试文档"
 | 主机2 | 10.1.0.7 | 10.5.226.44  | 欧拉                                     |
 | 主机3 | 10.1.0.8 | 10.5.226.46  | RK3588 硬件 基于 Buildroot 定制的嵌入式 Linux 系统 |
 
-**注意**: 测试 IP 地址可通过 CMake 配置：
+**注意**: 测试 IP 地址可通过 CMake 配置:
 
 ```bash
 cmake -B build -DLOCAL_NET_IP=10.1.0.7
@@ -591,7 +591,7 @@ ifconfig lo 127.0.0.1
 
 ## 交叉编译备份命令
 
-windows 下命令行执行：
+windows 下命令行执行:
 
 ```bash
 clear
@@ -601,7 +601,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=../aarch64-linux-gnu.toolchain.cmake -DCMAKE_BUILD_
 make -j80 interactive_test
 ```
 
-如果遇到环境问题，可以采用显示指定：
+如果遇到环境问题，可以采用显示指定:
 
 ```bash
 cmake -DCMAKE_TOOLCHAIN_FILE=../aarch64-linux-gnu.toolchain.cmake \

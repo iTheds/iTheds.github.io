@@ -7,7 +7,7 @@ description: "微内核管理"
 
 ## 测试用例 1: 功能可裁剪测试
 
-参考：variant_test.cpp
+参考:variant_test.cpp
 
 | 功能追溯 | DSS-GN-1.1                                                                                           |
 |----------|------------------------------------------------------------------------------------------------------|
@@ -22,24 +22,24 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 编译 tzdb_full 变体：使用 CMake 构建 tzdb_full 库，确保所有依赖正确链接，包括完整功能集 | 编译成功，无错误，生成 tzdb_full 库文件 | 与预期结果一致 |
-| 2 | 运行 tzdb_full 变体测试：创建 Database 对象，初始化 Connection，执行读写事务，验证数据库创建和连接功能 | 测试通过，Database 和 Connection 对象成功创建，事务执行无异常 | 与预期结果一致 |
-| 3 | 编译 tzdb 变体(标准库)：使用 CMake 构建 tzdb 库，确保标准功能集正确 | 编译成功，无错误，生成 tzdb 库文件 | 与预期结果一致 |
-| 4 | 运行 tzdb 变体测试：创建 Database 对象，执行建表操作(CREATE TABLE test_table (id INT, name VARCHAR(64)))，插入数据(INSERT INTO test_table VALUES (1, 'hello'))，提交事务 | 测试通过，表创建成功，数据插入成功，无异常 | 与预期结果一致 |
-| 5 | 编译 tzdb_memory 变体：使用 CMake 构建 tzdb_memory 库，确保内存存储和SQL功能正确 | 编译成功，无错误，生成 tzdb_memory 库文件 | 与预期结果一致 |
-| 6 | 运行 tzdb_memory 变体测试：创建 Database 对象，执行查询操作(SELECT * FROM select_test)，遍历结果集，验证查询返回3条记录 | 测试通过，结果集正确，记录数匹配，无异常 | 与预期结果一致 |
-| 7 | 编译 tzdb_dist 变体：使用 CMake 构建 tzdb_dist 库，确保分布式支持功能正确 | 编译成功，无错误，生成 tzdb_dist 库文件 | 与预期结果一致 |
-| 8 | 运行 tzdb_dist 变体测试：创建 Database 对象，初始化多个 Connection 对象，执行多连接操作，验证并发访问功能 | 测试通过，多连接操作成功，数据一致性保持，无异常 | 与预期结果一致 |
-| 9 | 编译 tzdb_minimal 变体：使用 CMake 构建 tzdb_minimal 库，确保最小功能集(无SQL)正确 | 编译成功，无错误，生成 tzdb_minimal 库文件 | 与预期结果一致 |
-| 10 | 运行 tzdb_minimal 变体测试：创建 Database 对象，执行基础API操作(事务开始、提交)，验证无SQL功能情况下基础操作可用 | 测试通过，基础API调用成功，无SQL相关异常 | 与预期结果一致 |
-| 11 | 编译 tzdb_storage_mem_only 变体：使用 CMake 构建 tzdb_storage_mem_only 库，确保纯内存存储引擎正确 | 编译成功，无错误，生成 tzdb_storage_mem_only 库文件 | 与预期结果一致 |
-| 12 | 运行 tzdb_storage_mem_only 变体测试：创建 Database 对象，执行存储操作，验证数据仅存储在内存中，无磁盘持久化 | 测试通过，数据操作成功，内存存储行为符合预期 | 与预期结果一致 |
-| 13 | 编译 tzdb_storage_disk_only 变体：使用 CMake 构建 tzdb_storage_disk_only 库，确保纯磁盘存储引擎正确 | 编译成功，无错误，生成 tzdb_storage_disk_only 库文件 | 与预期结果一致 |
-| 14 | 运行 tzdb_storage_disk_only 变体测试：创建 Database 对象，执行存储操作，验证数据持久化到磁盘，断开重连后数据保持 | 测试通过，磁盘存储行为符合预期，数据持久化成功 | 与预期结果一致 |
+| 1 | 编译 tzdb_full 变体:使用 CMake 构建 tzdb_full 库，确保所有依赖正确链接，包括完整功能集 | 编译成功，无错误，生成 tzdb_full 库文件 | 与预期结果一致 |
+| 2 | 运行 tzdb_full 变体测试:创建 Database 对象，初始化 Connection，执行读写事务，验证数据库创建和连接功能 | 测试通过，Database 和 Connection 对象成功创建，事务执行无异常 | 与预期结果一致 |
+| 3 | 编译 tzdb 变体(标准库):使用 CMake 构建 tzdb 库，确保标准功能集正确 | 编译成功，无错误，生成 tzdb 库文件 | 与预期结果一致 |
+| 4 | 运行 tzdb 变体测试:创建 Database 对象，执行建表操作(CREATE TABLE test_table (id INT, name VARCHAR(64)))，插入数据(INSERT INTO test_table VALUES (1, 'hello'))，提交事务 | 测试通过，表创建成功，数据插入成功，无异常 | 与预期结果一致 |
+| 5 | 编译 tzdb_memory 变体:使用 CMake 构建 tzdb_memory 库，确保内存存储和SQL功能正确 | 编译成功，无错误，生成 tzdb_memory 库文件 | 与预期结果一致 |
+| 6 | 运行 tzdb_memory 变体测试:创建 Database 对象，执行查询操作(SELECT * FROM select_test)，遍历结果集，验证查询返回3条记录 | 测试通过，结果集正确，记录数匹配，无异常 | 与预期结果一致 |
+| 7 | 编译 tzdb_dist 变体:使用 CMake 构建 tzdb_dist 库，确保分布式支持功能正确 | 编译成功，无错误，生成 tzdb_dist 库文件 | 与预期结果一致 |
+| 8 | 运行 tzdb_dist 变体测试:创建 Database 对象，初始化多个 Connection 对象，执行多连接操作，验证并发访问功能 | 测试通过，多连接操作成功，数据一致性保持，无异常 | 与预期结果一致 |
+| 9 | 编译 tzdb_minimal 变体:使用 CMake 构建 tzdb_minimal 库，确保最小功能集(无SQL)正确 | 编译成功，无错误，生成 tzdb_minimal 库文件 | 与预期结果一致 |
+| 10 | 运行 tzdb_minimal 变体测试:创建 Database 对象，执行基础API操作(事务开始、提交)，验证无SQL功能情况下基础操作可用 | 测试通过，基础API调用成功，无SQL相关异常 | 与预期结果一致 |
+| 11 | 编译 tzdb_storage_mem_only 变体:使用 CMake 构建 tzdb_storage_mem_only 库，确保纯内存存储引擎正确 | 编译成功，无错误，生成 tzdb_storage_mem_only 库文件 | 与预期结果一致 |
+| 12 | 运行 tzdb_storage_mem_only 变体测试:创建 Database 对象，执行存储操作，验证数据仅存储在内存中，无磁盘持久化 | 测试通过，数据操作成功，内存存储行为符合预期 | 与预期结果一致 |
+| 13 | 编译 tzdb_storage_disk_only 变体:使用 CMake 构建 tzdb_storage_disk_only 库，确保纯磁盘存储引擎正确 | 编译成功，无错误，生成 tzdb_storage_disk_only 库文件 | 与预期结果一致 |
+| 14 | 运行 tzdb_storage_disk_only 变体测试:创建 Database 对象，执行存储操作，验证数据持久化到磁盘，断开重连后数据保持 | 测试通过，磁盘存储行为符合预期，数据持久化成功 | 与预期结果一致 |
 
 ## 测试用例 2: 功能组件集成测试
 
-参考：自设计(基于变体测试需求)
+参考:自设计(基于变体测试需求)
 
 | 功能追溯 | DSS-GN-1.2                              |
 |----------|-----------------------------------------|
@@ -70,7 +70,7 @@ description: "微内核管理"
 
 ## 测试用例 3: 数据操作功能测试
 
-参考：tests/integration_test/sql_test/query_crud_test.cpp 中的 query_crud_type 测试用例
+参考:tests/integration_test/sql_test/query_crud_test.cpp 中的 query_crud_type 测试用例
 
 | 功能追溯 | DSS-GN-2.1|
 |----------|----------------|
@@ -85,18 +85,18 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 创建测试表，包含多种数据类型：执行SQL 'create table query_crud_type (b1 bool,u1 uint1,u2 uint2,u4 uint4,u8 uint8,i1 int1,i2 int2,i4 int4,i8 int8,f4 float,d8 double,s string);' | 表创建成功，支持布尔、各种整数、浮点、字符串数据类型声明 | 与预期结果一致 |
-| 2 | 使用SQL INSERT语句插入10条测试数据：执行10条 'Insert into query_crud_type Values(...);' 语句，包含true/false、数值123、字符串'test0'等 | 数据插入成功，无错误提示，插入10条记录 | 与预期结果一致 |
-| 3 | 使用SQL SELECT语句查询所有数据：执行 'select * from query_crud_type;'，遍历结果集 | 查询返回10条记录，结果集完整显示各字段值 | 与预期结果一致 |
-| 4 | 使用条件查询验证数据：执行 'select * from query_crud_type where b1 = true;'，验证返回5条记录 | 条件查询正确，记录数匹配预期 | 与预期结果一致 |
-| 5 | 测试更新操作：执行 'update query_crud_update set u1 = 111 where u4 >50;'，然后查询验证更新结果 | 数据更新成功，影响行数正确，查询结果验证更新效果 | 与预期结果一致 |
-| 6 | 测试删除操作：执行 'delete from query_crud_delete where u4 >50;'，然后查询验证剩余记录数 | 数据删除成功，剩余记录数正确 | 与预期结果一致 |
-| 7 | 测试NULL值插入：执行 'Insert into query_curd_insert_null Values(null,1,11,...);' 等语句，包含NULL值 | NULL值插入成功，查询时正确处理NULL | 与预期结果一致 |
-| 8 | 测试异常处理和边界条件：执行无效SQL如语法错误，验证返回错误码；插入超长字符串或边界数值 | 返回错误码提示操作失败，边界数据正确处理无崩溃 | 与预期结果一致 |
+| 1 | 创建测试表，包含多种数据类型:执行SQL 'create table query_crud_type (b1 bool,u1 uint1,u2 uint2,u4 uint4,u8 uint8,i1 int1,i2 int2,i4 int4,i8 int8,f4 float,d8 double,s string);' | 表创建成功，支持布尔、各种整数、浮点、字符串数据类型声明 | 与预期结果一致 |
+| 2 | 使用SQL INSERT语句插入10条测试数据:执行10条 'Insert into query_crud_type Values(...);' 语句，包含true/false、数值123、字符串'test0'等 | 数据插入成功，无错误提示，插入10条记录 | 与预期结果一致 |
+| 3 | 使用SQL SELECT语句查询所有数据:执行 'select * from query_crud_type;'，遍历结果集 | 查询返回10条记录，结果集完整显示各字段值 | 与预期结果一致 |
+| 4 | 使用条件查询验证数据:执行 'select * from query_crud_type where b1 = true;'，验证返回5条记录 | 条件查询正确，记录数匹配预期 | 与预期结果一致 |
+| 5 | 测试更新操作:执行 'update query_crud_update set u1 = 111 where u4 >50;'，然后查询验证更新结果 | 数据更新成功，影响行数正确，查询结果验证更新效果 | 与预期结果一致 |
+| 6 | 测试删除操作:执行 'delete from query_crud_delete where u4 >50;'，然后查询验证剩余记录数 | 数据删除成功，剩余记录数正确 | 与预期结果一致 |
+| 7 | 测试NULL值插入:执行 'Insert into query_curd_insert_null Values(null,1,11,...);' 等语句，包含NULL值 | NULL值插入成功，查询时正确处理NULL | 与预期结果一致 |
+| 8 | 测试异常处理和边界条件:执行无效SQL如语法错误，验证返回错误码；插入超长字符串或边界数值 | 返回错误码提示操作失败，边界数据正确处理无崩溃 | 与预期结果一致 |
 
 ## 测试用例 4: 内存运行模式测试
 
-参考：tests/variant_test/memory/tzdb_memory_test.cpp
+参考:tests/variant_test/memory/tzdb_memory_test.cpp
 
 | 功能追溯 | -|
 |----------|----------------|
@@ -111,16 +111,16 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 创建内存模式数据库：调用Database构造函数Database("/tmp/test_memory.db", "test_memory")，启用内存运行模式 | 数据库实例创建成功，内存模式启用 | 与预期结果一致 |
-| 2 | 创建连接并建立表：Connection conn(db); conn.Query("CREATE TEMP TABLE memory_test (id INT PRIMARY KEY, data VARCHAR(100))"); | 连接创建成功，临时表建立完成 | 与预期结果一致 |
-| 3 | 插入数据记录并提交：循环插入100条数据conn.Query("INSERT INTO memory_test VALUES (i, 'test_data_' + std::to_string(i))"); conn.CommitTransaction(); | 数据插入成功，事务提交 | 与预期结果一致 |
-| 4 | 查询内存数据：conn.Query("SELECT COUNT(*) FROM memory_test")，检查返回100 | 查询成功，返回100条记录 | 与预期结果一致 |
-| 5 | 验证无磁盘文件：检查文件系统，无tzdb_memory_test.db文件生成 | 磁盘中无数据库文件 | 与预期结果一致 |
-| 6 | 断开连接并重新连接：conn关闭，db关闭，然后重新创建Database和Connection，查询数据 | 内存数据丢失，查询返回空结果 | 与预期结果一致 |
+| 1 | 创建内存模式数据库:调用Database构造函数Database("/tmp/test_memory.db", "test_memory")，启用内存运行模式 | 数据库实例创建成功，内存模式启用 | 与预期结果一致 |
+| 2 | 创建连接并建立表:Connection conn(db); conn.Query("CREATE TEMP TABLE memory_test (id INT PRIMARY KEY, data VARCHAR(100))"); | 连接创建成功，临时表建立完成 | 与预期结果一致 |
+| 3 | 插入数据记录并提交:循环插入100条数据conn.Query("INSERT INTO memory_test VALUES (i, 'test_data_' + std::to_string(i))"); conn.CommitTransaction(); | 数据插入成功，事务提交 | 与预期结果一致 |
+| 4 | 查询内存数据:conn.Query("SELECT COUNT(*) FROM memory_test")，检查返回100 | 查询成功，返回100条记录 | 与预期结果一致 |
+| 5 | 验证无磁盘文件:检查文件系统，无tzdb_memory_test.db文件生成 | 磁盘中无数据库文件 | 与预期结果一致 |
+| 6 | 断开连接并重新连接:conn关闭，db关闭，然后重新创建Database和Connection，查询数据 | 内存数据丢失，查询返回空结果 | 与预期结果一致 |
 
 ## 测试用例 5: 内存文件混合存储功能测试
 
-参考：tests/integration_test/sql_test
+参考:tests/integration_test/sql_test
 
 | 功能追溯 | DSS-GN-2.2|
 |----------|----------------|
@@ -135,18 +135,18 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 创建数据库并连接：Database db("/tmp/mixed_storage.db", "mixed"); Connection conn(db); | 数据库和连接创建成功 | 与预期结果一致 |
-| 2 | 创建临时表并插入数据：conn.Query("CREATE TEMP TABLE temp_table (id INT, name VARCHAR(50))"); conn.Query("INSERT INTO temp_table VALUES (1, 'temp_data1'), (2, 'temp_data2')"); conn.CommitTransaction(); | 临时表创建成功，数据插入成功 | 与预期结果一致 |
-| 3 | 查询临时表数据：conn.Query("SELECT * FROM temp_table ORDER BY id"); | 查询成功，返回id=1,name='temp_data1'; id=2,name='temp_data2' | 与预期结果一致 |
-| 4 | 创建普通表并插入数据：conn.Query("CREATE TABLE disk_table (id INT, name VARCHAR(50))"); conn.Query("INSERT INTO disk_table VALUES (1, 'disk_data1'), (2, 'disk_data2')"); conn.CommitTransaction(); | 普通表创建成功，数据插入成功 | 与预期结果一致 |
-| 5 | 查询普通表数据：conn.Query("SELECT * FROM disk_table ORDER BY id"); | 查询成功，返回id=1,name='disk_data1'; id=2,name='disk_data2' | 与预期结果一致 |
-| 6 | 关闭数据库并重新打开：关闭conn和db，重新创建Database db2("/tmp/mixed_storage.db", "mixed"); Connection conn2(db2); | 数据库重新打开成功 | 与预期结果一致 |
-| 7 | 查询临时表数据：conn2.Query("SELECT * FROM temp_table ORDER BY id"); | 查询成功，返回空结果(临时表数据丢失) | 与预期结果一致 |
-| 8 | 查询普通表数据：conn2.Query("SELECT * FROM disk_table ORDER BY id"); | 查询成功，返回id=1,name='disk_data1'; id=2,name='disk_data2'(普通表数据持久化) | 与预期结果一致 |
+| 1 | 创建数据库并连接:Database db("/tmp/mixed_storage.db", "mixed"); Connection conn(db); | 数据库和连接创建成功 | 与预期结果一致 |
+| 2 | 创建临时表并插入数据:conn.Query("CREATE TEMP TABLE temp_table (id INT, name VARCHAR(50))"); conn.Query("INSERT INTO temp_table VALUES (1, 'temp_data1'), (2, 'temp_data2')"); conn.CommitTransaction(); | 临时表创建成功，数据插入成功 | 与预期结果一致 |
+| 3 | 查询临时表数据:conn.Query("SELECT * FROM temp_table ORDER BY id"); | 查询成功，返回id=1,name='temp_data1'; id=2,name='temp_data2' | 与预期结果一致 |
+| 4 | 创建普通表并插入数据:conn.Query("CREATE TABLE disk_table (id INT, name VARCHAR(50))"); conn.Query("INSERT INTO disk_table VALUES (1, 'disk_data1'), (2, 'disk_data2')"); conn.CommitTransaction(); | 普通表创建成功，数据插入成功 | 与预期结果一致 |
+| 5 | 查询普通表数据:conn.Query("SELECT * FROM disk_table ORDER BY id"); | 查询成功，返回id=1,name='disk_data1'; id=2,name='disk_data2' | 与预期结果一致 |
+| 6 | 关闭数据库并重新打开:关闭conn和db，重新创建Database db2("/tmp/mixed_storage.db", "mixed"); Connection conn2(db2); | 数据库重新打开成功 | 与预期结果一致 |
+| 7 | 查询临时表数据:conn2.Query("SELECT * FROM temp_table ORDER BY id"); | 查询成功，返回空结果(临时表数据丢失) | 与预期结果一致 |
+| 8 | 查询普通表数据:conn2.Query("SELECT * FROM disk_table ORDER BY id"); | 查询成功，返回id=1,name='disk_data1'; id=2,name='disk_data2'(普通表数据持久化) | 与预期结果一致 |
 
 ## 测试用例 6: 资源分配管理功能测试
 
-参考：data_server.cpp 和相关配置代码
+参考:data_server.cpp 和相关配置代码
 
 | 功能追溯 | DSS-GN-2.2|
 |----------|----------------|
@@ -161,20 +161,20 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 创建DBConfig对象，设置小的内存参数：DBConfig config; config.init_size = 1024 * 1024; config.page_size = TZDB_PAGE_SIZE; config.page_count = 10; | 内存配置对象创建成功，设置小内存限制 | 与预期结果一致 |
-| 2 | 调用Database构造函数创建数据库实例：Database db("/tmp/test.db", "testdb", &config, 0, false, 0); | 数据库实例创建成功，使用有限内存配置 | 与预期结果一致 |
-| 3 | 创建ServerConfig和MemberInfo数组：ServerConfig server_config; MemberInfo members[3]; 设置IP为127.0.0.1，端口分别为58080、58081、58082 | 服务器配置和成员信息设置完成 | 与预期结果一致 |
-| 4 | 调用RunServer函数启动分布式服务器：RunServer(server_config, members, 3); | 分布式服务器启动成功，集群形成 | 与预期结果一致 |
-| 5 | 创建数据库连接并建立表：Connection conn(db); conn.Query("CREATE TABLE test_memory (id INT PRIMARY KEY, data VARCHAR(1000))"); | 连接创建成功，表建立完成 | 与预期结果一致 |
-| 6 | 循环插入大数据直到内存不足：for(int i=0; i<10000; i++) { try { conn.Query("INSERT INTO test_memory VALUES (" + std::to_string(i) + ", '" + std::string(900, 'a') + "')"); } catch(const std::exception &e) { LOG_ERROR("插入失败: %s", e.what()); break; } } | 插入操作执行，达到内存限制时抛出异常 | 与预期结果一致 |
-| 7 | 验证内存不足异常和日志：检查异常类型为std::runtime_error，日志显示"内存不足"或"out of memory" | 异常正确抛出，日志记录内存不足错误 | 与预期结果一致 |
-| 8 | 清理资源：关闭服务器，删除测试数据库文件 | 资源释放成功，无残留 | 与预期结果一致 |
+| 1 | 创建DBConfig对象，设置小的内存参数:DBConfig config; config.init_size = 1024 * 1024; config.page_size = TZDB_PAGE_SIZE; config.page_count = 10; | 内存配置对象创建成功，设置小内存限制 | 与预期结果一致 |
+| 2 | 调用Database构造函数创建数据库实例:Database db("/tmp/test.db", "testdb", &config, 0, false, 0); | 数据库实例创建成功，使用有限内存配置 | 与预期结果一致 |
+| 3 | 创建ServerConfig和MemberInfo数组:ServerConfig server_config; MemberInfo members[3]; 设置IP为127.0.0.1，端口分别为58080、58081、58082 | 服务器配置和成员信息设置完成 | 与预期结果一致 |
+| 4 | 调用RunServer函数启动分布式服务器:RunServer(server_config, members, 3); | 分布式服务器启动成功，集群形成 | 与预期结果一致 |
+| 5 | 创建数据库连接并建立表:Connection conn(db); conn.Query("CREATE TABLE test_memory (id INT PRIMARY KEY, data VARCHAR(1000))"); | 连接创建成功，表建立完成 | 与预期结果一致 |
+| 6 | 循环插入大数据直到内存不足:for(int i=0; i<10000; i++) { try { conn.Query("INSERT INTO test_memory VALUES (" + std::to_string(i) + ", '" + std::string(900, 'a') + "')"); } catch(const std::exception &e) { LOG_ERROR("插入失败: %s", e.what()); break; } } | 插入操作执行，达到内存限制时抛出异常 | 与预期结果一致 |
+| 7 | 验证内存不足异常和日志:检查异常类型为std::runtime_error，日志显示"内存不足"或"out of memory" | 异常正确抛出，日志记录内存不足错误 | 与预期结果一致 |
+| 8 | 清理资源:关闭服务器，删除测试数据库文件 | 资源释放成功，无残留 | 与预期结果一致 |
 
 # 分布式管理
 
 ## 测试用例 7: 分布式数据存储管理功能测试
 
-参考：interactive_test/node_main.cpp的部分测试选项(如test_concurrent_isolation, test_fault_recovery)
+参考:interactive_test/node_main.cpp的部分测试选项(如test_concurrent_isolation, test_fault_recovery)
 
 | 功能追溯 | DSS-GN-3.1|
 |----------|----------------|
@@ -189,19 +189,19 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 在节点1上准备Raft配置文件：创建./config/distribute_test_node1.toml文件，配置节点ID为1，包含3个节点信息(ID:1,2,3，IP:127.0.0.1，端口:58080,58081,58082)，策略为"raft" | 配置文件准备完成 | 与预期结果一致 |
+| 1 | 在节点1上准备Raft配置文件:创建./config/distribute_test_node1.toml文件，配置节点ID为1，包含3个节点信息(ID:1,2,3，IP:127.0.0.1，端口:58080,58081,58082)，策略为"raft" | 配置文件准备完成 | 与预期结果一致 |
 | 2 | 在节点1上调用RunServer("./config/distribute_test_node1.toml")启动节点1的Raft分布式服务 | Raft分布式服务启动成功 | 与预期结果一致 |
 | 3 | 在节点2上准备配置文件并调用RunServer启动节点2的服务，在节点3上准备配置文件并调用RunServer启动节点3的服务 | 节点2和节点3的服务都启动成功，3个节点集群形成 | 与预期结果一致 |
 | 4 | 在节点1上调用CheckIsLeader(is_leader, leader_id)函数等待并检查leader选举结果，确认其中一个节点成为leader | leader选举完成，返回leader节点ID | 与预期结果一致 |
-| 5 | 在leader节点上创建数据库连接：Database db("./data", "test"); Connection conn(db); 执行SQL "create table if not exists users(user_id INT,username VARCHAR(50),email VARCHAR(100),age TINYINT,is_active BOOLEAN);" | 表users创建成功 | 与预期结果一致 |
-| 6 | 在leader节点上插入测试数据：循环执行INSERT INTO users VALUES(i, 'user' + i, 'user' + i + '@example.com', i, i%2==0 ? TRUE : FALSE)插入100条数据 | 100条数据插入成功 | 与预期结果一致 |
+| 5 | 在leader节点上创建数据库连接:Database db("./data", "test"); Connection conn(db); 执行SQL "create table if not exists users(user_id INT,username VARCHAR(50),email VARCHAR(100),age TINYINT,is_active BOOLEAN);" | 表users创建成功 | 与预期结果一致 |
+| 6 | 在leader节点上插入测试数据:循环执行INSERT INTO users VALUES(i, 'user' + i, 'user' + i + '@example.com', i, i%2==0 ? TRUE : FALSE)插入100条数据 | 100条数据插入成功 | 与预期结果一致 |
 | 7 | 在节点1、节点2、节点3上分别创建连接并执行SELECT * FROM users查询，检查结果完全一致 | 所有节点返回相同的100条数据结果 | 与预期结果一致 |
 | 8 | 停止节点2进程，在节点1和节点3上创建Database和Connection执行SELECT * FROM users检查数据可用性 | 集群保持可用，查询返回正确数据 | 与预期结果一致 |
 | 9 | 在节点1上调用CheckIsLeader()检查故障检测和leader重新选举，在节点2上重新启动服务，在节点2上创建连接执行SELECT * FROM users验证数据同步 | 节点2重新加入，数据同步完成，查询返回一致数据 | 与预期结果一致 |
 
 ## 测试用例 8: 集群节点动态添加与主节点指定功能测试
 
-参考：interactive_test/node_main.cpp 中的 test_data_migration
+参考:interactive_test/node_main.cpp 中的 test_data_migration
 
 | 功能追溯 | DSS-GN-3|
 |----------|----------------|
@@ -227,7 +227,7 @@ description: "微内核管理"
 
 ## 测试用例 9: 集群监控与节点选举功能测试
 
-参考：interactive_test/node_main.cpp 中的 test_fault_recovery
+参考:interactive_test/node_main.cpp 中的 test_fault_recovery
 
 | 功能追溯 | DSS-GN-3|
 |----------|----------------|
@@ -244,7 +244,7 @@ description: "微内核管理"
 |------|----------|----------|----------|
 | 1 | 在节点1上准备3节点集群配置文件，调用RunServer启动节点1，在节点2和节点3上分别准备配置文件并启动服务，建立集群并创建测试数据 | 3节点集群启动成功，数据创建完成 | 与预期结果一致 |
 | 2 | 在节点1上调用CheckIsLeader()确认leader选举完成，记录当前leader节点ID | leader选举成功，返回节点ID | 与预期结果一致 |
-| 3 | 在leader节点上创建数据库连接，创建测试表并插入数据：Database db("./data", "test"); Connection conn(db); conn.Query("CREATE TABLE test_table (id INT, data VARCHAR(50));"); 插入测试数据 | 表和数据创建成功 | 与预期结果一致 |
+| 3 | 在leader节点上创建数据库连接，创建测试表并插入数据:Database db("./data", "test"); Connection conn(db); conn.Query("CREATE TABLE test_table (id INT, data VARCHAR(50));"); 插入测试数据 | 表和数据创建成功 | 与预期结果一致 |
 | 4 | 在所有3个节点上创建连接并执行SELECT * FROM test_table查询，验证数据同步 | 所有节点返回相同数据结果 | 与预期结果一致 |
 | 5 | 断开当前leader节点进程，等待故障检测和重新选举 | 集群检测故障，触发leader选举 | 与预期结果一致 |
 | 6 | 在节点2上调用CheckIsLeader()确认新leader选举完成 | 新leader选举成功 | 与预期结果一致 |
@@ -253,7 +253,7 @@ description: "微内核管理"
 
 ## 测试用例 10: 分布式数据同步功能测试
 
-参考：interactive_test/node_main.cpp 和 distribute_test
+参考:interactive_test/node_main.cpp 和 distribute_test
 
 | 功能追溯 | DSS-GN-3.2|
 |----------|----------------|
@@ -270,16 +270,16 @@ description: "微内核管理"
 |------|----------|----------|----------|
 | 1 | 在节点1上准备3节点集群配置文件，调用RunServer启动节点1，在节点2和节点3上分别准备配置文件并启动服务，建立集群 | 3节点集群启动成功 | 与预期结果一致 |
 | 2 | 在节点1上调用CheckIsLeader()确认leader选举完成 | leader选举成功 | 与预期结果一致 |
-| 3 | 在leader节点上创建数据库连接，创建测试表：Database db("./data", "test"); Connection conn(db); conn.Query("CREATE TABLE test_meta (id INT, name VARCHAR(50))"); | 表创建成功，所有节点同步表结构 | 与预期结果一致 |
-| 4 | 在leader节点上执行DDL变更：conn.Query("ALTER TABLE test_meta ADD COLUMN age INT"); | DDL变更成功，变更广播到所有节点 | 与预期结果一致 |
+| 3 | 在leader节点上创建数据库连接，创建测试表:Database db("./data", "test"); Connection conn(db); conn.Query("CREATE TABLE test_meta (id INT, name VARCHAR(50))"); | 表创建成功，所有节点同步表结构 | 与预期结果一致 |
+| 4 | 在leader节点上执行DDL变更:conn.Query("ALTER TABLE test_meta ADD COLUMN age INT"); | DDL变更成功，变更广播到所有节点 | 与预期结果一致 |
 | 5 | 在所有3个节点上检查表结构同步更新，执行DESCRIBE或查询验证age列存在 | 所有节点表结构一致，age列已添加 | 与预期结果一致 |
-| 6 | 在leader节点上插入测试数据：conn.Query("INSERT INTO test_meta VALUES (1, 'test', 25)"); | 数据插入成功 | 与预期结果一致 |
+| 6 | 在leader节点上插入测试数据:conn.Query("INSERT INTO test_meta VALUES (1, 'test', 25)"); | 数据插入成功 | 与预期结果一致 |
 | 7 | 在所有3个节点上创建连接执行SELECT * FROM test_meta查询，验证数据同步 | 所有节点返回相同数据结果 | 与预期结果一致 |
-| 8 | 在非leader节点上执行UPDATE操作：conn2.Query("UPDATE test_meta SET age = 30 WHERE id = 1"); | 更新成功，数据同步到所有节点 | 与预期结果一致 |
+| 8 | 在非leader节点上执行UPDATE操作:conn2.Query("UPDATE test_meta SET age = 30 WHERE id = 1"); | 更新成功，数据同步到所有节点 | 与预期结果一致 |
 
 ## 测试用例 11: 分布式数据迁移管理功能测试
 
-参考：interactive_test/node_main.cpp 调用 test_data_migration
+参考:interactive_test/node_main.cpp 调用 test_data_migration
 
 | 功能追溯 | DSS-GN-3|
 |----------|----------------|
@@ -294,18 +294,18 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 在节点1上创建数据库和连接：Database db("./data", "test_migration"); Connection c(db); | 数据库和连接创建成功 | 与预期结果一致 |
-| 2 | 在节点1上开始事务并创建表：c.BeginTransaction(::TransactionType::TRANS_TYPE_READ_WRITE); c.Query("CREATE TABLE migration_test (id INT, name VARCHAR(50), value INT);"); | 表migration_test创建成功 | 与预期结果一致 |
-| 3 | 在节点1上插入测试数据：c.Query("INSERT INTO migration_test VALUES (1, 'Alice', 100);"); c.Query("INSERT INTO migration_test VALUES (2, 'Bob', 200);"); c.Query("INSERT INTO migration_test VALUES (3, 'Charlie', 300);"); c.CommitTransaction(); | 3条数据插入成功 | 与预期结果一致 |
-| 4 | 在节点1上导出数据到CSV：c.Query("COPY migration_test TO './data/migration_test.csv' (HEADER, DELIMITER ',');"); | 数据导出成功，生成CSV文件 | 与预期结果一致 |
-| 5 | 在节点1上从CSV导入数据：c.Query("COPY migration_test FROM './data/migration_test.csv';"); | 数据导入成功，表中数据翻倍 | 与预期结果一致 |
-| 6 | 在节点1上查询并验证数据：c.BeginTransaction(::TransactionType::TRANS_TYPE_READ_ONLY); auto r = c.Query("SELECT * FROM migration_test;"); int cnt = 0; while(r && r->Next()) cnt++; c.CommitTransaction(); | 查询成功，返回6条记录 | 与预期结果一致 |
+| 1 | 在节点1上创建数据库和连接:Database db("./data", "test_migration"); Connection c(db); | 数据库和连接创建成功 | 与预期结果一致 |
+| 2 | 在节点1上开始事务并创建表:c.BeginTransaction(::TransactionType::TRANS_TYPE_READ_WRITE); c.Query("CREATE TABLE migration_test (id INT, name VARCHAR(50), value INT);"); | 表migration_test创建成功 | 与预期结果一致 |
+| 3 | 在节点1上插入测试数据:c.Query("INSERT INTO migration_test VALUES (1, 'Alice', 100);"); c.Query("INSERT INTO migration_test VALUES (2, 'Bob', 200);"); c.Query("INSERT INTO migration_test VALUES (3, 'Charlie', 300);"); c.CommitTransaction(); | 3条数据插入成功 | 与预期结果一致 |
+| 4 | 在节点1上导出数据到CSV:c.Query("COPY migration_test TO './data/migration_test.csv' (HEADER, DELIMITER ',');"); | 数据导出成功，生成CSV文件 | 与预期结果一致 |
+| 5 | 在节点1上从CSV导入数据:c.Query("COPY migration_test FROM './data/migration_test.csv';"); | 数据导入成功，表中数据翻倍 | 与预期结果一致 |
+| 6 | 在节点1上查询并验证数据:c.BeginTransaction(::TransactionType::TRANS_TYPE_READ_ONLY); auto r = c.Query("SELECT * FROM migration_test;"); int cnt = 0; while(r && r->Next()) cnt++; c.CommitTransaction(); | 查询成功，返回6条记录 | 与预期结果一致 |
 
 # 查询优化
 
 ## 测试用例 12: SQL语句预处理功能测试
 
-参考：tests/integration_test/sql_test/query_prepare.cpp
+参考:tests/integration_test/sql_test/query_prepare.cpp
 
 | 功能追溯 | DSS-GN-4.1                                                  |
 |----------|-------------------------------------------------------------|
@@ -320,15 +320,15 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |----|----------|----------|----------|
-| 1  | 准备数据库和表：创建测试数据库和表，包含多种数据类型的列，如CREATE TABLE test_table (id INT, name VARCHAR(50), age DOUBLE) | 数据库和表创建成功 | 与预期结果一致 |
-| 2  | 预编译参数化SQL：使用c.Prepare("INSERT INTO test_table VALUES ($1, $2, $3)")预编译SQL，如query_prepare.cpp中的示例 | 预编译成功，生成可执行计划句柄 | 与预期结果一致 |
-| 3  | 绑定参数并执行：使用prepare->Binder(ColumnValue::INTEGER(1), ColumnValue::VARINT("test"), ColumnValue::DOUBLE(20.0))绑定参数并执行，如query_prepare.cpp中的Binder调用 | 执行成功，结果正确 | 与预期结果一致 |
-| 4  | 验证预处理性能：多次执行相同预编译语句(如100次)，比较与直接Query的性能差异，如query_prepare.cpp中多次Binder执行 | 预处理执行更快 | 与预期结果一致 |
-| 5  | 显示查询结果：执行预编译查询c.Prepare("SELECT * FROM test_table WHERE id = $1")，绑定参数并查询，界面以列表形式显示结果，如query_prepare.cpp中printf("row = %s\n", q->ToString().c_str()) | 查询结果正确显示 | 与预期结果一致 |
+| 1  | 准备数据库和表:创建测试数据库和表，包含多种数据类型的列，如CREATE TABLE test_table (id INT, name VARCHAR(50), age DOUBLE) | 数据库和表创建成功 | 与预期结果一致 |
+| 2  | 预编译参数化SQL:使用c.Prepare("INSERT INTO test_table VALUES ($1, $2, $3)")预编译SQL，如query_prepare.cpp中的示例 | 预编译成功，生成可执行计划句柄 | 与预期结果一致 |
+| 3  | 绑定参数并执行:使用prepare->Binder(ColumnValue::INTEGER(1), ColumnValue::VARINT("test"), ColumnValue::DOUBLE(20.0))绑定参数并执行，如query_prepare.cpp中的Binder调用 | 执行成功，结果正确 | 与预期结果一致 |
+| 4  | 验证预处理性能:多次执行相同预编译语句(如100次)，比较与直接Query的性能差异，如query_prepare.cpp中多次Binder执行 | 预处理执行更快 | 与预期结果一致 |
+| 5  | 显示查询结果:执行预编译查询c.Prepare("SELECT * FROM test_table WHERE id = $1")，绑定参数并查询，界面以列表形式显示结果，如query_prepare.cpp中printf("row = %s\n", q->ToString().c_str()) | 查询结果正确显示 | 与预期结果一致 |
 
 ## 测试用例 13: 查询优化器功能测试
 
-参考：src/query/optimizer/optimizer.cpp
+参考:src/query/optimizer/optimizer.cpp
 
 | 功能追溯 | DSS-GN-4.2|
 |----------|----------------|
@@ -343,26 +343,26 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 设置数据库和表：创建测试数据库，多个表(如user, order)，填充大量数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 执行复杂查询：运行包含JOIN、WHERE、GROUP BY的查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id WHERE u.age > 25 GROUP BY u.name'，通过EXPLAIN接口观察执行计划 | 查询执行成功，生成物理执行计划 | 与预期结果一致 |
-| 3 | 测试无优化版本：直接执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间和计划 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 4 | 调用Optimizer::Optimize接口：输入逻辑计划，通过Optimizer::Optimize调用OptimizeMergeFilterScan，输出合并后的物理计划 | 接口调用成功，输出物理计划 | 与预期结果一致 |
-| 5 | 测试有优化版本：通过优化计划执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 6 | 验证谓词下推：比较步骤3和5的执行时间，检查WHERE age > 25是否下推到Scan节点 | 有优化版本执行更快，谓词下推成功 | 与预期结果一致 |
-| 7 | 测试无优化版本：执行查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 8 | 调用Optimizer::Optimize接口：输入逻辑计划，通过Optimizer::Optimize调用OptimizeMergeProjection，输出合并投影后的物理计划 | 接口调用成功，输出物理计划 | 与预期结果一致 |
-| 9 | 测试有优化版本：通过优化计划执行查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 10 | 验证列剪裁：比较步骤7和9的执行时间，检查是否仅扫描u.name, o.total列 | 有优化版本I/O更少，列剪裁成功 | 与预期结果一致 |
-| 11 | 测试无优化版本：执行复杂查询，串行执行，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 12 | 调用Optimizer::Optimize接口：输入逻辑计划，输出并行Pipeline计划 | 接口调用成功，输出并行计划 | 与预期结果一致 |
-| 13 | 测试有优化版本：通过优化计划执行复杂查询，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 14 | 测试并行执行：比较步骤11和13的执行时间，检查是否切分为多个段 | 有优化版本并行执行，更高效 | 与预期结果一致 |
-| 15 | 验证优化效果：比较所有有优化和无优化版本的查询执行时间差异 | 优化版本查询执行更快 | 与预期结果一致 |
-| 16 | 验证优化耗时占比：在调用Optimizer::Optimize接口之前记录开始时间，调用后记录结束时间，计算Optimize函数耗时，与步骤5、9、13的有优化版本查询执行时间比较，确保Optimize耗时 / 查询执行时间 < 10% | 优化耗时占比低于10% | 与预期结果一致 |
+| 1 | 设置数据库和表:创建测试数据库，多个表(如user, order)，填充大量数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 执行复杂查询:运行包含JOIN、WHERE、GROUP BY的查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id WHERE u.age > 25 GROUP BY u.name'，通过EXPLAIN接口观察执行计划 | 查询执行成功，生成物理执行计划 | 与预期结果一致 |
+| 3 | 测试无优化版本:直接执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间和计划 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 4 | 调用Optimizer::Optimize接口:输入逻辑计划，通过Optimizer::Optimize调用OptimizeMergeFilterScan，输出合并后的物理计划 | 接口调用成功，输出物理计划 | 与预期结果一致 |
+| 5 | 测试有优化版本:通过优化计划执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 6 | 验证谓词下推:比较步骤3和5的执行时间，检查WHERE age > 25是否下推到Scan节点 | 有优化版本执行更快，谓词下推成功 | 与预期结果一致 |
+| 7 | 测试无优化版本:执行查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 8 | 调用Optimizer::Optimize接口:输入逻辑计划，通过Optimizer::Optimize调用OptimizeMergeProjection，输出合并投影后的物理计划 | 接口调用成功，输出物理计划 | 与预期结果一致 |
+| 9 | 测试有优化版本:通过优化计划执行查询 'SELECT u.name, o.total FROM user u JOIN order o ON u.id = o.user_id'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 10 | 验证列剪裁:比较步骤7和9的执行时间，检查是否仅扫描u.name, o.total列 | 有优化版本I/O更少，列剪裁成功 | 与预期结果一致 |
+| 11 | 测试无优化版本:执行复杂查询，串行执行，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 12 | 调用Optimizer::Optimize接口:输入逻辑计划，输出并行Pipeline计划 | 接口调用成功，输出并行计划 | 与预期结果一致 |
+| 13 | 测试有优化版本:通过优化计划执行复杂查询，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 14 | 测试并行执行:比较步骤11和13的执行时间，检查是否切分为多个段 | 有优化版本并行执行，更高效 | 与预期结果一致 |
+| 15 | 验证优化效果:比较所有有优化和无优化版本的查询执行时间差异 | 优化版本查询执行更快 | 与预期结果一致 |
+| 16 | 验证优化耗时占比:在调用Optimizer::Optimize接口之前记录开始时间，调用后记录结束时间，计算Optimize函数耗时，与步骤5、9、13的有优化版本查询执行时间比较，确保Optimize耗时 / 查询执行时间 < 10% | 优化耗时占比低于10% | 与预期结果一致 |
 
 ## 测试用例 14: 查询计划缓存功能测试
 
-参考：tests/integration_test/sql_test
+参考:tests/integration_test/sql_test
 
 | 功能追溯 | DSS-GN-4.3|
 |----------|----------------|
@@ -377,19 +377,19 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |----|----------|----------|----------|
-| 1  | 设置数据库和表：创建测试数据库和表，使用INSERT语句填充10000行数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2  | 执行第一次查询：运行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间和计划 | 查询执行成功，记录时间和计划 | 与预期结果一致 |
-| 3  | 执行第二次相同查询：再次运行相同查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 4  | 验证缓存效果：比较步骤2和3的执行时间，第二次执行时间显著缩短 | 第二次查询更快，缓存生效 | 与预期结果一致 |
-| 5  | 测试表结构变更：执行 'ALTER TABLE user ADD COLUMN email VARCHAR(100)' 修改表结构，再次执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
-| 6  | 验证缓存失效：比较步骤3和5的执行时间，步骤5执行时间较长，缓存失效 | 缓存因表结构变更失效 | 与预期结果一致 |
-| 7  | 验证输出：检查缓存输出内存中的数据或文件中的数据 | 输出正确 | 与预期结果一致 |
+| 1  | 设置数据库和表:创建测试数据库和表，使用INSERT语句填充10000行数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2  | 执行第一次查询:运行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间和计划 | 查询执行成功，记录时间和计划 | 与预期结果一致 |
+| 3  | 执行第二次相同查询:再次运行相同查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 4  | 验证缓存效果:比较步骤2和3的执行时间，第二次执行时间显著缩短 | 第二次查询更快，缓存生效 | 与预期结果一致 |
+| 5  | 测试表结构变更:执行 'ALTER TABLE user ADD COLUMN email VARCHAR(100)' 修改表结构，再次执行查询 'SELECT * FROM user WHERE age > 25'，记录执行时间 | 查询执行成功，记录时间 | 与预期结果一致 |
+| 6  | 验证缓存失效:比较步骤3和5的执行时间，步骤5执行时间较长，缓存失效 | 缓存因表结构变更失效 | 与预期结果一致 |
+| 7  | 验证输出:检查缓存输出内存中的数据或文件中的数据 | 输出正确 | 与预期结果一致 |
 
 # 索引管理
 
 ## 测试用例 15: B+树索引测试
 
-参考：tests/integration_test/sql_test/query_index_test/query_bptree_test.cpp
+参考:tests/integration_test/sql_test/query_index_test/query_bptree_test.cpp
 
 | 功能追溯 | DSS-GN-5|
 |----------|----------------|
@@ -404,17 +404,17 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 设置数据库和表：创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_bptree_single_key (id int,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 创建单键B+树索引：执行 'CREATE INDEX bptree_index ON query_bptree_single_key (id)' | 索引创建成功 | 与预期结果一致 |
-| 3 | 测试单键查询：执行 'SELECT * FROM query_bptree_single_key WHERE id = 1 AND name = 'name1''，检查结果 | 查询成功，返回正确行 | 与预期结果一致 |
-| 4 | 创建字符串键B+树索引：创建表query_bptree_string_key (id int,age double,name varchar(20))，执行 'CREATE INDEX bptree_index ON query_bptree_string_key (name)'，填充数据 | 索引创建成功 | 与预期结果一致 |
-| 5 | 测试字符串键查询：执行 'SELECT * FROM query_bptree_string_key WHERE id = 2 AND name = 'name2'' | 查询成功，返回正确行 | 与预期结果一致 |
-| 6 | 创建多键B+树索引：创建表query_bptree_multi_key，执行 'CREATE INDEX hash_index ON query_bptree_multi_key (id,age)'，填充数据 | 索引创建成功 | 与预期结果一致 |
-| 7 | 测试多键查询：执行多个查询如 'SELECT * FROM query_bptree_multi_key WHERE id = 1 AND name = 'name1''，检查索引使用 | 查询成功，索引正确使用 | 与预期结果一致 |
+| 1 | 设置数据库和表:创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_bptree_single_key (id int,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 创建单键B+树索引:执行 'CREATE INDEX bptree_index ON query_bptree_single_key (id)' | 索引创建成功 | 与预期结果一致 |
+| 3 | 测试单键查询:执行 'SELECT * FROM query_bptree_single_key WHERE id = 1 AND name = 'name1''，检查结果 | 查询成功，返回正确行 | 与预期结果一致 |
+| 4 | 创建字符串键B+树索引:创建表query_bptree_string_key (id int,age double,name varchar(20))，执行 'CREATE INDEX bptree_index ON query_bptree_string_key (name)'，填充数据 | 索引创建成功 | 与预期结果一致 |
+| 5 | 测试字符串键查询:执行 'SELECT * FROM query_bptree_string_key WHERE id = 2 AND name = 'name2'' | 查询成功，返回正确行 | 与预期结果一致 |
+| 6 | 创建多键B+树索引:创建表query_bptree_multi_key，执行 'CREATE INDEX hash_index ON query_bptree_multi_key (id,age)'，填充数据 | 索引创建成功 | 与预期结果一致 |
+| 7 | 测试多键查询:执行多个查询如 'SELECT * FROM query_bptree_multi_key WHERE id = 1 AND name = 'name1''，检查索引使用 | 查询成功，索引正确使用 | 与预期结果一致 |
 
 ## 测试用例 16: 哈希索引测试
 
-参考：tests/integration_test/sql_test/query_index_test/query_hash_test.cpp
+参考:tests/integration_test/sql_test/query_index_test/query_hash_test.cpp
 
 | 功能追溯 | DSS-GN-5|
 |----------|----------------|
@@ -429,17 +429,17 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 设置数据库和表：创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_hash_single_key (id int,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 创建单键哈希索引：执行 'CREATE INDEX hash_index ON query_hash_single_key USING HASH (id)' | 索引创建成功 | 与预期结果一致 |
-| 3 | 测试单键查询：执行 'SELECT * FROM query_hash_single_key WHERE id = 1 AND name = 'name1''，检查结果 | 查询成功，返回正确行 | 与预期结果一致 |
-| 4 | 创建字符串键哈希索引：创建表query_hash_string_key (id int,age double,name varchar(64))，执行 'CREATE INDEX hash_index ON query_hash_string_key USING HASH (name)'，填充数据 | 索引创建成功 | 与预期结果一致 |
-| 5 | 测试字符串键查询：执行 'SELECT * FROM query_hash_string_key WHERE name = 'name1'' | 查询成功，返回正确行 | 与预期结果一致 |
-| 6 | 创建多键哈希索引：创建表query_hash_multi_key，执行 'CREATE INDEX hash_index ON query_hash_multi_key USING HASH (id,age)'，填充数据 | 索引创建成功 | 与预期结果一致 |
-| 7 | 测试多键查询：执行多个查询如 'SELECT * FROM query_hash_multi_key WHERE id = 1 AND age = 2.2'，检查索引使用 | 查询成功，索引正确使用 | 与预期结果一致 |
+| 1 | 设置数据库和表:创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_hash_single_key (id int,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 创建单键哈希索引:执行 'CREATE INDEX hash_index ON query_hash_single_key USING HASH (id)' | 索引创建成功 | 与预期结果一致 |
+| 3 | 测试单键查询:执行 'SELECT * FROM query_hash_single_key WHERE id = 1 AND name = 'name1''，检查结果 | 查询成功，返回正确行 | 与预期结果一致 |
+| 4 | 创建字符串键哈希索引:创建表query_hash_string_key (id int,age double,name varchar(64))，执行 'CREATE INDEX hash_index ON query_hash_string_key USING HASH (name)'，填充数据 | 索引创建成功 | 与预期结果一致 |
+| 5 | 测试字符串键查询:执行 'SELECT * FROM query_hash_string_key WHERE name = 'name1'' | 查询成功，返回正确行 | 与预期结果一致 |
+| 6 | 创建多键哈希索引:创建表query_hash_multi_key，执行 'CREATE INDEX hash_index ON query_hash_multi_key USING HASH (id,age)'，填充数据 | 索引创建成功 | 与预期结果一致 |
+| 7 | 测试多键查询:执行多个查询如 'SELECT * FROM query_hash_multi_key WHERE id = 1 AND age = 2.2'，检查索引使用 | 查询成功，索引正确使用 | 与预期结果一致 |
 
 ## 测试用例 17: 主键索引测试
 
-参考：tests/integration_test/sql_test/query_index_test/query_primarykey_test.cpp
+参考:tests/integration_test/sql_test/query_index_test/query_primarykey_test.cpp
 
 | 功能追溯 | DSS-GN-5|
 |----------|----------------|
@@ -454,18 +454,18 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 设置数据库和表：创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_primary_key_single (id int PRIMARY KEY,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 创建单键主键索引：表创建时已定义PRIMARY KEY (id) | 主键索引创建成功 | 与预期结果一致 |
-| 3 | 测试单键查询：执行 'SELECT * FROM query_primary_key_single WHERE id = 1'，检查结果行数为1 | 查询成功，返回1行 | 与预期结果一致 |
-| 4 | 创建多键主键索引：创建表query_primary_key_multi (id int ,age double,name string,PRIMARY KEY (id, age))，填充数据 | 主键索引创建成功 | 与预期结果一致 |
-| 5 | 测试多键查询：执行 'SELECT * FROM query_primary_key_multi WHERE id = 2 AND age = 2.2'，检查结果行数为1 | 查询成功，返回1行 | 与预期结果一致 |
-| 6 | 测试主键约束：尝试插入重复主键值，检查失败 | 插入失败，报错重复键 | 与预期结果一致 |
+| 1 | 设置数据库和表:创建测试数据库和表，使用INSERT语句填充4行数据，如创建表query_primary_key_single (id int PRIMARY KEY,age double,name string)，插入(1,2.2,'name1')等 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 创建单键主键索引:表创建时已定义PRIMARY KEY (id) | 主键索引创建成功 | 与预期结果一致 |
+| 3 | 测试单键查询:执行 'SELECT * FROM query_primary_key_single WHERE id = 1'，检查结果行数为1 | 查询成功，返回1行 | 与预期结果一致 |
+| 4 | 创建多键主键索引:创建表query_primary_key_multi (id int ,age double,name string,PRIMARY KEY (id, age))，填充数据 | 主键索引创建成功 | 与预期结果一致 |
+| 5 | 测试多键查询:执行 'SELECT * FROM query_primary_key_multi WHERE id = 2 AND age = 2.2'，检查结果行数为1 | 查询成功，返回1行 | 与预期结果一致 |
+| 6 | 测试主键约束:尝试插入重复主键值，检查失败 | 插入失败，报错重复键 | 与预期结果一致 |
 
 # 事务管理
 
 ## 测试用例 18: 实时事务准入管理测试
 
-参考：tests/unit_test/transaction
+参考:tests/unit_test/transaction
 
 | 功能追溯 | DSS-GN-6.1|
 |----------|----------------|
@@ -480,25 +480,25 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 初始化数据库和表：创建测试数据库admission_db，创建表txn_table (id int PRIMARY KEY, data varchar(100))，使用INSERT语句填充10000行数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 初始化准入管理器：调用AdmissionManager::Initialize()接口 | 准入管理器初始化成功 | 与预期结果一致 |
-| 3 | 提交高优先级事务：调用TransactionManager::BeginTransaction()创建事务，设置优先级HIGH，执行'SELECT * FROM txn_table WHERE id BETWEEN 1 AND 100' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
-| 4 | 提交中等优先级事务：调用TransactionManager::BeginTransaction()创建事务，设置优先级MEDIUM，执行'SELECT * FROM txn_table WHERE id BETWEEN 101 AND 200' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
-| 5 | 提交低优先级事务：调用TransactionManager::BeginTransaction()创建事务，设置优先级LOW，执行'SELECT * FROM txn_table WHERE id BETWEEN 201 AND 300' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
-| 6 | 模拟资源紧张场景：通过大量并发事务创建高负载环境 | 系统进入资源紧张状态 | 与预期结果一致 |
-| 7 | 测试高优先级事务准入：提交优先级HIGH的事务，执行'INSERT INTO txn_table VALUES (10001, \'high_priority_data\')' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
-| 8 | 测试中等优先级事务排队：提交优先级MEDIUM的事务，执行'INSERT INTO txn_table VALUES (10002, \'medium_priority_data\')' | 事务进入排队状态，等待资源释放 | 与预期结果一致 |
-| 9 | 测试低优先级事务拒绝：提交优先级LOW的事务，执行'INSERT INTO txn_table VALUES (10003, \'low_priority_data\')' | 事务准入被拒绝，返回ADMISSION_REJECTED错误 | 与预期结果一致 |
-| 10 | 验证准入决策日志：检查系统日志，确认记录了9次准入决策，包括事务ID、优先级、决策结果和决策时间 | 日志记录完整，包含所有必要信息 | 与预期结果一致 |
-| 11 | 恢复正常状态：减少并发事务，恢复系统正常状态 | 系统负载恢复正常 | 与预期结果一致 |
-| 12 | 测试排队事务恢复：验证步骤8中排队的中等优先级事务自动开始执行 | 排队事务成功执行，完成INSERT操作 | 与预期结果一致 |
-| 13 | 测试资源评估失败场景：模拟准入管理器异常，提交新事务 | 采用保守策略拒绝准入，记录告警日志 | 与预期结果一致 |
-| 14 | 验证决策时间约束：统计所有准入决策的平均时间，确认小于10ms | 平均决策时间小于10ms | 与预期结果一致 |
-| 15 | 清理测试环境：提交所有事务，删除测试表和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
+| 1 | 初始化数据库和表:创建测试数据库admission_db，创建表txn_table (id int PRIMARY KEY, data varchar(100))，使用INSERT语句填充10000行数据 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 初始化准入管理器:调用AdmissionManager::Initialize()接口 | 准入管理器初始化成功 | 与预期结果一致 |
+| 3 | 提交高优先级事务:调用TransactionManager::BeginTransaction()创建事务，设置优先级HIGH，执行'SELECT * FROM txn_table WHERE id BETWEEN 1 AND 100' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
+| 4 | 提交中等优先级事务:调用TransactionManager::BeginTransaction()创建事务，设置优先级MEDIUM，执行'SELECT * FROM txn_table WHERE id BETWEEN 101 AND 200' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
+| 5 | 提交低优先级事务:调用TransactionManager::BeginTransaction()创建事务，设置优先级LOW，执行'SELECT * FROM txn_table WHERE id BETWEEN 201 AND 300' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
+| 6 | 模拟资源紧张场景:通过大量并发事务创建高负载环境 | 系统进入资源紧张状态 | 与预期结果一致 |
+| 7 | 测试高优先级事务准入:提交优先级HIGH的事务，执行'INSERT INTO txn_table VALUES (10001, \'high_priority_data\')' | 事务准入成功，决策时间小于10ms | 与预期结果一致 |
+| 8 | 测试中等优先级事务排队:提交优先级MEDIUM的事务，执行'INSERT INTO txn_table VALUES (10002, \'medium_priority_data\')' | 事务进入排队状态，等待资源释放 | 与预期结果一致 |
+| 9 | 测试低优先级事务拒绝:提交优先级LOW的事务，执行'INSERT INTO txn_table VALUES (10003, \'low_priority_data\')' | 事务准入被拒绝，返回ADMISSION_REJECTED错误 | 与预期结果一致 |
+| 10 | 验证准入决策日志:检查系统日志，确认记录了9次准入决策，包括事务ID、优先级、决策结果和决策时间 | 日志记录完整，包含所有必要信息 | 与预期结果一致 |
+| 11 | 恢复正常状态:减少并发事务，恢复系统正常状态 | 系统负载恢复正常 | 与预期结果一致 |
+| 12 | 测试排队事务恢复:验证步骤8中排队的中等优先级事务自动开始执行 | 排队事务成功执行，完成INSERT操作 | 与预期结果一致 |
+| 13 | 测试资源评估失败场景:模拟准入管理器异常，提交新事务 | 采用保守策略拒绝准入，记录告警日志 | 与预期结果一致 |
+| 14 | 验证决策时间约束:统计所有准入决策的平均时间，确认小于10ms | 平均决策时间小于10ms | 与预期结果一致 |
+| 15 | 清理测试环境:提交所有事务，删除测试表和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
 
 ## 测试用例 19: 并发事务预分析技术测试
 
-参考：tests/unit_test/transaction
+参考:tests/unit_test/transaction
 
 | 功能追溯 | DSS-GN-6.2|
 |----------|----------------|
@@ -513,25 +513,25 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 初始化数据库和表：创建测试数据库analysis_db，创建表account (id int PRIMARY KEY, balance decimal(10,2))，使用INSERT语句填充1000行数据，余额从100.00到1000.00 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
-| 2 | 创建读写冲突事务：启动事务T1读取id=1-100，事务T2写入id=50-150，事务T3读取id=200-300 | 三个事务创建成功，开始并发执行 | 与预期结果一致 |
-| 3 | 执行事务T1：使用BeginTxn创建事务，执行'SELECT * FROM account WHERE id BETWEEN 1 AND 100' | 事务执行成功，读取100行数据 | 与预期结果一致 |
-| 4 | 执行事务T2：使用BeginTxn创建事务，执行'UPDATE account SET balance = balance + 10 WHERE id BETWEEN 50 AND 150' | 事务执行成功，更新101行数据 | 与预期结果一致 |
-| 5 | 验证读写冲突：事务T1尝试提交时检查是否被阻塞或失败 | T1事务因写写冲突而失败或等待 | 与预期结果一致 |
-| 6 | 执行事务T3：使用BeginTxn创建事务，执行'SELECT * FROM account WHERE id BETWEEN 200 AND 300' | 事务执行成功，与T2无直接冲突 | 与预期结果一致 |
-| 7 | 创建死锁环路：启动事务T4写入id=1读取id=2，事务T5写入id=2读取id=3，事务T6写入id=3读取id=1 | 三个事务创建成功，形成死锁依赖 | 与预期结果一致 |
-| 8 | 执行死锁事务：T4执行'UPDATE account SET balance = balance + 1 WHERE id = 1'，T5执行'UPDATE account SET balance = balance + 1 WHERE id = 2'，T6执行'UPDATE account SET balance = balance + 1 WHERE id = 3' | 事务执行中，形成死锁等待 | 与预期结果一致 |
-| 9 | 验证死锁检测：系统自动检测死锁，中止优先级最低的事务T6 | T6事务被中止，其他事务继续执行 | 与预期结果一致 |
-| 10 | 测试执行顺序优化：提交5个并发事务，观察MVCC版本控制下的执行顺序 | 事务按时间戳顺序执行，无死锁发生 | 与预期结果一致 |
-| 11 | 验证预分析时间：统计事务执行时间，确认MVCC开销不超过5% | MVCC处理时间占比小于5% | 与预期结果一致 |
-| 12 | 测试异常处理：模拟事务执行失败，检查回滚机制 | 失败事务自动回滚，其他事务不受影响 | 与预期结果一致 |
-| 13 | 验证历史统计：检查MVCC版本链长度不超过预期上限 | 版本链长度控制在合理范围内 | 与预期结果一致 |
-| 14 | 测试大规模并发：提交50个并发读写事务 | 所有事务正确执行，无死锁 | 与预期结果一致 |
-| 15 | 清理测试环境：提交所有事务，删除测试表和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
+| 1 | 初始化数据库和表:创建测试数据库analysis_db，创建表account (id int PRIMARY KEY, balance decimal(10,2))，使用INSERT语句填充1000行数据，余额从100.00到1000.00 | 数据库和表创建成功，数据填充完成 | 与预期结果一致 |
+| 2 | 创建读写冲突事务:启动事务T1读取id=1-100，事务T2写入id=50-150，事务T3读取id=200-300 | 三个事务创建成功，开始并发执行 | 与预期结果一致 |
+| 3 | 执行事务T1:使用BeginTxn创建事务，执行'SELECT * FROM account WHERE id BETWEEN 1 AND 100' | 事务执行成功，读取100行数据 | 与预期结果一致 |
+| 4 | 执行事务T2:使用BeginTxn创建事务，执行'UPDATE account SET balance = balance + 10 WHERE id BETWEEN 50 AND 150' | 事务执行成功，更新101行数据 | 与预期结果一致 |
+| 5 | 验证读写冲突:事务T1尝试提交时检查是否被阻塞或失败 | T1事务因写写冲突而失败或等待 | 与预期结果一致 |
+| 6 | 执行事务T3:使用BeginTxn创建事务，执行'SELECT * FROM account WHERE id BETWEEN 200 AND 300' | 事务执行成功，与T2无直接冲突 | 与预期结果一致 |
+| 7 | 创建死锁环路:启动事务T4写入id=1读取id=2，事务T5写入id=2读取id=3，事务T6写入id=3读取id=1 | 三个事务创建成功，形成死锁依赖 | 与预期结果一致 |
+| 8 | 执行死锁事务:T4执行'UPDATE account SET balance = balance + 1 WHERE id = 1'，T5执行'UPDATE account SET balance = balance + 1 WHERE id = 2'，T6执行'UPDATE account SET balance = balance + 1 WHERE id = 3' | 事务执行中，形成死锁等待 | 与预期结果一致 |
+| 9 | 验证死锁检测:系统自动检测死锁，中止优先级最低的事务T6 | T6事务被中止，其他事务继续执行 | 与预期结果一致 |
+| 10 | 测试执行顺序优化:提交5个并发事务，观察MVCC版本控制下的执行顺序 | 事务按时间戳顺序执行，无死锁发生 | 与预期结果一致 |
+| 11 | 验证预分析时间:统计事务执行时间，确认MVCC开销不超过5% | MVCC处理时间占比小于5% | 与预期结果一致 |
+| 12 | 测试异常处理:模拟事务执行失败，检查回滚机制 | 失败事务自动回滚，其他事务不受影响 | 与预期结果一致 |
+| 13 | 验证历史统计:检查MVCC版本链长度不超过预期上限 | 版本链长度控制在合理范围内 | 与预期结果一致 |
+| 14 | 测试大规模并发:提交50个并发读写事务 | 所有事务正确执行，无死锁 | 与预期结果一致 |
+| 15 | 清理测试环境:提交所有事务，删除测试表和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
 
 ## 测试用例 20: 关联事务调度管理测试
 
-参考：tests/unit_test/transaction
+参考:tests/unit_test/transaction
 
 | 功能追溯 | DSS-GN-6.3|
 |----------|-------------|
@@ -546,20 +546,20 @@ description: "微内核管理"
 
 | 序号 | 执行步骤                                                                                | 步骤期望 | 评估准则 |
 |----|-------------------------------------------------------------------------------------|----------|----------|
-| 1  | 初始化分布式环境：配置3个节点集群，创建测试数据库distributed_txn_db，设置节点间通信                                 | 集群初始化成功，所有节点通信正常 | 与预期结果一致 |
-| 2  | 创建测试表：每个节点创建表node_data (id int PRIMARY KEY, node_id int, data varchar(100))，填充100行数据 | 所有节点表创建成功，数据填充完成 | 与预期结果一致 |
-| 3  | 定义事务关联关系：创建分布式事务T1包含跨节点操作，设置节点1-2必须成功，节点3可选                                       | 关联关系定义成功，依赖关系建立 | 与预期结果一致 |
-| 4  | 提交分布式事务T1：调用TransactionManager::BeginTransaction()，在各节点执行数据更新             | 事务在所有节点启动，执行进度监控开始 | 与预期结果一致 |
-| 5  | 关闭节点3，模拟部分节点成功：节点1、2执行成功，节点3执行失败                                              | 多数派成功(2/3)，事务继续执行 | 与预期结果一致 |
-| 6  | 测试少数派失败场景：创建事务T2需要3/3节点成功，但只有2个节点成功                                               | 事务识别少数派失败，全局回滚 | 与预期结果一致 |
-| 7  | 验证原子性保证：检查成功事务的数据在所有节点一致                                                    | 原子性保证正确，数据一致性100% | 与预期结果一致 |
-| 8  | 清理测试环境：提交所有事务，删除测试表和数据库                                                             | 清理完成，无残留数据 | 与预期结果一致 |
+| 1  | 初始化分布式环境:配置3个节点集群，创建测试数据库distributed_txn_db，设置节点间通信                                 | 集群初始化成功，所有节点通信正常 | 与预期结果一致 |
+| 2  | 创建测试表:每个节点创建表node_data (id int PRIMARY KEY, node_id int, data varchar(100))，填充100行数据 | 所有节点表创建成功，数据填充完成 | 与预期结果一致 |
+| 3  | 定义事务关联关系:创建分布式事务T1包含跨节点操作，设置节点1-2必须成功，节点3可选                                       | 关联关系定义成功，依赖关系建立 | 与预期结果一致 |
+| 4  | 提交分布式事务T1:调用TransactionManager::BeginTransaction()，在各节点执行数据更新             | 事务在所有节点启动，执行进度监控开始 | 与预期结果一致 |
+| 5  | 关闭节点3，模拟部分节点成功:节点1、2执行成功，节点3执行失败                                              | 多数派成功(2/3)，事务继续执行 | 与预期结果一致 |
+| 6  | 测试少数派失败场景:创建事务T2需要3/3节点成功，但只有2个节点成功                                               | 事务识别少数派失败，全局回滚 | 与预期结果一致 |
+| 7  | 验证原子性保证:检查成功事务的数据在所有节点一致                                                    | 原子性保证正确，数据一致性100% | 与预期结果一致 |
+| 8  | 清理测试环境:提交所有事务，删除测试表和数据库                                                             | 清理完成，无残留数据 | 与预期结果一致 |
 
 # 智能模型支持
 
 ## 测试用例 21: 模型量化存储测试
 
-参考：tests/unit_test/transaction
+参考:tests/unit_test/transaction
 
 | 功能追溯 | DSS-GN-7.1|
 |----------|----------------|
@@ -574,13 +574,13 @@ description: "微内核管理"
 
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |------|----------|----------|----------|
-| 1 | 注册多个AI模型：执行SQL CREATE MODEL model1 FROM 'path/to/model1.onnx'、CREATE MODEL model2 FROM 'path/to/model2.onnx'、...、CREATE MODEL model5 FROM 'path/to/model5.onnx' | 5个模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
-| 2 | 配置量化参数：设置量化配置为INT8精度，使用对称量化方法，设置精度损失阈值为5% | 量化配置设置成功 | 与预期结果一致 |
-| 3 | 执行量化转换：调用ModelQuantizer::Quantize()接口对模型权重进行FP32到INT8的量化转换 | 量化转换成功，生成量化权重和映射表 | 与预期结果一致 |
-| 4 | 生成量化元数据：自动生成量化映射表和反量化参数，存储到metadata字段 | 元数据生成完整，包含所有必要信息 | 与预期结果一致 |
-| 5 | 持久化量化模型：将量化模型数据和配置信息存储到model_storage表，model_id=2 | 量化模型持久化成功，数据完整 | 与预期结果一致 |
-| 6 | 测试FLOAT16量化：重复步骤3-8，使用FLOAT16精度进行量化 | FLOAT16量化成功，存储空间减少75%以上 | 与预期结果一致 |
-| 7 | 清理测试环境：删除测试模型数据和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
+| 1 | 注册多个AI模型:执行SQL CREATE MODEL model1 FROM 'path/to/model1.onnx'、CREATE MODEL model2 FROM 'path/to/model2.onnx'、...、CREATE MODEL model5 FROM 'path/to/model5.onnx' | 5个模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
+| 2 | 配置量化参数:设置量化配置为INT8精度，使用对称量化方法，设置精度损失阈值为5% | 量化配置设置成功 | 与预期结果一致 |
+| 3 | 执行量化转换:调用ModelQuantizer::Quantize()接口对模型权重进行FP32到INT8的量化转换 | 量化转换成功，生成量化权重和映射表 | 与预期结果一致 |
+| 4 | 生成量化元数据:自动生成量化映射表和反量化参数，存储到metadata字段 | 元数据生成完整，包含所有必要信息 | 与预期结果一致 |
+| 5 | 持久化量化模型:将量化模型数据和配置信息存储到model_storage表，model_id=2 | 量化模型持久化成功，数据完整 | 与预期结果一致 |
+| 6 | 测试FLOAT16量化:重复步骤3-8，使用FLOAT16精度进行量化 | FLOAT16量化成功，存储空间减少75%以上 | 与预期结果一致 |
+| 7 | 清理测试环境:删除测试模型数据和数据库 | 清理完成，无残留数据 | 与预期结果一致 |
 
 ## 数据库AI算子联合优化测试
 
@@ -589,7 +589,7 @@ description: "微内核管理"
 | 用例名称 | 数据库AI算子联合优化测试                                                                                                                                      |
 | 用例标识 | DSS_AI_OPTIMIZATION                                                                                                                                |
 | 测试项标识 | DSS_AI_MODEL                                                                                                                                       |
-| 初始化 | 创建测试数据库和表：`ai_inference_data` (id INT, features BLOB, label INT)，`onnx_model_registry` (name VARCHAR, model BLOB)，插入1000行测试数据；创建ONNX模型'model1'用于分类 |
+| 初始化 | 创建测试数据库和表:`ai_inference_data` (id INT, features BLOB, label INT)，`onnx_model_registry` (name VARCHAR, model BLOB)，插入1000行测试数据；创建ONNX模型'model1'用于分类 |
 | 前提 | 系统支持AI推理算子融合，数据库连接正常，事务管理器运行中                                                                                                                      |
 | 终止条件 | 测试完成，清理测试数据和模型                                                                                                                                     |
 | 期望 | AI算子与数据库算子成功融合，查询性能提升，结果与未融合时完全一致                                                                                                                  |
@@ -597,20 +597,20 @@ description: "微内核管理"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |------|------|----------|----------|
-| 1 | 初始化事务：调用TransactionManager::Begin()开始事务T1 | 事务开始成功，返回事务ID为1 | 与预期结果一致 |
-| 2 | 创建测试表：执行SQL CREATE TABLE ai_inference_data (id INT PRIMARY KEY, features BLOB, label INT) | 表创建成功，包含3列 | 与预期结果一致 |
-| 3 | 插入测试数据：执行SQL INSERT INTO ai_inference_data VALUES (1, 'feature_blob_1', 0), (2, 'feature_blob_2', 1), ..., (1000, 'feature_blob_1000', 1) 插入1000行数据 | 插入成功，表包含1000行数据 | 与预期结果一致 |
-| 4 | 注册AI模型：执行SQL CREATE MODEL model1 FROM 'path/to/model.onnx' | 模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
-| 5 | 执行基准查询：执行SQL SELECT id, model_inference('model1', features) | 查询执行成功，返回约500行结果，每行包含id和pred值 | 与预期结果一致 |
-| 6 | 记录基准性能：记录查询执行时间为基准时间t1，内存使用m1 | 记录成功，t1 > 0, m1 > 0 | 与预期结果一致 |
-| 7 | 调用算子融合优化：创建Optimizer实例，调用Optimizer::Optimize()处理包含AI推理的查询计划 | 优化成功，生成融合计划，包含FusedConvBnRelu等融合算子 | 与预期结果一致 |
-| 8 | 执行优化查询：使用优化后的计划执行相同查询 SELECT id, model_inference('model1', features)  | 查询执行成功，返回相同结果 | 与预期结果一致 |
-| 9 | 记录优化性能：记录优化查询时间t2，内存使用m2 | 记录成功，t2 < t1, m2 < m1 | 与预期结果一致 |
-| 10 | 验证性能提升：优化后查询执行时间和内存使用均有提升 | 性能提升符合预期 | 与预期结果一致 |
-| 11 | 验证结果一致性：比较步骤5和步骤8的结果，确保id和pred值完全相同 | 结果完全一致，准确率100% | 与预期结果一致 |
-| 12 | 测试并行AI推理：执行SQL SELECT COUNT(*) FROM ai_inference_data  使用批量推理 | 查询成功，返回计数，推理时间减少 | 与预期结果一致 |
-| 13 | 提交事务：调用TransactionManager::Commit(T1)提交事务 | 事务提交成功 | 与预期结果一致 |
-| 14 | 清理测试环境：删除表和模型数据 | 清理完成，无残留数据 | 与预期结果一致 |
+| 1 | 初始化事务:调用TransactionManager::Begin()开始事务T1 | 事务开始成功，返回事务ID为1 | 与预期结果一致 |
+| 2 | 创建测试表:执行SQL CREATE TABLE ai_inference_data (id INT PRIMARY KEY, features BLOB, label INT) | 表创建成功，包含3列 | 与预期结果一致 |
+| 3 | 插入测试数据:执行SQL INSERT INTO ai_inference_data VALUES (1, 'feature_blob_1', 0), (2, 'feature_blob_2', 1), ..., (1000, 'feature_blob_1000', 1) 插入1000行数据 | 插入成功，表包含1000行数据 | 与预期结果一致 |
+| 4 | 注册AI模型:执行SQL CREATE MODEL model1 FROM 'path/to/model.onnx' | 模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
+| 5 | 执行基准查询:执行SQL SELECT id, model_inference('model1', features) | 查询执行成功，返回约500行结果，每行包含id和pred值 | 与预期结果一致 |
+| 6 | 记录基准性能:记录查询执行时间为基准时间t1，内存使用m1 | 记录成功，t1 > 0, m1 > 0 | 与预期结果一致 |
+| 7 | 调用算子融合优化:创建Optimizer实例，调用Optimizer::Optimize()处理包含AI推理的查询计划 | 优化成功，生成融合计划，包含FusedConvBnRelu等融合算子 | 与预期结果一致 |
+| 8 | 执行优化查询:使用优化后的计划执行相同查询 SELECT id, model_inference('model1', features)  | 查询执行成功，返回相同结果 | 与预期结果一致 |
+| 9 | 记录优化性能:记录优化查询时间t2，内存使用m2 | 记录成功，t2 < t1, m2 < m1 | 与预期结果一致 |
+| 10 | 验证性能提升:优化后查询执行时间和内存使用均有提升 | 性能提升符合预期 | 与预期结果一致 |
+| 11 | 验证结果一致性:比较步骤5和步骤8的结果，确保id和pred值完全相同 | 结果完全一致，准确率100% | 与预期结果一致 |
+| 12 | 测试并行AI推理:执行SQL SELECT COUNT(*) FROM ai_inference_data  使用批量推理 | 查询成功，返回计数，推理时间减少 | 与预期结果一致 |
+| 13 | 提交事务:调用TransactionManager::Commit(T1)提交事务 | 事务提交成功 | 与预期结果一致 |
+| 14 | 清理测试环境:删除表和模型数据 | 清理完成，无残留数据 | 与预期结果一致 |
 
 ## 多模型资源共享和调度测试
 
@@ -627,17 +627,17 @@ description: "微内核管理"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |----|------|----------|----------|
-| 1 | 初始化事务：调用TransactionManager::Begin()开始事务T1 | 事务开始成功，返回事务ID为1 | 与预期结果一致 |
-| 2 | 注册多个AI模型：执行SQL CREATE MODEL model1 FROM 'path/to/model1.onnx'、CREATE MODEL model2 FROM 'path/to/model2.onnx'、...、CREATE MODEL model5 FROM 'path/to/model5.onnx' | 5个模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
-| 3 | 配置模型优先级：设置model1优先级HIGH、model2和model3优先级MEDIUM、model4和model5优先级LOW | 优先级配置成功 | 与预期结果一致 |
-| 4 | 提交高优先级推理请求：执行SQL SELECT id, model_inference('model1', inputs) | 推理请求调度成功，开始执行 | 与预期结果一致 |
-| 5 | 提交中等优先级推理请求：并发执行SQL SELECT id, model_inference('model2', features) , model_inference('model3', features) | 两个推理请求调度成功，开始并发执行 | 与预期结果一致 |
-| 6 | 提交低优先级推理请求：并发执行SQL SELECT id, model_inference('model4', features) , model_inference('model5', features) | 两个推理请求进入队列，等待资源释放 | 与预期结果一致 |
-| 7 | 验证并发执行：检查5个模型同时在内存中运行 | 5个模型并发运行成功 | 与预期结果一致 |
-| 8 | 测试模型缓存复用：重复执行相同模型的推理请求 | 缓存复用成功 | 与预期结果一致 |
-| 9 | 测试批处理优化：提交10个相同模型的推理请求，系统自动批处理执行 | 批处理成功 | 与预期结果一致 |
-| 10 | 提交事务：调用TransactionManager::Commit(T1)提交事务 | 事务提交成功 | 与预期结果一致 |
-| 11 | 清理测试环境：删除表和模型数据 | 清理完成，无残留数据 | 与预期结果一致 |
+| 1 | 初始化事务:调用TransactionManager::Begin()开始事务T1 | 事务开始成功，返回事务ID为1 | 与预期结果一致 |
+| 2 | 注册多个AI模型:执行SQL CREATE MODEL model1 FROM 'path/to/model1.onnx'、CREATE MODEL model2 FROM 'path/to/model2.onnx'、...、CREATE MODEL model5 FROM 'path/to/model5.onnx' | 5个模型注册成功，存入onnx_model_registry表 | 与预期结果一致 |
+| 3 | 配置模型优先级:设置model1优先级HIGH、model2和model3优先级MEDIUM、model4和model5优先级LOW | 优先级配置成功 | 与预期结果一致 |
+| 4 | 提交高优先级推理请求:执行SQL SELECT id, model_inference('model1', inputs) | 推理请求调度成功，开始执行 | 与预期结果一致 |
+| 5 | 提交中等优先级推理请求:并发执行SQL SELECT id, model_inference('model2', features) , model_inference('model3', features) | 两个推理请求调度成功，开始并发执行 | 与预期结果一致 |
+| 6 | 提交低优先级推理请求:并发执行SQL SELECT id, model_inference('model4', features) , model_inference('model5', features) | 两个推理请求进入队列，等待资源释放 | 与预期结果一致 |
+| 7 | 验证并发执行:检查5个模型同时在内存中运行 | 5个模型并发运行成功 | 与预期结果一致 |
+| 8 | 测试模型缓存复用:重复执行相同模型的推理请求 | 缓存复用成功 | 与预期结果一致 |
+| 9 | 测试批处理优化:提交10个相同模型的推理请求，系统自动批处理执行 | 批处理成功 | 与预期结果一致 |
+| 10 | 提交事务:调用TransactionManager::Commit(T1)提交事务 | 事务提交成功 | 与预期结果一致 |
+| 11 | 清理测试环境:删除表和模型数据 | 清理完成，无残留数据 | 与预期结果一致 |
 
 # 管理工具功能
 
@@ -681,8 +681,8 @@ description: "微内核管理"
 | 序号 | 执行步骤 | 步骤期望 | 评估准则 |
 |----|----------|----------|----------|
 | 1  | 启动 DBeaver，打开连接管理界面 | 连接列表显示，按类型分类 | 界面正确加载 |
-| 2  | 创建文件形式连接：输入有效文件路径 | 连接创建成功，测试通过 | 文件路径验证正常 |
-| 3  | 创建连接：输入主机地址、端口、数据库名等 | 连接创建成功，测试通过 | 原生驱动正常 |
+| 2  | 创建文件形式连接:输入有效文件路径 | 连接创建成功，测试通过 | 文件路径验证正常 |
+| 3  | 创建连接:输入主机地址、端口、数据库名等 | 连接创建成功，测试通过 | 原生驱动正常 |
 | 4  | 保存所有连接，检查连接列表 | 列表更新，按类型分类展示 | 保存和展示正确 |
 | 5  | 切换当前活动连接 | 连接切换成功，状态更新 | 切换功能正常 |
 | 6  | 配置连接超时时间为10秒，测试连接 | 超时配置生效，测试结果正确 | 超时配置正常 |
@@ -785,18 +785,18 @@ description: "微内核管理"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |------|------|----------|----------|
-| 1 | 启动shell工具：执行shell命令启动嵌入式命令工具 | 工具启动成功，显示欢迎信息和提示符 | 与预期结果一致 |
-| 2 | 连接数据库：执行CONNECT命令连接到数据库 | 连接成功，显示数据库信息 | 与预期结果一致 |
-| 3 | 执行简单SELECT语句：输入SELECT 1; 执行简单查询 | 查询执行成功，返回结果1 | 与预期结果一致 |
-| 4 | 测试语法高亮：输入复杂SQL语句，观察语法高亮效果 | 语法高亮正确显示关键字、表名、函数等 | 与预期结果一致 |
-| 5 | 测试自动补全：输入部分表名，按Tab键测试自动补全 | 自动补全功能正常，显示候选选项 | 与预期结果一致 |
-| 6 | 执行DDL语句：创建测试表CREATE TABLE test_table (id INT, name VARCHAR(50)) | 表创建成功 | 与预期结果一致 |
-| 7 | 执行INSERT语句：插入测试数据INSERT INTO test_table VALUES (1, 'test') | 数据插入成功 | 与预期结果一致 |
-| 8 | 查看执行计划：执行EXPLAIN SELECT * FROM test_table | 显示执行计划信息 | 与预期结果一致 |
-| 9 | 测试事务控制：执行BEGIN; UPDATE test_table SET name='updated'; COMMIT; | 事务执行成功，数据更新 | 与预期结果一致 |
-| 10 | 执行SQL脚本：运行包含多条SQL的脚本文件 | 脚本执行成功，所有语句正确执行 | 与预期结果一致 |
-| 11 | 测试参数化查询：使用变量执行SELECT * FROM test_table WHERE id = ? | 参数化查询成功 | 与预期结果一致 |
-| 12 | 查看执行日志：检查工具的执行日志和错误信息 | 日志记录完整，包含执行详情 | 与预期结果一致 |
-| 13 | 清理测试环境：删除测试表DROP TABLE test_table | 表删除成功 | 与预期结果一致 |
-| 14 | 退出工具：执行EXIT或QUIT命令退出shell | 工具正常退出 | 与预期结果一致 |
+| 1 | 启动shell工具:执行shell命令启动嵌入式命令工具 | 工具启动成功，显示欢迎信息和提示符 | 与预期结果一致 |
+| 2 | 连接数据库:执行CONNECT命令连接到数据库 | 连接成功，显示数据库信息 | 与预期结果一致 |
+| 3 | 执行简单SELECT语句:输入SELECT 1; 执行简单查询 | 查询执行成功，返回结果1 | 与预期结果一致 |
+| 4 | 测试语法高亮:输入复杂SQL语句，观察语法高亮效果 | 语法高亮正确显示关键字、表名、函数等 | 与预期结果一致 |
+| 5 | 测试自动补全:输入部分表名，按Tab键测试自动补全 | 自动补全功能正常，显示候选选项 | 与预期结果一致 |
+| 6 | 执行DDL语句:创建测试表CREATE TABLE test_table (id INT, name VARCHAR(50)) | 表创建成功 | 与预期结果一致 |
+| 7 | 执行INSERT语句:插入测试数据INSERT INTO test_table VALUES (1, 'test') | 数据插入成功 | 与预期结果一致 |
+| 8 | 查看执行计划:执行EXPLAIN SELECT * FROM test_table | 显示执行计划信息 | 与预期结果一致 |
+| 9 | 测试事务控制:执行BEGIN; UPDATE test_table SET name='updated'; COMMIT; | 事务执行成功，数据更新 | 与预期结果一致 |
+| 10 | 执行SQL脚本:运行包含多条SQL的脚本文件 | 脚本执行成功，所有语句正确执行 | 与预期结果一致 |
+| 11 | 测试参数化查询:使用变量执行SELECT * FROM test_table WHERE id = ? | 参数化查询成功 | 与预期结果一致 |
+| 12 | 查看执行日志:检查工具的执行日志和错误信息 | 日志记录完整，包含执行详情 | 与预期结果一致 |
+| 13 | 清理测试环境:删除测试表DROP TABLE test_table | 表删除成功 | 与预期结果一致 |
+| 14 | 退出工具:执行EXIT或QUIT命令退出shell | 工具正常退出 | 与预期结果一致 |
 

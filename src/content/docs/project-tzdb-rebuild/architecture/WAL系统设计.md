@@ -1,6 +1,6 @@
 ---
 title: "WAL系统设计"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/wal_system_design.md）"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/arch/wal_system_design.md）"
 ---
 
 ## 概述

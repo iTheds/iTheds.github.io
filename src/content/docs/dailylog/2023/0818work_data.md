@@ -22,7 +22,7 @@ description: "0818work_data"
 [8.23]
 首先，仍然需要阅读源码，但是对于源码分析，我还并不是有很多的门道。
 我的目的是什么，如何通过阅读抽离出部分的技术要点，然后自己加以改进实现。
-这里涉及到两个点：
+这里涉及到两个点:
 1. 如何读
 2. 如何写
 
@@ -80,7 +80,7 @@ DBSemaphore
 DBCriticalSection
 
 
-DBMutex：
+DBMutex:
 session_desc
 
 ACoreOs_process_stack_usage_get

@@ -1,6 +1,6 @@
 ---
 title: "文档TypeDiagram"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/class_diagram/type_diagram.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/class_diagram/type_diagram.md)"
 ---
 
 ```mermaid

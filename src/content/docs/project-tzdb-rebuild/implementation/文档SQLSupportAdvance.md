@@ -1,6 +1,6 @@
 ---
 title: "文档SQLSupportAdvance"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/sql/sql_support_advance.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/sql/sql_support_advance.md)"
 ---
 
 # sql 支持内容
@@ -48,6 +48,6 @@ c.CommitTransaction();
 
 # 支持情况
 
-数据库具体支持情况：
-支持：COUNT(计数) LIKE GROUPBY(分组)ORDER(排序)
-暂不支持： INTERSERT(交叉) IN AND OR  UNION(合并)
+数据库具体支持情况:
+支持:COUNT(计数) LIKE GROUPBY(分组)ORDER(排序)
+暂不支持: INTERSERT(交叉) IN AND OR  UNION(合并)

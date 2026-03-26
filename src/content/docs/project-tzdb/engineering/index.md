@@ -3,15 +3,18 @@ title: "工程"
 description: "Engineering practices, test methods, and technical reports"
 ---
 
-
-
-- [通信模块与 IO 模型开发日志(2025-05 至 2025-07)](通信模块与IO模型开发日志(2025-05至2025-07).md)
-- [Work日志KeyFindings](Work日志KeyFindings.md)
-- [DistributedOperation测试Detail分析601](DistributedOperation测试Detail分析601.md)
-- [Distributed数据库Performance分析601](Distributed数据库Performance分析601.md)
+- [通信协议重构与生成器设计](通信协议重构与生成器设计.md)
+- [分包协议与读取模型](分包协议与读取模型.md)
+- [IO模型改造与阻塞处理](IO模型改造与阻塞处理.md)
+- [NetPool连接管理与协作关系](NetPool连接管理与协作关系.md)
+- [通信性能测试与数据库联调](通信性能测试与数据库联调.md)
+- [601分布式操作测试细节分析](601分布式操作测试细节分析.md)
+- [601分布式数据库性能分析](601分布式数据库性能分析.md)
 - [网络测试分析601](网络测试分析601.md)
-- [通信集成测试报告601Shenyang](通信集成测试报告601Shenyang.md)
-- [数据库Anomaly报告20250508](数据库Anomaly报告20250508.md)
-- [Kernel存储引擎优化日志](Kernel存储引擎优化日志.md)
-- [AgiloreFile分析](AgiloreFile分析.md)
-- [BusinessTrip测试Retrospective601](BusinessTrip测试Retrospective601.md)
+- [601沈阳通信集成测试报告](601沈阳通信集成测试报告.md)
+- [20250508数据库异常报告](20250508数据库异常报告.md)
+- [内核存储引擎调研](内核存储引擎调研.md)
+- [AgilorE文件分析](AgilorE文件分析.md)
+- [601出差测试复盘](601出差测试复盘.md)
+- [远程访问模块字符串结果集问题排查](远程访问模块字符串结果集问题排查.md)
+- [远程访问模块单句柄并发与线程池设计](远程访问模块单句柄并发与线程池设计.md)

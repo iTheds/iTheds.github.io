@@ -37,7 +37,7 @@ description: "🎉 Raft选举和心跳机制完整集成指南"
 
 ## 🚀 如何使用集成的Raft功能
 
-### 方法1：最简单的使用方式
+### 方法1:最简单的使用方式
 
 ```cpp
 #include "api/data_server.h"
@@ -62,7 +62,7 @@ int main() {
 }
 ```
 
-### 方法2：使用Raft适配器
+### 方法2:使用Raft适配器
 
 ```cpp
 #include "distribution/raft_adapter.hpp"
@@ -89,7 +89,7 @@ int main() {
 }
 ```
 
-### 方法3：直接使用Raft集成节点
+### 方法3:直接使用Raft集成节点
 
 ```cpp
 #include "distribution/raft/raft.hpp"
@@ -307,7 +307,7 @@ docs/
 
 你现在拥有了一个**完整、高质量、生产就绪**的Raft实现！
 
-### 主要优势：
+### 主要优势:
 - **符合标准** - 严格遵循Raft协议
 - **无缝集成** - 对现有代码影响最小
 - **线程安全** - 使用原子操作和互斥锁
@@ -315,7 +315,7 @@ docs/
 - **完整测试** - 全面的功能验证
 - **简单易用** - 只需要设置一个配置选项
 
-### 立即开始使用：
+### 立即开始使用:
 1. 在ServerConfig中设置 `sync_mode = SyncMode::Sync`
 2. 创建DataServer，Raft会自动启用
 3. 使用 `IsRaftLeader()` 等方法查询状态

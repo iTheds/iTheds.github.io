@@ -9,7 +9,7 @@ description: "PostgreSQL Parser 改造总结"
 
 `libpg_query` 已经从依赖 `thread_local`/线程态桥接的方案，收敛到**显式 `parser_state*` + 调用级状态**模型。
 
-当前实现有几个关键点：
+当前实现有几个关键点:
 
 - `pg_parser_init/reset/parse/cleanup` 都显式接收 `parser_state*`
 - `raw_parser(parser_state *state, const char *str)` 直接把 state 送进 parser 主链路
@@ -31,7 +31,7 @@ PostgresParser::Parse(query)
         -> base_yyparse(yyscanner)
 ```
 
-对应代码位置：
+对应代码位置:
 
 - [pg_functions.hpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/inc/libpg_query/include/pg_functions.hpp)
 - [pg_functions.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/pg_functions.cpp)
@@ -44,19 +44,19 @@ PostgresParser::Parse(query)
 
 ### 1. `parser_state` 成为唯一解析状态容器
 
-`parser_state` 当前承载：
+`parser_state` 当前承载:
 
 - 错误码、错误位置、错误消息
 - `preserve_identifier_case`
 - parse 期间的分配器 / arena 元数据
 
-相关实现：
+相关实现:
 
 - [pg_functions.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/pg_functions.cpp#L16)
 
 ### 2. 内存和错误处理全部显式吃 `parser_state*`
 
-以下 helper 已经改成显式状态版本：
+以下 helper 已经改成显式状态版本:
 
 - `palloc`
 - `pstrdup`
@@ -72,7 +72,7 @@ PostgresParser::Parse(query)
 
 ### 3. scanner/grammar 通过 `yyextra` 取上下文
 
-当前不是“外面传 state，里面再从 thread_local 取”，而是：
+当前不是“外面传 state，里面再从 thread_local 取”，而是:
 
 - `raw_parser()` 在进入 parser 前把 `state` 塞进 `yyextra`
 - scanner 和 grammar helper 通过 `yyscanner -> yyextra -> state` 获取本次 parse 的状态
@@ -81,7 +81,7 @@ PostgresParser::Parse(query)
 
 ### 4. `PostgresParser` 自己持有生命周期
 
-`PostgresParser` 的模型现在是：
+`PostgresParser` 的模型现在是:
 
 - 构造时创建 `state_`
 - `Parse()` 前 reset
@@ -97,7 +97,7 @@ PostgresParser::Parse(query)
 
 ## 已移除的旧设计
 
-下面这些旧说法已经不再适用于当前代码：
+下面这些旧说法已经不再适用于当前代码:
 
 - `current_parser_state`
 - `thread_local current_parser_state`
@@ -110,7 +110,7 @@ PostgresParser::Parse(query)
 
 ## 相关收尾清理
 
-这次 parser 改造之后，还做了几项和 TLS 相关的收尾：
+这次 parser 改造之后，还做了几项和 TLS 相关的收尾:
 
 - 删除了 `libpg_query` 里的 `__thread` 兼容宏
   - [pg_definitions.hpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/inc/libpg_query/include/pg_definitions.hpp)
@@ -122,25 +122,25 @@ PostgresParser::Parse(query)
 
 ## Grammar Helper 说明
 
-这次改造里，`grammar` 相关的 helper 逻辑目前仍然以生成文件为实际编译入口：
+这次改造里，`grammar` 相关的 helper 逻辑目前仍然以生成文件为实际编译入口:
 
 - [src_backend_parser_gram.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/src_backend_parser_gram.cpp)
 - [grammar.hpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/inc/libpg_query/grammar/grammar.hpp)
 
-这里要特别注意一条约束：
+这里要特别注意一条约束:
 
 - 不要把仅用于“源码补档”或“生成前草稿”的 `grammar.cpp` 放进 [src/inc/libpg_query/grammar](/Users/xwg/dev/tzdb/tzdb-rebuild/src/inc/libpg_query/grammar) 这类源码目录
 
 原因是当前 `cmake` 构建不会编它，但 TMOS 侧还有独立的 `make` 构建链，后者如果按目录或通配扫描 `*.cpp`，就可能把这种辅助文件误编进去。
 
-所以当前阶段的建议是：
+所以当前阶段的建议是:
 
 - 真实参与构建的 grammar 逻辑仍以 [src_backend_parser_gram.cpp](/Users/xwg/dev/tzdb/tzdb-rebuild/src/binder/libpg_query/src_backend_parser_gram.cpp) 为准
 - 需要保留的“生成前 helper 草稿”只放文档、脚本模板或补丁记录里，不放源码目录
 
 ## 验证方式
 
-推荐的本地验证命令：
+推荐的本地验证命令:
 
 ```bash
 ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
@@ -150,7 +150,7 @@ ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
   --gtest_filter='ParserThreadSafety.*'
 ```
 
-如果要回归相关清理项，还可以额外跑：
+如果要回归相关清理项，还可以额外跑:
 
 ```bash
 /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug/bin/tests/unit_test/unit_test \
@@ -160,7 +160,7 @@ ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
 
 ## 结果
 
-当前可以认为：
+当前可以认为:
 
 - parser 运行时已经不依赖 TLS
 - TMOS 不再需要 parser 专用 mutex fallback
@@ -169,7 +169,7 @@ ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
 
 ## 后续建议
 
-如果未来还要继续整理文档，建议统一按下面的口径描述：
+如果未来还要继续整理文档，建议统一按下面的口径描述:
 
 - parser 是 **context/state-driven**
 - 状态归属是 **parse call / parser instance**

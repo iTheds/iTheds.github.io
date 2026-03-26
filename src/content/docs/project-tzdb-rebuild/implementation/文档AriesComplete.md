@@ -89,7 +89,7 @@ ApplyRedoDataChange(op, params) {
         // 使用 ARIES Physical Redo
         disk_engine->RedoInsertWithLayout(..., params.layout_);
     } else {
-        // 向后兼容：使用旧的 Logical Redo
+        // 向后兼容:使用旧的 Logical Redo
         storage->RedoInsert(...);
     }
 }
@@ -108,10 +108,10 @@ ApplyRedoDataChange(op, params) {
 
 ### 2. Physical Redo 原则 ✅
 ```
-正常执行：
+正常执行:
   执行操作 → 记录物理布局 → 写入 WAL
 
-Redo：
+Redo:
   读取 WAL → 使用记录的物理布局 → Physical Write → 更新 Page LSN
 ```
 
@@ -157,11 +157,11 @@ Redo：
    ↓
 3. ApplyRedoDataChange 检测 layout
    ↓
-4. 如果有 layout：
+4. 如果有 layout:
    - 调用 RedoInsertWithLayout
    - 使用 Physical Redo
    ↓
-5. 如果没有 layout：
+5. 如果没有 layout:
    - 调用 RedoInsert(旧版本)
    - 使用 Logical Redo
 ```
@@ -242,14 +242,14 @@ TZDB_RET RedoOverflowChain(const PhysicalLayout &layout, ...) {
 - ❌ 需要重新分配 Overflow 页面
 - ❌ 需要重新计算物理布局
 - ⚠️ 依赖 Page LSN 检查避免重复执行
-- 📊 Redo 速度：中等
+- 📊 Redo 速度:中等
 
 ### 改造后(Physical Redo)
 - ✅ 不执行 Vacuum
 - ✅ 不重新分配 Overflow 页面
 - ✅ 直接使用记录的物理布局
 - ✅ 严格的幂等性保证
-- 📊 Redo 速度：快(纯字节拷贝)
+- 📊 Redo 速度:快(纯字节拷贝)
 
 ---
 
@@ -409,7 +409,7 @@ Tuple recovered = table_heap->GetTuple(rid);
 
 ## 🎉 总结
 
-我们成功实现了完整的 ARIES Physical Redo 机制：
+我们成功实现了完整的 ARIES Physical Redo 机制:
 
 ✅ **数据结构**: PhysicalLayout 完整定义  
 ✅ **Redo 函数**: INSERT/UPDATE/DELETE 全部实现  

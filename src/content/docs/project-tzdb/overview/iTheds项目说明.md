@@ -1,5 +1,5 @@
 ---
-title: "文档iThedsContribution"
+title: "iTheds项目说明"
 description: "TZDB 项目中 iTheds 的模块职责与核心工作总结"
 ---
 
@@ -11,20 +11,20 @@ description: "TZDB 项目中 iTheds 的模块职责与核心工作总结"
 
 ## 负责模块
 
-- `raserver`：数据库远程访问服务核心模块
-- `tools/RecGH`：实时数据接入/分发/解析/存储模块
-- `tools/tzdb-odbc`、`tools/tzdb-odbc-setup`、`tools/tzdb-odbc-installer`：ODBC 驱动、配置组件与安装程序
+- `raserver`:数据库远程访问服务核心模块
+- `tools/RecGH`:实时数据接入/分发/解析/存储模块
+- `tools/tzdb-odbc`、`tools/tzdb-odbc-setup`、`tools/tzdb-odbc-installer`:ODBC 驱动、配置组件与安装程序
 
 ## 核心工作内容
 
 ### 1. raserver(远程访问服务)
 
-- 参与服务端请求处理链路开发：连接接入、指令解析、SQL 执行、结果封装与回包。
+- 参与服务端请求处理链路开发:连接接入、指令解析、SQL 执行、结果封装与回包。
 - 参与协议对象化设计(`DataInfoFormat` 系列)，支持执行类、元数据类、监控类、导入导出类请求的统一编解码。
 - 参与网络与 I/O 抽象层实现(`NetPool` / `IOMode` / `ProtocolFormat`)，提升连接管理与协议处理可复用性。
 - 参与客户端接口层(`libtzdb`)调用链建设，形成 connect/open/execute/fetch/meta 等标准化访问能力。
 
-编程设计与功能效益：
+编程设计与功能效益:
 
 采用“网络层-协议层-执行层-接口层”分层设计，将远程访问能力标准化为可复用服务组件；通过统一请求处理链和协议对象化封装，提升服务端扩展性与问题定位效率，降低上层应用接入复杂度。
 
@@ -35,7 +35,7 @@ description: "TZDB 项目中 iTheds 的模块职责与核心工作总结"
 - 参与消息结构(`FaiLInfo`)设计与处理流程，实现“接收-分发-解析-存储”一体化链路。
 - 参与数据解析与落库接口对接(含 AIS/NMEA 相关处理链)。
 
-编程设计与功能效益：
+编程设计与功能效益:
 
 采用发布-订阅-消费解耦架构，把接入、路由、处理、存储拆分为可独立演进的模块；在多协议实时链路下提升系统可扩展性和稳定性，能够以更低成本接入新数据源与新消费链路。
 
@@ -46,7 +46,7 @@ description: "TZDB 项目中 iTheds 的模块职责与核心工作总结"
 - 参与诊断体系实现(`SQLGetDiagRec/SQLGetDiagField` 及 W 版本扩展)，完善错误可观测性与兼容性。
 - 参与 `tzdb-odbc-setup` 与 `tzdb-odbc-installer` 组件开发，完善驱动配置、安装与交付流程。
 
-编程设计与功能效益：
+编程设计与功能效益:
 
 基于 ODBC 标准接口实现数据库适配层，并补齐分布式连接、诊断接口和安装交付链路；提升驱动兼容性与可运维性，缩短第三方工具和业务系统接入 TZDB 的路径。
 

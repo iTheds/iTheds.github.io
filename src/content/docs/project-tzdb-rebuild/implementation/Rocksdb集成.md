@@ -1,6 +1,6 @@
 ---
 title: "Rocksdb集成"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/storage/ROCKSDB_INTEGRATION.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/storage/ROCKSDB_INTEGRATION.md)"
 ---
 
 # RocksDB Integration (Optional Engine)

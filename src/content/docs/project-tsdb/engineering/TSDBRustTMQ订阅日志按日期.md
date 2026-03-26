@@ -5,7 +5,7 @@ description: "topic/consumer/subscribe/consume 与 TMQ 流程的日期日志(保
 
 # TSDB Rust TMQ Subscription Log By Date
 
-> 说明：从 `tsdb_rust_technical_log_by_date_full.md` 按技术线拆分，按日期保留原始记录。
+> 说明:从 `tsdb_rust_technical_log_by_date_full.md` 按技术线拆分，按日期保留原始记录。
 
 ## [11.10] <a id="date-11-10"></a>
 

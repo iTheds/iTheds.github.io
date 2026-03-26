@@ -47,7 +47,7 @@ struct PhysicalLayout {
 struct PhysicalParams {
     // ... 原有字段 ...
     PhysicalLayout layout_;           // 物理布局信息
-    PhysicalLayout old_layout_;       // update 使用：旧数据的物理布局
+    PhysicalLayout old_layout_;       // update 使用:旧数据的物理布局
 };
 ```
 
@@ -71,10 +71,10 @@ struct PhysicalParams {
 
 ### 2. Physical Redo 原则
 ```
-正常执行时：
+正常执行时:
   决策(vacuum, 分配 overflow)→ 写入 → 记录物理信息到 WAL
 
-Redo 时：
+Redo 时:
   读取 WAL 中的物理信息 → 直接在指定位置写入 → 更新 Page LSN
 ```
 
@@ -151,7 +151,7 @@ RedoInsertWithLayout(rid, tuple, layout) {
 
 ### Step 11: 修改正常执行路径填充 PhysicalLayout
 
-目前 WAL 日志中的 `PhysicalLayout` 字段是空的，需要在正常执行时填充：
+目前 WAL 日志中的 `PhysicalLayout` 字段是空的，需要在正常执行时填充:
 
 #### 需要修改的地方
 1. **DiskEngine::Insert** - 记录插入时的物理布局
@@ -246,7 +246,7 @@ Rid DiskEngine::Insert(schema, tuple, meta, txn) {
 
 ## 🎯 总结
 
-我们成功实现了 ARIES Physical Redo 的核心功能：
+我们成功实现了 ARIES Physical Redo 的核心功能:
 
 ✅ **完成的部分**:
 - WAL 数据结构扩展

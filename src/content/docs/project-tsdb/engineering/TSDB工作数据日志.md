@@ -7,7 +7,7 @@ description: "TSDB 工作数据与日志记录"
 
 ## 流相关
 
-测试建立一张新表：
+测试建立一张新表:
 ```SQL
 DROP DATABASE IF EXISTS power;
 CREATE DATABASE power;
@@ -21,7 +21,7 @@ CREATE TABLE d1003 USING meters TAGS ("California.LosAngeles", 2);
 CREATE TABLE d1004 USING meters TAGS ("California.LosAngeles", 3);
 ```
 
-创建流：
+创建流:
 ```SQL
 create stream current_stream into current_stream_output_stb as 
 select _wstart as start, _wend as wend, max(current) as max_current 
@@ -45,7 +45,7 @@ insert into d1004 values("2018-10-03 14:38:05.000", 10.80000, 223, 0.29000);
 insert into d1004 values("2018-10-03 14:38:06.500", 11.50000, 221, 0.35000);
 ```
 
-查询流：
+查询流:
 ```SQL
 select ts, meter_location, active_power, reactive_power from power_stream_output_stb;
 ```

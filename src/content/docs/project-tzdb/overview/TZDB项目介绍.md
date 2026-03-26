@@ -7,7 +7,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 
 `TZDB` 是一套“数据库内核 + SQL 引擎 + 远程访问 + 集群高可用 + 标准驱动 + 运维工具”的完整工程。
 
-项目核心目标：
+项目核心目标:
 
 - 提供嵌入式数据库能力(高性能、可裁剪、支持多索引与事务)
 - 提供服务化访问能力(网络协议、客户端 SDK、ODBC)
@@ -34,9 +34,9 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 
 ### 存储层(storage)
 
-核心文件：`Database.cpp`、`DatabaseCore.cpp`、`DatabaseHeader.cpp`、`DatabaseMemoryAllocator.cpp`、`DatabaseTxnScheduler.cpp`
+核心文件:`Database.cpp`、`DatabaseCore.cpp`、`DatabaseHeader.cpp`、`DatabaseMemoryAllocator.cpp`、`DatabaseTxnScheduler.cpp`
 
-关键策略：
+关键策略:
 
 - **内存数据库为主，磁盘引擎可插拔**
   通过 `Storage.h` 宏封装存储接口。默认无磁盘引擎时使用空实现；开启 `TZDB_NDISKBASE` 时接入外部 ndb 存储。
@@ -52,33 +52,33 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 
 ### 元数据与目录层(catalog)
 
-核心文件：`DBMetaClass.cpp`、`DBFieldDescriptor.cpp`、`DBTableDescriptor.cpp`
+核心文件:`DBMetaClass.cpp`、`DBFieldDescriptor.cpp`、`DBTableDescriptor.cpp`
 
-关键策略：
+关键策略:
 
-- **表/字段/索引元信息对象化**：通过描述符统一表达结构定义。
-- **运行时与持久化结构解耦**：元信息对象用于查询、执行、事务与协议层协作。
-- **支持多索引描述**：表级记录支持多字段索引元信息(含类型与字段列表)。
+- **表/字段/索引元信息对象化**:通过描述符统一表达结构定义。
+- **运行时与持久化结构解耦**:元信息对象用于查询、执行、事务与协议层协作。
+- **支持多索引描述**:表级记录支持多字段索引元信息(含类型与字段列表)。
 
 ### 记录与表组织
 
-核心结构：`DBRecord`、`DBTable`
+核心结构:`DBRecord`、`DBTable`
 
-关键策略：
+关键策略:
 
-- **记录级双向链结构**：`next_/prev_` 用于表内顺序遍历，支撑全表扫描路径。
-- **表对象保存统计与边界信息**：包含记录数、列数、首尾记录、固定区大小、索引信息等。
-- **内存表/持久表标识**：表级可区分内存态与持久态。
+- **记录级双向链结构**:`next_/prev_` 用于表内顺序遍历，支撑全表扫描路径。
+- **表对象保存统计与边界信息**:包含记录数、列数、首尾记录、固定区大小、索引信息等。
+- **内存表/持久表标识**:表级可区分内存态与持久态。
 
 ### 索引层(index)
 
-核心文件：`DBBTree.cpp`、`DBTTree.cpp`、`DBRTree.cpp`、`DBKDTree.cpp`、`DBHashtab.cpp`、`DBBitmap.cpp`、`DBQueue.cpp`
+核心文件:`DBBTree.cpp`、`DBTTree.cpp`、`DBRTree.cpp`、`DBKDTree.cpp`、`DBHashtab.cpp`、`DBBitmap.cpp`、`DBQueue.cpp`
 
-关键策略：
+关键策略:
 
-- **多索引并存**：BTree/TTree/RTree/KDTree/Hash/Bitmap/Queue 覆盖不同访问模式。
-- **按 SQL 条件选择可用索引**：执行阶段结合查询条件决定索引路径。
-- **索引变更纳入事务日志**：索引创建与更新可通过日志机制同步。
+- **多索引并存**:BTree/TTree/RTree/KDTree/Hash/Bitmap/Queue 覆盖不同访问模式。
+- **按 SQL 条件选择可用索引**:执行阶段结合查询条件决定索引路径。
+- **索引变更纳入事务日志**:索引创建与更新可通过日志机制同步。
 
 ### 查询层(query)
 

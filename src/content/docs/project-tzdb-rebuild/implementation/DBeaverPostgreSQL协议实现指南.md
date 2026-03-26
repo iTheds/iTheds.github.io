@@ -1,13 +1,13 @@
 ---
 title: "DBeaverPostgreSQL协议实现指南"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/pgserver/dbeaver_postgresql_protocol_implementation_guide.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/pgserver/dbeaver_postgresql_protocol_implementation_guide.md)"
 ---
 
 # TZDB DBeaver PostgreSQL 协议实现指南
 
 ## 实现现状
 
-本指南最初用于指导 `pgserver` 从零实现。当前仓库内对应功能已经有可运行版本，因此阅读本文件时应区分：
+本指南最初用于指导 `pgserver` 从零实现。当前仓库内对应功能已经有可运行版本，因此阅读本文件时应区分:
 
 - 已实现并验证的能力
 - 仍作为后续兼容工作的规划项
@@ -16,7 +16,7 @@ description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/pgser
 
 - `pg_server` 可启动 PostgreSQL 协议监听
 - `psql` 可使用明文模式完成连接与基本 CRUD
-- 最小扩展协议链路已打通：`Parse`、`Bind`、`Execute`、`Describe`、`Flush`、`Sync`
+- 最小扩展协议链路已打通:`Parse`、`Bind`、`Execute`、`Describe`、`Flush`、`Sync`
 - 协议回归测试和 `psql` smoke test 已纳入 `tests/pg_server_test`
 
 ### 当前建议
@@ -40,7 +40,7 @@ PostgreSQL 协议兼容层，将 PostgreSQL 线协议消息转换为 TZDB 引擎
 
 ## 架构
 
-实现遵循分析报告中概述的架构：
+实现遵循分析报告中概述的架构:
 
 ```
 DBeaver 客户端(PostgreSQL JDBC 驱动)
@@ -55,15 +55,15 @@ TZDB 存储引擎(现有)
 
 ### 关键组件
 
-1. **网络服务器**：监听端口 5432 的 TCP/IP 服务器
-2. **协议解析器**：处理 PostgreSQL 消息解析和序列化
-3. **消息处理器**：将协议消息转换为 TZDB 操作
-4. **查询适配器**：与 TZDB 的 SQL 执行引擎对接
-5. **会话管理器**：管理客户端连接和状态
+1. **网络服务器**:监听端口 5432 的 TCP/IP 服务器
+2. **协议解析器**:处理 PostgreSQL 消息解析和序列化
+3. **消息处理器**:将协议消息转换为 TZDB 操作
+4. **查询适配器**:与 TZDB 的 SQL 执行引擎对接
+5. **会话管理器**:管理客户端连接和状态
 
 ## 实现阶段
 
-### 第一阶段：核心协议基础(第1周)
+### 第一阶段:核心协议基础(第1周)
 
 #### 1.1 网络服务器设置
 
@@ -88,7 +88,7 @@ TZDB 存储引擎(现有)
 - 实现 `ErrorResponse` 消息
 - 添加从 TZDB 到 PostgreSQL 错误代码的映射
 
-### 第二阶段：查询处理(第1-2周)
+### 第二阶段:查询处理(第1-2周)
 
 #### 2.1 结果集处理
 
@@ -108,7 +108,7 @@ TZDB 存储引擎(现有)
 - 实现事务状态跟踪
 - 发送适当的状态消息
 
-### 第三阶段：高级功能(第2周)
+### 第三阶段:高级功能(第2周)
 
 #### 3.1 元数据查询
 
@@ -129,9 +129,9 @@ TZDB 存储引擎(现有)
 
 ## 详细实现步骤
 
-### 步骤1：项目设置
+### 步骤1:项目设置
 
-在 `src/` 下创建新的目录结构：
+在 `src/` 下创建新的目录结构:
 
 ```
 src/
@@ -150,7 +150,7 @@ src/
 │       └── result_formatter.cpp
 ```
 
-### 步骤2：网络服务器实现
+### 步骤2:网络服务器实现
 
 ```cpp
 // server.cpp - 基本 TCP 服务器
@@ -169,7 +169,7 @@ public:
 };
 ```
 
-### 步骤3：消息解析
+### 步骤3:消息解析
 
 ```cpp
 // message_parser.cpp
@@ -189,7 +189,7 @@ public:
 };
 ```
 
-### 步骤4：查询适配器集成
+### 步骤4:查询适配器集成
 
 ```cpp
 // query_adapter.cpp
@@ -208,7 +208,7 @@ public:
 };
 ```
 
-### 步骤5：会话管理
+### 步骤5:会话管理
 
 ```cpp
 // session.cpp
@@ -247,7 +247,7 @@ public:
 
 ## 协议状态机设计
 
-PostgreSQL 协议遵循严格的状态转移。实现必须维护每个连接的状态：
+PostgreSQL 协议遵循严格的状态转移。实现必须维护每个连接的状态:
 
 ```
 [初始化]
@@ -335,8 +335,8 @@ struct StateTransition {
 struct StartupMessage {
     uint32_t protocol_version;  // 3.0 = 0x00030000
     std::map<std::string, std::string> parameters;
-    // 必需参数：user, database
-    // 可选参数：application_name, client_encoding, DateStyle 等
+    // 必需参数:user, database
+    // 可选参数:application_name, client_encoding, DateStyle 等
 };
 
 void handle_startup_message(const StartupMessage& msg) {
@@ -490,7 +490,7 @@ void handle_flush() {
 }
 
 void handle_sync() {
-    // 同步点：用于错误恢复
+    // 同步点:用于错误恢复
     // 1. 丢弃所有未完成的操作
     discard_pending_operations();
     
@@ -507,7 +507,7 @@ void handle_sync() {
 
 ## 数据类型映射
 
-PostgreSQL 和 TZDB 的数据类型需要完整映射。关键类型映射表：
+PostgreSQL 和 TZDB 的数据类型需要完整映射。关键类型映射表:
 
 ```cpp
 // PostgreSQL OID 定义(部分)
@@ -1454,7 +1454,7 @@ TEST(CompatibilityTest, psql_Commands) {
 
 ### 构建集成
 
-添加到主 CMakeLists.txt：
+添加到主 CMakeLists.txt:
 
 ```cmake
 # 添加 pgserver 库
@@ -1513,7 +1513,7 @@ performance:
 
 ### 错误响应格式
 
-PostgreSQL 错误响应包含以下字段：
+PostgreSQL 错误响应包含以下字段:
 
 ```cpp
 // 错误字段类型
@@ -1548,9 +1548,9 @@ LOG_ERROR("Query failed: sql=%s, error=%s, sqlstate=%s",
 
 ### PostgreSQL 版本兼容性
 
-- **目标版本**：PostgreSQL 12+
-- **协议版本**：3.0(自 PostgreSQL 7.4 起)
-- **支持的功能**：
+- **目标版本**:PostgreSQL 12+
+- **协议版本**:3.0(自 PostgreSQL 7.4 起)
+- **支持的功能**:
   - 简单查询(Query)
   - 扩展查询(Parse/Bind/Execute)
   - 预处理语句
@@ -1559,8 +1559,8 @@ LOG_ERROR("Query failed: sql=%s, error=%s, sqlstate=%s",
 
 ### DBeaver 特定功能
 
-- **支持的 DBeaver 版本**：21.0+
-- **必需功能**：
+- **支持的 DBeaver 版本**:21.0+
+- **必需功能**:
   - 元数据查询(pg_catalog)
   - 连接参数协商
   - 错误恢复(Sync 消息)
@@ -1580,16 +1580,16 @@ ConnectionPool pool(
 ### 查询缓存策略
 
 ```cpp
-// 预处理语句缓存：每个连接 100 个
-// 元数据缓存：5 分钟过期
-// 结果集缓存：仅用于小结果集(< 1MB)
+// 预处理语句缓存:每个连接 100 个
+// 元数据缓存:5 分钟过期
+// 结果集缓存:仅用于小结果集(< 1MB)
 ```
 
 ### 异步处理
 
 - 使用 ASIO 库实现异步 I/O
-- 线程池大小：CPU 核数 × 2-4
-- 缓冲区大小：64KB
+- 线程池大小:CPU 核数 × 2-4
+- 缓冲区大小:64KB
 
 ## 安全考虑
 
@@ -1611,9 +1611,9 @@ ConnectionPool pool(
 
 ```cpp
 // 权限检查
-- 表级权限：SELECT, INSERT, UPDATE, DELETE
-- 列级权限：可选
-- 行级权限：可选
+- 表级权限:SELECT, INSERT, UPDATE, DELETE
+- 列级权限:可选
+- 行级权限:可选
 
 // 审计日志
 - 记录所有 DDL 操作
@@ -1661,7 +1661,7 @@ ConnectionPool pool(
 
 ## 实现总结
 
-本指南提供了完整的 PostgreSQL 协议适配实现方案，包括：
+本指南提供了完整的 PostgreSQL 协议适配实现方案，包括:
 
 ### 核心组件
 ✅ 协议状态机(7 个状态)

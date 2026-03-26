@@ -17,33 +17,33 @@ eXtremeWrap文件中是所有的测试用例，用于测试上层进行调用的
 
 ### 文件分析
 
-主要文件：
+主要文件:
 
 AeCI.h : 
-    AeCIResultCode：错误码， rc开头。
-    AeCIVarType：数据类型描述，加上_t为该数据结构。
+    AeCIResultCode:错误码， rc开头。
+    AeCIVarType:数据类型描述，加上_t为该数据结构。
     aeci_()接口函数。
-    AeCIFieldFlags： 索引类型选择。
-    aeci_struct_descriptor：被`数据表`数据结构使用。
-    aeci_index_descriptor： 索引结构。
-    aeci_field_descriptor： `数据表`数据结构。
+    AeCIFieldFlags: 索引类型选择。
+    aeci_struct_descriptor:被`数据表`数据结构使用。
+    aeci_index_descriptor: 索引结构。
+    aeci_field_descriptor: `数据表`数据结构。
     aeci_field_layout: 
     aeci_table_descriptor:
-    AeCIErrorClass：错误处理，错误码，ec开头。
-    aeci_database_monitor：数据监视结构指针。调用方法通过结构指针返回如下值：
+    AeCIErrorClass:错误处理，错误码，ec开头。
+    aeci_database_monitor:数据监视结构指针。调用方法通过结构指针返回如下值:
         n_readers: 共享锁数量
         n_writers: 互斥锁数量
         n_blocked_reader: 等待共享锁的线程数n_blocked_writers: 等待互斥锁的线程数
         n_users: 使用数据库的进程数database_size: 数据库大小
     
 AeCILocal.h : 
-    *session_desc：
-    *statement_desc：
-    *sql_scanner：
-    fixed_size_object_allocator：被descriptor_table所继承。
-    descriptor_table：
-    DBList：数据库链表。含有dbDatabase数据库类。
-    dbAeCI：主要操作类。在功能上形成特有的作用域。
+    *session_desc:
+    *statement_desc:
+    *sql_scanner:
+    fixed_size_object_allocator:被descriptor_table所继承。
+    descriptor_table:
+    DBList:数据库链表。含有dbDatabase数据库类。
+    dbAeCI:主要操作类。在功能上形成特有的作用域。
 AeCILocal.cpp : 
 
 AgilorE.h :
@@ -52,7 +52,7 @@ AgilorE.h :
 
 AeCIProto.h : 
     协议头文件，`定义了`关于包的函数。以及指令等。
-    AeCICommands：基本命令，执行SQL查询操作。aeci_cmd_开头。
+    AeCICommands:基本命令，执行SQL查询操作。aeci_cmd_开头。
     fd2aeci_type_mapping: 定义了一些数据类型的int数组。
 
 BaseFile.h : 
@@ -62,8 +62,8 @@ Database.h :
     *dbMonitor:
     dbL2List:双线链表。简易。
     dbVisitedObject: 已访问对象。
-    dbDatabase：数据库类，包含基本对于数据库的操作等。内涵OpenParameters等数据结构。在功能上形成特有的作用域。
-    dbSearchContext：搜索上下文。
+    dbDatabase:数据库类，包含基本对于数据库的操作等。内涵OpenParameters等数据结构。在功能上形成特有的作用域。
+    dbSearchContext:搜索上下文。
 
 DatatypeExtend.h:
     扩展的数据类型。
@@ -98,7 +98,7 @@ dbMutex : 利用 windows 系统临界区封装的数据库互斥锁.
 
 ### BaseSync.h
 
-该文件中由以下的结构体：
+该文件中由以下的结构体:
 
 dbSystem : 实际上是 GetTickCount() 获取系统经过的 毫秒数.
 
@@ -112,7 +112,7 @@ $(SolutionDir)inc\include\tzdbcom;$(SolutionDir)inc\include;inc;%(AdditionalIncl
 
 ### w32sock
 
-结构体 ：
+结构体 :
 
 socket_t(BaseSOcket.h)
 local_win_socket(W32Sock.h)
@@ -155,7 +155,7 @@ DBQuery.h :
 > #sql语句执行文件end
 ---
 
-UserAuthorization.cpp：
+UserAuthorization.cpp:
     用户权限管理，其中用户名存在xml文件中。
 
 wwwapi.cpp:
@@ -179,12 +179,12 @@ oid 存的其实是一个地址偏移量和掩码所做运算的值。
 
 ## 接口函数分析
 
-dbAeCI：一个namespace。
+dbAeCI:一个namespace。
 
-创建数据库：/*men缓存区，128 total size，一般的，缓存区men的大小是包含数据库大小和xml文件等的大小的*/
+创建数据库:/*men缓存区，128 total size，一般的，缓存区men的大小是包含数据库大小和xml文件等的大小的*/
 
     rc = mco_db_open(dbname, treedb_get_dictionary(), mem, 128, (uint2)0);//依托于db name(const char * dbname = "SimpleDb";)
-连接数据库：关联已经创建的数据库dbname和db。
+连接数据库:关联已经创建的数据库dbname和db。
 
     rc = mco_db_connect(dbname, &db);//db连接到dbname。??所以整个系统是根据关键词来进行分配数据库的吗
 
@@ -206,13 +206,13 @@ dbAeCI：一个namespace。
 
 	CurrentWarnDB_delete(&rec);
 	CurrentWarnDB_from_cursor() 
-数据删除所有：
+数据删除所有:
 
 	classname_delete_all(t);
 获取字段到参数warningCode
 
 	CurrentWarnDB_warningcode_put(&rec, warningCode);
-Record_index1_pattern_search：
+Record_index1_pattern_search:
 
 	Record_index1_search(t, &csr, MCO_GT, 0, 5, 4.1, "Record H", 64);//
 ```C+_+
@@ -265,9 +265,9 @@ MCO_RET Record_index2_search(
 删除的时候疑似未有删除内容。
 
 首先，如果内存是一样的，先执行不同变量的插入操作，再执行后续。
-验证：
+验证:
 Updata_test();
-与：
+与:
 insert_test();
 Updata_test();
 结果，insert之后的更新是有数据的。同理执行删除操作亦是如此。
@@ -309,8 +309,8 @@ tree 表示的是 B 树索引。KDtree 表示生成 KD 树索引。
 主要是两个句柄。会话句柄和语句句柄。
 会话句柄可以封装成连接句柄。
 
-MCO_RET： 状态标志符。
-MCO_RET_E_：一个枚举表，存储各种状态。
+MCO_RET: 状态标志符。
+MCO_RET_E_:一个枚举表，存储各种状态。
 MCO_S_OK: 何时改变，改变多少。
 
 ```C++

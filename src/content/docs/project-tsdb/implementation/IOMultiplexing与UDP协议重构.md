@@ -7,13 +7,13 @@ description: "select 适配、连接复用与 UDP 分包重传改造"
 
 ## IO 模型路线
 
-目标是实现连接复用与多路处理，记录中明确了 select 的平台支持范围：
+目标是实现连接复用与多路处理，记录中明确了 select 的平台支持范围:
 
 - WIN32: select 支持，epoll 不支持
 - LINUX_x86: select/epoll 均支持
 - ACORE_OS: select 支持，epoll 不支持
 
-结论：优先基于 select 打通跨平台路径。
+结论:优先基于 select 打通跨平台路径。
 
 ## 节点通信改造点
 
@@ -23,12 +23,12 @@ description: "select 适配、连接复用与 UDP 分包重传改造"
 
 ## UDP 改造问题与结论
 
-问题：
+问题:
 
 - 固定读取长度导致大包帧尾丢失
 - qbuffer 长度不足导致大包发送失败
 
-改造方向：
+改造方向:
 
 1. UDP 分包
 2. CONNECT 调试增强(`get_error`)

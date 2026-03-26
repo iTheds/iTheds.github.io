@@ -13,7 +13,7 @@ description: "天脉操作系统 (Tianmai OS) 适配指南"
 
 ### 启用天脉操作系统适配
 
-通过宏 `TM_ENABLE` 控制是否启用天脉操作系统适配：
+通过宏 `TM_ENABLE` 控制是否启用天脉操作系统适配:
 
 ```cpp
 // inc/common/lang/std_compact_config.h
@@ -24,7 +24,7 @@ description: "天脉操作系统 (Tianmai OS) 适配指南"
 #endif
 ```
 
-**使用方式：**
+**使用方式:**
 - 编译时定义 `TM_ENABLE=1` 或不定义(默认启用)
 - 编译时定义 `TM_ENABLE=0` 禁用天脉适配
 
@@ -36,13 +36,13 @@ description: "天脉操作系统 (Tianmai OS) 适配指南"
 
 #### 1.1 `std::unordered_map` 适配
 
-**问题：** 天脉操作系统不支持 `std::unordered_map`
+**问题:** 天脉操作系统不支持 `std::unordered_map`
 
-**解决方案：** 使用 `robin_hood::unordered_map` 作为替代实现
+**解决方案:** 使用 `robin_hood::unordered_map` 作为替代实现
 
-**适配文件：** `inc/common/lang/unordered_map.h`
+**适配文件:** `inc/common/lang/unordered_map.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "common/lang/unordered_map.h"
 
@@ -50,7 +50,7 @@ description: "天脉操作系统 (Tianmai OS) 适配指南"
 std_compat::unordered_map<int, std::string> my_map;
 ```
 
-**实现细节：**
+**实现细节:**
 ```cpp
 #if TM_OS
   // Use robin_hood hash map for Tianmai OS
@@ -73,20 +73,20 @@ std_compat::unordered_map<int, std::string> my_map;
 #endif
 ```
 
-**注意事项：**
+**注意事项:**
 - 所有代码应使用 `std_compat::unordered_map` 而非 `std::unordered_map`
 - `robin_hood::unordered_map` 是一个高性能的轻量级哈希表实现
 - API 与 `std::unordered_map` 基本兼容
 
 #### 1.2 `std::unordered_set` 适配
 
-**问题：** 天脉操作系统不支持 `std::unordered_set`
+**问题:** 天脉操作系统不支持 `std::unordered_set`
 
-**当前状态：** 
+**当前状态:** 
 - 部分代码仍直接使用 `std::unordered_set`(如 `storage/disk/utils/mempool.h`)
 - 建议创建类似 `unordered_map` 的适配层
 
-**建议方案：**
+**建议方案:**
 ```cpp
 // 创建 inc/common/lang/unordered_set.h
 #if TM_OS
@@ -114,13 +114,13 @@ std_compat::unordered_map<int, std::string> my_map;
 
 #### 2.1 `std::thread` 适配
 
-**问题：** 天脉操作系统不支持 `std::thread`，使用 POSIX 线程 API
+**问题:** 天脉操作系统不支持 `std::thread`，使用 POSIX 线程 API
 
-**解决方案：** 使用 `std_compat::thread` 封装天脉操作系统的任务 API
+**解决方案:** 使用 `std_compat::thread` 封装天脉操作系统的任务 API
 
-**适配文件：** `inc/common/lang/thread.hpp`
+**适配文件:** `inc/common/lang/thread.hpp`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "common/lang/thread.hpp"
 
@@ -139,7 +139,7 @@ std_compat::thread_id tid = std_compat::this_thread::get_id();
 std_compat::thread::id tid2 = t.get_id();  // Same as thread_id
 ```
 
-**实现细节：**
+**实现细节:**
 ```cpp
 namespace std_compat {
 
@@ -195,26 +195,26 @@ namespace this_thread {
 }  // namespace std_compat
 ```
 
-**配置参数：**
-- 默认栈大小：1MB (`dbThreadStackSize = 1024*1024`)
-- 默认优先级：11 (`DEFAULT_TASK_PRIORITY`)
-- 任务属性：`ACOREOS_PREEMPT | ACOREOS_TIMESLICE`
+**配置参数:**
+- 默认栈大小:1MB (`dbThreadStackSize = 1024*1024`)
+- 默认优先级:11 (`DEFAULT_TASK_PRIORITY`)
+- 任务属性:`ACOREOS_PREEMPT | ACOREOS_TIMESLICE`
 
-**注意事项：**
-- ✅ **线程 ID 类型已统一**：使用 `std_compat::thread_id` 在两个平台保持一致
+**注意事项:**
+- ✅ **线程 ID 类型已统一**:使用 `std_compat::thread_id` 在两个平台保持一致
 - 线程创建时必须提供名称(用于调试)
 - 天脉操作系统的 `join()` 和 `detach()` 当前为空实现(需要根据实际需求完善)
-- 底层类型：天脉为 `Task_ID`，标准为 `std::thread::id`，但通过类型别名统一
+- 底层类型:天脉为 `Task_ID`，标准为 `std::thread::id`，但通过类型别名统一
 
 #### 2.2 `std::mutex` 适配
 
-**问题：** 天脉操作系统的互斥锁实现与标准库不同
+**问题:** 天脉操作系统的互斥锁实现与标准库不同
 
-**解决方案：** 使用 `TZMutex` 封装平台相关的互斥锁实现
+**解决方案:** 使用 `TZMutex` 封装平台相关的互斥锁实现
 
-**适配文件：** `inc/os/sync/tz_mutex.h`
+**适配文件:** `inc/os/sync/tz_mutex.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "os/sync/tz_mutex.h"
 
@@ -239,24 +239,24 @@ mutex.unlock();
 }
 ```
 
-**实现细节：**
+**实现细节:**
 - `TZMutex` 内部使用 Pimpl 模式隐藏平台相关实现
 - 提供 `lock()` 和 `unlock()` 方法兼容标准库接口
 - 自定义实现 `lock_guard` 和 `unique_lock` 模板类
 
-**注意事项：**
+**注意事项:**
 - 不要直接使用 `std::mutex`、`std::lock_guard`、`std::unique_lock`
 - 使用 `tzdb::TZMutex`、`tzdb::lock_guard`、`tzdb::unique_lock`
 
 #### 2.3 `std::shared_lock` 适配
 
-**问题：** 读写锁的共享锁定支持
+**问题:** 读写锁的共享锁定支持
 
-**解决方案：** 提供 `tzdb::shared_lock` 模板类
+**解决方案:** 提供 `tzdb::shared_lock` 模板类
 
-**适配文件：** `inc/os/sync/tz_mutex.h`
+**适配文件:** `inc/os/sync/tz_mutex.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "os/sync/tz_mutex.h"
 
@@ -265,7 +265,7 @@ tzdb::shared_lock<MutexType> lock(rw_mutex);
 // Shared read access
 ```
 
-**实现细节：**
+**实现细节:**
 ```cpp
 template <class MutexType>
 class shared_lock {
@@ -289,13 +289,13 @@ public:
 
 #### 2.4 `std::condition_variable` 适配
 
-**问题：** 天脉操作系统不支持标准条件变量
+**问题:** 天脉操作系统不支持标准条件变量
 
-**解决方案：** 使用信号量实现条件变量
+**解决方案:** 使用信号量实现条件变量
 
-**适配文件：** `inc/os/sync/tz_condition_variable.h`
+**适配文件:** `inc/os/sync/tz_condition_variable.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "os/sync/tz_condition_variable.h"
 
@@ -328,13 +328,13 @@ cv.notify_one();   // Wake one thread
 cv.notify_all();   // Wake all threads
 ```
 
-**实现细节：**
+**实现细节:**
 - 基于 `TZSemaphore` 实现
 - 使用 `std::atomic<int>` 记录等待线程数
 - 支持相对时间和绝对时间等待
 - 支持谓词等待
 
-**注意事项：**
+**注意事项:**
 - 条件变量必须与 `tzdb::unique_lock` 配合使用
 - `wait_for` 和 `wait_until` 仍然使用 `std::chrono`(见下文)
 
@@ -344,15 +344,15 @@ cv.notify_all();   // Wake all threads
 
 #### 3.1 `std::chrono` 适配
 
-**问题：** 天脉操作系统部分支持 `std::chrono`，但在某些场景需要使用系统 API
+**问题:** 天脉操作系统部分支持 `std::chrono`，但在某些场景需要使用系统 API
 
-**当前状态：** 
+**当前状态:** 
 - `std::chrono` 在条件变量中正常使用(`tz_condition_variable.h`)
 - 在某些延时场景使用天脉系统 API
 
-**适配示例：**
+**适配示例:**
 
-**场景 1：条件变量超时(使用 `std::chrono`)**
+**场景 1:条件变量超时(使用 `std::chrono`)**
 ```cpp
 // inc/os/sync/tz_condition_variable.h
 auto current_time = std::chrono::system_clock::now();
@@ -360,7 +360,7 @@ auto secs = std::chrono::time_point_cast<std::chrono::seconds>(current_time);
 auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 ```
 
-**场景 2：线程休眠(使用天脉 API)**
+**场景 2:线程休眠(使用天脉 API)**
 ```cpp
 // os/communicate/tcp_connect.cpp
 #if TM_OS
@@ -373,7 +373,7 @@ auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 #endif
 ```
 
-**场景 3：Raft 选举超时(使用天脉 API)**
+**场景 3:Raft 选举超时(使用天脉 API)**
 ```cpp
 // inc/distribution/raft/raft_election.hpp
 #if TM_OS
@@ -386,10 +386,10 @@ auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 #endif
 ```
 
-**注意事项：**
+**注意事项:**
 - `std::chrono` 的时间点和时长类型可以使用
 - 线程休眠需要使用天脉系统 API
-- 时间单位转换：天脉 API 通常使用纳秒
+- 时间单位转换:天脉 API 通常使用纳秒
 
 ---
 
@@ -397,13 +397,13 @@ auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 
 #### 4.1 `std::atomic` 适配
 
-**问题：** 需要确认天脉操作系统对原子操作的支持
+**问题:** 需要确认天脉操作系统对原子操作的支持
 
-**当前状态：** 直接使用 `std::atomic`
+**当前状态:** 直接使用 `std::atomic`
 
-**适配文件：** `inc/common/lang/atomic.h`
+**适配文件:** `inc/common/lang/atomic.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #include "common/lang/atomic.h"
 
@@ -411,14 +411,14 @@ atomic<int> counter{0};
 counter.fetch_add(1, std::memory_order_relaxed);
 ```
 
-**实现细节：**
+**实现细节:**
 ```cpp
 // inc/common/lang/atomic.h
 #include <atomic>
 using std::atomic;
 ```
 
-**注意事项：**
+**注意事项:**
 - 当前假设天脉操作系统支持 `std::atomic`
 - 如果不支持，需要使用平台相关的原子操作 API
 
@@ -428,13 +428,13 @@ using std::atomic;
 
 #### 5.1 `std::max_align_t` 适配
 
-**问题：** 天脉操作系统可能不提供 `std::max_align_t`
+**问题:** 天脉操作系统可能不提供 `std::max_align_t`
 
-**解决方案：** 提供自定义实现
+**解决方案:** 提供自定义实现
 
-**适配文件：** `inc/common/lang/max_align_t.h`
+**适配文件:** `inc/common/lang/max_align_t.h`
 
-**使用方式：**
+**使用方式:**
 ```cpp
 #if TM_OS
   #include "common/lang/max_align_t.h"
@@ -445,11 +445,11 @@ using std::atomic;
 
 #### 5.2 信号量适配
 
-**问题：** 天脉操作系统的信号量 API 不同
+**问题:** 天脉操作系统的信号量 API 不同
 
-**解决方案：** 使用天脉系统的信号量头文件
+**解决方案:** 使用天脉系统的信号量头文件
 
-**适配示例：**
+**适配示例:**
 ```cpp
 // inc/third_party/concurrentqueue/lightweightsemaphore.h
 #if TM_OS
@@ -491,18 +491,18 @@ using std::atomic;
 
 ### 6.1 文件操作适配
 
-**适配文件：**
+**适配文件:**
 - `os/file/acoreos3/file_handle.cpp`
 - `os/file/acoreos3/local_file_system.cpp`
 
-**编译条件：**
+**编译条件:**
 ```cpp
 #if defined(ACOREOS_CPP) || TM_OS
   // Tianmai OS specific implementation
 #endif
 ```
 
-**注意事项：**
+**注意事项:**
 - 天脉操作系统不支持 `O_DIRECT` 标志
 - 使用 `fcntl` 替代方案(类似 macOS)
 
@@ -516,11 +516,11 @@ using std::atomic;
 
 ### 6.2 网络 I/O 适配
 
-**适配文件：**
+**适配文件:**
 - `inc/os/io_model/io_model_system.h`
 - `os/communicate/acoreos3/communicate.cpp`
 
-**编译条件：**
+**编译条件:**
 ```cpp
 #if defined(ACOREOS) || defined(ACOREOSRTP) || (TM_OS == 1)
   #include <drv/sysSelect.h>
@@ -530,9 +530,9 @@ using std::atomic;
 
 ### 6.3 Socket 适配
 
-**适配文件：** `inc/os/communicate/socket_system.h`
+**适配文件:** `inc/os/communicate/socket_system.h`
 
-**编译条件：**
+**编译条件:**
 ```cpp
 #if defined(ACORE_OS) || defined(ACOREOSRTP) || TM_OS
   #define SOCKET int
@@ -542,9 +542,9 @@ using std::atomic;
 
 ### 6.4 Select 系统调用适配
 
-**适配文件：** `distribution/raft/runtime.cpp`
+**适配文件:** `distribution/raft/runtime.cpp`
 
-**编译条件：**
+**编译条件:**
 ```cpp
 #if defined(TM_OS)
   #include <sysSelect.h>
@@ -559,22 +559,22 @@ using std::atomic;
 
 ### 7.1 并发队列适配
 
-**适配文件：**
+**适配文件:**
 - `inc/third_party/concurrentqueue/concurrentqueue.h`
 - `inc/third_party/concurrentqueue/lightweightsemaphore.h`
 
-**适配内容：**
+**适配内容:**
 - `std::max_align_t` 类型定义
 - 信号量实现
 - EINTR 错误码定义
 
 ### 7.2 Robin Hood Hash Map
 
-**适配文件：** `inc/third_party/robin_hood/robin_hood.h`
+**适配文件:** `inc/third_party/robin_hood/robin_hood.h`
 
-**用途：** 替代 `std::unordered_map` 和 `std::unordered_set`
+**用途:** 替代 `std::unordered_map` 和 `std::unordered_set`
 
-**特点：**
+**特点:**
 - 头文件库，无需编译
 - 高性能，低内存占用
 - API 与标准库兼容
@@ -583,7 +583,7 @@ using std::atomic;
 
 ## 适配检查清单
 
-在天脉操作系统上编译和运行 TZDB 时，请检查以下事项：
+在天脉操作系统上编译和运行 TZDB 时，请检查以下事项:
 
 ### 编译时检查
 
@@ -621,7 +621,7 @@ using std::atomic;
 
 ## 待完善的适配
 
-以下功能在天脉操作系统上可能需要进一步适配：
+以下功能在天脉操作系统上可能需要进一步适配:
 
 1. **`std::unordered_set` 适配层**
    - 当前部分代码直接使用 `std::unordered_set`
@@ -649,7 +649,7 @@ using std::atomic;
 
 ### 1. 内存对齐
 
-天脉操作系统可能对内存对齐有特殊要求：
+天脉操作系统可能对内存对齐有特殊要求:
 
 ```cpp
 // Use 64-byte alignment for cache line optimization
@@ -663,7 +663,7 @@ using std::atomic;
 
 ### 2. 线程栈大小
 
-根据实际需求调整线程栈大小：
+根据实际需求调整线程栈大小:
 
 ```cpp
 // inc/common/lang/thread.hpp
@@ -676,7 +676,7 @@ using std::atomic;
 
 ### 3. 线程优先级
 
-根据任务类型设置合适的优先级：
+根据任务类型设置合适的优先级:
 
 ```cpp
 #if TM_OS
@@ -692,7 +692,7 @@ using std::atomic;
 
 ### 1. 编译时调试
 
-添加编译时检查：
+添加编译时检查:
 
 ```cpp
 #if TM_OS
@@ -704,7 +704,7 @@ using std::atomic;
 
 ### 2. 运行时调试
 
-添加平台标识日志：
+添加平台标识日志:
 
 ```cpp
 void PrintPlatformInfo() {
@@ -718,7 +718,7 @@ void PrintPlatformInfo() {
 
 ### 3. 条件编译检查
 
-确保所有 `#if TM_OS` 都有对应的 `#else` 分支：
+确保所有 `#if TM_OS` 都有对应的 `#else` 分支:
 
 ```cpp
 #if TM_OS
@@ -732,7 +732,7 @@ void PrintPlatformInfo() {
 
 ## 参考文件
 
-以下文件包含天脉操作系统适配的关键代码：
+以下文件包含天脉操作系统适配的关键代码:
 
 ### 核心适配文件
 - `inc/common/lang/std_compact_config.h` - 编译配置
@@ -762,18 +762,18 @@ void PrintPlatformInfo() {
 
 ## 总结
 
-TZDB 在天脉操作系统上的适配主要涉及以下方面：
+TZDB 在天脉操作系统上的适配主要涉及以下方面:
 
-1. **容器类**：使用 `robin_hood` 替代 `std::unordered_map/set`
-2. **线程**：使用 ACoreOs 任务 API 替代 `std::thread`
-3. **同步原语**：自定义实现 `mutex`、`condition_variable`、`lock_guard` 等
-4. **时间操作**：部分使用 `std::chrono`，部分使用天脉系统 API
-5. **文件和网络 I/O**：使用天脉系统的 POSIX 兼容 API
+1. **容器类**:使用 `robin_hood` 替代 `std::unordered_map/set`
+2. **线程**:使用 ACoreOs 任务 API 替代 `std::thread`
+3. **同步原语**:自定义实现 `mutex`、`condition_variable`、`lock_guard` 等
+4. **时间操作**:部分使用 `std::chrono`，部分使用天脉系统 API
+5. **文件和网络 I/O**:使用天脉系统的 POSIX 兼容 API
 
 通过统一的 `TM_OS` 宏和适配层，代码可以在天脉操作系统和标准平台之间无缝切换。
 
 ---
 
-**文档版本：** 1.0  
-**最后更新：** 2025-10-10  
-**维护者：** TZDB 开发团队
+**文档版本:** 1.0  
+**最后更新:** 2025-10-10  
+**维护者:** TZDB 开发团队

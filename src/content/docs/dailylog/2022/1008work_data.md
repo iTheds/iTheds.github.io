@@ -11,7 +11,7 @@ Monday，Tuesday，Wednesday，Thursday，Friday，Saturday，Sunday
 Saturday:
 1. Study RUST all day.
 2. interface with ZhiHang:
-    Database Name：
+    Database Name:
     Attribute Name : NUM.17;
     Determine data type and length;
     Determine others attribute : like primary key , isn't non empyt.
@@ -121,21 +121,21 @@ Now ,what we could do.
 
 ### Licence
 
-我们需要知道以下几点：
+我们需要知道以下几点:
 1. 开源许可是什么；
 2. 我们所用的代码是不是已经在需要许可证的范围内；
    1. 我们使用的代码的许可证类型是什么；
    2. 是否需要许可证；
 
-记录如下：
+记录如下:
 1. 开源许可是什么；
    1. GPL许可证规定，对源码的任何修改都必须开源，所以Android开源了，因为它修改了Kernel.MySQL是GPL许可证授权的，GPL许可证要求，你使用的MySQL只要被修改了并且分发软件就必须开放源代码，所以你说的第一个问题是不被允许的，即你可以销售但不能不开放源代码。第二个例子与第一个例子一样，因为Linux也是GPL协议。如果你想做可以闭源的并且商业化的，看上图，MIT BSD Apache这些宽松协议都是可以的。
    2. 而ASL许可证规定，可以随意使用源码，不必开源，所以建筑在Android之上的硬件驱动和应用程序，都可以保持封闭
-   3. 参考网站：
+   3. 参考网站:
       1. [Android，开源还是封闭？](http://www.ruanyifeng.com/blog/2010/02/open_android_or_not.html)
 2. 我们所用的代码是不是已经在需要许可证的范围内；
         软件模块 ODBC 中使用了大量的重复的源码；
-        其中主要体现在：
+        其中主要体现在:
         1. [微软方面]使用了三个 windows 的头文件，其中只涉及到关键字的宏定义，而没有任何的实际实现代码。
            1. 该部分的使用主要是因为，ODBC 接口依赖于这三个文件，开发过程中使用了部分宏定义以方便开发。
            2. 故而为了在适配国产操作系统天脉和锐华时更加便利，直接将这三个头文件放于程序中，在天脉的编译开关开启时方启用。
@@ -147,7 +147,7 @@ Now ,what we could do.
            1. ODBC 是统一的标准接口规范，标准的接口规范导致大部份的函数名称都是一样的，并且参数也是一样的，使用的是 sql.h 中的各种命名；
            2. 其中实现上也参照了 mysql-connect-odbc ，因为其中宏定义的对应参数回应差别比较小，故而用了大量 switch 的结构，该部分与 mysql 一致，只是各分支实现不一致。导致识别大部分为网络代码。
         但是做个总结，我们是否已经可以被认定为使用了别人的源码呢？实际上，确实参照了 mysql 的部分源码宏定义，但都是结构单一的、充当静态表作用的 switch 结构。
-3. 如何界定是否使用了开源代码：
+3. 如何界定是否使用了开源代码:
 4. 我们使用的代码的许可证类型是什么；
    1. 接口规范是否需要授权？
    2. 
@@ -156,7 +156,7 @@ Now ,what we could do.
 
 ###
 
-一个优秀的开源使用办法包括六个简单规则：
+一个优秀的开源使用办法包括六个简单规则:
     在将开源代码整合到产品中之前，工程师必须获得开源审查委员会(OSRB)的许可。
     从第三方接收的软件必须经过审核，以识别其包含的所有开源代码，这样可以确保在产品发货之前许可证的义务得以履行。
     所有软件都必须经过审核和审查，包括所有的专有软件组件。
@@ -164,7 +164,7 @@ Now ,what we could do.
     即使开源组件是一样的，对于在一个产品中使用给定的开源组件的许可也不等于其他部署许可。
     任何变更的组件都必须经过审批流程。
 
-[企业开源指南：开源代码的使用](https://blog.csdn.net/kaiyuanshe/article/details/99729461?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-99729461-blog-81083053.pc_relevant_aa&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+[企业开源指南:开源代码的使用](https://blog.csdn.net/kaiyuanshe/article/details/99729461?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-99729461-blog-81083053.pc_relevant_aa&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
 
 
 用 mysql 当然没问题，只要你不修改 mysql 代码。
@@ -172,11 +172,11 @@ Now ,what we could do.
 而有些公司则是希望 mysql 出什么问题的时候能立即得到商业的技术支持。
 这事儿不是一直有争议么 当然没改写 独立进程 一般不会有纠纷
 
-但是有官网回答：
+但是有官网回答:
 
-作者：fenghou
-链接：https://www.zhihu.com/question/27698031/answer/37710828
-来源：知乎
+作者:fenghou
+链接:https://www.zhihu.com/question/27698031/answer/37710828
+来源:知乎
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 Linking [name of your program] statically or dynamically with
@@ -281,7 +281,7 @@ I have suffered from other people's extreme values, so it makes sense that other
 
 ### (三)技术途径(成稿) 海量动态生成样本分布式存储技术研究(加图4页，林涛)
 
-帽子：要结合主题去存储，要存的数据包括但不限于：生成的可见光样本数据(图片)及其结构化参数数据、样本生成时间、质量评估数据、样本生成模型及其训练超参等状态数据。
+帽子:要结合主题去存储，要存的数据包括但不限于:生成的可见光样本数据(图片)及其结构化参数数据、样本生成时间、质量评估数据、样本生成模型及其训练超参等状态数据。
 帽子一般需要1个图和半页文字，后面其他具体细节参考涛思和之前的投标书。
 
 ## 想法
@@ -289,7 +289,7 @@ I have suffered from other people's extreme values, so it makes sense that other
 我们必须要知道原始数据的特点是什么，是否会经过处理？
 如果无法知道，那么我们只能将数据特点和后续的技术要点进行分割。
 基本确定是经过了特殊的处理。
-生成的数据类型预计为：
+生成的数据类型预计为:
 
 
 ## 资料

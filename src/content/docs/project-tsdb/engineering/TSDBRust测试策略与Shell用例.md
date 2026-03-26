@@ -7,14 +7,14 @@ description: "测试分层模板与 shell SQL 用例记录"
 
 ## 测试分层模板
 
-原文定义四类测试：
+原文定义四类测试:
 
-1. `function_test`：功能级测试
-2. `concurrency_paraller_test`：并发与并行测试
-3. `struct_definition`：结构定义测试
-4. `feasibility_test`：可行性验证测试
+1. `function_test`:功能级测试
+2. `concurrency_paraller_test`:并发与并行测试
+3. `struct_definition`:结构定义测试
+4. `feasibility_test`:可行性验证测试
 
-模板：
+模板:
 
 ```rust
 mod function_test {}

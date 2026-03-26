@@ -1,6 +1,6 @@
 ---
 title: "网络池RPCTSN实现指南"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/NET_POOL_RPC_TSN_IMPLEMENTATION_GUIDE.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/distribution/NET_POOL_RPC_TSN_IMPLEMENTATION_GUIDE.md)"
 ---
 
 # NetPoolRpcTsn 实现指南
@@ -25,7 +25,7 @@ distribution/network/
 
 ### NetPoolRpcTsn 类
 
-继承自 `NetPool`，提供与 `NetPoolRpc` 相同的公共接口：
+继承自 `NetPool`，提供与 `NetPoolRpc` 相同的公共接口:
 
 ```cpp
 class NetPoolRpcTsn : public NetPool {
@@ -53,7 +53,7 @@ class NetPoolRpcTsn : public NetPool {
 
 ### 1. 通道创建
 
-**当前占位符实现**：
+**当前占位符实现**:
 ```cpp
 CONNECTION_ID_TYPE NetPoolRpcTsn::findAndCreateDestChannel(const char *ip, uint16_t port) {
   // 需要调用 TS_Lib 的通道创建函数
@@ -61,7 +61,7 @@ CONNECTION_ID_TYPE NetPoolRpcTsn::findAndCreateDestChannel(const char *ip, uint1
 }
 ```
 
-**需要实现的 TS_Lib 调用**：
+**需要实现的 TS_Lib 调用**:
 - 根据 TS_Lib.h 中的接口定义，调用相应的通道创建函数
 - 使用 `UDP_TYPE_SEND` 创建发送通道
 - 使用 `UDP_TYPE_RECV` 创建接收通道
@@ -69,7 +69,7 @@ CONNECTION_ID_TYPE NetPoolRpcTsn::findAndCreateDestChannel(const char *ip, uint1
 
 ### 2. 数据发送
 
-**当前占位符实现**：
+**当前占位符实现**:
 ```cpp
 int NetPoolRpcTsn::sendToTsChannel(CONNECTION_ID_TYPE channel_id, const char *buffer, size_t buffer_len) {
   // 需要调用 TS_Lib 的发送函数
@@ -77,14 +77,14 @@ int NetPoolRpcTsn::sendToTsChannel(CONNECTION_ID_TYPE channel_id, const char *bu
 }
 ```
 
-**需要实现的 TS_Lib 调用**：
+**需要实现的 TS_Lib 调用**:
 - 调用 TS_Lib 的发送函数，发送序列化后的 RPC 请求
 - 返回实际发送的字节数
 - 失败时返回 -1
 
 ### 3. 数据接收
 
-**当前占位符实现**：
+**当前占位符实现**:
 ```cpp
 int NetPoolRpcTsn::recvFromTsChannel(CONNECTION_ID_TYPE channel_id, char *buffer, size_t buffer_len) {
   // 需要调用 TS_Lib 的接收函数
@@ -92,14 +92,14 @@ int NetPoolRpcTsn::recvFromTsChannel(CONNECTION_ID_TYPE channel_id, char *buffer
 }
 ```
 
-**需要实现的 TS_Lib 调用**：
+**需要实现的 TS_Lib 调用**:
 - 调用 TS_Lib 的接收函数，接收 RPC 请求/响应
 - 返回实际接收的字节数
 - 失败时返回 -1
 
 ### 4. 服务器监听
 
-**当前占位符实现**：
+**当前占位符实现**:
 ```cpp
 bool NetPoolRpcTsn::startRpcServer(const char *ip, uint16_t port) {
   // 需要调用 TS_Lib 的监听通道创建函数
@@ -107,36 +107,36 @@ bool NetPoolRpcTsn::startRpcServer(const char *ip, uint16_t port) {
 }
 ```
 
-**需要实现的 TS_Lib 调用**：
+**需要实现的 TS_Lib 调用**:
 - 创建监听通道用于接收 RPC 请求
 - 使用 `UDP_TYPE_RECV` 类型
 - 保存监听通道 ID 供后续使用
 
 ## 实现步骤
 
-### 第一步：分析 TS_Lib API
+### 第一步:分析 TS_Lib API
 
 1. 查看 `inc/third_party/tsn/TS_Lib.h` 中的完整 API 定义
-2. 确定以下函数的签名和使用方法：
+2. 确定以下函数的签名和使用方法:
    - 通道创建函数
    - 数据发送函数
    - 数据接收函数
    - 通道关闭函数
    - 错误处理函数
 
-### 第二步：实现通道管理
+### 第二步:实现通道管理
 
 1. 在 `recvFromTsChannel()` 中实现数据接收
 2. 在 `sendToTsChannel()` 中实现数据发送
 3. 在 `findAndCreateDestChannel()` 中实现通道创建
 
-### 第三步：实现服务器功能
+### 第三步:实现服务器功能
 
 1. 在 `startRpcServer()` 中实现监听通道创建
 2. 实现消息接收循环
 3. 集成 RPC 请求处理
 
-### 第四步：测试和验证
+### 第四步:测试和验证
 
 1. 编写单元测试
 2. 验证 RPC 请求/响应流程
@@ -167,7 +167,7 @@ std::unique_ptr<DataInfoFormat> callRpc(
 );
 ```
 
-**使用示例**：
+**使用示例**:
 ```cpp
 NetPoolRpcTsn pool;
 pool.init();
@@ -202,7 +202,7 @@ void registerServiceInstance(
 bool startRpcServer(const char *ip, uint16_t port);
 ```
 
-**使用示例**：
+**使用示例**:
 ```cpp
 NetPoolRpcTsn pool;
 pool.init();
@@ -221,7 +221,7 @@ pool.startRpcServer("0.0.0.0", 8080);
 
 ## 继承的父类函数
 
-NetPoolRpcTsn 继承自 NetPool，自动获得以下函数：
+NetPoolRpcTsn 继承自 NetPool，自动获得以下函数:
 
 ```cpp
 // 连接管理
@@ -238,7 +238,7 @@ int sendUdp(const char *buffer, size_t buffer_len, const char *ip, uint16_t port
 int recv(char *&buffer, size_t &buffer_len, size_t &buffer_max_len, size_t offset = 0);
 ```
 
-**注意**：这些函数在 NetPoolRpcTsn 中可能不被使用，因为 RPC 通信完全通过 TS_Lib 进行。如果需要，可以在 NetPoolRpcTsn 中重写这些函数以支持 TS_Lib。
+**注意**:这些函数在 NetPoolRpcTsn 中可能不被使用，因为 RPC 通信完全通过 TS_Lib 进行。如果需要，可以在 NetPoolRpcTsn 中重写这些函数以支持 TS_Lib。
 
 ## 错误处理
 
@@ -274,17 +274,17 @@ if (recv_len < 0) {
 
 ## 线程安全
 
-NetPoolRpcTsn 使用以下互斥锁保证线程安全：
+NetPoolRpcTsn 使用以下互斥锁保证线程安全:
 
-- `service_handlers_mutex_`：保护服务处理函数和实例映射
-- `channels_mutex_`：保护通道映射
-- `pending_requests_mutex_`：保护等待响应的请求映射
+- `service_handlers_mutex_`:保护服务处理函数和实例映射
+- `channels_mutex_`:保护通道映射
+- `pending_requests_mutex_`:保护等待响应的请求映射
 
 ## 性能考虑
 
-1. **通道缓存**：使用 `dest_channels_` 缓存已创建的通道，避免重复创建
-2. **异步处理**：使用线程池处理 RPC 请求，不阻塞接收线程
-3. **内存管理**：使用 `unique_ptr` 和 `shared_ptr` 自动管理内存
+1. **通道缓存**:使用 `dest_channels_` 缓存已创建的通道，避免重复创建
+2. **异步处理**:使用线程池处理 RPC 请求，不阻塞接收线程
+3. **内存管理**:使用 `unique_ptr` 和 `shared_ptr` 自动管理内存
 
 ## 集成步骤
 
@@ -319,7 +319,7 @@ pool->startRpcServer("0.0.0.0", 8080);
 
 ## 调试和日志
 
-所有操作都有详细的日志输出：
+所有操作都有详细的日志输出:
 
 ```cpp
 LOG_TRACE("[%s] Creating new channel to %s:%u", __FUNCTION__, ip, port);
@@ -331,9 +331,9 @@ LOG_ERROR("[%s] Failed to create TS_Lib channel", __FUNCTION__);
 
 ## 已知限制
 
-1. **占位符实现**：`recvFromTsChannel()` 和 `sendToTsChannel()` 当前为占位符，需要根据实际 TS_Lib API 实现
-2. **通道创建**：`findAndCreateDestChannel()` 和 `startRpcServer()` 中的通道创建需要实现
-3. **错误处理**：需要根据 TS_Lib 的错误码进行适当的错误处理
+1. **占位符实现**:`recvFromTsChannel()` 和 `sendToTsChannel()` 当前为占位符，需要根据实际 TS_Lib API 实现
+2. **通道创建**:`findAndCreateDestChannel()` 和 `startRpcServer()` 中的通道创建需要实现
+3. **错误处理**:需要根据 TS_Lib 的错误码进行适当的错误处理
 
 ## 后续工作
 

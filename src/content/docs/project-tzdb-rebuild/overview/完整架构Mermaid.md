@@ -1,6 +1,6 @@
 ---
 title: "完整架构Mermaid"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/complete_architecture_mermaid.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/arch/complete_architecture_mermaid.md)"
 ---
 
 # TZDB 完整架构图 (Mermaid版本)

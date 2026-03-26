@@ -7,7 +7,7 @@ description: "worker、qset、workerpool 的消息处理与并发模型设计"
 
 ## 核心执行链
 
-原文将执行模型归纳为三类函数：
+原文将执行模型归纳为三类函数:
 
 1. 消息流转函数(如 `vmworker.rs` 中节点消息入口)
 2. worker 调度处理函数(批次请求处理)
@@ -23,10 +23,10 @@ description: "worker、qset、workerpool 的消息处理与并发模型设计"
 
 ## 主要设计冲突(来自原记录)
 
-1. 锁粒度：类整体锁 vs 字段/局部锁
-2. 阻塞机制：信号量 vs channel vs select
-3. 关闭语义：如何优雅结束 `recv` 阻塞
-4. 多生产者/多消费者扩展：`recv` 不可 clone 带来的约束
+1. 锁粒度:类整体锁 vs 字段/局部锁
+2. 阻塞机制:信号量 vs channel vs select
+3. 关闭语义:如何优雅结束 `recv` 阻塞
+4. 多生产者/多消费者扩展:`recv` 不可 clone 带来的约束
 5. Rust 所有权模型与 C++ 设计习惯冲突
 
 ## 提炼后的约束

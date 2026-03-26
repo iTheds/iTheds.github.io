@@ -6,9 +6,9 @@ description: "效率是第一生产力量"
 # 0919work_data
 
 [9.19]
-周一：
+周一:
 1. [TZDB-RAS]测试数据库，十所卡顿的问题。
-    首先提取出执行错误的语句：
+    首先提取出执行错误的语句:
 open 'CHECK_TEST';
 CREATE TABLE Check_Connet_Sta( STA INT);
 INSERT INTO Check_Connet_Sta(STA)VALUES(1);
@@ -22,7 +22,7 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
     - [ ] 未完成
 3. 调查 PCIE。
 
-周二：
+周二:
 1. 测试远程服务在天脉3 上作为子进程使用是否等效，能否提供多用户连接。
     - [X] 完成
 2. [RAS][下午]持续学习 RUST ，并且尝试开发。
@@ -30,7 +30,7 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
 4. 编写文档。对接数据库和入库文档。
     - [X] 完成
 
-周三：
+周三:
 1. [RAS][上午]持续学习 RUST ，并且尝试开发。
     - [X] 完成，学习并实践主要 RUST 语法内容。
 2. [TZDB-RAS]尝试提供判断是否断开连接的方法。
@@ -38,10 +38,10 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
 3. 数据库关于 \\ 的问题。
     - [X] 完成
 
-周四：
+周四:
 1. 学习 rust，全天。
 
-周五：
+周五:
 1. 报销事宜，1 小时。
 2. 气象文档给出，0.5 小时。
 
@@ -59,7 +59,7 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
     - [X] 完成
 5. [分发系统]优化了线程标识符的使用，优化了全局变量的内存方向。
 
-周二：
+周二:
 1. [船舶]二号船布置项目。
     - [ ] 未完成，船已避台
 2. [数据库]更新版本。并且合并版本
@@ -69,17 +69,17 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
 1. [数据库]整理测试用例。
     - [X] 完成
 
-周三：
+周三:
 2. [数据库]排查连接问题。
     - [X] 完成，依赖于日志系统的检测
 3. [数据库]更改日志规则。使其存储到目录下，并且按条数进行文件区分。
     - [X] 完成
 
-周四：
+周四:
 3. [数据库]编写部分测试用例。
     - [X] 完成，提供给金雨
 
-周五：
+周五:
 1. [船舶]文档补足。
 2. 程序加到系统启动项里，好重启后自启动。
 3. 测试一下边界值。
@@ -108,7 +108,7 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
 2. [RUST]任务分配
     2.21.	系统日志(服务架构)
 分级记录系统运行日志，便于分析系统调试系统出现的问题。
-日志记录分为六级：致命错误、一般错误、警告、正常信息、调试信息和跟踪信息。提供的功能：
+日志记录分为六级:致命错误、一般错误、警告、正常信息、调试信息和跟踪信息。提供的功能:
 1)可以指定日志文件个数和每个文件记录的日志条数；
 2)打开、关闭和重置日志；
 3)写日志支持一般日志和长日志；
@@ -129,15 +129,15 @@ insert into XH_ZC_LD (ID,RWBH,FSYPH,SCJHSJ, ZHJHSJ,MLLX, MF,SPLX,SPBCZ,SPZXZ,SPZ
 
 9月4日出海，9月13日回航。
 
-住宿：1990 + 398 = 2388
-机票：1560 + 2230 = 3790
-补助：5x180 + 出海补助 10x 280 + 1x 180 = 1080 + 2800 = 3880
-总和：10058
+住宿:1990 + 398 = 2388
+机票:1560 + 2230 = 3790
+补助:5x180 + 出海补助 10x 280 + 1x 180 = 1080 + 2800 = 3880
+总和:10058
 
-上次机票：
-机票：1470 + 1270 + 592 = 3332
-机票：1560 + 2230 = 3790
-总计机票：3332 + 3790 = 7122
+上次机票:
+机票:1470 + 1270 + 592 = 3332
+机票:1560 + 2230 = 3790
+总计机票:3332 + 3790 = 7122
                                               
 2.  MU5174 8.30  北京大兴-湛江  1030 1545  
 政采 经济舱 1560元含税服务费

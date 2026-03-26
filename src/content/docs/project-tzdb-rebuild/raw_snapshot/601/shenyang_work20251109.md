@@ -111,7 +111,7 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 
 ## 配置中心数据模型
 
-根据原始代码中的空格分组(空行分隔表示不同表)，抽象为以下多表结构，列名用`col_1`至`col_N`表示，保留数据类型和主键标识：
+根据原始代码中的空格分组(空行分隔表示不同表)，抽象为以下多表结构，列名用`col_1`至`col_N`表示，保留数据类型和主键标识:
 
 
 ### 表 1
@@ -150,9 +150,9 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 
 ## [11.12]
 
-数据服务器：数据存储与同步执行载体
+数据服务器:数据存储与同步执行载体
 
-元信息服务器：分布式服务配置与管理中枢
+元信息服务器:分布式服务配置与管理中枢
 
 
 # [11.14]
@@ -168,15 +168,15 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 odbc 的事务是很关键的内容，但是此处却对事务的开启和关闭无法进行完整的约束。应该建立合理的事务上下文，限制语句句柄中的session只有一个事务在开启着。并且在执行某些方法前需要判断是否有事务，如果有需要提交，而没有需要开启；但有的方法，执行前需要判断是否已经存在事务，有则成功，无则失败；有的方法，执行完成后需要提交事务，但大部分方法应该是不需要提交事务的。
 
 
-有这么几种情况：
-1. 直接执行接口ExecDirect：
+有这么几种情况:
+1. 直接执行接口ExecDirect:
    1. 如果是 query 那么需要重新开启事务，即有则提交，并且重新开启事务；
    2. 非 query， 那么允许不重新开启事务以进行批量查询等操作，但必须要确保有事务；
    3. 不提交事务；
-2. 预执行接口Prepare：
+2. 预执行接口Prepare:
    1. 无论是否query，都重新开启事务；
    2. 不提交事务；
-3. Execute接口：
+3. Execute接口:
    1. 不提交事务；
 
 LoadCatalogFromSystemTables

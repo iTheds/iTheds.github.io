@@ -1,6 +1,6 @@
 ---
 title: "Raft集成指南"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Integration_Guide.md）"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/raft/Raft_Integration_Guide.md）"
 ---
 
 # Raft选举和心跳机制集成指南
@@ -11,13 +11,13 @@ description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/
 
 ## 📋 集成方案
 
-### 方案1：渐进式集成(推荐）⭐
+### 方案1:渐进式集成(推荐）⭐
 
-这是最安全的方式，可以逐步迁移现有系统：
+这是最安全的方式，可以逐步迁移现有系统:
 
-#### 步骤1：修改现有CLNode类
+#### 步骤1:修改现有CLNode类
 
-在 `inc/distribution/node.hpp` 中添加Raft支持：
+在 `inc/distribution/node.hpp` 中添加Raft支持:
 
 ```cpp
 // 在CLNode类中添加这些成员
@@ -108,7 +108,7 @@ private:
 };
 ```
 
-#### 步骤2：修改Apply方法支持Raft
+#### 步骤2:修改Apply方法支持Raft
 
 ```cpp
 template <typename TypeConfig>
@@ -167,7 +167,7 @@ DistributeResponse<TypeConfig> ProcessAsLeader(
 }
 ```
 
-#### 步骤3：修改构造函数
+#### 步骤3:修改构造函数
 
 ```cpp
 template <typename TypeConfig>
@@ -187,28 +187,28 @@ CLNode<TypeConfig>::CLNode(const ServerConfig &config,
 }
 ```
 
-### 方案2：直接替换集成
+### 方案2:直接替换集成
 
-直接使用我们的RaftIntegratedCLNode：
+直接使用我们的RaftIntegratedCLNode:
 
-#### 步骤1：修改DataServer
+#### 步骤1:修改DataServer
 
-在 `api_sql/data_server.cpp` 中：
+在 `api_sql/data_server.cpp` 中:
 
 ```cpp
 #include "distribution/raft/raft.hpp"
 
 // 替换原有的CLNode创建
-// 原来：
+// 原来:
 // auto node = std::make_unique<CLNode<DataServerTypeConfig>>(config, std::move(state_machine));
 
-// 现在：
+// 现在:
 auto node = tzdb::raft::CreateNode<DataServerTypeConfig>(config, std::move(state_machine));
 ```
 
-#### 步骤2：更新服务器配置
+#### 步骤2:更新服务器配置
 
-在ServerConfig中添加Raft相关配置：
+在ServerConfig中添加Raft相关配置:
 
 ```cpp
 struct ServerConfig {
@@ -226,14 +226,14 @@ struct ServerConfig {
 };
 ```
 
-### 方案3：混合集成
+### 方案3:混合集成
 
-保持现有系统，添加Raft作为可选组件：
+保持现有系统，添加Raft作为可选组件:
 
-#### 步骤1：创建Raft管理器
+#### 步骤1:创建Raft管理器
 
 ```cpp
-// 新文件：inc/distribution/raft_manager.hpp
+// 新文件:inc/distribution/raft_manager.hpp
 #pragma once
 
 #include "distribution/raft/raft.hpp"
@@ -290,7 +290,7 @@ public:
 };
 ```
 
-#### 步骤2：在CLNode中使用RaftManager
+#### 步骤2:在CLNode中使用RaftManager
 
 ```cpp
 template <typename TypeConfig>
@@ -328,7 +328,7 @@ public:
 
 ### 添加Raft RPC处理
 
-在现有的RPC处理中添加Raft消息处理：
+在现有的RPC处理中添加Raft消息处理:
 
 ```cpp
 // 在网络消息处理中添加
@@ -412,10 +412,10 @@ int main() {
     // 创建状态机
     auto state_machine = std::make_unique<DBStateMachine>();
     
-    // 创建节点(方案1：渐进式）
+    // 创建节点(方案1:渐进式）
     auto node = std::make_unique<CLNode<DataServerTypeConfig>>(config, std::move(state_machine));
     
-    // 或者(方案2：直接替换）
+    // 或者(方案2:直接替换）
     // auto node = tzdb::raft::CreateNode<DataServerTypeConfig>(config, std::move(state_machine));
     
     // 启动服务器

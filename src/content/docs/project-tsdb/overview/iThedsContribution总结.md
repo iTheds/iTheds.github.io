@@ -7,8 +7,8 @@ description: "iTheds 在 TSDB 项目中的贡献总结"
 
 ## 1. 统计范围与口径
 
-- 人员别名合并：`iTheds`、`LintaoYan`(按用户要求将 `iThed*`、`Lintao*` 视为同一人)。
-- 统计方式：从 Git 历史提取上述作者提交，按 commit hash 去重后汇总。
+- 人员别名合并:`iTheds`、`LintaoYan`(按用户要求将 `iThed*`、`Lintao*` 视为同一人)。
+- 统计方式:从 Git 历史提取上述作者提交，按 commit hash 去重后汇总。
 - 统计时间：`2023-02-10` 至 `2024-10-29`。
 - 注意：仓库历史中包含旧路径(如 `tztsdb/`)与文档大文件(如 `doc/disk_test/resource/*.svg`)，会显著抬高“总代码量”；因此同时给出“非 merge + 代码口径”统计。
 

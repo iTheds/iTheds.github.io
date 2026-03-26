@@ -5,29 +5,29 @@ description: "0830work_data"
 
 # 0830work_data
 
-本周目标：
+本周目标:
 1. 编写通信部分。
 2. 跟踪mysql代码线路，找到server监听部分。
 3. 拟封装aeci层接口。
 
 ## 每日日志
 
-周一：
+周一:
 1. [630]文档编写。
 2. 搭建通信模块部分。
 
-周二：
+周二:
 1. [630]文档编写
 2. 学习通信TCP部分理论
 
-周三：
+周三:
 1. 搭建通信模块。
 2. 设计socket底层接口。
 
-周四：
+周四:
 1. 编写socket底层接口
 
-周五：
+周五:
 1. 整理文档。
 http://www.ncac.gov.cn/chinacopyright/contents/12233/349379.shtml
 http://apply.ccopyright.com.cn/cpcc/communal/SoftClassNumber.html

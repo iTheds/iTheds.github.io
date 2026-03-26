@@ -7,7 +7,7 @@ description: "典型应用集成功能支持"
 
 ## 1. 长机与僚机巡航飞行计划管理 (DSS-JC-10.1)
 
-参考：typical_application_integration.md
+参考:typical_application_integration.md
 
 | 功能追溯 | DSS-JC-10.1                                                                                                                                 |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
@@ -22,26 +22,26 @@ description: "典型应用集成功能支持"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |----|------|----------|----------|
-| 1  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划数据库：使用Database db("/path/to/db", "flight_plan_db"); 创建飞行计划库 | 数据库创建成功 | 与预期结果一致 |
-| 2  | [长机节点、僚机节点1、僚机节点2] 创建侦察数据库：使用Database recon_db("/path/to/recon_db", "recon_db"); 创建侦察数据库并开启数据同步 | 侦察数据库创建成功，同步开启 | 与预期结果一致 |
-| 3  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划表：执行conn.Query("CREATE TABLE flight_plan (route_id INT PRIMARY KEY, plan_type UINT, plan_height INT, is_waypoint BOOL, waypoints BLOB)") | 飞行计划表创建成功 | 与预期结果一致 |
-| 4  | [长机节点、僚机节点1、僚机节点2] 创建侦察表：执行conn.Query("CREATE TABLE recon_data (image_id INT PRIMARY KEY, image_data BLOB, location INT[], capture_time TIME)") | 侦察表创建成功 | 与预期结果一致 |
-| 5  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划日志表：执行conn.Query("CREATE TABLE flight_plan_log (id INT PRIMARY KEY AUTO_INCREMENT, timestamp TIMESTAMP, operation VARCHAR(50), data TEXT)") | 日志表创建成功 | 与预期结果一致 |
-| 6  | [僚机节点1、僚机节点2] 建立与飞行计划库的持久化连接：使用Database db("/path/to/db", "flight_plan_db"); Connection conn(db); 初始化数据库连接 | 连接建立成功，返回Connection对象 | 与预期结果一致 |
-| 7  | [僚机节点1] 执行INSERT SQL插入飞行计划数据：conn.Query("INSERT INTO flight_plan (route_id, plan_type, plan_height, is_waypoint, waypoints) VALUES (1, 0, 1000, true, ?)") | 插入成功，影响行数为1 | 与预期结果一致 |
-| 8  | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id, plan_type, plan_height, is_waypoint, waypoints FROM flight_plan WHERE route_id = 1") | 查询成功，返回插入的数据 | 与预期结果一致 |
-| 9  | [僚机节点1] 执行DELETE SQL删除飞行计划数据：conn.Query("DELETE FROM flight_plan WHERE route_id = 1") | 删除成功，影响行数为1 | 与预期结果一致 |
-| 10 | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id FROM flight_plan WHERE route_id = 1") | 查询成功，返回空结果，确认删除 | 与预期结果一致 |
-| 11 | [僚机节点1] 执行UPDATE SQL更新飞行计划数据：conn.Query("UPDATE flight_plan SET plan_height = 1500 WHERE route_id = 2") | 更新成功，影响行数为1 | 与预期结果一致 |
-| 12 | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id, plan_height FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 | 与预期结果一致 |
-| 13 | [长机节点、僚机节点1、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id, plan_type, plan_height, is_waypoint, waypoints FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 等更新后的数据 | 与预期结果一致 |
-| 14 | [长机节点、僚机节点1、僚机节点2] 验证飞行计划数据的完整性和合法性：执行SELECT查询检查数据有效性，通过检查字段值是否在约束范围内(如经度-180到180、纬度-90到90、高度0-50000米) | 数据验证通过，所有字段合法 | 与预期结果一致 |
-| 15 | [长机节点] 返回飞行计划查询结果集：执行conn.Query("SELECT * FROM flight_plan WHERE route_id = ? AND plan_type = ? LIMIT 100") | 查询成功，返回符合条件的飞行计划记录，默认限制100条 | 与预期结果一致 |
-| 16 | [长机节点] 返回数据操作执行结果：通过结果对象获取成功/失败状态和影响行数 | 执行结果准确报告 | 与预期结果一致 |
+| 1  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划数据库:使用Database db("/path/to/db", "flight_plan_db"); 创建飞行计划库 | 数据库创建成功 | 与预期结果一致 |
+| 2  | [长机节点、僚机节点1、僚机节点2] 创建侦察数据库:使用Database recon_db("/path/to/recon_db", "recon_db"); 创建侦察数据库并开启数据同步 | 侦察数据库创建成功，同步开启 | 与预期结果一致 |
+| 3  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划表:执行conn.Query("CREATE TABLE flight_plan (route_id INT PRIMARY KEY, plan_type UINT, plan_height INT, is_waypoint BOOL, waypoints BLOB)") | 飞行计划表创建成功 | 与预期结果一致 |
+| 4  | [长机节点、僚机节点1、僚机节点2] 创建侦察表:执行conn.Query("CREATE TABLE recon_data (image_id INT PRIMARY KEY, image_data BLOB, location INT[], capture_time TIME)") | 侦察表创建成功 | 与预期结果一致 |
+| 5  | [长机节点、僚机节点1、僚机节点2] 创建飞行计划日志表:执行conn.Query("CREATE TABLE flight_plan_log (id INT PRIMARY KEY AUTO_INCREMENT, timestamp TIMESTAMP, operation VARCHAR(50), data TEXT)") | 日志表创建成功 | 与预期结果一致 |
+| 6  | [僚机节点1、僚机节点2] 建立与飞行计划库的持久化连接:使用Database db("/path/to/db", "flight_plan_db"); Connection conn(db); 初始化数据库连接 | 连接建立成功，返回Connection对象 | 与预期结果一致 |
+| 7  | [僚机节点1] 执行INSERT SQL插入飞行计划数据:conn.Query("INSERT INTO flight_plan (route_id, plan_type, plan_height, is_waypoint, waypoints) VALUES (1, 0, 1000, true, ?)") | 插入成功，影响行数为1 | 与预期结果一致 |
+| 8  | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据:conn.Query("SELECT route_id, plan_type, plan_height, is_waypoint, waypoints FROM flight_plan WHERE route_id = 1") | 查询成功，返回插入的数据 | 与预期结果一致 |
+| 9  | [僚机节点1] 执行DELETE SQL删除飞行计划数据:conn.Query("DELETE FROM flight_plan WHERE route_id = 1") | 删除成功，影响行数为1 | 与预期结果一致 |
+| 10 | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据:conn.Query("SELECT route_id FROM flight_plan WHERE route_id = 1") | 查询成功，返回空结果，确认删除 | 与预期结果一致 |
+| 11 | [僚机节点1] 执行UPDATE SQL更新飞行计划数据:conn.Query("UPDATE flight_plan SET plan_height = 1500 WHERE route_id = 2") | 更新成功，影响行数为1 | 与预期结果一致 |
+| 12 | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据:conn.Query("SELECT route_id, plan_height FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 | 与预期结果一致 |
+| 13 | [长机节点、僚机节点1、僚机节点2] 执行SELECT SQL查询飞行计划数据:conn.Query("SELECT route_id, plan_type, plan_height, is_waypoint, waypoints FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 等更新后的数据 | 与预期结果一致 |
+| 14 | [长机节点、僚机节点1、僚机节点2] 验证飞行计划数据的完整性和合法性:执行SELECT查询检查数据有效性，通过检查字段值是否在约束范围内(如经度-180到180、纬度-90到90、高度0-50000米) | 数据验证通过，所有字段合法 | 与预期结果一致 |
+| 15 | [长机节点] 返回飞行计划查询结果集:执行conn.Query("SELECT * FROM flight_plan WHERE route_id = ? AND plan_type = ? LIMIT 100") | 查询成功，返回符合条件的飞行计划记录，默认限制100条 | 与预期结果一致 |
+| 16 | [长机节点] 返回数据操作执行结果:通过结果对象获取成功/失败状态和影响行数 | 执行结果准确报告 | 与预期结果一致 |
 
 ## 2. 机侦察数据采集与同步 (DSS-JC-10.2)
 
-参考：typical_application_integration.md
+参考:typical_application_integration.md
 
 | 功能追溯 | DSS-JC-10.2 |
 |----------|----------|
@@ -56,20 +56,20 @@ description: "典型应用集成功能支持"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |----|------|----------|----------|
-| 1  | [长机节点、僚机节点1、僚机节点2] 创建侦察数据库：使用Database recon_db("/path/to/recon_db", "recon_db"); 创建侦察数据库 | 侦察数据库创建成功 | 与预期结果一致 |
-| 2  | [长机节点、僚机节点1、僚机节点2] 创建侦察表：执行conn.Query("CREATE TABLE recon_data (image_id INT PRIMARY KEY, image_data BLOB, location INT[], capture_time TIME)") | 侦察表创建成功 | 与预期结果一致 |
-| 3  | [长机节点、僚机节点1、僚机节点2] 注册AI模型用于图像标注：执行conn.Query("CREATE MODEL image_detection_model FROM 'path/to/model.onnx'") | AI模型注册成功 | 与预期结果一致 |
-| 4  | [长机节点、僚机节点1、僚机节点2] 建立与侦察数据库的连接：使用Database db("/path/to/recon_db", "recon_db"); Connection conn(db); 初始化数据库连接 | 连接建立成功，返回Connection对象 | 与预期结果一致 |
-| 5  | [僚机节点1] 接收传感器图像数据流：从传感器模块接收原始图像数据，验证数据大小不超过10MB | 图像数据接收成功，无超出限制 | 与预期结果一致 |
-| 6  | [僚机节点1] 对图像数据进行预处理：执行格式转换、压缩和质量校验，确保数据格式支持 | 预处理成功，数据格式正确 | 与预期结果一致 |
-| 7  | [僚机节点1] 生成唯一图像ID并记录时间戳：自动生成image_id并记录精确capture_time | ID生成成功，时间戳准确 | 与预期结果一致 |
-| 8  | [僚机节点1] 解析并存储位置坐标数组：解析GPS坐标信息，存储至location数组，支持最多10个坐标点 | 坐标解析成功，数组存储完整 | 与预期结果一致 |
-| 9  | [僚机节点1] 将图像数据以BLOB格式写入数据库：执行conn.Query("INSERT INTO recon_data (image_id, image_data, location, capture_time) VALUES (?, ?, ?, ?)")，采用64KB分块机制 | BLOB数据写入成功，重试最多3次 | 与预期结果一致 |
-| 10 | [长机节点] 返回同步执行结果：执行conn.Query("SELECT image_id FROM recon_data WHERE image_id = ?")获取传输耗时、目标节点确认等结果 | 查询成功，返回指定 image_id，确认数据已同步接收 | 与预期结果一致 |
+| 1  | [长机节点、僚机节点1、僚机节点2] 创建侦察数据库:使用Database recon_db("/path/to/recon_db", "recon_db"); 创建侦察数据库 | 侦察数据库创建成功 | 与预期结果一致 |
+| 2  | [长机节点、僚机节点1、僚机节点2] 创建侦察表:执行conn.Query("CREATE TABLE recon_data (image_id INT PRIMARY KEY, image_data BLOB, location INT[], capture_time TIME)") | 侦察表创建成功 | 与预期结果一致 |
+| 3  | [长机节点、僚机节点1、僚机节点2] 注册AI模型用于图像标注:执行conn.Query("CREATE MODEL image_detection_model FROM 'path/to/model.onnx'") | AI模型注册成功 | 与预期结果一致 |
+| 4  | [长机节点、僚机节点1、僚机节点2] 建立与侦察数据库的连接:使用Database db("/path/to/recon_db", "recon_db"); Connection conn(db); 初始化数据库连接 | 连接建立成功，返回Connection对象 | 与预期结果一致 |
+| 5  | [僚机节点1] 接收传感器图像数据流:从传感器模块接收原始图像数据，验证数据大小不超过10MB | 图像数据接收成功，无超出限制 | 与预期结果一致 |
+| 6  | [僚机节点1] 对图像数据进行预处理:执行格式转换、压缩和质量校验，确保数据格式支持 | 预处理成功，数据格式正确 | 与预期结果一致 |
+| 7  | [僚机节点1] 生成唯一图像ID并记录时间戳:自动生成image_id并记录精确capture_time | ID生成成功，时间戳准确 | 与预期结果一致 |
+| 8  | [僚机节点1] 解析并存储位置坐标数组:解析GPS坐标信息，存储至location数组，支持最多10个坐标点 | 坐标解析成功，数组存储完整 | 与预期结果一致 |
+| 9  | [僚机节点1] 将图像数据以BLOB格式写入数据库:执行conn.Query("INSERT INTO recon_data (image_id, image_data, location, capture_time) VALUES (?, ?, ?, ?)")，采用64KB分块机制 | BLOB数据写入成功，重试最多3次 | 与预期结果一致 |
+| 10 | [长机节点] 返回同步执行结果:执行conn.Query("SELECT image_id FROM recon_data WHERE image_id = ?")获取传输耗时、目标节点确认等结果 | 查询成功，返回指定 image_id，确认数据已同步接收 | 与预期结果一致 |
 
 ## 3. 长机目标识别与判断处理 (DSS-JC-10.3)
 
-参考：typical_application_integration.md
+参考:typical_application_integration.md
 
 | 功能追溯 | DSS-JC-10.3                                                                                                                |
 |----------|----------------------------------------------------------------------------------------------------------------------------|
@@ -84,24 +84,24 @@ description: "典型应用集成功能支持"
 
 | 步骤 | 描述                                                                                                                                                                                                       | 预期结果 | 评估准则 |
 |------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|----------|
-| 1 | [长机节点] 周期性轮询侦察图像数据库检索未处理的目标数据：执行conn.Query("SELECT image_id, image_data FROM recon_data WHERE processing_status = 'unprocessed' LIMIT 10")，周期500ms                                                       | 未处理图像数据检索成功 | 与预期结果一致 |
-| 2 | [僚机节点2] 接收传感器图像数据流：接收与节点1相同特征的图像数据                                                                                                                                                                       | 图像数据接收成功 | 与预期结果一致 |
-| 3 | [僚机节点2] 对图像数据进行预处理：执行格式转换、压缩和质量校验，确保数据格式支持                                                                                                                                                               | 预处理成功，数据格式正确 | 与预期结果一致 |
-| 4 | [僚机节点2] 生成唯一图像ID并记录时间戳：自动生成image_id并记录精确capture_time                                                                                                                                                     | ID生成成功，时间戳准确 | 与预期结果一致 |
-| 5 | [僚机节点2] 解析并存储位置坐标数组：解析GPS坐标信息，存储至location数组，支持最多10个坐标点                                                                                                                                                   | 坐标解析成功，数组存储完整 | 与预期结果一致 |
-| 6 | [僚机节点2] 将图像数据以BLOB格式写入数据库：执行conn.Query("INSERT INTO recon_data (image_id, image_data, location, capture_time) VALUES (?, ?, ?, ?)")，采用64KB分块机制                                                           | BLOB数据写入成功，重试最多3次 | 与预期结果一致 |
-| 7 | [长机节点] 从BLOB字段读取同步自僚机节点2的图像数据并解码为图像矩阵：读取image_data字段并解码为图像矩阵                                                                                                                                             | 图像数据解码成功 | 与预期结果一致 |
-| 8 | [长机节点] 对图像进行预处理包括缩放至224×224、归一化、通道转换：执行图像预处理操作                                                                                                                                                           | 预处理成功，图像尺寸为224×224 | 与预期结果一致 |
-| 9 | [长机节点] 将预处理后的图像数据向量化为模型输入张量：转换为VGG16模型输入格式                                                                                                                                                               | 向量化和张量转换成功 | 与预期结果一致 |
-| 10 | [长机节点] 调用VGG16卷积神经网络模型执行前向推理：执行model_inference('vgg16_model', tensor)                                                                                                                                    | 模型推理成功，返回分类结果 | 与预期结果一致 |
-| 11 | [长机节点] 解析模型输出获取分类结果和置信度分数：解析推理输出，获取机型分类和置信度                                                                                                                                                              | 输出解析成功，置信度获取 | 与预期结果一致 |
-| 12 | [长机节点] 根据置信度阈值判断识别结果有效性：检查置信度是否超过0.75                                                                                                                                                                    | 结果有效性判断正确 | 与预期结果一致 |
-| 13 | [长机节点] 将识别结果写回数据库并更新处理状态：执行conn.Query("INSERT INTO recognition_results (image_id, aircraft_type, confidence) VALUES (?, ?, ?) UPDATE recon_data SET processing_status = 'processed' WHERE image_id = ?") | 识别结果写入成功，状态更新 | 与预期结果一致 |
-| 14 | [长机节点] 返回目标识别结果：返回机型分类、置信度百分比等结果                                                                                                                                                                         | 识别结果正确返回 | 与预期结果一致 |
+| 1 | [长机节点] 周期性轮询侦察图像数据库检索未处理的目标数据:执行conn.Query("SELECT image_id, image_data FROM recon_data WHERE processing_status = 'unprocessed' LIMIT 10")，周期500ms                                                       | 未处理图像数据检索成功 | 与预期结果一致 |
+| 2 | [僚机节点2] 接收传感器图像数据流:接收与节点1相同特征的图像数据                                                                                                                                                                       | 图像数据接收成功 | 与预期结果一致 |
+| 3 | [僚机节点2] 对图像数据进行预处理:执行格式转换、压缩和质量校验，确保数据格式支持                                                                                                                                                               | 预处理成功，数据格式正确 | 与预期结果一致 |
+| 4 | [僚机节点2] 生成唯一图像ID并记录时间戳:自动生成image_id并记录精确capture_time                                                                                                                                                     | ID生成成功，时间戳准确 | 与预期结果一致 |
+| 5 | [僚机节点2] 解析并存储位置坐标数组:解析GPS坐标信息，存储至location数组，支持最多10个坐标点                                                                                                                                                   | 坐标解析成功，数组存储完整 | 与预期结果一致 |
+| 6 | [僚机节点2] 将图像数据以BLOB格式写入数据库:执行conn.Query("INSERT INTO recon_data (image_id, image_data, location, capture_time) VALUES (?, ?, ?, ?)")，采用64KB分块机制                                                           | BLOB数据写入成功，重试最多3次 | 与预期结果一致 |
+| 7 | [长机节点] 从BLOB字段读取同步自僚机节点2的图像数据并解码为图像矩阵:读取image_data字段并解码为图像矩阵                                                                                                                                             | 图像数据解码成功 | 与预期结果一致 |
+| 8 | [长机节点] 对图像进行预处理包括缩放至224×224、归一化、通道转换:执行图像预处理操作                                                                                                                                                           | 预处理成功，图像尺寸为224×224 | 与预期结果一致 |
+| 9 | [长机节点] 将预处理后的图像数据向量化为模型输入张量:转换为VGG16模型输入格式                                                                                                                                                               | 向量化和张量转换成功 | 与预期结果一致 |
+| 10 | [长机节点] 调用VGG16卷积神经网络模型执行前向推理:执行model_inference('vgg16_model', tensor)                                                                                                                                    | 模型推理成功，返回分类结果 | 与预期结果一致 |
+| 11 | [长机节点] 解析模型输出获取分类结果和置信度分数:解析推理输出，获取机型分类和置信度                                                                                                                                                              | 输出解析成功，置信度获取 | 与预期结果一致 |
+| 12 | [长机节点] 根据置信度阈值判断识别结果有效性:检查置信度是否超过0.75                                                                                                                                                                    | 结果有效性判断正确 | 与预期结果一致 |
+| 13 | [长机节点] 将识别结果写回数据库并更新处理状态:执行conn.Query("INSERT INTO recognition_results (image_id, aircraft_type, confidence) VALUES (?, ?, ?) UPDATE recon_data SET processing_status = 'processed' WHERE image_id = ?") | 识别结果写入成功，状态更新 | 与预期结果一致 |
+| 14 | [长机节点] 返回目标识别结果:返回机型分类、置信度百分比等结果                                                                                                                                                                         | 识别结果正确返回 | 与预期结果一致 |
 
 ## 4. 飞行计划动态更新与决策执行 (DSS-JC-10.4)
 
-参考：typical_application_integration.md
+参考:typical_application_integration.md
 
 | 功能追溯 | DSS-JC-10.4 |
 |----------|----------|
@@ -116,13 +116,13 @@ description: "典型应用集成功能支持"
 
 | 步骤 | 描述 | 预期结果 | 评估准则 |
 |------|------|----------|----------|
-| 1 | [长机节点] 模拟接收目标识别模块的识别结果和决策建议：接收机型、位置坐标、威胁等级、识别时间等数据 | 识别结果接收成功 | 与预期结果一致 |
-| 2 | [长机节点] 根据威胁等级和决策规则判断是否需要修改飞行计划：评估威胁等级和当前计划，决定是否更新 | 判断结果正确 | 与预期结果一致 |
-| 3 | [长机节点] 调用导航应用计算模块生成新的飞行航线：调用导航模块计算新航线 | 新航线计算成功 | 与预期结果一致 |
-| 4 | [长机节点] 计算最优航迹点序列并考虑必经点约束和安全距离：生成航迹点序列，考虑约束 | 航迹点序列计算成功 | 与预期结果一致 |
-| 5 | [长机节点] 生成CoordType格式的新航迹点坐标数据：格式化坐标为CoordType结构体 | 坐标数据生成成功 | 与预期结果一致 |
-| 6 | [长机节点] 更新飞行计划表包括计划类型、航迹点、计划高度：执行conn.Query("UPDATE flight_plan SET plan_type = ?, waypoints = ?, plan_height = ? WHERE route_id = ?") | 飞行计划表更新成功 | 与预期结果一致 |
-| 7 | [僚机节点1、僚机节点2] 查询飞行计划数据以验证同步：执行conn.Query("SELECT route_id, plan_type, plan_height FROM flight_plan WHERE route_id = ?")，确认更新后的数据已接收 | 查询成功，返回更新后的飞行计划数据 | 与预期结果一致 |
-| 8 | [长机节点] 更新任务状态标记为应战模式：更新任务状态为应战 | 任务状态更新成功 | 与预期结果一致 |
-| 9 | [长机节点] 返回导航计算结果：返回预计飞行时间、航程距离、燃油消耗估算 | 导航计算结果正确返回 | 与预期结果一致 |
+| 1 | [长机节点] 模拟接收目标识别模块的识别结果和决策建议:接收机型、位置坐标、威胁等级、识别时间等数据 | 识别结果接收成功 | 与预期结果一致 |
+| 2 | [长机节点] 根据威胁等级和决策规则判断是否需要修改飞行计划:评估威胁等级和当前计划，决定是否更新 | 判断结果正确 | 与预期结果一致 |
+| 3 | [长机节点] 调用导航应用计算模块生成新的飞行航线:调用导航模块计算新航线 | 新航线计算成功 | 与预期结果一致 |
+| 4 | [长机节点] 计算最优航迹点序列并考虑必经点约束和安全距离:生成航迹点序列，考虑约束 | 航迹点序列计算成功 | 与预期结果一致 |
+| 5 | [长机节点] 生成CoordType格式的新航迹点坐标数据:格式化坐标为CoordType结构体 | 坐标数据生成成功 | 与预期结果一致 |
+| 6 | [长机节点] 更新飞行计划表包括计划类型、航迹点、计划高度:执行conn.Query("UPDATE flight_plan SET plan_type = ?, waypoints = ?, plan_height = ? WHERE route_id = ?") | 飞行计划表更新成功 | 与预期结果一致 |
+| 7 | [僚机节点1、僚机节点2] 查询飞行计划数据以验证同步:执行conn.Query("SELECT route_id, plan_type, plan_height FROM flight_plan WHERE route_id = ?")，确认更新后的数据已接收 | 查询成功，返回更新后的飞行计划数据 | 与预期结果一致 |
+| 8 | [长机节点] 更新任务状态标记为应战模式:更新任务状态为应战 | 任务状态更新成功 | 与预期结果一致 |
+| 9 | [长机节点] 返回导航计算结果:返回预计飞行时间、航程距离、燃油消耗估算 | 导航计算结果正确返回 | 与预期结果一致 |
 

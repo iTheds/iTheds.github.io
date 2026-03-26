@@ -1,6 +1,6 @@
 ---
 title: "文档Shell"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/shell/shell.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/shell/shell.md)"
 ---
 
 ## 概述
@@ -12,13 +12,13 @@ TZDB Shell 是一个交互式命令行工具，用于连接和操作 TZDB 数据
 
 ### 1. 数据库连接与初始化
 
-- **灵活的数据库路径配置**：支持多种参数形式指定数据库位置
+- **灵活的数据库路径配置**:支持多种参数形式指定数据库位置
     - `shell` - 使用默认数据库 `./test_shell`
     - `shell mydb` - 使用 `./mydb`
     - `shell /data/db mydb` - 使用 `/data/db/mydb`
     - `shell /path/to/mydb` - 自动解析路径和数据库名
 
-- **数据库初始化**：创建 `Database` 对象并初始化内部组件
+- **数据库初始化**:创建 `Database` 对象并初始化内部组件
     - 事务管理器(TransactionManager)
     - 数据目录(Catalog)
     - SQL 上下文(SqlContext)
@@ -27,18 +27,18 @@ TZDB Shell 是一个交互式命令行工具，用于连接和操作 TZDB 数据
 
 #### 查询输入处理
 
-- **多行查询支持**：允许用户输入跨越多行的 SQL 语句
+- **多行查询支持**:允许用户输入跨越多行的 SQL 语句
     - 以 `;` 或 `\` 开头的命令作为输入结束标志
     - 支持 TTY 和非 TTY 模式
 
-- **查询规范化**：
+- **查询规范化**:
     - 移除尾部空格和分号
     - 转换为小写用于命令识别
     - 清理空白字符
 
 #### 查询执行模式
 
-支持两种执行模式：
+支持两种执行模式:
 
 **自动事务模式**(无活跃事务)
 
@@ -56,7 +56,7 @@ sql_context.Execute(normalized_query, writer);
 
 ### 3. 事务管理
 
-Shell 支持完整的事务生命周期管理：
+Shell 支持完整的事务生命周期管理:
 
 #### 事务命令
 
@@ -66,13 +66,13 @@ Shell 支持完整的事务生命周期管理：
 
 #### 事务状态追踪
 
-- **事务状态显示**：提示符中显示当前事务状态
+- **事务状态显示**:提示符中显示当前事务状态
     - `RUNNING` - 事务进行中
     - `COMMITTED` - 已提交
     - `ABORTED` - 已回滚
     - `TAINTED` - 被污染(执行出错)
 
-- **事务 ID 显示**：人类可读的事务 ID(通过 XOR 运算转换)
+- **事务 ID 显示**:人类可读的事务 ID(通过 XOR 运算转换)
 
 #### 事务污染机制
 
@@ -84,7 +84,7 @@ Shell 支持完整的事务生命周期管理：
 
 #### FortTableWriter 类
 
-使用 libfort 库将查询结果格式化为美观的表格：
+使用 libfort 库将查询结果格式化为美观的表格:
 
 - 支持表头显示
 - 支持行列对齐
@@ -116,10 +116,10 @@ Shell 支持完整的事务生命周期管理：
 
 #### 提示符
 
-- 默认提示符：`tzdb> `
-- 事务提示符：`txn <id>(<state))> `
-- 续行提示符：`... `
-- 可选 emoji 提示符：`🛁> `
+- 默认提示符:`tzdb> `
+- 事务提示符:`txn <id>(<state))> `
+- 续行提示符:`... `
+- 可选 emoji 提示符:`🛁> `
 
 ## 工作流程
 
@@ -146,8 +146,8 @@ Shell 支持完整的事务生命周期管理：
                         ↓
 ┌─────────────────────────────────────────────────────┐
 │ 4. 命令执行                                          │
-│    ├─ 事务命令：调用 HandleTransactionalCmd()       │
-│    └─ SQL 查询：调用 SqlContext.Execute()           │
+│    ├─ 事务命令:调用 HandleTransactionalCmd()       │
+│    └─ SQL 查询:调用 SqlContext.Execute()           │
 └─────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────┐
@@ -164,7 +164,7 @@ Shell 支持完整的事务生命周期管理：
 
 ### FortTableWriter
 
-实现 `query::ResultWriter` 接口，用于将查询结果写入表格：
+实现 `query::ResultWriter` 接口，用于将查询结果写入表格:
 
 - `WriteCell()` - 写入数据单元格
 - `WriteHeaderCell()` - 写入表头单元格
@@ -255,8 +255,8 @@ auto GetTransactionIdHumanReadable(tzdb::txn_id_t txn_id)
 
 ### 2. 双模式执行
 
-- **自动事务模式**：每个查询自动包装在事务中
-- **显式事务模式**：用户显式管理事务生命周期
+- **自动事务模式**:每个查询自动包装在事务中
+- **显式事务模式**:用户显式管理事务生命周期
 
 ### 3. 多行输入支持
 
@@ -266,7 +266,7 @@ auto GetTransactionIdHumanReadable(tzdb::txn_id_t txn_id)
 
 ## 总结
 
-TZDB Shell 是一个功能完整的数据库交互工具，具有以下特点：
+TZDB Shell 是一个功能完整的数据库交互工具，具有以下特点:
 
 ✅ **易用性** - 提供友好的命令行界面和交互式体验  
 ✅ **功能完整** - 支持 SQL 执行、事务管理、结果格式化  

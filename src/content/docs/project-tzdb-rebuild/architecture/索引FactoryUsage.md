@@ -1,6 +1,6 @@
 ---
 title: "索引FactoryUsage"
-description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/index_factory_usage.md)"
+description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/arch/index_factory_usage.md)"
 ---
 
 # 索引工厂模式使用指南
@@ -9,7 +9,7 @@ description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/
 
 ### 基本用法
 
-使用索引工厂模式创建索引非常简单，不再需要指定复杂的模板参数：
+使用索引工厂模式创建索引非常简单，不再需要指定复杂的模板参数:
 
 ```cpp
 #include "kernel/index/index_factory.h"
@@ -31,14 +31,14 @@ auto index_info = catalog->CreateIndex(
 
 ### 支持的索引类型
 
-目前支持以下索引类型：
+目前支持以下索引类型:
 
 - `IndexType::HashTableIndex` - 哈希表索引
 - `IndexType::BPlusTreeIndex` - B+树索引
 
 ### 自动类型选择
 
-工厂会根据键大小自动选择合适的模板参数：
+工厂会根据键大小自动选择合适的模板参数:
 
 | 键大小     | 使用的模板参数          |
 |---------|------------------|
@@ -52,7 +52,7 @@ auto index_info = catalog->CreateIndex(
 
 ### 直接使用工厂
 
-如果需要更精细的控制，可以直接使用具体的工厂类：
+如果需要更精细的控制，可以直接使用具体的工厂类:
 
 ```cpp
 // 使用哈希表工厂
@@ -68,7 +68,7 @@ auto btree_index = btree_factory.CreateIndex(
 
 ### 使用工厂集合
 
-工厂集合提供了统一的接口来管理所有索引工厂：
+工厂集合提供了统一的接口来管理所有索引工厂:
 
 ```cpp
 IndexFactories factories;
@@ -164,7 +164,7 @@ if (!index) {
 
 ### 工厂初始化
 
-工厂在构造时自动初始化，避免运行时开销：
+工厂在构造时自动初始化，避免运行时开销:
 
 ```cpp
 // 在 Catalog 中使用静态实例
@@ -181,8 +181,8 @@ static IndexFactories factories;  // 静态实例，避免重复创建
 
 ### 1. 选择合适的索引类型
 
-- **哈希表索引**：适合等值查询，不支持范围查询
-- **B+树索引**：适合范围查询，支持排序
+- **哈希表索引**:适合等值查询，不支持范围查询
+- **B+树索引**:适合范围查询，支持排序
 
 ### 2. 键大小优化
 
@@ -205,7 +205,7 @@ static IndexFactories factories;  // 静态实例，避免重复创建
 
 ## 测试
 
-运行单元测试：
+运行单元测试:
 
 ```bash
 # 编译测试
@@ -219,14 +219,14 @@ make test
 
 ### 从旧接口迁移
 
-旧接口：
+旧接口:
 
 ```cpp
 template <class KeyType, class ValueType, class KeyComparator>
 auto CreateIndex(..., HashFunction<KeyType> hash_function, ...) -> IndexInfo*;
 ```
 
-新接口：
+新接口:
 
 ```cpp
 auto CreateIndex(..., bool is_primary_key = false, 
@@ -241,7 +241,7 @@ auto CreateIndex(..., bool is_primary_key = false,
 
 ## 总结
 
-索引工厂模式提供了：
+索引工厂模式提供了:
 
 1. **简化的接口** - 不再需要复杂的模板参数
 2. **统一的创建方式** - 所有索引类型使用相同的接口

@@ -18,20 +18,20 @@ eXtremeWrap文件中是所有的测试用例，用于测试上层进行调用的
 
 ### 文件分析
 
-主要文件：
+主要文件:
 
 AeCI.h : 
-    AeCIResultCode：错误码， rc开头。
-    AeCIVarType：数据类型描述，加上_t为该数据结构。
+    AeCIResultCode:错误码， rc开头。
+    AeCIVarType:数据类型描述，加上_t为该数据结构。
     aeci_()接口函数。
-    AeCIFieldFlags： 索引类型选择。
-    aeci_struct_descriptor：被`数据表`数据结构使用。
-    aeci_index_descriptor： 索引结构。
-    aeci_field_descriptor： `数据表`数据结构。
+    AeCIFieldFlags: 索引类型选择。
+    aeci_struct_descriptor:被`数据表`数据结构使用。
+    aeci_index_descriptor: 索引结构。
+    aeci_field_descriptor: `数据表`数据结构。
     aeci_field_layout: 
     aeci_table_descriptor:
-    AeCIErrorClass：错误处理，错误码，ec开头。
-    aeci_database_monitor：数据监视结构指针。调用方法通过结构指针返回如下值：
+    AeCIErrorClass:错误处理，错误码，ec开头。
+    aeci_database_monitor:数据监视结构指针。调用方法通过结构指针返回如下值:
         n_readers: 共享锁数量
         n_writers: 互斥锁数量
         n_blocked_reader: 等待共享锁的线程数n_blocked_writers: 等待互斥锁的线程数

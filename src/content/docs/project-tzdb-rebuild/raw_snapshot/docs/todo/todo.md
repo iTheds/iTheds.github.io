@@ -38,7 +38,7 @@ description: "TZDB TODO List"
 **预期提升**: 全表扫描性能提升 100-2000x
 
 **问题**:
-当前迭代器每次 `operator++` 和 `GetTuple()` 都重新 fetch 页面，导致大量重复 I/O：
+当前迭代器每次 `operator++` 和 `GetTuple()` 都重新 fetch 页面，导致大量重复 I/O:
 
 ```cpp
 // operator++ 中
@@ -56,7 +56,7 @@ auto res = disk_engine_->Read(schema_, &rid_, ...);  // 又 fetch 一次
 | 全表扫描 | O(2n) page fetch | O(pages) | **显著** |
 
 **解决方案**:
-缓存当前页面的 `ReadPageGuard`，只在跨页时才重新 fetch：
+缓存当前页面的 `ReadPageGuard`，只在跨页时才重新 fetch:
 
 ```cpp
 class DiskTableIterator : public StorageTableIterator {
@@ -134,7 +134,7 @@ if (!meta.is_deleted_) {
 
 ### 2. WAL 记录类型验证硬编码
 **状态**: 技术债务  
-**说明**: 当前在多处硬编码了最大有效记录类型：
+**说明**: 当前在多处硬编码了最大有效记录类型:
 - `wal_manager.cpp:234`
 - `recovery_manager.cpp:532`
 

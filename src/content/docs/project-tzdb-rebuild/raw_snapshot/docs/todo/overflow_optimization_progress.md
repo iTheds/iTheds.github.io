@@ -5,7 +5,7 @@ description: "Overflow 机制优化进度文档"
 
 # Overflow 机制优化进度文档
 
-> 关联设计文档：[overflow_optimization_design.md](./overflow_optimization_design.md)
+> 关联设计文档:[overflow_optimization_design.md](./overflow_optimization_design.md)
 
 ## 概述
 
@@ -69,7 +69,7 @@ description: "Overflow 机制优化进度文档"
 
 ## 已完成的前置工作
 
-以下工作已在之前的会话中完成：
+以下工作已在之前的会话中完成:
 
 - [x] `WriteRaw` overflow 逻辑优化
 - [x] `ReadRaw` overflow 读取支持
@@ -105,7 +105,7 @@ description: "Overflow 机制优化进度文档"
 | 2024-11-29 | 创建设计文档和进度文档 | AI |
 | 2024-11-29 | 完成 `WriteRaw`/`ReadRaw`/`UpdateRaw` overflow 优化 | AI |
 | 2024-11-29 | 完成 `DiskEngineOverflowTest` 测试用例 | AI |
-| 2024-11-29 | 添加 Phase 0 前置问题：WAL 锁问题和事务问题 | AI |
+| 2024-11-29 | 添加 Phase 0 前置问题:WAL 锁问题和事务问题 | AI |
 | 2024-11-29 | 实现 WriteContext 锁内 WAL 记录 | AI |
 | 2024-11-29 | 统一 Write/Update overflow 阈值为页面大小 | AI |
 | 2024-11-29 | 修复所有 overflow 相关测试(524/524 通过)| AI |
@@ -115,11 +115,11 @@ description: "Overflow 机制优化进度文档"
 
 ✅ **所有核心任务已完成！**
 
-可选的后续优化：
+可选的后续优化:
 
-1. **性能测试**：对比优化前后的写入/读取性能
-2. **代码清理**：移除废弃的 `NeedsOverflow()` 函数
-3. **文档完善**：添加架构图说明新的 overflow 触发逻辑
+1. **性能测试**:对比优化前后的写入/读取性能
+2. **代码清理**:移除废弃的 `NeedsOverflow()` 函数
+3. **文档完善**:添加架构图说明新的 overflow 触发逻辑
 
 ## 相关文件
 
