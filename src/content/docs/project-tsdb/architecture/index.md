@@ -1,13 +1,13 @@
 ---
-title: "Architecture"
+title: "架构"
 description: "project-tsdb architecture documents"
 ---
 
-# Architecture
 
-- [TSDB Rust System Scope And Component Model](./tsdb_rust_system_scope_and_component_model.md)
-- [Worker Qset Workerpool Execution Model](./worker_qset_workerpool_execution_model.md)
-- [RPC And Node Message Dispatch Flow](./rpc_and_node_message_dispatch_flow.md)
-- [Stream Processing And TMQ Topic Design Notes](./stream_processing_and_tmq_topic_design_notes.md)
-- [Cluster Metadata Model And Index Strategy](./cluster_metadata_model_and_index_strategy.md)
-- [Cluster Deployment And Node Topology Model](./cluster_deployment_and_node_topology_model.md)
+
+- [TSDBRust系统范围与组件模型](TSDBRust系统范围与组件模型.md)
+- [工作者QsetWorkerpool执行模型](工作者QsetWorkerpool执行模型.md)
+- [RPC与节点消息分发流程](RPC与节点消息分发流程.md)
+- [流式处理与TMQ主题设计记录](流式处理与TMQ主题设计记录.md)
+- [集群元数据模型与索引策略](集群元数据模型与索引策略.md)
+- [集群部署与节点拓扑模型](集群部署与节点拓扑模型.md)

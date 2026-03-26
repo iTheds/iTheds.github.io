@@ -1,8 +1,8 @@
 ---
-title: "Engineering"
+title: "工程"
 description: "project-distributedNet engineering documents"
 ---
 
-# Engineering
 
-- [Inner Mongolia Business Trip Notes](./inner_mongolia_business_trip_notes.md)
+
+- [内蒙古出差记录](内蒙古出差记录.md)

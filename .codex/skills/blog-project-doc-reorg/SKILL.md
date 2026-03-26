@@ -1,7 +1,7 @@
 ---
 name: blog-project-doc-reorg
 description: 规范化整理 blog 项目文档目录（保留原稿、英文目录、分类归档、链接修复）
-version: 1.2.0
+version: 1.3.0
 owner: iTheds
 ---
 
@@ -14,14 +14,14 @@ owner: iTheds
 1. 允许拆分、重命名、重分类，但不允许丢失旧内容。
 2. 每个项目的原始文件统一放在 `src/content/docs/project-xxx/raw_snapshot/`，该目录只读，禁止修改其中文件内容。
 3. 目录命名尽量使用英文。
-4. `itheds contribution` 统一命名为 `itheds_contribution.md`。
+4. `itheds contribution` 统一使用中文命名（例如“iTheds 贡献”相关文件），保持目录内可读性优先。
 5. 一级结构统一为：
    - `overview`
    - `architecture`
    - `implementation`
    - `engineering`
 6. 除 `raw_snapshot` 外，不保留 `backup/issues/worklogs/test_reports` 等存档型目录，统一整理到上述四类技术文档目录。
-7. 新增文件命名统一使用英文小写下划线风格（如 `cluster_metadata_design.md`）。
+7. 新增文件命名统一使用中文（可保留必要缩写如 TSDB/TZDB/RPC/WAL），尽量直观可读。
 8. `raw_snapshot` 下可读文本（如 `.md`）要按内容整理到 `overview/architecture/implementation/engineering`（源文件保留不改）。
 9. 无法直接归类为技术文档的材料，必须提炼为“技术结论/工程经验/问题复盘”后再落位。
 10. 所有重组后入口链接必须可达（更新各级 `index.md` / `index.mdx`）。

@@ -1,8 +1,8 @@
 ---
-title: "Architecture"
+title: "架构"
 description: "project-distributedNet architecture documents"
 ---
 
-# Architecture
 
-- [Weak Communication Adaptive Distribution And Retransmission](./weak_communication_adaptive_distribution_and_retransmission.md)
+
+- [弱通信自适应分发与重传](弱通信自适应分发与重传.md)

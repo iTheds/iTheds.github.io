@@ -3,10 +3,6 @@ title: "附录"
 description: "TZDB 附录与历史资料"
 ---
 
-# 附录
-
-- [工作日志](./worklogs/)
-- [问题报告](./issues/20250508数据库问题报告/)
-- [doc 资料（含 .doc/.docx 等）](./doc_assets/)
-- [backup 历史备份](./backup/)
-- [原始稿（整理前完整内容）](./raw_snapshot/)
+- [文档ShenyangConfig](%E6%96%87%E6%A1%A3ShenyangConfig.md)
+- [测试用例](%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B.md)
+- [性能测试](%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md)
