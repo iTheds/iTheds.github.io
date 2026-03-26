@@ -1,6 +1,6 @@
 ---
 title: "DBeaver建表类型列表问题"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/pgserver/dbeaver_create_table_type_list_issue.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/pgserver/dbeaver_create_table_type_list_issue.md)"
 ---
 
 # DBeaver Create Table 类型列表问题说明

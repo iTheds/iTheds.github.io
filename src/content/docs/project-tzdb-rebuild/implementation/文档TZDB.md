@@ -1,6 +1,6 @@
 ---
 title: "文档TZDB"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/pgserver/tzdb最小功能等调研.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/pgserver/tzdb最小功能等调研.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
@@ -19,7 +19,7 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/pgs
 
 ### 基础工具选择
 
-基于现有工具（如 DBeaver 和 SQLiteStudio）进行开发，主要需要实现：
+基于现有工具(如 DBeaver 和 SQLiteStudio)进行开发，主要需要实现：
 
 1. 直接读取文件的接口；
 2. 编译最小化裁剪工具的页面。

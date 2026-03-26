@@ -74,7 +74,7 @@ description: "Overflow 机制优化进度文档"
 - [x] `WriteRaw` overflow 逻辑优化
 - [x] `ReadRaw` overflow 读取支持
 - [x] `UpdateRaw` overflow 逻辑优化
-- [x] `DiskEngineOverflowTest` 测试用例（8 个测试全部通过）
+- [x] `DiskEngineOverflowTest` 测试用例(8 个测试全部通过)
 - [x] 设计文档编写
 - [x] 进度文档编写
 
@@ -108,8 +108,8 @@ description: "Overflow 机制优化进度文档"
 | 2024-11-29 | 添加 Phase 0 前置问题：WAL 锁问题和事务问题 | AI |
 | 2024-11-29 | 实现 WriteContext 锁内 WAL 记录 | AI |
 | 2024-11-29 | 统一 Write/Update overflow 阈值为页面大小 | AI |
-| 2024-11-29 | 修复所有 overflow 相关测试（524/524 通过）| AI |
-| 2024-11-29 | 更新文档中的阈值数值（8100B）| AI |
+| 2024-11-29 | 修复所有 overflow 相关测试(524/524 通过)| AI |
+| 2024-11-29 | 更新文档中的阈值数值(8100B)| AI |
 
 ## 下一步行动
 

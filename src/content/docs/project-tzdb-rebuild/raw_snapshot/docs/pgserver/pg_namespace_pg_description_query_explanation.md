@@ -28,9 +28,9 @@ SELECT n.oid,n.,d.description ...
 ### 这条 SQL 在 PostgreSQL 里的语义
 
 - `n.oid`：输出 schema 的 OID。
-- `n.*`：展开 `pg_namespace` 的全部列（`oid/nspname/nspowner/nspacl`）。
+- `n.*`：展开 `pg_namespace` 的全部列(`oid/nspname/nspowner/nspacl`)。
 - `LEFT JOIN pg_description d`：尝试关联 schema 的对象注释。
-- `d.objsubid=0`：只取对象级注释（非列级注释）。
+- `d.objsubid=0`：只取对象级注释(非列级注释)。
 - `d.classoid='pg_namespace'::regclass`：只取“对象类型=pg_namespace”的注释记录。
 
 ### 当前项目中的实现方式
@@ -52,19 +52,19 @@ SELECT n.oid,n.,d.description ...
 
 通用分支会为每个用户表生成：
 
-- 1 行表级描述（`objsubid=0`）
-- 每列 1 行列级描述（`objsubid=1..N`）
+- 1 行表级描述(`objsubid=0`)
+- 每列 1 行列级描述(`objsubid=1..N`)
 
-因此，当数据库中只有 1 张 2 列表时，就会出现 3 行（`0/1/2`），和你看到的输出一致。相关构造逻辑见 `src/pgserver/pg_protocol.cpp:2947` 与 `src/pgserver/pg_protocol.cpp:2949`。
+因此，当数据库中只有 1 张 2 列表时，就会出现 3 行(`0/1/2`)，和你看到的输出一致。相关构造逻辑见 `src/pgserver/pg_protocol.cpp:2947` 与 `src/pgserver/pg_protocol.cpp:2949`。
 
 ### 结论：这是否正常
 
-- 对“当前 TZDB pg 协议适配实现”来说：这是正常现象（命中回退分支后的预期输出）。
-- 对“标准 PostgreSQL 语义”来说：这不是预期结果，说明 SQL 没有被识别为 `pg_namespace` 专用查询（最常见是 SQL 写错，例如 `n.`）。
+- 对“当前 TZDB pg 协议适配实现”来说：这是正常现象(命中回退分支后的预期输出)。
+- 对“标准 PostgreSQL 语义”来说：这不是预期结果，说明 SQL 没有被识别为 `pg_namespace` 专用查询(最常见是 SQL 写错，例如 `n.`)。
 
 ### 建议
 
-- 优先使用 smoke 脚本里的标准写法（见 `tests/pg_server_test/dbeaver_metadata_smoke.sh:116`）。
+- 优先使用 smoke 脚本里的标准写法(见 `tests/pg_server_test/dbeaver_metadata_smoke.sh:116`)。
 - 如果只是查 schema 信息，尽量改成显式列，减少客户端差异带来的影响：
 
 ```sql
@@ -88,7 +88,7 @@ select * from pg_catalog.pg_settings where name='standard_conforming_strings';
 返回 `setting = on` 的含义是：
 
 - 普通字符串字面量 `'...'` 中，反斜杠 `\` 按普通字符处理，不再作为转义起始符。
-- 如果要使用反斜杠转义（例如 `\n`、`\t`），应使用 `E'...'`（escape string literal）。
+- 如果要使用反斜杠转义(例如 `\n`、`\t`)，应使用 `E'...'`(escape string literal)。
 
 示例：
 
@@ -102,7 +102,7 @@ SELECT E'a\nb';  -- 结果是两行：a 换行 b
 - `name=standard_conforming_strings`：参数名。
 - `setting=on`：当前值。
 - `category=Compatibility Options`：兼容性参数分组。
-- `short_desc`：语义描述（反斜杠按字面处理）。
+- `short_desc`：语义描述(反斜杠按字面处理)。
 - `vartype=bool`：布尔参数。
 - `source=default`：当前值来自默认设置，而不是本会话动态修改。
 - `enumvals={on,off}`：可选值集合。
@@ -115,11 +115,11 @@ SELECT E'a\nb';  -- 结果是两行：a 换行 b
 - `current_setting('standard_conforming_strings')` 固定返回 `on`：`src/pgserver/pg_protocol.cpp:2644`
 - 连接握手时发送 `ParameterStatus(standard_conforming_strings=on)`：`src/pgserver/pg_protocol.cpp:4357`
 
-另外，当前 `SET` 语句在执行层主要是“返回成功以兼容客户端”，不真正持久化会话变量（见 `src/query/query_ddl.cpp:71`），因此这里应理解为兼容值，而非完整可配置参数系统。
+另外，当前 `SET` 语句在执行层主要是“返回成功以兼容客户端”，不真正持久化会话变量(见 `src/query/query_ddl.cpp:71`)，因此这里应理解为兼容值，而非完整可配置参数系统。
 
 ## 查询三：`string_agg(...) from pg_catalog.pg_get_keywords()`
 
-### 问题 SQL（示例）
+### 问题 SQL(示例)
 
 ```sql
 select string_agg(word, ',')
@@ -146,21 +146,21 @@ where word <> ALL ('{...很长关键词列表...}'::text[]);
 
 - 描述列分支：`src/pgserver/pg_protocol.cpp:1347`
 - 执行返回分支：`src/pgserver/pg_protocol.cpp:3039`
-- 返回值构造：`result.rows.push_back({""});`（空字符串）
+- 返回值构造：`result.rows.push_back({""});`(空字符串)
 
 因此在当前项目里，这个空白结果是预期行为。
 
 ### 这个结果“对吗”
 
-- 对“当前 TZDB pg 协议适配实现”来说：是对的（兼容分支固定行为）。
+- 对“当前 TZDB pg 协议适配实现”来说：是对的(兼容分支固定行为)。
 - 对“严格 PostgreSQL 语义”来说：不完全等价。标准 PostgreSQL 会基于 `pg_get_keywords()` 的真实数据计算 `string_agg`，而不是固定空字符串。
 
 如果需要更接近 PostgreSQL，可把该分支优化为：
 
-1. 先生成关键词集合（至少覆盖客户端常用关键词）。
+1. 先生成关键词集合(至少覆盖客户端常用关键词)。
 2. 执行 `where word <> ALL (...)` 过滤。
 3. 对过滤后结果执行真实 `string_agg`。
-4. 当过滤后无行时返回 `NULL`（而不是 `''`）。
+4. 当过滤后无行时返回 `NULL`(而不是 `''`)。
 
 ## 查询四：`SELECT * FROM pg_catalog.pg_enum WHERE 1<>1 LIMIT 1`
 
@@ -196,7 +196,7 @@ SELECT * FROM pg_catalog.pg_enum WHERE 1<>1 LIMIT 1;
 
 ### 这个结果“对吗”
 
-- 对“这条具体 SQL（`WHERE 1<>1`）”来说：对，是正确结果。
+- 对“这条具体 SQL(`WHERE 1<>1`)”来说：对，是正确结果。
 - 对“当前 TZDB 兼容实现”来说：也对，预期就是 0 行。
 - 对“完整 PostgreSQL 行为”来说：这条 SQL 依然应是 0 行；但若去掉 `WHERE 1<>1`，PostgreSQL 在存在 enum 类型时会返回数据，而当前实现仍可能是空集。
 
@@ -210,8 +210,8 @@ SELECT reltype FROM pg_catalog.pg_class WHERE 1<>1 LIMIT 1;
 
 ### 标准 PostgreSQL 语义
 
-- `reltype` 是 `pg_class` 中“该关系对应的行类型 OID”（通常对应 `pg_type` 里某个复合类型）。
-- `WHERE 1<>1` 恒假，所以标准 PostgreSQL 结果应是：只返回 1 列（`reltype`），且 0 行。
+- `reltype` 是 `pg_class` 中“该关系对应的行类型 OID”(通常对应 `pg_type` 里某个复合类型)。
+- `WHERE 1<>1` 恒假，所以标准 PostgreSQL 结果应是：只返回 1 列(`reltype`)，且 0 行。
 
 ### 你当前看到的输出说明了什么
 
@@ -224,7 +224,7 @@ SELECT reltype FROM pg_catalog.pg_class WHERE 1<>1 LIMIT 1;
 (1 row)
 ```
 
-这说明当前 `pgserver` 命中了 `pg_class` 的通用兼容分支，该分支直接返回固定列集合与合成数据，未按这条 SQL 的投影/过滤条件精确执行（即没有按 `reltype` 投影，也没有执行 `WHERE 1<>1` 过滤）。
+这说明当前 `pgserver` 命中了 `pg_class` 的通用兼容分支，该分支直接返回固定列集合与合成数据，未按这条 SQL 的投影/过滤条件精确执行(即没有按 `reltype` 投影，也没有执行 `WHERE 1<>1` 过滤)。
 
 相关实现：
 
@@ -235,14 +235,14 @@ SELECT reltype FROM pg_catalog.pg_class WHERE 1<>1 LIMIT 1;
 
 ### 你看到的每列含义
 
-- `oid=5`：该关系对象在 `pg_class` 中的对象 OID（当前兼容层里这是合成值）。
-- `relname=test_table`：关系名（表名/索引名等），这里是表 `test_table`。
+- `oid=5`：该关系对象在 `pg_class` 中的对象 OID(当前兼容层里这是合成值)。
+- `relname=test_table`：关系名(表名/索引名等)，这里是表 `test_table`。
 - `relnamespace=2200`：schema OID，`2200` 对应 `public`。
-- `relkind=r`：关系类型，`r` 代表普通表（`i` 通常代表索引）。
+- `relkind=r`：关系类型，`r` 代表普通表(`i` 通常代表索引)。
 - `relhasindex=f`：是否有索引。`f` 表示当前兼容层判定该表没有索引。
-- `reltuples=0`：统计估算的行数（兼容层返回值，当前为 0）。
-- `relpages=0`：统计估算的数据页数（兼容层返回值，当前为 0）。
-- `relpersistence=p`：持久化类型，`p` 代表 permanent（持久表）。
+- `reltuples=0`：统计估算的行数(兼容层返回值，当前为 0)。
+- `relpages=0`：统计估算的数据页数(兼容层返回值，当前为 0)。
+- `relpersistence=p`：持久化类型，`p` 代表 permanent(持久表)。
 
 ### 这个结果“对吗”
 
@@ -251,7 +251,7 @@ SELECT reltype FROM pg_catalog.pg_class WHERE 1<>1 LIMIT 1;
 
 ## 查询六：`pg_catalog.pg_type` 宽表元数据查询
 
-### 问题 SQL（典型形态）
+### 问题 SQL(典型形态)
 
 ```sql
 SELECT t.oid,t.*,c.relkind,format_type(nullif(t.typbasetype, 0), t.typtypmod) as base_type_name,d.description
@@ -266,7 +266,7 @@ WHERE t.typname IS NOT NULL
 
 ### 这条查询是做什么的
 
-这是客户端（例如 DBeaver/驱动）常用的“类型字典探测 SQL”，用于一次性拉取类型系统元数据（类型名、OID、数组 OID、长度、分类、基础类型名等），以便做：
+这是客户端(例如 DBeaver/驱动)常用的“类型字典探测 SQL”，用于一次性拉取类型系统元数据(类型名、OID、数组 OID、长度、分类、基础类型名等)，以便做：
 
 - 列类型展示
 - 参数类型推断
@@ -274,25 +274,25 @@ WHERE t.typname IS NOT NULL
 
 ### 你这次结果说明了什么
 
-- 返回 16 行，对应当前实现内置支持的 16 个基础类型（`bool/char/name/int2/int4/int8/oid/float4/float8/date/time/varchar/text/bytea/timestamp/numeric`）。
-- 返回列很多，是因为当前实现走了“宽列”版本（`AppendWidePgTypeColumns`），会输出接近 PostgreSQL `pg_type` 的完整字段集合，再附加 `relkind`、`base_type_name`、`description`。
+- 返回 16 行，对应当前实现内置支持的 16 个基础类型(`bool/char/name/int2/int4/int8/oid/float4/float8/date/time/varchar/text/bytea/timestamp/numeric`)。
+- 返回列很多，是因为当前实现走了“宽列”版本(`AppendWidePgTypeColumns`)，会输出接近 PostgreSQL `pg_type` 的完整字段集合，再附加 `relkind`、`base_type_name`、`description`。
 
 相关实现：
 
 - 内置类型集合：`src/pgserver/pg_protocol.cpp:90`
 - 宽列定义：`src/pgserver/pg_protocol.cpp:238`
 - 单行构造：`src/pgserver/pg_protocol.cpp:279`
-- 查询匹配（Describe）：`src/pgserver/pg_protocol.cpp:1190`
-- 查询匹配（Execute）：`src/pgserver/pg_protocol.cpp:2479`
+- 查询匹配(Describe)：`src/pgserver/pg_protocol.cpp:1190`
+- 查询匹配(Execute)：`src/pgserver/pg_protocol.cpp:2479`
 
 ### 这个结果“对吗”
 
 - 对“当前 TZDB pg 协议兼容实现”来说：对，结果是预期的。
-- 对“标准 PostgreSQL 严格语义”来说：若 SQL 真的是你贴的 `t.oid,t.,...`（`t.` 缺少 `*`），那应是语法错误；当前实现因为采用规则匹配，仍返回了类型元数据结果。
+- 对“标准 PostgreSQL 严格语义”来说：若 SQL 真的是你贴的 `t.oid,t.,...`(`t.` 缺少 `*`)，那应是语法错误；当前实现因为采用规则匹配，仍返回了类型元数据结果。
 
 因此可解读为：你拿到的是“兼容层的预期元数据输出”，但 SQL 语法校验并非完全等价 PostgreSQL。
 
-## 近期修复记录（`pg_class` 元数据分支）
+## 近期修复记录(`pg_class` 元数据分支)
 
 针对如下查询形态：
 
@@ -305,12 +305,12 @@ FROM pg_catalog.pg_class c ...
 
 已做两项修复：
 
-1. 支持按 `c.relnamespace` 过滤（包含扩展协议参数替换后的字面值）。
-2. 修正该分支中 `relam/relfilenode` 的明显错位映射（不再将表 OID误填到 `relam`）。
+1. 支持按 `c.relnamespace` 过滤(包含扩展协议参数替换后的字面值)。
+2. 修正该分支中 `relam/relfilenode` 的明显错位映射(不再将表 OID误填到 `relam`)。
 
 说明：该分支仍属于兼容层合成结果，不等于完整 PostgreSQL catalog 执行器。
 
-## 查询七：DBeaver/JDBC 连接日志时序（2026-03-09）
+## 查询七：DBeaver/JDBC 连接日志时序(2026-03-09)
 
 ### 你这段日志里实际发生了什么
 
@@ -322,7 +322,7 @@ FROM pg_catalog.pg_class c ...
 2. schema 与注释探测：
    - `SELECT n.oid,n.*,d.description FROM pg_namespace ... pg_description ...`
 3. 会话参数与关键字探测：
-   - `select * from pg_settings where name=$1`（绑定值 `standard_conforming_strings`）
+   - `select * from pg_settings where name=$1`(绑定值 `standard_conforming_strings`)
    - `select string_agg(word, ',') from pg_get_keywords() ...`
 4. 仅拉取列结构的探针：
    - `SELECT * FROM pg_enum WHERE 1<>1 LIMIT 1`
@@ -339,14 +339,14 @@ FROM pg_catalog.pg_class c ...
 ### Parse/Describe/Metadata trace 三种日志的关系
 
 - `Extended Parse SQL`：服务端看到的“预编译 SQL 模板”，参数位置是 `$1`。
-- `Extended Portal Describe SQL`：已绑定参数值后的 SQL 展示（例如 `'2200'`、`'1043'`）。
-- `Metadata trace SQL`：执行阶段在 `ExecuteQuery` 打印的 SQL（当前实现里一般也是绑定后文本）。
+- `Extended Portal Describe SQL`：已绑定参数值后的 SQL 展示(例如 `'2200'`、`'1043'`)。
+- `Metadata trace SQL`：执行阶段在 `ExecuteQuery` 打印的 SQL(当前实现里一般也是绑定后文本)。
 
 所以你看到同一条语句出现 2~3 次是正常的扩展协议生命周期，不是重复执行 bug。
 
 ### `1259` 是什么，是否正确
 
-`1259` 是系统表 `pg_class` 的 OID（即 `'pg_class'::regclass = 1259`）。  
+`1259` 是系统表 `pg_class` 的 OID(即 `'pg_class'::regclass = 1259`)。  
 在这类条件里：
 
 ```sql
@@ -359,13 +359,13 @@ d.classoid='pg_class'::regclass
 
 结论：整体正确，且符合当前兼容层预期。
 
-- `SHOW search_path -> public`：正确（默认 schema）。
-- `standard_conforming_strings -> on`：正确（兼容层固定值）。
-- `pg_enum WHERE 1<>1 LIMIT 1 -> 0 rows`：正确（探测列结构）。
-- `WHERE t.oid='1043'` 的元素类型查询返回 0 行：正确（`varchar` 不是数组类型）。
-- 同一 SQL 出现 Parse/Describe/Execute 三阶段：正确（扩展协议特性）。
+- `SHOW search_path -> public`：正确(默认 schema)。
+- `standard_conforming_strings -> on`：正确(兼容层固定值)。
+- `pg_enum WHERE 1<>1 LIMIT 1 -> 0 rows`：正确(探测列结构)。
+- `WHERE t.oid='1043'` 的元素类型查询返回 0 行：正确(`varchar` 不是数组类型)。
+- 同一 SQL 出现 Parse/Describe/Execute 三阶段：正确(扩展协议特性)。
 
-## 自动化复现脚本（新增）
+## 自动化复现脚本(新增)
 
 新增脚本：
 
@@ -375,7 +375,7 @@ d.classoid='pg_class'::regclass
 用途：
 
 1. 启动本地 `pg_server`。
-2. 用 pgjdbc 执行与 DBeaver 同形态的元数据查询（含参数绑定）。
+2. 用 pgjdbc 执行与 DBeaver 同形态的元数据查询(含参数绑定)。
 3. 校验结果集是否符合兼容预期。
 4. 校验服务端日志是否出现关键 `Extended Parse SQL` 片段。
 
@@ -412,14 +412,14 @@ WHERE t.oid = '1043';
 2. `JOIN pg_type e ON t.typelem = e.oid`：若 `t` 是数组类型，则 `typelem` 指向元素类型 OID，通过 `e` 取元素类型信息。
 3. `JOIN pg_namespace n ON t.typnamespace = n.oid`：取待检查类型 `t` 所在 schema 名。
 4. `n.nspname = ANY(current_schemas(true))`：判断该 schema 是否在当前 schema 搜索路径里。
-5. `WHERE t.oid='1043'`：指定待检查类型是 OID 1043（`varchar`）。
+5. `WHERE t.oid='1043'`：指定待检查类型是 OID 1043(`varchar`)。
 
 ### 返回列解释
 
-- `e.oid`：元素类型 OID（只有数组类型才有）。
-- `?column?`：布尔表达式 `n.nspname = ANY(...)` 的结果。因为表达式没有 `AS` 别名，列名显示成 `?column?`（PostgreSQL 常见行为）。
-- `nspname`：`t` 的 schema 名（例如 `pg_catalog`）。
-- `typname`：元素类型名（来自 `e.typname`）。
+- `e.oid`：元素类型 OID(只有数组类型才有)。
+- `?column?`：布尔表达式 `n.nspname = ANY(...)` 的结果。因为表达式没有 `AS` 别名，列名显示成 `?column?`(PostgreSQL 常见行为)。
+- `nspname`：`t` 的 schema 名(例如 `pg_catalog`)。
+- `typname`：元素类型名(来自 `e.typname`)。
 
 ### 为什么 `t.oid='1043'` 返回 `(0 rows)`
 
@@ -429,7 +429,7 @@ WHERE t.oid = '1043';
 
 ### 什么时候会返回 1 行
 
-如果把条件改成数组类型 OID（例如 `1015`，即 `varchar[]`）：
+如果把条件改成数组类型 OID(例如 `1015`，即 `varchar[]`)：
 
 ```sql
 WHERE t.oid = '1015'
@@ -439,7 +439,7 @@ WHERE t.oid = '1015'
 
 ### 在当前 TZDB pgserver 兼容层中的表现
 
-- 对 `t.oid='1043'`：返回 0 行（正确）。
+- 对 `t.oid='1043'`：返回 0 行(正确)。
 - 对 `t.oid='1015'`：返回 1 行，元素类型为 `varchar`。
 
 对应实现入口见：`src/pgserver/pg_protocol.cpp` 中 `t.typelem = e.oid` 匹配分支。
@@ -451,13 +451,13 @@ WHERE t.oid = '1015'
 不正确。  
 正常情况下，DBeaver 新建表列类型下拉框应至少出现 `boolean/smallint/integer/bigint/real/double precision/varchar/text/date/time/timestamp/numeric/bytea` 等一组基础类型。
 
-### 典型原因（本项目已出现）
+### 典型原因(本项目已出现)
 
 `pg_type` 类型查询里，`typnamespace` 过滤解析过于严格，未覆盖：
 
-- `t.typnamespace = 2200`（带空格）
-- `t.typnamespace='2200'`（带引号）
-- `typnamespace=2200`（不带别名前缀）
+- `t.typnamespace = 2200`(带空格)
+- `t.typnamespace='2200'`(带引号)
+- `typnamespace=2200`(不带别名前缀)
 
 导致服务端在某些查询下没有正确按 schema 过滤，客户端再叠加可见性规则后，最终下拉框可能只剩 `varchar`。
 
@@ -476,7 +476,7 @@ tests/pg_server_test/pgjdbc_dbeaver_trace_smoke.sh cmake-build-release
 
 结果：`PgJDBC DBeaver-trace smoke test passed`。
 
-### 二次排查（Create Table 仍只见 `varchar`）
+### 二次排查(Create Table 仍只见 `varchar`)
 
 后续日志出现了 DBeaver 的这条类型详情查询：
 
@@ -492,17 +492,17 @@ WHERE t.oid=$1;
 但 DBeaver 在该元数据路径里仍会尝试读取 `description` 列，如果不存在会触发：
 
 - `Can't get column 'description': The column name description was not found in this ResultSet`
-- 进而导致 Create Table 对话框 Data Type 下拉加载失败（常见表现是只剩 `varchar`）。
+- 进而导致 Create Table 对话框 Data Type 下拉加载失败(常见表现是只剩 `varchar`)。
 
-已修复为（兼容优先策略）：
+已修复为(兼容优先策略)：
 
 - 对 `from pg_catalog.pg_type t` 且包含 `format_type(nullif(t.typbasetype, 0), t.typtypmod) as base_type_name` 的分支，
-  无论 SQL 是否显式选择 `d.description`，都返回 `description` 列（空字符串）。
+  无论 SQL 是否显式选择 `d.description`，都返回 `description` 列(空字符串)。
 - Describe 与 Execute 两个分支保持一致，避免列结构不一致导致客户端异常。
 
 并已把该变体加入 `PgJdbcDBeaverTraceProbe` 回归校验。
 
-### 三次排查（系统类型被过滤时仅剩 `varchar`）
+### 三次排查(系统类型被过滤时仅剩 `varchar`)
 
 针对 DBeaver 类型下拉场景，进一步补充了“宽 `pg_type` 列表”的返回策略：
 
@@ -512,11 +512,11 @@ WHERE t.oid=$1;
 这样即使客户端按 schema 可见性做过滤，也能看到 `public` 下的
 `boolean/smallint/integer/bigint/real/double precision/character varying/text/date/time/timestamp/numeric/bytea`。
 
-本地复核结果：该宽查询当前返回 `29 rows`（不再只有 `varchar`）。
+本地复核结果：该宽查询当前返回 `29 rows`(不再只有 `varchar`)。
 
 ### 仍只显示 `varchar` 时的判定顺序
 
-1. 先断言服务端是否已生效（核心 SQL）：
+1. 先断言服务端是否已生效(核心 SQL)：
 
 ```sql
 SELECT t.oid,t.typname,t.typnamespace
@@ -531,8 +531,8 @@ ORDER BY t.typnamespace,t.typname;
 ```
 
 应看到两组 namespace：
-- `11`（`pg_catalog`）基础类型
-- `2200`（`public`）别名类型
+- `11`(`pg_catalog`)基础类型
+- `2200`(`public`)别名类型
 
 2. 若 SQL 结果正确但 UI 仍异常，优先判断为 DBeaver 本地元数据缓存未刷新。
 建议执行：
@@ -546,16 +546,16 @@ ORDER BY t.typnamespace,t.typname;
 
 - `Can't get column 'objid': Bad value for type long :`
 
-对应 SQL 是列元数据查询（`... dep.objid`）。  
-根因是兼容层把 `objid`（数值列）在“无依赖”场景返回成了空串 `''`，JDBC 解析 long 时会报错。
+对应 SQL 是列元数据查询(`... dep.objid`)。  
+根因是兼容层把 `objid`(数值列)在“无依赖”场景返回成了空串 `''`，JDBC 解析 long 时会报错。
 
 已修复为：
 
-- `objid` 无值时返回 `"0"`（可解析的数值），避免 DBeaver 元数据加载链路被污染。
+- `objid` 无值时返回 `"0"`(可解析的数值)，避免 DBeaver 元数据加载链路被污染。
 
-修复文件：`src/pgserver/pg_protocol.cpp`（`pg_attribute` 元数据分支）。
+修复文件：`src/pgserver/pg_protocol.cpp`(`pg_attribute` 元数据分支)。
 
-### DBeaver debug 日志中新增兼容细节（`rolvaliduntil`）
+### DBeaver debug 日志中新增兼容细节(`rolvaliduntil`)
 
 日志还可能出现：
 
@@ -571,19 +571,19 @@ ORDER BY a.rolname;
 ```
 
 根因是兼容层此前给 `rolvaliduntil` 返回了空字符串 `''`，而 JDBC 会按时间戳读取该列。  
-空字符串不是合法时间值，导致解析失败，进而可能影响 DBeaver 的后续元数据加载链路（包括类型下拉缓存刷新）。
+空字符串不是合法时间值，导致解析失败，进而可能影响 DBeaver 的后续元数据加载链路(包括类型下拉缓存刷新)。
 
 已修复为：
 
-- `rolvaliduntil` 返回合法时间文本 `1970-01-01 00:00:00+00`（可被 JDBC `getTimestamp` 解析）。
+- `rolvaliduntil` 返回合法时间文本 `1970-01-01 00:00:00+00`(可被 JDBC `getTimestamp` 解析)。
 
-修复文件：`src/pgserver/pg_protocol.cpp`（`pg_roles` 元数据分支）。
+修复文件：`src/pgserver/pg_protocol.cpp`(`pg_roles` 元数据分支)。
 
 并新增回归验证：
 
 - `tests/pg_server_test/PgJdbcDBeaverTraceProbe.java` 增加 `checkRolesQuery`，显式校验 `rs.getTimestamp("rolvaliduntil")` 可读。
 
-### DBeaver 列“混表”问题（`newtable` 与 `test_table` 列混在一起）
+### DBeaver 列“混表”问题(`newtable` 与 `test_table` 列混在一起)
 
 现象：在 DBeaver 查看某个表列时，返回结果里混入了其他表的列。  
 根因：`pg_attribute` 兼容分支之前没有严格按 `WHERE c.oid=$1` / `WHERE attrelid=...` 过滤，导致遍历所有表并全部返回。
@@ -594,7 +594,7 @@ ORDER BY a.rolname;
 - 新增 `QueryRequestsAttributeRelid`，解析并应用 `attrelid=...` 过滤；
 - 两个 `pg_attribute` 返回分支都按目标表 OID 过滤后再组装行。
 
-修复文件：`src/pgserver/pg_protocol.cpp`（`pg_attribute` 元数据相关分支）。
+修复文件：`src/pgserver/pg_protocol.cpp`(`pg_attribute` 元数据相关分支)。
 
 回归增强：
 
@@ -606,13 +606,13 @@ ORDER BY a.rolname;
 根因是此前 `pg_server` 的连接会话只共享一个启动时传入的 `Database` 对象，  
 `StartupMessage` 里的 `database=...` 仅记录到 `database_name_`，没有真正切换底层 DB 句柄。
 
-因此在客户端（DBeaver）切换到其他数据库节点时，会看到同一套表元数据，表现为“多个数据库内容同步”。
+因此在客户端(DBeaver)切换到其他数据库节点时，会看到同一套表元数据，表现为“多个数据库内容同步”。
 
 已修复：
 
 - `PGSession::HandleStartupMessage` 在鉴权前按连接请求的 `dbname` 绑定会话级数据库；
 - 若目标 DB 不在内存注册表，但在 `db_path` 下存在同名 `.db` 文件，会先执行 `OpenDatabase` 再绑定；
-- `template0` 按 PostgreSQL 语义拒绝连接（`3D000`）。
+- `template0` 按 PostgreSQL 语义拒绝连接(`3D000`)。
 
 修复文件：`src/pgserver/pg_protocol.cpp`、`src/inc/pgserver/pg_protocol.h`。
 
@@ -646,14 +646,14 @@ ORDER BY a.rolname;
 
 ### 语义
 
-这是“类型集合计数”查询，预期返回 **1 列 1 行**（标量计数）。
+这是“类型集合计数”查询，预期返回 **1 列 1 行**(标量计数)。
 
 ### 本项目新增兼容点
 
 此前 `from pg_type` 的通用匹配分支过宽，可能把 `count(*)` 误当成普通明细查询返回多列。  
 已新增专门分支：
 
-- `Describe`：返回单列 `count`（`int8`）
+- `Describe`：返回单列 `count`(`int8`)
 - `Execute`：返回一行计数值
 
 修复位置：`src/pgserver/pg_protocol.cpp`。
@@ -662,31 +662,31 @@ ORDER BY a.rolname;
 
 ### 现象
 
-- DBeaver `Properties` 页里列名是 `a3/a4`、`a/b`（看起来正确）。
+- DBeaver `Properties` 页里列名是 `a3/a4`、`a/b`(看起来正确)。
 - 但 `Data` 页列头显示 `n.a3`、`n.a4`、`tt.a`、`tt.b`。
 
 ### 为什么会这样
 
-- `Properties` 读取的是 catalog 元数据（例如 `pg_attribute.attname`），天然是基础列名。
-- `Data` 读取的是查询结果集 `RowDescription` 的列标签（`column label`）。
-- PostgreSQL 对这类查询（如 `SELECT tt.a FROM test_table tt`、`SELECT tt.* ...`）默认返回未限定标签（`a`），不是 `tt.a`。
+- `Properties` 读取的是 catalog 元数据(例如 `pg_attribute.attname`)，天然是基础列名。
+- `Data` 读取的是查询结果集 `RowDescription` 的列标签(`column label`)。
+- PostgreSQL 对这类查询(如 `SELECT tt.a FROM test_table tt`、`SELECT tt.* ...`)默认返回未限定标签(`a`)，不是 `tt.a`。
 
 ### 本项目中的根因
 
-`planner` 里 `PlanColumnRef` 之前把 `expr.ToString()`（即 `alias.column`）直接作为输出列名，  
+`planner` 里 `PlanColumnRef` 之前把 `expr.ToString()`(即 `alias.column`)直接作为输出列名，  
 因此结果集标签被写成了 `tt.a` / `n.a3`。
 
 - 根因位置：`src/query/planner/plan_expression.cpp`
 
 ### 已修复
 
-- 内部列定位仍使用完整限定名（保证解析/执行正确）。
-- 对外输出标签改为 `BoundColumnRef` 的最后一段（仅列名）。
+- 内部列定位仍使用完整限定名(保证解析/执行正确)。
+- 对外输出标签改为 `BoundColumnRef` 的最后一段(仅列名)。
 
 修复后行为：
 
 - `SELECT tt.a, tt.b FROM test_table tt` -> 列标签 `a`,`b`
-- `SELECT n.* FROM newtable n` -> 列标签 `a3`,`a4`（按真实列名）
+- `SELECT n.* FROM newtable n` -> 列标签 `a3`,`a4`(按真实列名)
 
 ### 回归验证
 

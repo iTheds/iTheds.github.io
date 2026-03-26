@@ -1,6 +1,6 @@
 ---
 title: "CLNode优化总结"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raft/CLNode_Optimization_Summary.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/CLNode_Optimization_Summary.md）"
 ---
 
 # CLNode 优化总结
@@ -50,7 +50,7 @@ type_ = Follower;  // ✅ 符合Raft协议
 - 自动的状态转换副作用处理
 - 选举超时随机化
 
-### 4. 🔄 优化锁管理（部分完成）
+### 4. 🔄 优化锁管理(部分完成）
 
 **创建**: `inc/distribution/optimized_apply.hpp`
 
@@ -76,7 +76,7 @@ DEFER_REF(log_mtx_.unlock());
 // 网络操作在锁外执行
 ```
 
-### 5. 🔄 改进错误处理（部分完成）
+### 5. 🔄 改进错误处理(部分完成）
 
 **新增功能**:
 

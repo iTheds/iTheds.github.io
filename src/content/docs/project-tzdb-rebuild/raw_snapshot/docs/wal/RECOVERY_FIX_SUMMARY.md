@@ -14,7 +14,7 @@ description: "ARIES 恢复机制修复总结"
 - 导致整个恢复过程失败
 
 **根本原因**：
-- Physical Redo 要求使用 WAL 中记录的物理位置（page_id）
+- Physical Redo 要求使用 WAL 中记录的物理位置(page_id)
 - 但如果页面未刷盘，磁盘上不存在该页面
 
 **解决方案**：
@@ -43,7 +43,7 @@ description: "ARIES 恢复机制修复总结"
 - 但这会保留崩溃前的错误值
 
 **解决方案**：
-- 在 `RedoInsertWithLayout()` 中，检查 `page_lsn == 0`（表示第一次 redo）
+- 在 `RedoInsertWithLayout()` 中，检查 `page_lsn == 0`(表示第一次 redo)
 - 如果是第一次 redo，将 `entry_num` 重置为 0
 - 后续 redo 操作会正确累加 `entry_num`
 
@@ -105,13 +105,13 @@ if (!adjusted) {
 
 ### 写入阶段
 - ✅ 成功插入 3334 条记录
-- ✅ 提交 3300 条记录（33 个事务）
+- ✅ 提交 3300 条记录(33 个事务)
 - ✅ 在第 3334 条记录时模拟崩溃
 - ✅ 34 条记录未提交
 
 ### 恢复阶段
-- ✅ Redo 阶段成功（包括 overflow 页面创建）
-- ✅ Undo 阶段成功（回滚未提交事务）
+- ✅ Redo 阶段成功(包括 overflow 页面创建)
+- ✅ Undo 阶段成功(回滚未提交事务)
 - ✅ 恢复完成：Winners: 34, Losers: 0
 - ✅ Iterator 不再崩溃
 
@@ -119,7 +119,7 @@ if (!adjusted) {
 
 ## 遗留问题
 
-### Schema 缺失问题（待修复）
+### Schema 缺失问题(待修复)
 **问题**：恢复时表的 Schema 还未加载到 Catalog，导致部分 Redo 操作失败
 
 **错误信息**：
@@ -133,14 +133,14 @@ ApplyRedoDataChange_: missing Schema for disk storage (table_id=4)
 
 **建议解决方案**：
 1. 在恢复流程中先加载系统表和 Catalog
-2. 或者修改 Redo 逻辑，使其不依赖 Schema（Physical Redo 理论上不应该需要 Schema）
+2. 或者修改 Redo 逻辑，使其不依赖 Schema(Physical Redo 理论上不应该需要 Schema)
 
 ---
 
 ## 关键设计原则
 
 ### Physical Redo 的幂等性
-- 使用 WAL 中记录的物理位置（page_id, offset, length）
+- 使用 WAL 中记录的物理位置(page_id, offset, length)
 - 通过 LSN 检查避免重复应用
 - 如果页面不存在，创建指定 ID 的页面
 

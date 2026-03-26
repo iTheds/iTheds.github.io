@@ -1,6 +1,6 @@
 ---
 title: "文档Shell"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/shell/shell.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/shell/shell.md)"
 ---
 
 ## 概述
@@ -19,9 +19,9 @@ TZDB Shell 是一个交互式命令行工具，用于连接和操作 TZDB 数据
     - `shell /path/to/mydb` - 自动解析路径和数据库名
 
 - **数据库初始化**：创建 `Database` 对象并初始化内部组件
-    - 事务管理器（TransactionManager）
-    - 数据目录（Catalog）
-    - SQL 上下文（SqlContext）
+    - 事务管理器(TransactionManager)
+    - 数据目录(Catalog)
+    - SQL 上下文(SqlContext)
 
 ### 2. 交互式查询执行
 
@@ -40,14 +40,14 @@ TZDB Shell 是一个交互式命令行工具，用于连接和操作 TZDB 数据
 
 支持两种执行模式：
 
-**自动事务模式**（无活跃事务）
+**自动事务模式**(无活跃事务)
 
 ```cpp
 query::SqlContext sql_context(txn_manager, nullptr, catalog);
 sql_context.PollExecuteGeneralSql(normalized_query, writer);
 ```
 
-**显式事务模式**（有活跃事务）
+**显式事务模式**(有活跃事务)
 
 ```cpp
 query::SqlContext sql_context(txn_manager, current_txn, catalog);
@@ -70,9 +70,9 @@ Shell 支持完整的事务生命周期管理：
     - `RUNNING` - 事务进行中
     - `COMMITTED` - 已提交
     - `ABORTED` - 已回滚
-    - `TAINTED` - 被污染（执行出错）
+    - `TAINTED` - 被污染(执行出错)
 
-- **事务 ID 显示**：人类可读的事务 ID（通过 XOR 运算转换）
+- **事务 ID 显示**：人类可读的事务 ID(通过 XOR 运算转换)
 
 #### 事务污染机制
 
@@ -88,7 +88,7 @@ Shell 支持完整的事务生命周期管理：
 
 - 支持表头显示
 - 支持行列对齐
-- 支持简化输出模式（无边框）
+- 支持简化输出模式(无边框)
 - 支持 UTF-8 编码
 
 #### 输出特性
@@ -108,9 +108,9 @@ Shell 支持完整的事务生命周期管理：
 
 ### 6. 交互式特性
 
-#### 命令行编辑（linenoise-ng）
+#### 命令行编辑(linenoise-ng)
 
-- 支持命令历史记录（最多 1024 条）
+- 支持命令历史记录(最多 1024 条)
 - 支持行编辑功能
 - 支持窗口大小变化处理
 
@@ -133,8 +133,8 @@ Shell 支持完整的事务生命周期管理：
                         ↓
 ┌─────────────────────────────────────────────────────┐
 │ 2. 主循环                                            │
-│    - 显示提示符（包含事务状态）                      │
-│    - 读取用户输入（支持多行）                        │
+│    - 显示提示符(包含事务状态)                      │
+│    - 读取用户输入(支持多行)                        │
 └─────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────┐
@@ -176,11 +176,11 @@ Shell 支持完整的事务生命周期管理：
 
 | 函数                                | 说明                            |
 |-----------------------------------|-------------------------------|
-| `NormalizeQuery()`                | 规范化查询字符串（移除空格和分号）             |
+| `NormalizeQuery()`                | 规范化查询字符串(移除空格和分号)             |
 | `IsExitCommand()`                 | 检查是否为退出命令                     |
 | `IsTransactionControlCommand()`   | 检查是否为事务控制命令                   |
-| `HandleTransactionalCmd()`        | 处理事务命令（BEGIN/COMMIT/ROLLBACK） |
-| `ReadQuery()`                     | 读取用户输入的查询（支持多行）               |
+| `HandleTransactionalCmd()`        | 处理事务命令(BEGIN/COMMIT/ROLLBACK) |
+| `ReadQuery()`                     | 读取用户输入的查询(支持多行)               |
 | `GetTransactionPrompt()`          | 生成包含事务状态的提示符                  |
 | `GetTransactionIdHumanReadable()` | 转换事务 ID 为人类可读格式               |
 
@@ -215,8 +215,8 @@ Shell 支持完整的事务生命周期管理：
 
 ### 4. 数据库管理
 
-- 执行 DDL 操作（创建表、索引等）
-- 执行 DML 操作（插入、更新、删除）
+- 执行 DDL 操作(创建表、索引等)
+- 执行 DML 操作(插入、更新、删除)
 - 管理数据库对象
 
 ## 错误处理

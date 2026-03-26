@@ -1,17 +1,17 @@
 ---
 title: "网络池RPC对比"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/distribution/NET_POOL_RPC_COMPARISON.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/NET_POOL_RPC_COMPARISON.md）"
 ---
 
 # NetPoolRpc vs NetPoolRpcTsn 对比
 
 ## 概述
 
-本文档对比原有的 `NetPoolRpc`（基于 TCP/UDP）和新的 `NetPoolRpcTsn`（基于 TS_Lib TSN 网络）的实现差异。
+本文档对比原有的 `NetPoolRpc`(基于 TCP/UDP）和新的 `NetPoolRpcTsn`(基于 TS_Lib TSN 网络）的实现差异。
 
 ## 架构对比
 
-### NetPoolRpc（原实现）
+### NetPoolRpc(原实现）
 
 ```
 ┌─────────────────────────────────────────┐
@@ -35,7 +35,7 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/dis
 └─────────────────────────────────────────┘
 ```
 
-### NetPoolRpcTsn（新实现）
+### NetPoolRpcTsn(新实现）
 
 ```
 ┌─────────────────────────────────────────┐
@@ -150,7 +150,7 @@ ProtocolContext *protocol_mt = con_mt->protocol_pool_ptr_->getProtocol();
 
 **特点**：
 - 异步回调模式
-- 使用 IO 模型（epoll/select/kqueue）
+- 使用 IO 模型(epoll/select/kqueue）
 - 协议对象池管理
 
 #### NetPoolRpcTsn
@@ -164,7 +164,7 @@ int recv_len = recvFromTsChannel(channel_id, buffer, buffer_len);
 ```
 
 **特点**：
-- 同步接收模式（可扩展为异步）
+- 同步接收模式(可扩展为异步）
 - 直接使用 TS_Lib 接口
 - 简化的数据处理流程
 
@@ -292,7 +292,7 @@ if (listen_id == -1) {
 | `startRpcServer()` | ✓ | ✓ |
 | `init()` | ✓ | ✓ |
 
-### 继承的 API（可能不使用）
+### 继承的 API(可能不使用）
 
 | API | NetPoolRpc | NetPoolRpcTsn | 说明 |
 |-----|-----------|---------------|------|

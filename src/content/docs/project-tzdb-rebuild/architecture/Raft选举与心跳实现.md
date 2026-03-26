@@ -1,6 +1,6 @@
 ---
 title: "Raft选举与心跳实现"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raft/Raft_Election_Heartbeat_Implementation.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Election_Heartbeat_Implementation.md）"
 ---
 
 # Raft选举和心跳机制实现总结
@@ -67,8 +67,8 @@ class RaftTimer {
 ```
 
 **功能**:
-- ✅ 自动选举触发（150-300ms随机超时）
-- ✅ 定期心跳发送（50ms间隔）
+- ✅ 自动选举触发(150-300ms随机超时）
+- ✅ 定期心跳发送(50ms间隔）
 - ✅ 线程安全的定时器管理
 - ✅ 优雅的启动和停止机制
 
@@ -242,18 +242,18 @@ g++ -std=c++17 -I inc examples/raft_election_example.cpp -o raft_example
 ## 📈 性能特点
 
 ### 选举性能
-- **选举时间**: 150-300ms（可配置）
+- **选举时间**: 150-300ms(可配置）
 - **网络开销**: O(n)消息复杂度
 - **CPU开销**: 最小化，主要是定时器和原子操作
 
 ### 心跳性能  
-- **心跳间隔**: 50ms（可配置）
+- **心跳间隔**: 50ms(可配置）
 - **网络带宽**: 每个心跳约100字节
 - **延迟**: 亚毫秒级状态检查
 
 ### 容错能力
 - **网络分区**: 自动检测和恢复
-- **节点故障**: 快速重新选举（<1秒）
+- **节点故障**: 快速重新选举(<1秒）
 - **消息丢失**: 自动重试机制
 
 ## 🎉 总结

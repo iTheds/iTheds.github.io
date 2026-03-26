@@ -1,6 +1,6 @@
 ---
 title: "文档RPC"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/distribution/rpc/rpc.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/rpc/rpc.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
@@ -530,7 +530,7 @@ user_server.h      # 服务端骨架
 | **rest_rpc** | 5-15 | 1000-5000 | 中等 | 高 | 5000+ |
 
 **注释**：
-- ⭐ 表示性能/支持程度（5星最高）
+- ⭐ 表示性能/支持程度(5星最高)
 - ✅ 表示支持良好
 - ⚠️ 表示部分支持或需要额外工作
 - ❌ 表示不支持或支持较差

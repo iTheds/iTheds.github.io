@@ -25,7 +25,7 @@ description: "天脉操作系统 (Tianmai OS) 适配指南"
 ```
 
 **使用方式：**
-- 编译时定义 `TM_ENABLE=1` 或不定义（默认启用）
+- 编译时定义 `TM_ENABLE=1` 或不定义(默认启用)
 - 编译时定义 `TM_ENABLE=0` 禁用天脉适配
 
 ---
@@ -83,7 +83,7 @@ std_compat::unordered_map<int, std::string> my_map;
 **问题：** 天脉操作系统不支持 `std::unordered_set`
 
 **当前状态：** 
-- 部分代码仍直接使用 `std::unordered_set`（如 `storage/disk/utils/mempool.h`）
+- 部分代码仍直接使用 `std::unordered_set`(如 `storage/disk/utils/mempool.h`)
 - 建议创建类似 `unordered_map` 的适配层
 
 **建议方案：**
@@ -202,8 +202,8 @@ namespace this_thread {
 
 **注意事项：**
 - ✅ **线程 ID 类型已统一**：使用 `std_compat::thread_id` 在两个平台保持一致
-- 线程创建时必须提供名称（用于调试）
-- 天脉操作系统的 `join()` 和 `detach()` 当前为空实现（需要根据实际需求完善）
+- 线程创建时必须提供名称(用于调试)
+- 天脉操作系统的 `join()` 和 `detach()` 当前为空实现(需要根据实际需求完善)
 - 底层类型：天脉为 `Task_ID`，标准为 `std::thread::id`，但通过类型别名统一
 
 #### 2.2 `std::mutex` 适配
@@ -336,7 +336,7 @@ cv.notify_all();   // Wake all threads
 
 **注意事项：**
 - 条件变量必须与 `tzdb::unique_lock` 配合使用
-- `wait_for` 和 `wait_until` 仍然使用 `std::chrono`（见下文）
+- `wait_for` 和 `wait_until` 仍然使用 `std::chrono`(见下文)
 
 ---
 
@@ -347,12 +347,12 @@ cv.notify_all();   // Wake all threads
 **问题：** 天脉操作系统部分支持 `std::chrono`，但在某些场景需要使用系统 API
 
 **当前状态：** 
-- `std::chrono` 在条件变量中正常使用（`tz_condition_variable.h`）
+- `std::chrono` 在条件变量中正常使用(`tz_condition_variable.h`)
 - 在某些延时场景使用天脉系统 API
 
 **适配示例：**
 
-**场景 1：条件变量超时（使用 `std::chrono`）**
+**场景 1：条件变量超时(使用 `std::chrono`)**
 ```cpp
 // inc/os/sync/tz_condition_variable.h
 auto current_time = std::chrono::system_clock::now();
@@ -360,7 +360,7 @@ auto secs = std::chrono::time_point_cast<std::chrono::seconds>(current_time);
 auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 ```
 
-**场景 2：线程休眠（使用天脉 API）**
+**场景 2：线程休眠(使用天脉 API)**
 ```cpp
 // os/communicate/tcp_connect.cpp
 #if TM_OS
@@ -373,7 +373,7 @@ auto ns = std::chrono::time_point_cast<std::chrono::nanoseconds>(current_time);
 #endif
 ```
 
-**场景 3：Raft 选举超时（使用天脉 API）**
+**场景 3：Raft 选举超时(使用天脉 API)**
 ```cpp
 // inc/distribution/raft/raft_election.hpp
 #if TM_OS
@@ -504,7 +504,7 @@ using std::atomic;
 
 **注意事项：**
 - 天脉操作系统不支持 `O_DIRECT` 标志
-- 使用 `fcntl` 替代方案（类似 macOS）
+- 使用 `fcntl` 替代方案(类似 macOS)
 
 ```cpp
 #if defined(__DARWIN__) || defined(__APPLE__) || defined(__OpenBSD__) || TM_OS
@@ -587,7 +587,7 @@ using std::atomic;
 
 ### 编译时检查
 
-- [ ] 确保定义了 `TM_ENABLE=1` 或未定义（默认启用）
+- [ ] 确保定义了 `TM_ENABLE=1` 或未定义(默认启用)
 - [ ] 检查所有 `#if TM_OS` 分支是否正确
 - [ ] 确认天脉系统头文件路径正确
   - `<tasks.h>`

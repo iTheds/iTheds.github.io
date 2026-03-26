@@ -59,27 +59,27 @@ struct PhysicalParams {
 #### ApplyRedoDataChange 修改
 - 检测是否有 PhysicalLayout
 - 如果有，使用新的 Physical Redo 函数
-- 如果没有，使用旧的 Redo 逻辑（向后兼容）
+- 如果没有，使用旧的 Redo 逻辑(向后兼容)
 
 ## 🎯 核心特性
 
 ### 1. 严格幂等性
 - ✅ Redo 操作可以安全地重复执行
 - ✅ 使用 Page LSN 进行幂等性检查
-- ✅ 不执行 Vacuum（页面重组）
+- ✅ 不执行 Vacuum(页面重组)
 - ✅ 不重新分配 Overflow 页面
 
 ### 2. Physical Redo 原则
 ```
 正常执行时：
-  决策（vacuum, 分配 overflow）→ 写入 → 记录物理信息到 WAL
+  决策(vacuum, 分配 overflow)→ 写入 → 记录物理信息到 WAL
 
 Redo 时：
   读取 WAL 中的物理信息 → 直接在指定位置写入 → 更新 Page LSN
 ```
 
 ### 3. 向后兼容
-- 旧的 WAL 日志（没有 PhysicalLayout）仍然可以恢复
+- 旧的 WAL 日志(没有 PhysicalLayout)仍然可以恢复
 - 自动检测并使用合适的 Redo 方法
 - 不破坏现有功能
 
@@ -90,7 +90,7 @@ Redo 时：
 
 ## 📊 实现对比
 
-### 改造前（Physiological Redo）
+### 改造前(Physiological Redo)
 ```cpp
 RedoInsert(rid, tuple) {
     // 1. 检查空间
@@ -108,7 +108,7 @@ RedoInsert(rid, tuple) {
 }
 ```
 
-### 改造后（Physical Redo）
+### 改造后(Physical Redo)
 ```cpp
 RedoInsertWithLayout(rid, tuple, layout) {
     // 1. 幂等性检查
@@ -197,7 +197,7 @@ Rid DiskEngine::Insert(schema, tuple, meta, txn) {
 - [ ] 测试 UPDATE 的 Physical Redo
 - [ ] 测试 DELETE 的 Physical Redo
 - [ ] 测试 Overflow 场景
-- [ ] 测试幂等性（重复 redo）
+- [ ] 测试幂等性(重复 redo)
 
 #### 恢复测试
 - [ ] 正常恢复测试

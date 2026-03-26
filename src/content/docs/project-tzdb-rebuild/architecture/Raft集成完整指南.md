@@ -1,6 +1,6 @@
 ---
 title: "Raft集成完整指南"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raft/Raft_Integration_Complete_Guide.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Integration_Complete_Guide.md）"
 ---
 
 # 🎉 Raft选举和心跳机制完整集成指南
@@ -10,12 +10,12 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raf
 ### ✅ 已完成的核心功能
 
 1. **Raft核心实现** - 完全符合Raft协议
-   - ✅ 选举定时器机制（随机化超时150-300ms）
-   - ✅ 心跳定时器和发送机制（50ms间隔）
-   - ✅ RequestVote RPC处理（完整投票逻辑）
-   - ✅ AppendEntries心跳RPC处理（Leader维护）
-   - ✅ 选举逻辑和投票收集（多数派选举）
-   - ✅ 线程安全设计（原子操作，避免死锁）
+   - ✅ 选举定时器机制(随机化超时150-300ms）
+   - ✅ 心跳定时器和发送机制(50ms间隔）
+   - ✅ RequestVote RPC处理(完整投票逻辑）
+   - ✅ AppendEntries心跳RPC处理(Leader维护）
+   - ✅ 选举逻辑和投票收集(多数派选举）
+   - ✅ 线程安全设计(原子操作，避免死锁）
 
 2. **代码组织和架构** - 模块化设计
    - ✅ 代码整理到专用raft文件夹
@@ -48,7 +48,7 @@ int main() {
     config.is_cluster = true;  // 启用集群模式
     config.sync_mode = static_cast<int>(SyncMode::Sync);  // 启用Raft
     
-    // 创建DataServer（自动集成Raft）
+    // 创建DataServer(自动集成Raft）
     auto server = std::make_unique<DataServer>(config);
     
     // 使用Raft功能
@@ -161,7 +161,7 @@ struct ServerConfig {
     bool is_cluster = true;                    // 启用集群模式
     int sync_mode = SyncMode::Sync;           // 启用Raft同步
     
-    // 可选的Raft参数（将来扩展）
+    // 可选的Raft参数(将来扩展）
     int election_timeout_min_ms = 150;        // 选举超时最小值
     int election_timeout_max_ms = 300;        // 选举超时最大值
     int heartbeat_interval_ms = 50;           // 心跳间隔
@@ -192,10 +192,10 @@ uint64_t GetCurrentTerm() const;
 ### RPC处理方法
 
 ```cpp
-// 处理投票请求（供网络层调用）
+// 处理投票请求(供网络层调用）
 RequestVoteResponse HandleRaftVoteRequest(const RequestVoteRequest& request);
 
-// 处理心跳请求（供网络层调用）
+// 处理心跳请求(供网络层调用）
 AppendEntriesRpcResponse HandleRaftHeartbeat(const AppendEntriesRpcRequest& request);
 ```
 
@@ -208,7 +208,7 @@ void EnableRaft();
 // 手动禁用Raft
 void DisableRaft();
 
-// 发送心跳到Followers（Leader调用）
+// 发送心跳到Followers(Leader调用）
 void SendHeartbeatToFollowers();
 ```
 
@@ -264,15 +264,15 @@ inc/distribution/raft/          # Raft核心实现
 └── README.md                  # 详细使用文档
 
 inc/distribution/
-├── raft_adapter.hpp           # Raft适配器（推荐使用）
+├── raft_adapter.hpp           # Raft适配器(推荐使用）
 └── node.hpp                   # 现有CLNode类
 
 inc/api/
-├── data_server.h              # DataServer头文件（已集成Raft）
+├── data_server.h              # DataServer头文件(已集成Raft）
 └── ...
 
 api_sql/
-├── data_server.cpp            # DataServer实现（已集成Raft）
+├── data_server.cpp            # DataServer实现(已集成Raft）
 └── ...
 
 examples/raft/                 # 示例和测试
@@ -298,7 +298,7 @@ docs/
 
 ### 未来可以扩展的功能
 - 🔄 网络层RPC消息序列化优化
-- 💾 持久化存储支持（状态和日志）
+- 💾 持久化存储支持(状态和日志）
 - 🌐 网络分区和故障恢复处理
 - 📊 性能监控和指标收集
 - 🔧 动态集群成员管理

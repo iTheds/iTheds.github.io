@@ -50,7 +50,7 @@ description: "0531work_data"
 5. 满足如下条件者优先：
 a)有深度学习相关技术经验；
 b)有边缘AI芯片平台应用经验；
-c)有计算机视觉应用开发经验（基于OpenCV，Halide等）；
+c)有计算机视觉应用开发经验(基于OpenCV，Halide等)；
 d)有异构编程经验(基于CUDA，OpenCL、OpenVX、OpenACC等)。
 
 1、具有扎实的计算机编程基础，掌握常用算法和数据结构，熟悉 c/c++,go 等编程语言；
@@ -70,5 +70,5 @@ d)有异构编程经验(基于CUDA，OpenCL、OpenVX、OpenACC等)。
 5. 满足如下条件者优先： 
 	a)有深度学习相关技术经验；
 	b)有边缘AI芯片平台应用经验；
-	c)有计算机视觉应用开发经验（基于OpenCV，Halide等）；
+	c)有计算机视觉应用开发经验(基于OpenCV，Halide等)；
 	d)有异构编程经验(基于CUDA，OpenCL、OpenVX、OpenACC等)。

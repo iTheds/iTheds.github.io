@@ -1,6 +1,6 @@
 ---
 title: "Interface测试"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/test/interface_test.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/test/interface_test.md)"
 ---
 
 # 接口
@@ -41,7 +41,7 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/tes
 
 | 步骤  | 前提和约束                                            | 输入                                                                                | 目的和动作 | 预期结果 | 评估准则 | 备注                        |
 |-----|--------------------------------------------------|-----------------------------------------------------------------------------------|------------|----------|----------|---------------------------|
-| 步骤1 | 操作系统支持文件系统操作<br>TZDB库已编译安装<br>有足够磁盘空间 | - 数据库路径（const char* path）<br>- 数据库名称（const char* db_name）<br>- 配置对象（DBConfig* config，可选）<br>- 管理员角色ID（int32_t admin_role_id，可选）<br>- 缓冲池优化（bool optimize_buffer_pool，可选）<br>- 实例ID（int instance_id，可选） | 验证Database构造函数能够创建或打开数据库实例，支持各种配置参数 | 数据库实例创建成功，无异常<br>db_指针有效<br>数据库文件正确创建或打开 | 数据库对象有效<br>db_成员非空<br>后续操作正常<br>配置文件生效 | 测试本地和分布式场景<br>覆盖新数据库和现有数据库 |
+| 步骤1 | 操作系统支持文件系统操作<br>TZDB库已编译安装<br>有足够磁盘空间 | - 数据库路径(const char* path）<br>- 数据库名称（const char* db_name）<br>- 配置对象（DBConfig* config，可选）<br>- 管理员角色ID（int32_t admin_role_id，可选）<br>- 缓冲池优化（bool optimize_buffer_pool，可选）<br>- 实例ID（int instance_id，可选） | 验证Database构造函数能够创建或打开数据库实例，支持各种配置参数 | 数据库实例创建成功，无异常<br>db_指针有效<br>数据库文件正确创建或打开 | 数据库对象有效<br>db_成员非空<br>后续操作正常<br>配置文件生效 | 测试本地和分布式场景<br>覆盖新数据库和现有数据库 |
 | 步骤2 | 检查数据库实例管理 | DBInstance单例检查                                                                     | 验证DBInstance正确管理数据库实例 | 实例正确注册和管理 | 数据库实例生命周期正确 | \                         |
 | 步骤3 | 测试管理员角色创建 | admin_role_id参数大于0                                                                | 创建管理员角色并授予权限 | 角色创建成功，权限授予 | 角色存在于catalog中<br>权限检查通过 | \                         |
 | 步骤4 | 验证数据库状态 | Database对象                                                                          | 检查数据库是否可用 | 数据库可用于连接 | SQL操作正常 | \                         |

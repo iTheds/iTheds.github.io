@@ -31,6 +31,6 @@ description: "select 适配、连接复用与 UDP 分包重传改造"
 改造方向：
 
 1. UDP 分包
-2. CONNECT 调试增强（`get_error`）
+2. CONNECT 调试增强(`get_error`)
 3. debug 日志整理
 4. UDP 重传机制

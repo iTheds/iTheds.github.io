@@ -1,11 +1,11 @@
 ---
 title: "WAL系统设计"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/arch/wal_system_design.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/wal_system_design.md）"
 ---
 
 ## 概述
 
-TZDB WAL系统是一个完整的Write-Ahead Log实现，用于保证数据库的ACID特性，特别是持久性（Durability）。该系统支持事务的原子性、一致性、隔离性和持久性，并提供高效的恢复机制。
+TZDB WAL系统是一个完整的Write-Ahead Log实现，用于保证数据库的ACID特性，特别是持久性(Durability）。该系统支持事务的原子性、一致性、隔离性和持久性，并提供高效的恢复机制。
 
 ## 系统架构
 
@@ -14,7 +14,7 @@ TZDB WAL系统是一个完整的Write-Ahead Log实现，用于保证数据库的
 1. **WALManager** - WAL管理器
     - 负责日志记录的写入和刷新
     - 管理日志缓冲区
-    - 提供LSN（Log Sequence Number）管理
+    - 提供LSN(Log Sequence Number）管理
     - 支持后台异步刷新
 
 2. **WALBuffer** - 日志缓冲区
@@ -23,7 +23,7 @@ TZDB WAL系统是一个完整的Write-Ahead Log实现，用于保证数据库的
     - 支持并发访问
 
 3. **RecoveryManager** - 恢复管理器
-    - 实现三阶段恢复算法（分析、重做、撤销）
+    - 实现三阶段恢复算法(分析、重做、撤销）
     - 支持检查点机制
     - 处理事务回滚和重做
 
@@ -48,7 +48,7 @@ TZDB WAL系统是一个完整的Write-Ahead Log实现，用于保证数据库的
 
 - **批量写入**: 使用缓冲区批量写入日志，减少磁盘I/O
 - **异步刷新**: 后台线程异步刷新日志缓冲区
-- **LSN管理**: 使用LSN（Log Sequence Number）进行日志序列化管理
+- **LSN管理**: 使用LSN(Log Sequence Number）进行日志序列化管理
 - **校验和**: 每个日志记录包含CRC32校验和，确保数据完整性
 
 ### 2. 可靠性保证
@@ -111,7 +111,7 @@ if (ret != kSuccess) {
 
 ### 1. 缓冲区管理
 
-- 可配置的缓冲区大小（默认64KB）
+- 可配置的缓冲区大小(默认64KB）
 - 智能的缓冲区刷新策略
 - 支持缓冲区满时自动刷新
 
@@ -142,7 +142,7 @@ WALManager wal_manager(disk_manager, 128 * 1024); // 128KB缓冲区
 // 强制刷新日志
 wal_integration->ForceFlushLog();
 
-// 自动刷新（缓冲区满时）
+// 自动刷新(缓冲区满时）
 wal_manager->WriteLogRecord(record, false);
 ```
 

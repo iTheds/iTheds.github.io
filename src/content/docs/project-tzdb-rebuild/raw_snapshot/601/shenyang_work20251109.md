@@ -111,11 +111,11 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 
 ## 配置中心数据模型
 
-根据原始代码中的空格分组（空行分隔表示不同表），抽象为以下多表结构，列名用`col_1`至`col_N`表示，保留数据类型和主键标识：
+根据原始代码中的空格分组(空行分隔表示不同表)，抽象为以下多表结构，列名用`col_1`至`col_N`表示，保留数据类型和主键标识：
 
 
 ### 表 1
-| 列名   | 数据类型          | 主键标识（1=是/0=否） |
+| 列名   | 数据类型          | 主键标识(1=是/0=否) |
 |--------|-------------------|-----------------------|
 | col_1  | TINYINT           | 1                     |
 | col_2  | TINYINT           | 1                     |
@@ -130,7 +130,7 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 
 
 ### 表 2
-| 列名   | 数据类型          | 主键标识（1=是/0=否） |
+| 列名   | 数据类型          | 主键标识(1=是/0=否) |
 |--------|-------------------|-----------------------|
 | col_1  | TINYINT           | 1                     |
 | col_2  | TINYINT           | 1                     |
@@ -140,7 +140,7 @@ odbc_driver = "DSN=TZDB;DATABASE=center;DBPATH=../;STORAGE_ENGINE=kMemoryStorage
 
 
 ### 表 3
-| 列名   | 数据类型          | 主键标识（1=是/0=否） |
+| 列名   | 数据类型          | 主键标识(1=是/0=否) |
 |--------|-------------------|-----------------------|
 | col_1  | VARCHAR           | 1                     |
 | col_2  | VARBINARY         | 0                     |

@@ -35,7 +35,7 @@ description: "典型应用集成功能支持"
 | 11 | [僚机节点1] 执行UPDATE SQL更新飞行计划数据：conn.Query("UPDATE flight_plan SET plan_height = 1500 WHERE route_id = 2") | 更新成功，影响行数为1 | 与预期结果一致 |
 | 12 | [长机节点、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id, plan_height FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 | 与预期结果一致 |
 | 13 | [长机节点、僚机节点1、僚机节点2] 执行SELECT SQL查询飞行计划数据：conn.Query("SELECT route_id, plan_type, plan_height, is_waypoint, waypoints FROM flight_plan WHERE route_id = 2") | 查询成功，返回 route_id=2, plan_height=1500 等更新后的数据 | 与预期结果一致 |
-| 14 | [长机节点、僚机节点1、僚机节点2] 验证飞行计划数据的完整性和合法性：执行SELECT查询检查数据有效性，通过检查字段值是否在约束范围内（如经度-180到180、纬度-90到90、高度0-50000米） | 数据验证通过，所有字段合法 | 与预期结果一致 |
+| 14 | [长机节点、僚机节点1、僚机节点2] 验证飞行计划数据的完整性和合法性：执行SELECT查询检查数据有效性，通过检查字段值是否在约束范围内(如经度-180到180、纬度-90到90、高度0-50000米) | 数据验证通过，所有字段合法 | 与预期结果一致 |
 | 15 | [长机节点] 返回飞行计划查询结果集：执行conn.Query("SELECT * FROM flight_plan WHERE route_id = ? AND plan_type = ? LIMIT 100") | 查询成功，返回符合条件的飞行计划记录，默认限制100条 | 与预期结果一致 |
 | 16 | [长机节点] 返回数据操作执行结果：通过结果对象获取成功/失败状态和影响行数 | 执行结果准确报告 | 与预期结果一致 |
 

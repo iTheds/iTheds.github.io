@@ -5,7 +5,7 @@ description: "AI 模型在数据库中的存储与推理设计"
 
 # AI 模型在数据库中的存储与推理设计
 
-> 目标：在现有数据库系统中，实现视觉为主的深度学习模型（如 MNIST CNN、ResNet18、VGG16、AlexNet、TextCNN 等）的**统一存储与推理执行**能力，并为后续的量化、剪枝、多模型调度等研究打基础。
+> 目标：在现有数据库系统中，实现视觉为主的深度学习模型(如 MNIST CNN、ResNet18、VGG16、AlexNet、TextCNN 等)的**统一存储与推理执行**能力，并为后续的量化、剪枝、多模型调度等研究打基础。
 
 ---
 
@@ -13,11 +13,11 @@ description: "AI 模型在数据库中的存储与推理设计"
 
 整体系统分为三层：
 
-1. **模型解析与存储层**（ONNX → Graph & Table）
-2. **图执行引擎层（Graph Executor）**
-3. **算子后端层（C++ Backend，Burn-style）**
+1. **模型解析与存储层**(ONNX → Graph & Table)
+2. **图执行引擎层(Graph Executor)**
+3. **算子后端层(C++ Backend，Burn-style)**
 
-数据和调用路径（简化）：
+数据和调用路径(简化)：
 
 ```mermaid
 graph LR
@@ -46,7 +46,7 @@ graph LR
 
 ### 2.1 ONNX Graph 结构
 
-从 ONNX 模型解析后，在内存中构建 `OnnxGraph` 结构（参考 Burn Import 设计）：
+从 ONNX 模型解析后，在内存中构建 `OnnxGraph` 结构(参考 Burn Import 设计)：
 
 ```rust
 pub struct OnnxGraph {
@@ -66,7 +66,7 @@ pub struct Node {
 pub struct Argument {
     pub name:  String,
     pub ty:    ArgType,           // TensorType 等
-    pub value: Option<Data>,      // Some(…) 则表示常量 Tensor（如权重、偏置）
+    pub value: Option<Data>,      // Some(…) 则表示常量 Tensor(如权重、偏置)
     pub passed: bool,
 }
 
@@ -81,7 +81,7 @@ pub enum Data {
 
 ### 2.2 模型元数据表 onnx_model_registry
 
-用于管理模型级的静态信息（元数据）：
+用于管理模型级的静态信息(元数据)：
 
 ```sql
 CREATE TABLE onnx_model_registry (
@@ -93,7 +93,7 @@ CREATE TABLE onnx_model_registry (
     input_shapes       INT[][],          -- [[1,1,28,28]]
     output_names       VARCHAR[],        -- ['logits']
     output_shapes      INT[][],          -- [[1,10]]
-    quantization_level SMALLINT,         -- 量化级别（0=fp32, 1=int8 等）
+    quantization_level SMALLINT,         -- 量化级别(0=fp32, 1=int8 等)
     created_at         TIMESTAMP,
     last_accessed      TIMESTAMP
 );
@@ -110,7 +110,7 @@ CREATE TABLE onnx_model_tensors (
     param_name VARCHAR,             -- 'weight','bias','running_mean','running_var' 等
     elem_type  SMALLINT,            -- 0=float32,1=float16,2=int8...
     shape      INT[],               -- [64,3,3,3] 等
-    values     DOUBLE PRECISION[],  -- flatten 存储（未来可扩展为 BLOB/Arrow Tensor）
+    values     DOUBLE PRECISION[],  -- flatten 存储(未来可扩展为 BLOB/Arrow Tensor)
     PRIMARY KEY (model_id, node_name, param_name)
 );
 ```
@@ -174,11 +174,11 @@ DELETE ONNX mnist;
 
 - 清理 `onnx_model_registry` 中对应行；
 - 清理 `onnx_model_tensors` 中对应模型数据；
-- 清理 Graph Cache 中对应 `OnnxGraph`（可选择惰性回收）。
+- 清理 Graph Cache 中对应 `OnnxGraph`(可选择惰性回收)。
 
 ### 3.3 推理函数接口
 
-通用推理函数（表达式级）：
+通用推理函数(表达式级)：
 
 ```sql
 SELECT model_inference(
@@ -187,10 +187,10 @@ SELECT model_inference(
 ) AS logits;
 ```
 
-- 输入参数 `input` 类型：`STRUCT(shape INT[], value FLOAT[])`（未来可扩展为多输入：`MAP(VARCHAR, STRUCT(...))`）。
+- 输入参数 `input` 类型：`STRUCT(shape INT[], value FLOAT[])`(未来可扩展为多输入：`MAP(VARCHAR, STRUCT(...))`)。
 - 返回值同样为 `STRUCT(shape INT[], value FLOAT[])` 或多输出结构。
 
-专用模型函数（注册后绑定）：
+专用模型函数(注册后绑定)：
 
 ```sql
 CREATE FUNCTION mnist(x FLOAT[]) AS
@@ -203,18 +203,18 @@ SELECT mnist(image_column) FROM images;
 
 ---
 
-## 4. Graph Executor（图执行引擎）设计
+## 4. Graph Executor(图执行引擎)设计
 
-Graph Executor 是连接“模型存储”和“算子后端”的关键模块，负责按拓扑顺序在单线程环境下执行计算图节点。该设计可以统一支持简单 CNN（如 MNIST）、ResNet18/VGG/AlexNet 等包含残差和分支结构的网络。
+Graph Executor 是连接“模型存储”和“算子后端”的关键模块，负责按拓扑顺序在单线程环境下执行计算图节点。该设计可以统一支持简单 CNN(如 MNIST)、ResNet18/VGG/AlexNet 等包含残差和分支结构的网络。
 
 ### 4.1 核心职责
 
 - 接受 `OnnxGraph` 与输入张量映射，顺序执行图中的每个节点。
 - 维护 `TensorMap: name -> Tensor`，用于存放所有中间结果和最终输出。
-- 为每个节点选择合适的 Backend 算子（通过 `node_type`），并将输入/输出张量在内存中正确路由。
-- 自然支持分支、残差、Add/Concat 等多输入节点，只要图是一个有向无环图（DAG）。
+- 为每个节点选择合适的 Backend 算子(通过 `node_type`)，并将输入/输出张量在内存中正确路由。
+- 自然支持分支、残差、Add/Concat 等多输入节点，只要图是一个有向无环图(DAG)。
 
-### 4.2 执行流程（单线程拓扑执行）
+### 4.2 执行流程(单线程拓扑执行)
 
 伪代码示例：
 
@@ -247,7 +247,7 @@ Tensor run_graph(const OnnxGraph& graph,
         // 调用 Backend 执行当前节点
         Tensor out = execute_node(node, in, backend /*, attrs, 权重缓存等 */);
 
-        // 写回输出（多数情况一个输出）
+        // 写回输出(多数情况一个输出)
         for (auto& out_arg : node.outputs) {
             values.set(out_arg.name, out);
         }
@@ -267,7 +267,7 @@ Tensor run_graph(const OnnxGraph& graph,
 - `MaxPool`     → `backend.max_pool2d(...)`
 - `AvgPool`     → `backend.avg_pool2d(...)`
 - `Gemm`/`Linear` → `backend.matmul(...)` 或专用 `linear`
-- `Add`         → `backend.add(...)`（用于 ResNet 残差连接）
+- `Add`         → `backend.add(...)`(用于 ResNet 残差连接)
 - `LogSoftmax`  → `backend.log_softmax(...)`
 
 ### 4.3 对 ResNet 等残差网络的支持
@@ -275,10 +275,10 @@ Tensor run_graph(const OnnxGraph& graph,
 ResNet 的 BasicBlock 示例：
 
 - 主分支：`conv1 -> bn1 -> relu1 -> conv2 -> bn2`
-- 跳跃分支：`identity(x)` 或 `downsample(x)`（一般是 `1x1 conv + bn`）
+- 跳跃分支：`identity(x)` 或 `downsample(x)`(一般是 `1x1 conv + bn`)
 - 汇合：`add(out_main, out_skip) -> relu2`
 
-在 OnnxGraph 中表示为一个包含多输入节点（`Add`）的 DAG：
+在 OnnxGraph 中表示为一个包含多输入节点(`Add`)的 DAG：
 
 - `Add` 节点有两个输入：主分支输出和跳跃分支输出；
 - Graph Executor 在拓扑排序后，顺序执行各节点，只要保证每个节点的输入已在 `TensorMap` 中即可。
@@ -287,7 +287,7 @@ ResNet 的 BasicBlock 示例：
 
 ---
 
-## 5. C++ Backend（Burn-style）设计
+## 5. C++ Backend(Burn-style)设计
 
 Backend 层提供实际数值计算的算子实现，其接口和张量形状遵循 Burn 的 ndarray 后端风格，但用 C++ 重写，以便嵌入现有 C++ 数据库项目中。
 
@@ -301,7 +301,7 @@ Backend 层提供实际数值计算的算子实现，其接口和张量形状遵
   - `weight`：`[channels_out, channels_in, kH, kW]`
   - `bias`：`[channels_out]`
 - 可选 strides：`std::vector<int64_t> strides`，遵循 row-major 约定，
-  便于支持切片和更复杂布局（与前面分析 `ArrayBase<S, D>` 一致）。
+  便于支持切片和更复杂布局(与前面分析 `ArrayBase<S, D>` 一致)。
 
 ### 5.2 典型算子接口
 
@@ -346,33 +346,33 @@ public:
 
 ---
 
-## 6. 项目分阶段实施计划（宏观，工程视角）
+## 6. 项目分阶段实施计划(宏观，工程视角)
 
 > 下面的人月预估是假设 1–2 人全职参与的数量级，仅用于优先级和工作量感觉，不作为正式排期。
 
-### Phase 0：调研与技术选型（约 0.5–1 人月）
+### Phase 0：调研与技术选型(约 0.5–1 人月)
 
 - **主要目标**：定架构、定算子集合、定接口风格。
 - **关键工作**：
   - **架构路线确定**：
-    - 上层：ONNX 解析 + 自建 `OnnxGraph` 结构（参考 burn-import），并映射到内部存储表；
-    - 中层：Graph Executor（单线程拓扑执行 DAG）；
+    - 上层：ONNX 解析 + 自建 `OnnxGraph` 结构(参考 burn-import)，并映射到内部存储表；
+    - 中层：Graph Executor(单线程拓扑执行 DAG)；
     - 下层：自研 C++ Backend，接口/shape 对齐 burn-ndarray。
   - **SQL 接口风格确定**：
     - `INSTALL/LOAD onnx`；
     - `CREATE ONNX MODEL ...`；
     - `GET ONNX` / `DELETE ONNX`；
-    - `model_inference(name, input)` 与基于它的自定义函数（如 `mnist(x)`）。
+    - `model_inference(name, input)` 与基于它的自定义函数(如 `mnist(x)`)。
   - **首期支持范围确定**：
-    - 模型：MNIST CNN → ResNet18（CIFAR10）→ VGG16 → AlexNet；
+    - 模型：MNIST CNN → ResNet18(CIFAR10)→ VGG16 → AlexNet；
     - 算子：Conv2d / BatchNorm / Relu / MaxPool / AvgPool / Gemm / Flatten / (Log)Softmax / Add。
 - **里程碑 M0**：
-  - 架构设计文档完成（本 `ai.md` 初版）；
+  - 架构设计文档完成(本 `ai.md` 初版)；
   - 仓库中建立扩展模块目录与基本骨架。
 
-### Phase 1：ONNX 函数扩展（最小可用版，约 1–2 人月）
+### Phase 1：ONNX 函数扩展(最小可用版，约 1–2 人月)
 
-- **主要目标**：从 SQL 调用一个 ONNX 模型跑通推理（不要求模型入库）。
+- **主要目标**：从 SQL 调用一个 ONNX 模型跑通推理(不要求模型入库)。
 - **关键工作**：
   - **1.1 DuckDB 风格扩展骨架**：
     - 实现 C++ 扩展：`INSTALL onnx; LOAD onnx;`；
@@ -388,7 +388,7 @@ public:
     - 实现点：临时可直接使用 onnxruntime C API，或内嵌一个极简 C++ MNIST CNN backend。
 
   - **1.2 输入输出结构与 C++ Tensor 结构**：
-    - 在 C++ 侧定义统一 `Tensor` 结构（示意）：
+    - 在 C++ 侧定义统一 `Tensor` 结构(示意)：
 
       ```cpp
       struct Tensor {
@@ -406,13 +406,13 @@ public:
 
 - **里程碑 M1**：
   - SQL 例子 `SELECT model_inference('/path/mnist.onnx', {...})` 可以在单机环境正确返回结果；
-  - 有基础的单元测试和简单性能基线（例如单张 MNIST 推理延迟）。
+  - 有基础的单元测试和简单性能基线(例如单张 MNIST 推理延迟)。
 
-### Phase 2：模型入库 & Graph Executor & Backend v1（约 3–5 人月）
+### Phase 2：模型入库 & Graph Executor & Backend v1（约 3–5 人月)
 
-- **主要目标**：模型完全托管到 DB 内部（元数据+权重），通过 Graph Executor + C++ Backend 完成推理。
+- **主要目标**：模型完全托管到 DB 内部（元数据+权重)，通过 Graph Executor + C++ Backend 完成推理。
 - **关键工作**：
-  - **2.1 模型注册与管理（DDL / DML）**：
+  - **2.1 模型注册与管理（DDL / DML)**：
     - 实现下面的 DDL 原型：
 
       ```sql
@@ -424,10 +424,10 @@ public:
       );
       ```
 
-    - 后台逻辑：解析 ONNX → `OnnxGraph`；插入 `onnx_model_registry`（`model_id, model_name, version, onnx_path, input_names, input_shapes, ...`）；
-      插入 `onnx_model_tensors`（每个 weight/bias/running_mean/running_var 一行）；
-    - 再实现 `GET ONNX` / `GET ONNX name`、`DELETE ONNX` / `DELETE ONNX name`（级联删除张量和 Graph Cache）。
-  - **2.2 Graph Cache（推理图缓存）**：
+    - 后台逻辑：解析 ONNX → `OnnxGraph`；插入 `onnx_model_registry`（`model_id, model_name, version, onnx_path, input_names, input_shapes, ...`)；
+      插入 `onnx_model_tensors`（每个 weight/bias/running_mean/running_var 一行)；
+    - 再实现 `GET ONNX` / `GET ONNX name`、`DELETE ONNX` / `DELETE ONNX name`（级联删除张量和 Graph Cache)。
+  - **2.2 Graph Cache（推理图缓存)**：
     - 在 C++ 扩展中维护：
 
       ```cpp
@@ -437,8 +437,8 @@ public:
 
     - `CREATE ONNX MODEL` 时解析 ONNX 并放入缓存；
     - `model_inference('mnist', ...)` 先在缓存中查找图。
-  - **2.3 C++ Backend v1（Burn-style）**：
-    - 定义 Backend 接口（示意）：
+  - **2.3 C++ Backend v1（Burn-style)**：
+    - 定义 Backend 接口（示意)：
 
       ```cpp
       struct Conv2dOptions {
@@ -479,45 +479,45 @@ public:
 
       - 从 `onnx_model_registry` / Graph Cache 取 `OnnxGraph`；
       - 从 `onnx_model_tensors` / 内存缓存加载权重张量，构建 `Tensor` 对象；
-      - 在单线程内按拓扑顺序执行 Graph 节点（Conv → Relu → Conv → ... → LogSoftmax）；
+      - 在单线程内按拓扑顺序执行 Graph 节点（Conv → Relu → Conv → ... → LogSoftmax)；
       - 返回 `{shape, value}` 形式的输出；
     - 在物理计划层面，引入 `OnnxModelCall` 节点，哪怕初期只是一个“黑盒 Operator”。
 - **里程碑 M2**：
   - MNIST CNN / ResNet18(on CIFAR10) 模型通过 `CREATE ONNX MODEL` 注册到 DB，并可通过 `model_inference('name', ...)` 正确推理；
-  - onnxruntime 等外部运行时代码可以作为可选依赖（或完全移除），核心路径依赖自研 C++ Backend；
-  - 有端到端回归测试（固定模型 + 固定输入），确保结果数值正确。
+  - onnxruntime 等外部运行时代码可以作为可选依赖（或完全移除)，核心路径依赖自研 C++ Backend；
+  - 有端到端回归测试（固定模型 + 固定输入)，确保结果数值正确。
 
-### Phase 3：算子优化、量化与调度（约 3–6 人月，偏研究）
+### Phase 3：算子优化、量化与调度（约 3–6 人月，偏研究)
 
 - **主要目标**：在自研 Backend 基础上提升性能与资源利用率，探索量化与多模型调度策略。
 - **关键工作**：
   - **3.1 算子优化与算子融合**：
     - 对 Conv/BN/Relu 做模式匹配，融合为 `FusedConvBnRelu` 等高效算子；
-    - 为融合后算子缓存合并权重（可选写回 `onnx_model_tensors` 形成优化版本）；
+    - 为融合后算子缓存合并权重（可选写回 `onnx_model_tensors` 形成优化版本)；
     - 引入 OpenMP 或线程池，对 Conv2d / Gemm 做出批量/通道维度上的并行化。
   - **3.2 模型量化与压缩**：
     - 扩展 `onnx_model_tensors.elem_type`，支持 `int8/float16` 等；
     - 提供离线量化工具：基于现有权重表做伪量化，写入新的模型版本；
-    - Online 量化推理：Backend 对 `int8` 提供专门实现（或先 dequant 到 fp32 再计算）。
+    - Online 量化推理：Backend 对 `int8` 提供专门实现（或先 dequant 到 fp32 再计算)。
   - **3.3 多模型共享与缓存管理**：
     - 统一模型缓存策略：基于 `last_accessed` + 权重大小做 LRU/LFU；
     - 支持多模型流水线场景下的批量合并与共享执行；
     - 探索张量生命周期管理和 Graph Cache 的置换策略。
 - **里程碑 M3**：
   - 在典型 CNN 模型上，相比 Phase 2 baseline，有 2–5x 的推理性能提升；
-  - 完成至少一套量化方案（例如 int8）在真实负载上的效果评估报告；
+  - 完成至少一套量化方案（例如 int8)在真实负载上的效果评估报告；
   - 形成多模型共享与缓存策略的原型实现和实验结果。
 
-### Phase 4：生态与高级应用（长期演进，按需增加人月）
+### Phase 4：生态与高级应用（长期演进，按需增加人月)
 
 - **主要目标**：与外部生态集成、提升可用性与可观测性，扩展到更多模型类型。
 - **关键工作**：
-  - 与 PyTorch/Burn 等训练框架的一键集成（导出 ONNX → 直接 `CREATE ONNX MODEL`）；
-  - 推理性能可视化与分析工具（算子级统计、图级 timeline）；
-  - 扩展到更多模型类型（TextCNN、RNN/Transformer 等），丰富算子集；
+  - 与 PyTorch/Burn 等训练框架的一键集成（导出 ONNX → 直接 `CREATE ONNX MODEL`)；
+  - 推理性能可视化与分析工具（算子级统计、图级 timeline)；
+  - 扩展到更多模型类型（TextCNN、RNN/Transformer 等)，丰富算子集；
   - 建立对外 API/文档与 demo 集合，支持内部/外部用户试用。
 - **里程碑 M4**：
-  - 至少一个端到端业务 demo（例如“在 DB 中直接对图像表做分类”）对外展示；
+  - 至少一个端到端业务 demo（例如“在 DB 中直接对图像表做分类”)对外展示；
   - 形成较完整的文档体系和使用指南，支持非本项目成员上手使用。
 
 ---
@@ -527,7 +527,7 @@ public:
 - 在单独章节详细描述 C++ Tensor 的内存布局与 API；
 - 给出 ResNet18/VGG16 等模型在 `OnnxGraph` 中的典型节点序列示例；
 - 定义 Graph Executor 的错误处理和诊断日志规范；
-- 明确各阶段的测试基准（MNIST、CIFAR10 等）和性能指标。
+- 明确各阶段的测试基准（MNIST、CIFAR10 等)和性能指标。
 
 ---
 
@@ -600,6 +600,6 @@ graph TB
 
 可以看到：
 
-- **模型算子子系统（MODEL_EXEC）** 位于执行引擎层，与传统算子并列；
+- **模型算子子系统（MODEL_EXEC)** 位于执行引擎层，与传统算子并列；
 - **模型元数据表与张量表** 则作为特殊系统表由存储引擎统一管理，与普通用户表共享同一存储/事务机制。
 

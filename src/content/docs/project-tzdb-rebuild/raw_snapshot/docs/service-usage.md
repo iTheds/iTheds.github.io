@@ -9,11 +9,11 @@ description: "Service 使用策略说明"
 
 本项目将数据库与会话操作拆分为可插拔的 Service，分为显式服务与自动服务两类：
 
-- 显式服务（调用者明确选择）
+- 显式服务(调用者明确选择)
   - `LocalDatabaseService` / `LocalSessionService`
   - `DistributedDatabaseService` / `DistributedSessionService`
   - `RpcDatabaseService` / `RpcSessionService`
-- 自动服务（内部根据运行模式自动选择）
+- 自动服务(内部根据运行模式自动选择)
   - `DatabaseServiceAuto`
 
 ## RuntimeMode / DistributionMode 说明
@@ -23,7 +23,7 @@ description: "Service 使用策略说明"
   - `ClientServer`：有客户端/服务端边界，需要 IPC/RPC 通道
 - `DistributionMode` 表示**数据执行模型**：
   - `Single`：单机本地执行
-  - `Raft`：分布式一致性执行（Raft 状态机）
+  - `Raft`：分布式一致性执行(Raft 状态机)
 - 设置来源与映射关系：
   - `RunServer(...)` 会根据 `DataServerConfig` 设定模式
   - 约定映射：`ipc_enable=true` -> `RuntimeMode::ClientServer`
@@ -34,45 +34,45 @@ description: "Service 使用策略说明"
 
 ## 使用策略
 
-### 1) 嵌入式（Embedded）
-- 单机（`DistributionMode::Single`）：使用 `Local*Service`
-- 分布式（`DistributionMode::Raft`）：使用 `Distributed*Service`
+### 1) 嵌入式(Embedded)
+- 单机(`DistributionMode::Single`)：使用 `Local*Service`
+- 分布式(`DistributionMode::Raft`)：使用 `Distributed*Service`
 - 推荐：嵌入式场景可以直接用 `DatabaseServiceAuto` 处理建库逻辑，减少调用方分支
 
-### 2) 客户端/服务端（ClientServer）
+### 2) 客户端/服务端(ClientServer)
 - 客户端：
-  - 直接使用 `Rpc*Service`（需要 `ClientConfig`）
+  - 直接使用 `Rpc*Service`(需要 `ClientConfig`)
   - 当前客户端默认走 `Connection(ClientConfig)` → `RpcSqlSession` 路径
 - 服务端：
   - 使用 `Local*Service` 或 `Distributed*Service`，由 `DistributionMode` 决定
 
 ## 运行模式与调用路径
 
-### 嵌入式 + 单机（Embedded + Single）
-- 服务选型：`LocalDatabaseService` / `LocalSessionService`（或 `DatabaseServiceAuto`）
-- 调用路径（简化）：
+### 嵌入式 + 单机(Embedded + Single)
+- 服务选型：`LocalDatabaseService` / `LocalSessionService`(或 `DatabaseServiceAuto`)
+- 调用路径(简化)：
   - `cpp-api.cpp` → `DatabaseServiceAuto` → `LocalDatabaseService`
-  - `SqlServiceRouter`（若走 RPC/IPC）→ `LocalSessionService`
+  - `SqlServiceRouter`(若走 RPC/IPC)→ `LocalSessionService`
 - 关键点：不依赖 `DataServer` / `ServerManager`
 
-### 嵌入式 + Raft（Embedded + Raft）
+### 嵌入式 + Raft(Embedded + Raft)
 - 服务选型：`DistributedDatabaseService` / `DistributedSessionService`
-- 调用路径（简化）：
-  - `ServerManager` 启动 `DataServer`（分布式）
-  - `SqlServiceRouter` → `DistributedSessionService` → `DataServer`（状态机执行本地逻辑）
+- 调用路径(简化)：
+  - `ServerManager` 启动 `DataServer`(分布式)
+  - `SqlServiceRouter` → `DistributedSessionService` → `DataServer`(状态机执行本地逻辑)
 - 关键点：服务端在同进程内，仍使用分布式服务以保持一致性
 
-### CS + 单机（ClientServer + Single）
+### CS + 单机(ClientServer + Single)
 - 客户端服务选型：`Rpc*Service` 或 `Connection(ClientConfig)` → `RpcSqlSession`
 - 服务端服务选型：`Local*Service`
-- 调用路径（简化）：
+- 调用路径(简化)：
   - Client → `SqlRpcHandler` → `SqlServiceRouter` → `LocalSessionService`
 - 关键点：IPC/RPC 仅在客户端与服务端之间
 
-### CS + Raft（ClientServer + Raft）
+### CS + Raft(ClientServer + Raft)
 - 客户端服务选型：`Rpc*Service` 或 `Connection(ClientConfig)` → `RpcSqlSession`
 - 服务端服务选型：`Distributed*Service`
-- 调用路径（简化）：
+- 调用路径(简化)：
   - Client → `SqlRpcHandler` → `SqlServiceRouter` → `DistributedSessionService` → `DataServer`
 - 关键点：服务端 `ServerManager` 管理 `DataServer` 生命周期，客户端不直接接触分布式组件
 
@@ -80,15 +80,15 @@ description: "Service 使用策略说明"
 
 - `ServerManager`：服务端生命周期管理器，统一创建/销毁核心组件。
   - 必选持有 `DataServer`
-  - 可选持有 `IpcServer`（由配置决定）
+  - 可选持有 `IpcServer`(由配置决定)
   - 对外提供 `GetDataServer()` 作为服务端数据面入口
-- `DataServer`：服务端数据面核心执行体（本地或分布式）。
+- `DataServer`：服务端数据面核心执行体(本地或分布式)。
   - 承载 `CreateSession/Execute/Prepare/Binder` 等接口
   - `Raft` 模式下驱动状态机逻辑
 - `IpcServer`：服务端 IPC 通道封装，仅负责通信，不包含业务逻辑。
   - 内部持有 `NetPoolRpc`
   - 不直接依赖 `DataServer`
-- 依赖方向：`ServerManager` -> `DataServer`（必选），`ServerManager` -> `IpcServer`（可选）
+- 依赖方向：`ServerManager` -> `DataServer`(必选)，`ServerManager` -> `IpcServer`(可选)
 
 ## IPC 启用规则与 RuntimeMode
 
@@ -104,15 +104,15 @@ description: "Service 使用策略说明"
 - `DataServer` 仅在服务端启动路径中创建：
   - `RunServer(...)` -> `ServerManager::Start(...)` -> 创建 `DataServer`
 - `ipc_enable` 不影响 `DataServer` 创建，只影响 `IpcServer` 是否启用
-- 纯嵌入式本地调用（未走 `RunServer`）不会创建 `DataServer`
+- 纯嵌入式本地调用(未走 `RunServer`)不会创建 `DataServer`
 - `RuntimeMode` 不是 `DataServer` 的开关，但通常：
   - `ClientServer` 依赖 `RunServer`，因此会创建 `DataServer`
-  - `Embedded` 可只走本地路径不创建，也可显式调用 `RunServer` 创建（例如嵌入式 + Raft）
+  - `Embedded` 可只走本地路径不创建，也可显式调用 `RunServer` 创建(例如嵌入式 + Raft)
 - `DistributionMode` 决定 `DataServer` 行为：
   - `Single`：本地执行，`DataServer` 主要用于统一接口
   - `Raft`：分布式执行，`DataServer` 驱动 Raft/状态机
 
-## 典型启动流程（简化）
+## 典型启动流程(简化)
 
 ```text
 RunServer(...)
@@ -136,10 +136,10 @@ RunServer(...)
 
 ### 已使用
 - `DatabaseServiceAuto`
-  - `src/api_sql/cpp-api.cpp:Database::Database`（构造时自动选择本地/分布式建库）
+  - `src/api_sql/cpp-api.cpp:Database::Database`(构造时自动选择本地/分布式建库)
 - `LocalSessionService` / `DistributedSessionService`
   - `src/server/sql_service_router.cpp` 通过 `MakeSessionService` 生成
-  - `src/server/data_server.cpp`（Raft 状态机内部执行本地逻辑）
+  - `src/server/data_server.cpp`(Raft 状态机内部执行本地逻辑)
 - `LocalDatabaseService` / `DistributedDatabaseService`
   - `src/server/sql_service_router.cpp` 通过 `MakeDatabaseService` 生成
 - `RpcSessionService` / `RpcDatabaseService`
@@ -147,10 +147,10 @@ RunServer(...)
 
 - `SqlServiceRouter`
   - 服务端 SQL 请求路由器，承接 RPC/IPC 的 SQL 请求并转发到 `ISessionService/IDatabaseService`
-  - 由 `SqlRpcHandler` 持有并调用（`src/server/sql_rpc_handlers.cpp`）
+  - 由 `SqlRpcHandler` 持有并调用(`src/server/sql_rpc_handlers.cpp`)
   - 根据 `DBInstance` 的 `RuntimeMode/DistributionMode` 选择 Local/Distributed 服务实现
 
-### 未直接使用（当前路径未走到）
+### 未直接使用(当前路径未走到)
 - `RpcSessionService` / `RpcDatabaseService`
   - 目前客户端默认使用 `Connection(ClientConfig)` → `RpcSqlSession`
   - 工厂路径未被客户端显式调用

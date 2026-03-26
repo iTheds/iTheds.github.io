@@ -1,6 +1,6 @@
 ---
 title: "文档TZDB架构"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/arch/TZDB_arch.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/TZDB_arch.md）"
 ---
 
 # TZDB 架构设计

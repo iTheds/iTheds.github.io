@@ -1,6 +1,6 @@
 ---
 title: "Raft集成指南"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raft/Raft_Integration_Guide.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Integration_Guide.md）"
 ---
 
 # Raft选举和心跳机制集成指南
@@ -11,7 +11,7 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raf
 
 ## 📋 集成方案
 
-### 方案1：渐进式集成（推荐）⭐
+### 方案1：渐进式集成(推荐）⭐
 
 这是最安全的方式，可以逐步迁移现有系统：
 
@@ -412,10 +412,10 @@ int main() {
     // 创建状态机
     auto state_machine = std::make_unique<DBStateMachine>();
     
-    // 创建节点（方案1：渐进式）
+    // 创建节点(方案1：渐进式）
     auto node = std::make_unique<CLNode<DataServerTypeConfig>>(config, std::move(state_machine));
     
-    // 或者（方案2：直接替换）
+    // 或者(方案2：直接替换）
     // auto node = tzdb::raft::CreateNode<DataServerTypeConfig>(config, std::move(state_machine));
     
     // 启动服务器

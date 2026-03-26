@@ -1,6 +1,6 @@
 ---
 title: "Uoe协议适配"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/third_party/uoe.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/third_party/uoe.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../auto-number-title.css" />
@@ -457,7 +457,7 @@ ifconfig lo 127.0.0.1
 
 **三节点问题**:
 
-- 一个节点断电，另两个无法查询数据（超时问题）
+- 一个节点断电，另两个无法查询数据(超时问题)
 - Call RPC 变同步后，同一时刻只能一个数据发送
 - 网络重传机制导致重复 call RPC，部分请求无法执行
 - Call RPC 不出现 send error，导致认为链路存在

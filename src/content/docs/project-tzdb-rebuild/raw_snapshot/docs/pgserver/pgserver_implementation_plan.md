@@ -53,7 +53,7 @@ psql "host=127.0.0.1 port=5432 user=admin dbname=testdb sslmode=disable gssencmo
 
 - ✅ 支持 DBeaver 通过 PostgreSQL JDBC 驱动连接 TZDB
 - ✅ 提供完整的 SQL 查询、数据编辑、事务管理功能
-- ✅ 支持元数据查询（表、列、索引等）
+- ✅ 支持元数据查询(表、列、索引等)
 - ✅ 保持与现有 TZDB 架构的兼容性
 - ✅ 支持多客户端并发连接
 
@@ -165,7 +165,7 @@ private:
 
 ## PostgreSQL 协议消息
 
-### P0 优先级（核心必需）
+### P0 优先级(核心必需)
 
 #### 连接建立
 - **StartupMessage**：客户端初始化连接
@@ -201,7 +201,7 @@ private:
   - 字段：类型码(1字节) + 值字符串 + \0
   - 类型：'S'(严重性), 'C'(错误码), 'M'(消息), 'D'(详情)等
 
-### P1 优先级（扩展功能）
+### P1 优先级(扩展功能)
 
 #### 预处理语句
 - **Parse**：解析预处理语句
@@ -220,7 +220,7 @@ private:
 
 ## 实现步骤
 
-### Phase 1：基础框架（3-4天）
+### Phase 1：基础框架(3-4天)
 
 **目标：** 建立 TCP 服务器和基本消息处理
 
@@ -242,7 +242,7 @@ private:
    - 接受客户端连接
 
 3. **实现基本消息解析**
-   - 解析消息头部（类型 + 长度）
+   - 解析消息头部(类型 + 长度)
    - 读取消息体
    - 消息路由框架
 
@@ -253,7 +253,7 @@ private:
 
 **验证：** 使用 psql 或 DBeaver 能够成功建立连接
 
-### Phase 2：查询处理（4-5天）
+### Phase 2：查询处理(4-5天)
 
 **目标：** 支持基本 SQL 查询
 
@@ -269,7 +269,7 @@ private:
 
 3. **实现数据类型映射**
    - TZDB 类型 → PostgreSQL OID
-   - 数据格式转换（文本格式）
+   - 数据格式转换(文本格式)
 
 4. **实现错误处理**
    - 捕获 TZDB 异常
@@ -278,7 +278,7 @@ private:
 
 **验证：** 在 DBeaver 中执行 SELECT 查询并查看结果
 
-### Phase 3：事务和元数据（3-4天）
+### Phase 3：事务和元数据(3-4天)
 
 **目标：** 支持事务管理和元数据查询
 
@@ -292,14 +292,14 @@ private:
    - 实现 pg_tables, pg_columns 等视图
    - 支持 DBeaver 的元数据查询
 
-3. **实现预处理语句（基础）**
+3. **实现预处理语句(基础)**
    - Parse 消息处理
    - Bind 消息处理
    - Execute 消息处理
 
 **验证：** 在 DBeaver 中执行事务和查看表结构
 
-### Phase 4：测试和优化（2-3天）
+### Phase 4：测试和优化(2-3天)
 
 **目标：** 确保稳定性和性能
 
@@ -379,7 +379,7 @@ Database::Database(const char *path, const char *db_name,
 
 ## 使用示例
 
-### 示例 1：自动启动（推荐）
+### 示例 1：自动启动(推荐)
 
 ```cpp
 #include "tzdb.hpp"
@@ -411,7 +411,7 @@ int main() {
 #include "tzdb.hpp"
 
 int main() {
-  // 创建数据库（不自动启动 PG 服务器）
+  // 创建数据库(不自动启动 PG 服务器)
   Database db("/data/mydb", "mydb");
   
   // 手动启动 PG 服务器
@@ -481,7 +481,7 @@ int main() {
 ## 性能考虑
 
 ### 连接管理
-- 支持连接池（最大连接数限制）
+- 支持连接池(最大连接数限制)
 - 连接超时自动清理
 - 空闲连接检测
 
@@ -548,9 +548,9 @@ int main() {
 
 - ✅ DBeaver 能够成功连接 TZDB
 - ✅ 支持完整的 CRUD 操作
-- ✅ 支持事务管理（BEGIN/COMMIT/ROLLBACK）
-- ✅ 支持元数据浏览（表、列、索引）
-- ✅ 查询响应时间 < 100ms（简单查询）
+- ✅ 支持事务管理(BEGIN/COMMIT/ROLLBACK)
+- ✅ 支持元数据浏览(表、列、索引)
+- ✅ 查询响应时间 < 100ms(简单查询)
 - ✅ 支持至少 100 个并发连接
 - ✅ 兼容 psql、pgAdmin 等标准工具
 
@@ -568,7 +568,7 @@ int main() {
 ```
 tzdb-rebuild/
 ├── src/
-│   ├── pgserver/              # PG 服务器模块（新建）
+│   ├── pgserver/              # PG 服务器模块(新建)
 │   │   ├── CMakeLists.txt
 │   │   ├── pg_server.cpp
 │   │   ├── pg_server.h
@@ -585,7 +585,7 @@ tzdb-rebuild/
 │       ├── dbeaver_postgresql_protocol_implementation_guide.md
 │       └── dbeaver_postgresql_protocol_executive_summary.md
 └── tests/
-    └── pgserver_test/         # PG 服务器测试（新建）
+    └── pgserver_test/         # PG 服务器测试(新建)
         ├── CMakeLists.txt
         ├── pg_protocol_test.cpp
         └── pg_integration_test.cpp

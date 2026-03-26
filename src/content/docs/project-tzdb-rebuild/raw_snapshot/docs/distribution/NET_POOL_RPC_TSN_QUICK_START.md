@@ -14,9 +14,9 @@ description: "NetPoolRpcTsn 快速开始指南"
 ```
 项目根目录/
 ├── inc/distribution/network/
-│   └── net_pool_rpc_tsn.h              # 头文件（已创建）
+│   └── net_pool_rpc_tsn.h              # 头文件(已创建)
 ├── distribution/network/
-│   └── net_pool_rpc_tsn.cpp            # 实现文件（已创建）
+│   └── net_pool_rpc_tsn.cpp            # 实现文件(已创建)
 └── docs/distribution/
     ├── NET_POOL_RPC_TSN_IMPLEMENTATION_GUIDE.md
     ├── NET_POOL_RPC_COMPARISON.md
@@ -57,7 +57,7 @@ typedef enum {
 #define MAX_TRANS_NUM  100         // 最大传输连接数
 ```
 
-### 关键函数（需要在 TS_Lib 文档中查找）
+### 关键函数(需要在 TS_Lib 文档中查找)
 
 ```cpp
 // 创建通道

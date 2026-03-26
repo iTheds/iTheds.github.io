@@ -1,6 +1,6 @@
 ---
 title: "TSDBRust集成与调试日志按日期"
-description: "联调、故障、客户端与集群同步问题的日期日志（保留原始表达）"
+description: "联调、故障、客户端与集群同步问题的日期日志(保留原始表达)"
 ---
 
 # TSDB Rust Integration And Debug Log By Date
@@ -63,7 +63,7 @@ ERROR:Compiler error at position 19: Unknown table rules_
 valgrind --leak-check=full --track-origins=yes .
 
 Valgrind 是一个非常强大的内存调试和性能分析工具，它能够检测多种内存和线程相关的问题。Valgrind 有多种不同的报告形式来帮助开发者找到并修复代码中的错误，以下是几种常见的 Valgrind 报告形式：
-1. 内存泄漏（Memory Leak）报告
+1. 内存泄漏(Memory Leak)报告
 
 内存泄漏发生在程序未能正确释放分配的内存时。Valgrind 会检测出未释放的内存，并按其不同类型报告泄漏。
 

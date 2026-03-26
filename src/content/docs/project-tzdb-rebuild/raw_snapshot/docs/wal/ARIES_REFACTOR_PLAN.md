@@ -50,7 +50,7 @@ struct PhysicalLayout {
     page_id_t overflow_head;    // overflow 链的头页面 ID
     uint32_t overflow_length;   // overflow 数据总长度
     
-    // Overflow 链的详细信息（用于完整恢复）
+    // Overflow 链的详细信息(用于完整恢复)
     std::vector<page_id_t> overflow_pages;  // overflow 链中的所有页面 ID
     
     void Serialize(Serializer &serializer) const {
@@ -130,7 +130,7 @@ class DeleteRecord : public LogRecord {
 
 ---
 
-### 阶段 2：修改正常执行路径（记录物理信息）
+### 阶段 2：修改正常执行路径(记录物理信息)
 
 #### 2.1 修改 DiskEngine::Insert
 
@@ -199,7 +199,7 @@ std::vector<page_id_t> DiskEngine::CollectOverflowPages(page_id_t head) {
 
 ---
 
-### 阶段 3：重写 Redo 逻辑（Physical Redo）
+### 阶段 3：重写 Redo 逻辑(Physical Redo)
 
 #### 3.1 新的 RedoInsert 实现
 
@@ -237,7 +237,7 @@ TZDB_RET DiskEngine::RedoInsert(const Schema *schema, const Rid &rid,
             }
         }
         
-        // 🔑 在主页面的指定物理位置写入数据（不做 vacuum，不重新分配）
+        // 🔑 在主页面的指定物理位置写入数据(不做 vacuum，不重新分配)
         const uint32_t page_size = buffer_pool_->GetPageSize();
         
         // 直接在指定 offset 写入
@@ -265,7 +265,7 @@ TZDB_RET DiskEngine::RedoInsert(const Schema *schema, const Rid &rid,
             page_data.assign(tuple.GetData(), tuple.GetData() + layout.tuple_length);
         }
         
-        // 🔑 直接写入指定位置（Physical Write）
+        // 🔑 直接写入指定位置(Physical Write)
         char *page_start = reinterpret_cast<char *>(pg);
         memcpy(page_start + layout.tuple_offset, page_data.data(), layout.tuple_length);
         
@@ -319,7 +319,7 @@ TZDB_RET DiskEngine::RedoOverflowChain(const PhysicalLayout &layout,
         // 获取或创建 overflow 页面
         auto guard = FetchPageWrite(pid);
         if (guard.PageId() == INVALID_PAGE_ID) {
-            // 页面不存在，需要创建（这种情况应该很少见）
+            // 页面不存在，需要创建(这种情况应该很少见)
             guard = NewPageGuarded(&pid).UpgradeWrite();
             if (pid != layout.overflow_pages[i]) {
                 LOG_ERROR("[REDO] Overflow page ID mismatch: expected=%d got=%d",
@@ -347,7 +347,7 @@ TZDB_RET DiskEngine::RedoOverflowChain(const PhysicalLayout &layout,
         page->header_.prev_overflow_page_id_ = (i > 0) ? layout.overflow_pages[i-1] : INVALID_PAGE_ID;
         page->header_.next_overflow_page_id_ = (i < layout.overflow_pages.size()-1) ? layout.overflow_pages[i+1] : INVALID_PAGE_ID;
         
-        // 🔑 写入数据（Physical Write）
+        // 🔑 写入数据(Physical Write)
         memcpy(page->Payload(), overflow_data + offset, seg);
         
         guard.MarkDirty();
@@ -432,7 +432,7 @@ TZDB_RET DiskEngine::RedoUpdate(const Schema *schema, const Rid &rid,
 TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
                                 lsn_t lsn, const PhysicalLayout &layout) {
     // 1. 幂等性检查
-    // 2. 标记删除（不物理删除）
+    // 2. 标记删除(不物理删除)
     // 3. 更新 page LSN
 }
 ```
@@ -441,7 +441,7 @@ TZDB_RET DiskEngine::RedoDelete(const Rid &rid, timestamp_t commit_ts,
 
 ## 实施步骤
 
-### Step 1: 扩展数据结构（不破坏现有功能）
+### Step 1: 扩展数据结构(不破坏现有功能)
 - [ ] 添加 `PhysicalLayout` 结构
 - [ ] 修改 `InsertRecord/UpdateRecord/DeleteRecord`，添加 `layout_` 字段
 - [ ] 修改序列化/反序列化逻辑

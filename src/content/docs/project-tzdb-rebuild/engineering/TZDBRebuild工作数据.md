@@ -1,6 +1,6 @@
 ---
 title: "TZDBRebuild工作数据"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/tzdb_rebuild_work_data.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/tzdb_rebuild_work_data.md)"
 ---
 
 # tzdb 重构日志
@@ -510,7 +510,7 @@ PhysicalInsert::Sink
 
 UnifiedVectorFormat
 
-ColumnData ：某一列在一个行范围（RowGroup）内的“列存管理器”（拥有 SegmentTree、负责扫描/追加/更新/统计）。
+ColumnData ：某一列在一个行范围(RowGroup）内的“列存管理器”(拥有 SegmentTree、负责扫描/追加/更新/统计）。
 ColumnSegment ：物理上一段连续行范围的压缩存储单元（含数据块指针与统计信息）。
 ColumnAppendState ：一次“持续追加会话”的临时状态对象，握住当前可写 segment 及其游标与增量统计，帮助 ColumnData 高效多次
 Append。

@@ -38,7 +38,7 @@ Write:    记录 > 64B 就触发 overflow    → 不合理
 2. **提升存储效率**：减少不必要的 overflow 页面分配
 3. **提升读取性能**：减少 overflow 链读取
 4. **保持向后兼容**：已有数据的读取不受影响
-5. **保留扩展能力**：未来可支持列存优化（按列拆分到 overflow）
+5. **保留扩展能力**：未来可支持列存优化(按列拆分到 overflow)
 
 ## 3. 方案设计
 
@@ -47,11 +47,11 @@ Write:    记录 > 64B 就触发 overflow    → 不合理
 将 `Write` 的 overflow 判断从固定 64 字节阈值改为基于页面可用空间：
 
 ```cpp
-// 旧逻辑（Write）
+// 旧逻辑(Write)
 const bool needs_overflow = NeedsOverflow(tuple.GetLength());
 // NeedsOverflow: return len > FIXED_OVERFLOW_INLINE_PREFIX;  // 64 字节
 
-// 新逻辑（与 WriteRaw 一致）
+// 新逻辑(与 WriteRaw 一致)
 const uint32_t max_payload_empty_page = page_size 
     - static_cast<uint32_t>(TablePageHeader::HEADER_FIXED_SIZE)
     - static_cast<uint32_t>(TablePageHeader::TUPLE_INFO_SIZE);
@@ -64,7 +64,7 @@ const bool needs_overflow = (tuple.GetLength() > max_payload_empty_page);
 
 - 保证 overflow 页链的数据对齐
 - 保持读取逻辑简单
-- 便于快速访问记录的前缀数据（如主键）
+- 便于快速访问记录的前缀数据(如主键)
 
 ### 3.3 修改范围
 
@@ -87,8 +87,8 @@ if (ptr->flags_ == OVERFLOW_PTR_MAGIC) {
 ```
 
 **不依赖写入时的阈值**，因此：
-- 旧数据（64B 阈值写入）可正常读取 ✅
-- 新数据（页面大小阈值写入）可正常读取 ✅
+- 旧数据(64B 阈值写入)可正常读取 ✅
+- 新数据(页面大小阈值写入)可正常读取 ✅
 
 ### 3.5 WAL 兼容性
 
@@ -202,7 +202,7 @@ auto page_guard = FetchPageWrite(page_id);
 // 2. 释放页面锁
 page_guard.Drop();
 
-// 3. 获取 PhysicalLayout（此时页面可能已被其他事务修改！）
+// 3. 获取 PhysicalLayout(此时页面可能已被其他事务修改！)
 PhysicalLayout layout = GetPhysicalLayout(rid);
 
 // 4. 写入 WAL
@@ -265,7 +265,7 @@ OnPageModified(prev_page_id, lsn);
 - `MarkPageLSN` 时页面状态可能已改变
 - LSN 可能被其他事务覆盖，破坏 WAL-before-data 原则
 
-**对比 PageAllocRecord（正确实现）**：
+**对比 PageAllocRecord(正确实现)**：
 
 ```cpp
 auto guard = buffer_pool_->NewPageGuarded(&page_id);  // 持有锁
@@ -314,8 +314,8 @@ if (wal_integration_ != nullptr) {
 
 **评估**：
 
-页面链操作（`SetNextPage`）属于**物理结构变更**，不是逻辑数据变更：
-- 不需要事务级回滚（页面链只会向前扩展）
+页面链操作(`SetNextPage`)属于**物理结构变更**，不是逻辑数据变更：
+- 不需要事务级回滚(页面链只会向前扩展)
 - Redo 时无条件重放即可
 - 属于 Physiological Logging 的范畴
 
@@ -367,7 +367,7 @@ execute_common.cpp::InsertTuple
 
 ### 7.3 解决方案
 
-**方案 A：在 Storage 层记录 WAL（推荐）**
+**方案 A：在 Storage 层记录 WAL(推荐)**
 
 将 WAL 记录移到 `DiskEngine::Write()` 内部，在持有页面锁时完成：
 

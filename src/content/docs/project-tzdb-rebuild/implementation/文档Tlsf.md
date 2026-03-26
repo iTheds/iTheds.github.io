@@ -1,6 +1,6 @@
 ---
 title: "文档Tlsf"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/third_party/tlsf.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/third_party/tlsf.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../auto-number-title.css" />

@@ -3,38 +3,36 @@ title: "TZDB 项目介绍"
 description: "TZDB 项目定位、模块结构与关键技术策略总览"
 ---
 
-
-
 ## 项目定位
 
 `TZDB` 是一套“数据库内核 + SQL 引擎 + 远程访问 + 集群高可用 + 标准驱动 + 运维工具”的完整工程。
 
 项目核心目标：
 
-- 提供嵌入式数据库能力（高性能、可裁剪、支持多索引与事务）
-- 提供服务化访问能力（网络协议、客户端 SDK、ODBC）
-- 提供高可用能力（主从角色、事务日志同步、心跳与恢复）
-- 提供工程化交付能力（跨平台构建、工具链、测试体系）
+- 提供嵌入式数据库能力(高性能、可裁剪、支持多索引与事务)
+- 提供服务化访问能力(网络协议、客户端 SDK、ODBC)
+- 提供高可用能力(主从角色、事务日志同步、心跳与恢复)
+- 提供工程化交付能力(跨平台构建、工具链、测试体系)
 
 ## 代码模块总览
 
-| 模块 | 目录 | 主要职责 |
-| --- | --- | --- |
-| 公共基础 | `common/` | 全局配置、宏、公共类型 |
-| 数据库内核 | `kernel/` | 存储管理、事务、元数据、索引、类型系统、内核 API |
-| SQL 引擎（主） | `sqlengine/` | 词法/语法/语义/执行/优化主路径 |
-| SQL 引擎（新） | `new_sqlengine/` | 新版 SQL 编译与游标执行组件 |
-| 远程访问服务 | `raserver/` | 网络 I/O、协议编解码、服务端执行链路、客户端 C API |
-| 集群插件 | `cluster/` | 主从同步、节点管理、元信息管理、心跳与恢复 |
-| 工具集 | `tools/` | 服务端启动器、ODBC 驱动、SQL 工具、文件系统工具、RecGH |
-| 测试体系 | `tests/` | 单测、集成、性能、异常场景测试 |
-| 文档 | `doc/` | 架构、SQL、集群、远程访问、接口文档 |
+| 模块        | 目录               | 主要职责                               |
+|-----------|------------------|------------------------------------|
+| 公共基础      | `common/`        | 全局配置、宏、公共类型                        |
+| 数据库内核     | `kernel/`        | 存储管理、事务、元数据、索引、类型系统、内核 API         |
+| SQL 引擎(主) | `sqlengine/`     | 词法/语法/语义/执行/优化主路径                  |
+| SQL 引擎(新) | `new_sqlengine/` | 新版 SQL 编译与游标执行组件                   |
+| 远程访问服务    | `raserver/`      | 网络 I/O、协议编解码、服务端执行链路、客户端 C API     |
+| 集群插件      | `cluster/`       | 主从同步、节点管理、元信息管理、心跳与恢复              |
+| 工具集       | `tools/`         | 服务端启动器、ODBC 驱动、SQL 工具、文件系统工具、RecGH |
+| 测试体系      | `tests/`         | 单测、集成、性能、异常场景测试                    |
+| 文档        | `doc/`           | 架构、SQL、集群、远程访问、接口文档                |
 
-## 内核模块（数据库核心）
+## 内核模块(数据库核心)
 
 `kernel` 是项目核心，按 `api/catalog/index/query/storage/txn/type/utils` 分层组织。
 
-### 存储层（storage）
+### 存储层(storage)
 
 核心文件：`Database.cpp`、`DatabaseCore.cpp`、`DatabaseHeader.cpp`、`DatabaseMemoryAllocator.cpp`、`DatabaseTxnScheduler.cpp`
 
@@ -44,14 +42,15 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
   通过 `Storage.h` 宏封装存储接口。默认无磁盘引擎时使用空实现；开启 `TZDB_NDISKBASE` 时接入外部 ndb 存储。
 - **数据库头统一管理运行状态**
   `DbHeader` 维护大小、版本、模式、索引区域、是否脏关闭、是否磁盘模式等关键状态，用于兼容性校验与恢复入口。
-- **影子页（Shadow Index）双区机制**
-  头部维护 `root[0]/root[1]` 两套索引区，并通过 `index/shadowIndex` 互指。提交时先写影子区再切换 `curr`，异常后可按 `curr` 与影子信息恢复一致性。
+- **影子页(Shadow Index)双区机制**
+  头部维护 `root[0]/root[1]` 两套索引区，并通过 `index/shadowIndex` 互指。提交时先写影子区再切换 `curr`，异常后可按 `curr`
+  与影子信息恢复一致性。
 - **固定尺寸内存分配优化**
   `FixedSizeAllocator` 以尺寸分级链表管理空洞，减少频繁系统分配开销，提高对象分配/回收效率。
 - **并发事务调度器**
-  `dbTransScheduler` 支持读写事务协调，并支持截止期/价值/空闲时间等实时调度策略（编译开关控制）。
+  `dbTransScheduler` 支持读写事务协调，并支持截止期/价值/空闲时间等实时调度策略(编译开关控制)。
 
-### 元数据与目录层（catalog）
+### 元数据与目录层(catalog)
 
 核心文件：`DBMetaClass.cpp`、`DBFieldDescriptor.cpp`、`DBTableDescriptor.cpp`
 
@@ -59,7 +58,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 
 - **表/字段/索引元信息对象化**：通过描述符统一表达结构定义。
 - **运行时与持久化结构解耦**：元信息对象用于查询、执行、事务与协议层协作。
-- **支持多索引描述**：表级记录支持多字段索引元信息（含类型与字段列表）。
+- **支持多索引描述**：表级记录支持多字段索引元信息(含类型与字段列表)。
 
 ### 记录与表组织
 
@@ -71,7 +70,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **表对象保存统计与边界信息**：包含记录数、列数、首尾记录、固定区大小、索引信息等。
 - **内存表/持久表标识**：表级可区分内存态与持久态。
 
-### 索引层（index）
+### 索引层(index)
 
 核心文件：`DBBTree.cpp`、`DBTTree.cpp`、`DBRTree.cpp`、`DBKDTree.cpp`、`DBHashtab.cpp`、`DBBitmap.cpp`、`DBQueue.cpp`
 
@@ -81,7 +80,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **按 SQL 条件选择可用索引**：执行阶段结合查询条件决定索引路径。
 - **索引变更纳入事务日志**：索引创建与更新可通过日志机制同步。
 
-### 查询层（query）
+### 查询层(query)
 
 核心文件：`DBCompiler.cpp`、`DBCursor.cpp`、`DBQuery.cpp`、`DBSymtab.cpp`
 
@@ -91,7 +90,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **游标统一结果访问语义**：SQL 查询与 API 查询都通过游标输出结果。
 - **符号表支持**：用于查询编译阶段名称解析与表达式处理。
 
-### 事务与日志层（txn）
+### 事务与日志层(txn)
 
 核心文件：`TransactionLogger.cpp`、`TransactionLogger.h`
 
@@ -104,7 +103,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 
 ## SQL 引擎模块
 
-### `sqlengine/`（主路径）
+### `sqlengine/`(主路径)
 
 目录包含 `lexer/parser/semantic/optimizer/execute/trans/api`。
 
@@ -114,7 +113,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **SQL92 目标兼容**：覆盖 DDL/DML 及常见查询结构。
 - **与内核协同执行**：最终执行落到内核游标与表访问能力。
 
-### `new_sqlengine/`（新组件）
+### `new_sqlengine/`(新组件)
 
 目录包含 `compiler/lexer/nodes/schema/select/cursor/stub` 等。
 
@@ -124,14 +123,14 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **面向接口封装**：通过 `apidef`、`stub`、`cursor` 与上层对接。
 - **与主引擎并存**：当前工程为“双引擎并行演进”模式。
 
-## 远程访问与协议层（raserver）
+## 远程访问与协议层(raserver)
 
 `raserver` 负责将内核能力网络化，形成统一远程调用模型。
 
 关键子层：
 
-- 网络层：`network/`（TCP/UDP、连接池、协议封装）
-- I/O 层：`IoModel/`（epoll/select/winselect 等模型适配）
+- 网络层：`network/`(TCP/UDP、连接池、协议封装)
+- I/O 层：`IoModel/`(epoll/select/winselect 等模型适配)
 - 线程层：`ThreadPool/`
 - 协议执行层：`RASClass`、`RAShandle`、`SqlResult`、`ResultAll`
 - 客户端 API：`libtzdb.cpp`
@@ -143,7 +142,7 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - **服务端执行链闭环**：收包 -> 解码 -> 执行 -> 编码 -> 回包。
 - **SDK 统一接入**：提供连接、执行、取数、事务、元数据等 C API。
 
-## 集群高可用模块（cluster）
+## 集群高可用模块(cluster)
 
 `cluster` 以静态库形式接入，提供主从模式高可用能力。
 
@@ -176,41 +175,43 @@ description: "TZDB 项目定位、模块结构与关键技术策略总览"
 - 存储适配通过宏封装，便于替换底层引擎。
 - 数据库头部记录模式与版本，避免不兼容打开。
 
-补充说明（存储引擎接入点）：
+补充说明(存储引擎接入点)：
 
-- `Storage.h` 定义统一包装宏，如 `tzdb_storage_trans_begin_wrapper`、`tzdb_storage_trans_commit_wrapper`、`tzdb_storage_insert_record_wrapper`、`tzdb_storage_table_create_index_wrapper`。
+- `Storage.h` 定义统一包装宏，如 `tzdb_storage_trans_begin_wrapper`、`tzdb_storage_trans_commit_wrapper`、
+  `tzdb_storage_insert_record_wrapper`、`tzdb_storage_table_create_index_wrapper`。
 - 默认构建下这些宏为空实现，数据库以内存索引页和内存分配器为主。
 - 打开 `TZDB_NDISKBASE` 时切换到 ndb 适配层，实现“内核逻辑不变、存储后端可替换”。
-- 在 `dbDatabase::commit()` 中，若 `dbIsDisk()` 为真，会先调用 `tzdb_storage_change_base_wrapper` 与 `tzdb_storage_trans_commit_wrapper` 落到磁盘后端。
+- 在 `dbDatabase::commit()` 中，若 `dbIsDisk()` 为真，会先调用 `tzdb_storage_change_base_wrapper` 与
+  `tzdb_storage_trans_commit_wrapper` 落到磁盘后端。
 
 ### 事务与一致性策略
 
 - 读写锁 + 事务调度器协同管理并发。
-- 可选实时事务调度（截止期/价值/空闲时间）。
+- 可选实时事务调度(截止期/价值/空闲时间)。
 - 事务日志覆盖数据与元数据变化，支持校验与回滚。
 - 集群场景下通过事务日志在节点间传播与恢复。
 
-补充说明（影子页与提交）：
+补充说明(影子页与提交)：
 
-- 数据库初始化时会分配两套索引区域，并初始化 `root[0].shadowIndex = root[1].index`（另一侧对称）。
+- 数据库初始化时会分配两套索引区域，并初始化 `root[0].shadowIndex = root[1].index`(另一侧对称)。
 - `beforeCommitProc()` 先执行事务日志 `commitPhase1()`，保证数据变更先进入日志缓冲。
 - `commit()` 主流程中会将脏页复制到目标索引区并 `flush`，随后切换 `curr` 指向新的提交版本。
 - `commitIndexMem()` 处理索引区扩容/交换，必要时更新 `shadowIndex/shadowIndexSize`。
 - `rollback()/procInMem()` 通过影子区回填、dirty map 清理与 `restoreTablesConsistency()` 恢复结构一致性。
-- 若数据库异常关闭（`dirty_` 标记），`open` 过程会触发 `recovery()`：按当前根与影子根重建另一侧索引区并修复表记录链。
+- 若数据库异常关闭(`dirty_` 标记)，`open` 过程会触发 `recovery()`：按当前根与影子根重建另一侧索引区并修复表记录链。
 
-### 影子页机制（详细）
+### 影子页机制(详细)
 
 影子页机制本质是“索引页双版本切换”，用于降低提交中断造成的结构损坏风险：
 
-1. 每次事务工作在当前版本索引（`curr`）上累积改动，脏页通过 `dirtyPagesMap_` 记录。
-2. 提交时先把改动复制到另一套索引区（逻辑上的影子页）。
+1. 每次事务工作在当前版本索引(`curr`)上累积改动，脏页通过 `dirtyPagesMap_` 记录。
+2. 提交时先把改动复制到另一套索引区(逻辑上的影子页)。
 3. 文件刷新后再切换 `curr`，把“新索引区”提升为已提交版本。
 4. 若切换前崩溃，系统可回到旧 `curr`；若切换后部分损坏，可依据 `shadowIndex` 和日志做恢复。
 
 这种策略类似 Copy-on-Write 的索引页提交思想，核心收益是“提交窗口中可恢复、可回退”。
 
-### 存储引擎策略（详细）
+### 存储引擎策略(详细)
 
 TZDB 的存储层不是把业务逻辑绑定在某一种介质，而是采用“内核通用逻辑 + 存储后端适配”：
 
@@ -241,7 +242,7 @@ TZDB 的存储层不是把业务逻辑绑定在某一种介质，而是采用“
 
 主要工具：
 
-- `tools/TzdbServer`：服务端启动器（支持集群启动参数）
+- `tools/TzdbServer`：服务端启动器(支持集群启动参数)
 - `tools/tzdb-odbc`：ODBC 驱动
 - `tools/tzdb-odbc-setup`：ODBC 配置工具
 - `tools/tzdb-odbc-installer`：ODBC 安装器
@@ -254,7 +255,7 @@ TZDB 的存储层不是把业务逻辑绑定在某一种介质，而是采用“
 测试分层：
 
 - `unit_test`：基础单元测试
-- `integration_test`：集成链路测试（支持不同 buffer pool 模式）
+- `integration_test`：集成链路测试(支持不同 buffer pool 模式)
 - `performance_test`：性能测试
 - `pathological_test`：异常与边界场景测试
 

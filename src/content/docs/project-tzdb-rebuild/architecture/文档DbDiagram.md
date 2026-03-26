@@ -1,6 +1,6 @@
 ---
 title: "文档DbDiagram"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/class_diagram/db_diagram.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/class_diagram/db_diagram.md）"
 ---
 
 ```mermaid

@@ -1,6 +1,6 @@
 ---
 title: "索引Factory设计"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/arch/index_factory_design.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/index_factory_design.md）"
 ---
 
 # 索引工厂模式设计文档

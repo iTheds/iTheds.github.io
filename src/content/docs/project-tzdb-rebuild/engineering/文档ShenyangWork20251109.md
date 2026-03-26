@@ -1,6 +1,6 @@
 ---
 title: "文档ShenyangWork20251109"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/601/shenyang_work20251109.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/601/shenyang_work20251109.md）"
 ---
 
 # 部分软件信息

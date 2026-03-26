@@ -1,12 +1,12 @@
 ---
 title: "IthedsContribution分析"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/itheds_contribution_analysis.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/itheds_contribution_analysis.md)"
 ---
 
-# TZDB 项目贡献分析（iTheds / iThedds* / Lintao*）
+# TZDB 项目贡献分析(iTheds / iThedds* / Lintao*)
 
-> 生成时间：2026-03-24（Asia/Shanghai）  
-> 统计范围：`git log --all`（全分支历史）  
+> 生成时间：2026-03-24(Asia/Shanghai）  
+> 统计范围：`git log --all`(全分支历史）  
 > 统计对象：Author 名称匹配 `iTheds`、`iThedds`、`IThedds`、`Lintao*`
 
 ## 1. 身份归并与总量
@@ -15,7 +15,7 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/itheds_c
 - 仓库总提交数：921 次
 - 贡献占比：**28.23%**
 
-识别到的主要 Author 身份（按提交数）：
+识别到的主要 Author 身份(按提交数）：
 
 - `iTheds <lintao_yan@163.com>`：145
 - `iTheds <lintao@isacas.ac.cn>`：71
@@ -24,9 +24,9 @@ description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/itheds_c
 - `iTheds <lintao@163.com>`：3
 - `iTheds <lonnieitheds@gmail.com>`：2
 
-## 2. 时间维度（含具体日期）
+## 2. 时间维度(含具体日期）
 
-- 首次提交：**2025-07-09**（`df76db2b`，`Add tlsf`）
+- 首次提交：**2025-07-09**(`df76db2b`，`Add tlsf`）
 - 最近提交：**2026-03-23**（`a7ab53a2`，`fix: build report for HTML on git`）
 - 活跃跨度：约 8.5 个月
 

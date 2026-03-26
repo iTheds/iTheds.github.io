@@ -1,6 +1,6 @@
 ---
 title: "文档ShenyangConfig"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/TmSystem/shenyang_config.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/TmSystem/shenyang_config.md)"
 ---
 
 # config

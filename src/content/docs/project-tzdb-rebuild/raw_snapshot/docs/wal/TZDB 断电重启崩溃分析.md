@@ -19,7 +19,7 @@ description: "Cascade Chat Conversation"
 
 ### Planner Response
 
-先结合这段代码和你描述的现象分析一下“**断电重启后，第二次打开才崩**”这种特征，下面是从代码层面推出来的几个高概率原因（重点是 TZDB 底层的恢复逻辑/文件系统行为差异，而不是这段 gtest 表面上的逻辑）。
+先结合这段代码和你描述的现象分析一下“**断电重启后，第二次打开才崩**”这种特征，下面是从代码层面推出来的几个高概率原因(重点是 TZDB 底层的恢复逻辑/文件系统行为差异，而不是这段 gtest 表面上的逻辑)。
 
 ---
 
@@ -34,7 +34,7 @@ auto id = tableInit(0);
 
 - 第一次在“干净环境”下跑通常是 OK 的；
 - **断电** 后，磁盘上的数据库文件可能是“半写入/半恢复”的状态；
-- **第二次打开**（也就是重启后第一次跑程序）会触发 TZDB 的恢复逻辑 / 元数据读入逻辑，如果这里有 bug 或对文件系统行为的假设不成立，很容易直接崩溃。
+- **第二次打开**(也就是重启后第一次跑程序)会触发 TZDB 的恢复逻辑 / 元数据读入逻辑，如果这里有 bug 或对文件系统行为的假设不成立，很容易直接崩溃。
 
 你现在用的操作系统“能正常重启”，说明：
 - 同一份代码在你当前 OS 上，TZDB 的恢复逻辑勉强是“自洽的”，即使写没完全刷盘也不会崩；
@@ -61,7 +61,7 @@ g_state.conn = std::unique_ptr<Connection>(new Connection(*g_state.db));
 
 如果：
 - 上一次运行在“写了一半 / WAL 刷了一半 / page 没刷完”时被断电；
-- 又没有严格的 `fsync` / `FileSync` 保证写入顺序（比如先写数据，再写元数据，再写 checkpoint）；
+- 又没有严格的 `fsync` / `FileSync` 保证写入顺序(比如先写数据，再写元数据，再写 checkpoint)；
 
 那么重启后：
 - 某些页内容是旧的
@@ -82,14 +82,14 @@ g_state.conn = std::unique_ptr<Connection>(new Connection(*g_state.db));
 
 ### 2. 文件系统 / 缓存语义差异导致的 WAL / page chain 问题
 
-TZDB 里之前就有类似问题（你记得的 page chain 断裂问题）：
+TZDB 里之前就有类似问题(你记得的 page chain 断裂问题)：
 
-- 有些“物理结构”的更新（如 `next_page_id`）没有写 WAL，只依赖 page 自己被刷盘；
+- 有些“物理结构”的更新(如 `next_page_id`)没有写 WAL，只依赖 page 自己被刷盘；
 - 如果崩溃发生在“指针更新完但页还没刷完”之间，恢复后就会出现“孤儿页”。
 
 在不同 OS / 文件系统上，这种“中间状态被落盘”的概率不同：
 - 传统桌面 OS 上可能概率比较低，或者只是表现为“丢几条记录”但结构还算合法；
-- 在天脉 OS 上（通常是嵌入式/国产 OS，文件系统可能是定制的 YAFFS/JFFS/EXT 变种），**写入重排序 或 writeback 策略不同**，更容易把“半截状态”持久化下来，导致下一次 `Database` 打开时直接读到非法结构，然后崩。
+- 在天脉 OS 上(通常是嵌入式/国产 OS，文件系统可能是定制的 YAFFS/JFFS/EXT 变种)，**写入重排序 或 writeback 策略不同**，更容易把“半截状态”持久化下来，导致下一次 `Database` 打开时直接读到非法结构，然后崩。
 
 结合你说的“**断电重启后第二次打开就崩**”，非常符合：
 
@@ -108,15 +108,15 @@ g_state.db = std::unique_ptr<Database>(new Database(db_path, db_name));
 ```
 
 如果天脉那边：
-- `TZDB_TEST_DATA_DIR` 指向的是某种“半持久化”目录（比如 RAM-disk + Journaling 的组合）；
+- `TZDB_TEST_DATA_DIR` 指向的是某种“半持久化”目录(比如 RAM-disk + Journaling 的组合)；
 - 断电后目录内容被部分清理 / inode 复用；
 - 恢复时发现同名 db 文件一部分还在，一部分丢了；
 
-那么 `Database` 内部如果没对这些异常路径做健壮性判断（例如：头部 magic 不对时应主动返回错误、重建或清理），而是直接假设结构合法，接着解析结构体，也很容易二次崩溃。
+那么 `Database` 内部如果没对这些异常路径做健壮性判断(例如：头部 magic 不对时应主动返回错误、重建或清理)，而是直接假设结构合法，接着解析结构体，也很容易二次崩溃。
 
 ---
 
-### 4. 静态全局状态在特定 OS 上的初始化/销毁问题（低概率）
+### 4. 静态全局状态在特定 OS 上的初始化/销毁问题(低概率)
 
 `GlobalState g_state;` 是静态全局变量，理论上进程每次启动都会重新 0 初始化，**不会跨重启残留状态**。  
 `dbInit` 里还有：
@@ -127,7 +127,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 
 你说的是“断电重启后第二次打开”的崩溃，因此这不是“同一进程里多次 dbInit”问题，而是**不同进程之间**的问题，所以：
 
-- 除非天脉编译链 / loader 对 C++ 静态区有 bug（比如没有清 .bss 段），否则崩溃基本不在这一层；
+- 除非天脉编译链 / loader 对 C++ 静态区有 bug(比如没有清 .bss 段)，否则崩溃基本不在这一层；
 - 更大的可能仍然是“**打开磁盘文件时**”那一层。
 
 ---
@@ -151,8 +151,8 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 1. **打开详细日志**  
    - 在 `Database` 打开 / WAL 恢复 / catalog 加载 / page chain 重建 这些路径里加日志：
      - 读取的 page_id / next_page_id
-     - catalog 元信息校验（magic/version/size）
-     - 恢复时碰到的异常条件（如长度不合规、magic 不对）
+     - catalog 元信息校验(magic/version/size)
+     - 恢复时碰到的异常条件(如长度不合规、magic 不对)
 
 2. **在天脉上加 gdb/backtrace**  
    - 第二次打开崩溃时，抓栈：
@@ -177,7 +177,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 - “断电 → 第二次打开崩溃”是很典型的“**恢复逻辑在脏/半损坏文件上的健壮性不足**”；
 - 不同 OS / 文件系统的写入与刷新语义不同，使这个问题在天脉 OS 上被放大成了直接 crash，而在你当前 OS 上只是“幸运没踩中”。
 
-如果你有天脉上崩溃时的 backtrace（栈）或具体崩点函数，我可以帮你进一步精确到 TZDB 哪一块逻辑最值得补防御、加校验。
+如果你有天脉上崩溃时的 backtrace(栈)或具体崩点函数，我可以帮你进一步精确到 TZDB 哪一块逻辑最值得补防御、加校验。
 
 ### User Input
 
@@ -195,15 +195,15 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 
 - **严格的写入顺序 + fsync**
   - 典型做法：  
-    - 先写 WAL / redo log（附带 LSN）→ `fsync(log)` → 再写数据页 → `fsync(data)` → 最后更新 checkpoint / 元信息。
+    - 先写 WAL / redo log(附带 LSN)→ `fsync(log)` → 再写数据页 → `fsync(data)` → 最后更新 checkpoint / 元信息。
   - 保证：崩溃时要么
     - 数据没刷，但 WAL 里有 redo，可以重放；
     - 或者 WAL 也没刷完，但 checkpoint 指向的是更旧的、安全的一致点。
 
 - **追加式 / Copy-on-Write 结构**
   - 不在原地改元数据，而是：
-    - 写新版本（新的 root page / superblock）；
-    - flush 完成后再“指针切换”（比如一个 superblock 指针）。
+    - 写新版本(新的 root page / superblock)；
+    - flush 完成后再“指针切换”(比如一个 superblock 指针)。
   - 崩溃时最多有多余垃圾页，不会导致结构自相矛盾。
 
 - **关键结构的多副本 / 校验**
@@ -225,7 +225,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 - **Page header 校验**
   - 检查：
     - magic / type 字段
-    - size 是否落在合法范围（例如 `size <= page_size`）
+    - size 是否落在合法范围(例如 `size <= page_size`)
     - slot 数量、offset 不越界
   - 不通过就不要访问该页内部数据，而是标记“坏页”。
 
@@ -248,8 +248,8 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 - **宁可启动失败/降级启动，也不要崩溃 core dump**：
   - 比如：
     - 启动时发现 catalog / root page 坏掉：  
-      - 返回“需要修复（repair）”错误码，不提供正常服务；
-      - 让上层（比如工具）能提示用户“库已损坏，请执行修复命令/恢复备份”。
+      - 返回“需要修复(repair)”错误码，不提供正常服务；
+      - 让上层(比如工具)能提示用户“库已损坏，请执行修复命令/恢复备份”。
   - 或者：
     - 某个索引树坏了，但表数据还在：  
       - 启动时 disable 这个索引，仅支持全表扫；
@@ -297,7 +297,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
   - 比如 `dbInit()` 内部：
     - 如果底层恢复抛异常 / 返回“严重结构损坏”，则：
       - 捕获后打印“DB CORRUPTED，需要 repair”；
-      - 返回一个专门的错误码（比如 `ERR_CORRUPTED`），而不是 `ERR_QUERY_FAILED` 或直接 crash。
+      - 返回一个专门的错误码(比如 `ERR_CORRUPTED`)，而不是 `ERR_QUERY_FAILED` 或直接 crash。
 
 ---
 
@@ -307,7 +307,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 
 > **在写入路径上保证“WAL 先行 + fsync + 有序写入”，在恢复路径上把所有关键结构都当作“不可信的外部输入”来做边界校验、CRC 校验和安全失败处理，并提供单独的 repair 工具做深度修复。**
 
-如果你愿意，我可以帮你列一个更细的 checklist，专门针对 TZDB 里哪些模块（WAL / page chain / B+树 / catalog）值得先加哪些具体的校验点。
+如果你愿意，我可以帮你列一个更细的 checklist，专门针对 TZDB 里哪些模块(WAL / page chain / B+树 / catalog)值得先加哪些具体的校验点。
 
 ### User Input
 
@@ -330,7 +330,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 
 ## 1. 现在项目里跟 fsync 相关的核心实现
 
-### 1）统一抽象：`FileSystem::FileSync` / `FileHandle::Sync`
+### 1)统一抽象：`FileSystem::FileSync` / `FileHandle::Sync`
 
 在 `file_system.h` 里：
 
@@ -338,7 +338,7 @@ if (g_state.initialized) { return ERR_ALREADY_INITIALIZED; }
 virtual void FileSync(FileHandle &handle) = 0;
 ```
 
-Linux 实现（`local_file_system.cpp`）：
+Linux 实现(`local_file_system.cpp`)：
 
 ```cpp
 void LocalFileSystem::FileSync(FileHandle &handle) {
@@ -368,7 +368,7 @@ void LocalFileSystem::FileSync(FileHandle &handle) {
 
 ---
 
-### 2）通用 buffered writer：`BufferedFileWriter::Sync`
+### 2)通用 buffered writer：`BufferedFileWriter::Sync`
 
 `buffered_file_writer.cpp`：
 
@@ -386,11 +386,11 @@ void BufferedFileWriter::Sync() {
 }
 ```
 
-这里 `Sync()` = 先把缓冲数据写出去（`write`），再调 `FileHandle::Sync()` → 最终落到上面的 `fdatasync/fsync`。
+这里 `Sync()` = 先把缓冲数据写出去(`write`)，再调 `FileHandle::Sync()` → 最终落到上面的 `fdatasync/fsync`。
 
 ---
 
-### 3）WAL：`WALManager` 的刷盘策略
+### 3)WAL：`WALManager` 的刷盘策略
 
 `wal_manager.cpp` 里：
 
@@ -434,12 +434,12 @@ if (log_writer_) {
 
 - 普通事务/记录写入：
   - 默认是“写到 log 文件 + 刷 std::flush 或 buffered write”，但不必每条都 fsync；
-  - 强制 flush（`force_flush`）时会把当前 buffer 写出去，并可能 Sync 一次（取决于具体路径）。
-- 进程退出（`shutdown_flag_`）和 checkpoint 时会调用 `Sync()`，保证 WAL 至少在这些点上是**持久的**。
+  - 强制 flush(`force_flush`)时会把当前 buffer 写出去，并可能 Sync 一次(取决于具体路径)。
+- 进程退出（`shutdown_flag_`)和 checkpoint 时会调用 `Sync()`，保证 WAL 至少在这些点上是**持久的**。
 
 ---
 
-### 4）数据页写入：`DiskManagerDisk::WritePage`
+### 4)数据页写入：`DiskManagerDisk::WritePage`
 
 `disk_manager_disk.cpp`：
 
@@ -481,7 +481,7 @@ void DiskManagerDisk::ShutDown() {
 
 ---
 
-### 5）旧版 `DiskManagerDiskStd`（标准 iostream 版本）
+### 5)旧版 `DiskManagerDiskStd`（标准 iostream 版本)
 
 `disk_manager_disk_std.cpp` 里：
 
@@ -499,7 +499,7 @@ log_io_.write(log_data, size);
 log_io_.flush();  // 同样不是 fsync
 ```
 
-这个实现刷盘语义比较弱（依赖 C++ 流 + OS 自己的缓冲策略）。
+这个实现刷盘语义比较弱（依赖 C++ 流 + OS 自己的缓冲策略)。
 
 ---
 
@@ -524,7 +524,7 @@ log_io_.flush();  // 同样不是 fsync
 - 如果文件系统的 writeback / journal 策略和 Linux/你本机不同，可能会更频繁出现：
   - WAL 半写 / page 半写；
   - 元数据与数据文件不同步；
-- 而当前恢复逻辑对“半写”场景的健壮性还不足，就更容易在**第二次打开（恢复过程）**时崩溃。
+- 而当前恢复逻辑对“半写”场景的健壮性还不足，就更容易在**第二次打开（恢复过程)**时崩溃。
 
 ---
 
@@ -536,12 +536,12 @@ log_io_.flush();  // 同样不是 fsync
 
 - **不足 / 风险点**
   - 平时普通写 WAL、写 page 时，未必会 fsync；
-  - 如果恢复逻辑没有把“WAL 可能是半写的 / 数据文件某些页部分写入”当作常态处理，而是默认“结构一定合法”，就会在某些 FS/OS 上暴露为 crash（你看到的天脉现象）。
+  - 如果恢复逻辑没有把“WAL 可能是半写的 / 数据文件某些页部分写入”当作常态处理，而是默认“结构一定合法”，就会在某些 FS/OS 上暴露为 crash（你看到的天脉现象)。
 
 如果你接下来想针对“断电场景”加强，可以分两块做：
 
-- 增强恢复逻辑对“WAL 不完整、page 不完整”的容错（校验 + 安全失败）；
-- 在“关键事务边界”（如 COMMIT）上再审视一次：
+- 增强恢复逻辑对“WAL 不完整、page 不完整”的容错（校验 + 安全失败)；
+- 在“关键事务边界”（如 COMMIT)上再审视一次：
   - 是否需要 `FlushUpTo(lsn)` + `log_writer_->Sync()`；
   - 哪些地方需要给 `WritePage` 传 `flash = true` 来保证 redo 后的 page 真正落盘。
 
@@ -568,8 +568,8 @@ COMMIT 时到底有没有保证 WAL fsync + page 写出
 结论先说在前面：
 
 > **现在这套实现里，事务 COMMIT：  
-> - 会保证 COMMIT 这条 WAL 记录“至少写入到 WAL 文件（flush 到 file handle）”；  
-> - 但“通常**不会**做到 fsync 落盘（除极少数大 record 分支）；  
+> - 会保证 COMMIT 这条 WAL 记录“至少写入到 WAL 文件（flush 到 file handle)”；  
+> - 但“通常**不会**做到 fsync 落盘（除极少数大 record 分支)；  
 > - 也**不会**在 COMMIT 时强制把对应数据页写出，只是改了内存中的元数据，刷盘交给 buffer pool / checkpoint / 关库。**
 
 下面按调用链拆一下：
@@ -580,7 +580,7 @@ COMMIT 时到底有没有保证 WAL fsync + page 写出
 
 ```cpp
 TZDB_RET DB::CommitTransaction(Transaction *txn) {
-  bool ret = txn_manager_->Commit(txn);                 // 1. MVCC 层提交（仅内存 + page 修改）
+  bool ret = txn_manager_->Commit(txn);                 // 1. MVCC 层提交（仅内存 + page 修改)
   ...
   auto lsn = wal_integration_->LogTransactionCommit(txn); // 2. 写 COMMIT WAL
 }
@@ -594,7 +594,7 @@ TZDB_RET DB::CommitTransaction(Transaction *txn) {
 
 也就是说：
 - COMMIT 时只是把表里 tuple meta 的提交时间戳写到 buffer pool 里的 page。
-- 页什么时候真正写盘，完全由后面的刷脏逻辑（evict / checkpoint / 关库）控制。
+- 页什么时候真正写盘，完全由后面的刷脏逻辑（evict / checkpoint / 关库)控制。
 
 ---
 
@@ -610,7 +610,7 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
 关键在 `WALManager::WriteLogRecord(record, /*force_flush=*/true)`：
 
-- 情况 A：`record_size > log_buffer_->GetBufferSize()`（非常大的 record）
+- 情况 A：`record_size > log_buffer_->GetBufferSize()`（非常大的 record)
   - 先 `FlushLogBuffer()`
   - 然后：
 
@@ -625,7 +625,7 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
   - 这条路径下，**因为 force_flush=true，会直接 `Sync()` ⇒ fsync**。
 
-- 情况 B：普通 record（绝大部分）
+- 情况 B：普通 record（绝大部分)
   - 写入 WAL 内存 buffer
   - 末尾逻辑：
 
@@ -651,7 +651,7 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 **对于正常大小的 COMMIT WAL 记录：**
 
 - `force_flush=true` 只会触发一次 `FlushLogBuffer()`：
-  - 把 WAL buffer 的内容写到 log 文件（`write` + `Flush`）；
+  - 把 WAL buffer 的内容写到 log 文件（`write` + `Flush`)；
   - 但在 `shutdown_flag_ == false` 时，并不会 `Sync()` ⇒ **不会 fsync**。
 
 只有：
@@ -666,7 +666,7 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
 - **WAL 端**
   - COMMIT 时：
-    - 一定会把 COMMIT 记录写入 WAL 文件（不会只停留在进程内存 buffer）；
+    - 一定会把 COMMIT 记录写入 WAL 文件（不会只停留在进程内存 buffer)；
     - 一般情况下不会 fsync，持久化级别是“写到 OS page cache + flush file handle”，掉电有可能丢失这部分。
 - **数据页端**
   - COMMIT 只更新 buffer pool 中 page 的 tuple meta；
@@ -675,7 +675,7 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
 因此，这套实现更接近：
 
-> “**默认不提供每次 COMMIT 的强持久化保证**（no group commit fsync on every commit），  
+> “**默认不提供每次 COMMIT 的强持久化保证**（no group commit fsync on every commit)，  
 > 性能优先，真正保障在 checkpoint/关库 fsync 级别 + 崩溃恢复时 redo。”
 
 这也就解释了你遇到的情况：
@@ -691,12 +691,12 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
 - 在 COMMIT 成功后，拿到 `lsn`：
   - 调用 `wal_manager_->FlushUpTo(lsn)`；
-  - 并在 `FlushLogBuffer` 里，在「针对 FlushUpTo 的调用」场景下强制 `log_writer_->Sync()`（而不是只 Flush）。
-- 数据页依然可以延迟写（write-back + WAL redo），  
-  只要严格保证“WAL 先 fsync，再允许相应数据页刷盘”（WAL write-ahead）。
+  - 并在 `FlushLogBuffer` 里，在「针对 FlushUpTo 的调用」场景下强制 `log_writer_->Sync()`（而不是只 Flush)。
+- 数据页依然可以延迟写（write-back + WAL redo)，  
+  只要严格保证“WAL 先 fsync，再允许相应数据页刷盘”（WAL write-ahead)。
 
 如果你想，我可以帮你设计一套改动方案：  
-- 最小代价把 `FlushUpTo(lsn)` 做到 COMMIT 上（可选地按配置开关）；  
+- 最小代价把 `FlushUpTo(lsn)` 做到 COMMIT 上（可选地按配置开关)；  
 - 同时不影响现有 checkpoint/关库逻辑。
 
 ### User Input
@@ -746,10 +746,10 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 
 - `fsync(fd)`：
   - 把这个文件所有已经写入但还在 cache 里的数据块写到磁盘；
-  - 通常还会把 inode/元数据一并刷掉（具体看实现）。
+  - 通常还会把 inode/元数据一并刷掉（具体看实现)。
 - `fdatasync(fd)`：
   - 至少保证**文件数据**本身持久化；
-  - 对元数据的要求略弱一些（比如 mtime/ctime 之类可以延后），但文件大小、已写部分必须是可见的。
+  - 对元数据的要求略弱一些（比如 mtime/ctime 之类可以延后)，但文件大小、已写部分必须是可见的。
 - **都不支持 “只有 [offset, len) 这一段” 的刷盘**，POSIX 层面只有 `sync_file_range` 这类扩展才有范围语义，但你的代码里并没有用这种 API。
 
 `F_FULLFSYNC` 只是更强保证“掉电也尽量不丢”，本质上也是对整个 fd 做 barrier，不是局部。
@@ -762,7 +762,7 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 - **回答：**
   - 就实现看，它最终调用的是 `fdatasync`/`fsync`/`F_FULLFSYNC`，**同步的是这个 fd 对应文件当前所有已修改内容**；
   - 没有对“只 sync 某个 page 或某个区间”的细粒度控制；
-  - 能做的粒度控制只有：**哪个文件需要 Sync（日志文件 / 数据文件），以及在什么时机 Sync**。
+  - 能做的粒度控制只有：**哪个文件需要 Sync（日志文件 / 数据文件)，以及在什么时机 Sync**。
 
 如果你后面想做“只保证 WAL 某个 LSN 之前的数据 durable”，通常还是用现在这种“写完 buffer → 调一次 `fdatasync`”的模型，逻辑上按 LSN 控制，实际上底层仍然是对整个 log 文件 fd 做同步。
 
@@ -788,7 +788,7 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 如果你把“每条 WAL record 都 sync”理解成“每个 COMMIT 都 sync”，这是 **最保守 / 最安全** 的方式。
 
 但代价是：
-- 每次 COMMIT 都触发一次系统调用 + 磁盘 flush，非常慢，QPS 会大幅下降（尤其是嵌入式 / 单盘设备）。
+- 每次 COMMIT 都触发一次系统调用 + 磁盘 flush，非常慢，QPS 会大幅下降（尤其是嵌入式 / 单盘设备)。
 
 ---
 
@@ -796,13 +796,13 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 
 大部分数据库不会“每个 WAL record 都 sync”，而是：
 
-- **按事务边界 sync（可选）**
+- **按事务边界 sync（可选)**
   - 只在 COMMIT 时，对该事务的 COMMIT record 之后调用一次 `fsync`；
   - 甚至可以作为配置项：
     - `sync_on_commit = on | off | group`。
 - **Group commit**
   - 多个事务的 COMMIT record 先写到 WAL buffer；
-  - 由一个线程定期/按条件（比如每 1ms 或 buffer 半满）做一次 `fsync`；
+  - 由一个线程定期/按条件（比如每 1ms 或 buffer 半满)做一次 `fsync`；
   - 所有在这次 fsync 之前提交的事务，共享这一波 durable 保证。
 
 你的当前实现是：
@@ -821,14 +821,14 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 
 从演进角度建议：
 
-1. **第一步**：先提升恢复逻辑健壮性（对半写 WAL / 异常 page 做校验+安全失败），避免直接崩溃。
-2. **第二步（按需求）**：  
+1. **第一步**：先提升恢复逻辑健壮性（对半写 WAL / 异常 page 做校验+安全失败)，避免直接崩溃。
+2. **第二步（按需求)**：  
    如果你真的需要“嵌入式 + 经常掉电 + 每次 COMMIT 都要强保证”的语义，可以考虑：
    - 增加配置：`wal_sync_mode`：
-     - `off`：维持现在的行为（性能优先）；
+     - `off`：维持现在的行为（性能优先)；
      - `commit`：每次 `LogTransactionCommit` 之后调用 `FlushUpTo(lsn)` + `Sync()`；
      - `group`：后台线程批量 sync。
-3. **不建议** 的是：**对每一条普通 WAL record（包括 INSERT/UPDATE）都 sync 一次**，  
+3. **不建议** 的是：**对每一条普通 WAL record（包括 INSERT/UPDATE)都 sync 一次**，  
    这在高负载下会把 IO 打爆，而且 WAL 的设计本来就是：  
    “数据页可以晚一点刷，只要在写页前 WAL 已经 durable 即可”。
 
@@ -838,11 +838,11 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 
 - **“是不是应该每写一条 WAL 都 sync 一次？”**
   - 从正确性角度：**没必要**，太重；
-  - 更合理的粒度是：**每次事务 COMMIT（或成组 COMMIT）做一次 fsync**，并且同时把恢复逻辑写扎实。
+  - 更合理的粒度是：**每次事务 COMMIT（或成组 COMMIT)做一次 fsync**，并且同时把恢复逻辑写扎实。
 
 如果你愿意，我可以帮你设计一个最小改动方案：
 - 在 `DB::CommitTransaction` 里拿到 COMMIT 的 `lsn`；
-- 调用 `wal_manager_->FlushUpTo(lsn)`，并在这一调用路径中区分“来自 commit 的 FlushUpTo”时强制 `Sync()`（比如加个参数或模式位）；
+- 调用 `wal_manager_->FlushUpTo(lsn)`，并在这一调用路径中区分“来自 commit 的 FlushUpTo”时强制 `Sync()`（比如加个参数或模式位)；
 - 同时保持一个配置开关，方便在天脉 OS 环境下打开“强持久 COMMIT 模式”。
 
 ### User Input
@@ -880,7 +880,7 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 ## 2. 具体会出现哪几类“半写”情况
 
 1. **整个 record 没有落到介质**
-   - WAL 文件里可能完全看不到这条 INSERT 记录（仍停留在内核 page cache / 设备 cache）；
+   - WAL 文件里可能完全看不到这条 INSERT 记录（仍停留在内核 page cache / 设备 cache)；
    - 对恢复来说，这个 INSERT 就像从没发生过。
 
 2. **WAL 文件尾部是“截断的记录”**
@@ -901,12 +901,12 @@ int fd = handle.Cast<UnixFileHandle>().fd;
 ## 3. 和你当前实现的关系
 
 - 你的 WAL 现在：
-  - 普通 DML（INSERT/UPDATE/DELETE）不会 `Sync()`；
-  - 只有某些场景（大 record / checkpoint / 关库）才会 `Sync()`。
+  - 普通 DML（INSERT/UPDATE/DELETE)不会 `Sync()`；
+  - 只有某些场景（大 record / checkpoint / 关库)才会 `Sync()`。
 - 所以：
   - **不 sync 的 DML record，从持久性的角度看是“不保证写完”的**；
   - “半写”包括：
-    - 完全没到介质（只在缓存中）；
+    - 完全没到介质（只在缓存中)；
     - 或 WAL 尾部是截断的结构。
 
 这在很多系统里是“**允许的正常情况**”，前提是：
@@ -925,7 +925,7 @@ int fd = handle.Cast<UnixFileHandle>().fd;
   - 通过“COMMIT 时按策略 fsync”来决定持久性等级；
   - 通过“恢复时对 WAL 末尾做严格校验 + 截断处理”来避免半写导致崩溃。
 
-如果你愿意，我可以帮你看恢复里 WAL scan 的实现（`RecoveryManager` 里那部分），看看现在对“尾部不完整 record”的处理是否足够防御。
+如果你愿意，我可以帮你看恢复里 WAL scan 的实现（`RecoveryManager` 里那部分)，看看现在对“尾部不完整 record”的处理是否足够防御。
 
 ### User Input
 
@@ -933,20 +933,20 @@ commit 才fsync 会遇到什么问题，应该怎么处理
 
 ### Planner Response
 
-从“只在 COMMIT 时 fsync（WAL）”这个策略出发，会遇到两类问题：**正确性窗口**和**性能/实现细节**。下面按“会出什么事”和“应该怎么处理”分开说。
+从“只在 COMMIT 时 fsync（WAL)”这个策略出发，会遇到两类问题：**正确性窗口**和**性能/实现细节**。下面按“会出什么事”和“应该怎么处理”分开说。
 
 ---
 
 ## 一、只在 COMMIT 时 fsync，可能遇到的问题
 
 这里的前提是：  
-- 普通 INSERT/UPDATE 只写入 WAL 文件（write/flush），不 fsync；  
+- 普通 INSERT/UPDATE 只写入 WAL 文件（write/flush)，不 fsync；  
 - 事务 COMMIT 时，对 WAL 做一次 fsync。
 
 ### 1. COMMIT 到 fsync 之间的“脆弱窗口”
 
 - 调用流程大致是：
-  - 写各种 DML WAL（INSERT/UPDATE…）→  
+  - 写各种 DML WAL（INSERT/UPDATE…)→  
   - 写 COMMIT WAL →  
   - 调用 `fsync(fd)`。
 - 如果崩溃点在：
@@ -978,7 +978,7 @@ commit 才fsync 会遇到什么问题，应该怎么处理
   - 数据页已经把修改刷到磁盘；
   - 但对应 WAL / COMMIT 还没 fsync；
   - 崩溃后恢复时，从 WAL 看不到这次事务，只能当成“未提交”，  
-    但数据页上已经是“新值”，造成一致性问题（所谓 “no-steal, force”/“steal, no-force” 策略没遵守）。
+    但数据页上已经是“新值”，造成一致性问题（所谓 “no-steal, force”/“steal, no-force” 策略没遵守)。
 
 ---
 
@@ -989,7 +989,7 @@ commit 才fsync 会遇到什么问题，应该怎么处理
 - 定义配置，比如：
 
   - `wal_sync_mode` / `sync_on_commit`：
-    - `off`：只在 checkpoint / 关库时 fsync（高性能，弱持久）；
+    - `off`：只在 checkpoint / 关库时 fsync（高性能，弱持久)；
     - `commit`：每个事务 COMMIT 都 fsync 一次 WAL；
     - `group`：按一定时间/批次 group commit，共享一次 fsync。
 
@@ -998,12 +998,12 @@ commit 才fsync 会遇到什么问题，应该怎么处理
 ### 2. 只在 COMMIT 上 fsync 的正确性要点
 
 - **WAL 顺序保证**：
-  - 所有 DML WAL（INSERT/UPDATE/DELETE）必须在 COMMIT WAL 之前写入；
+  - 所有 DML WAL（INSERT/UPDATE/DELETE)必须在 COMMIT WAL 之前写入；
   - `fsync` 返回后，至少保证：
-    - 这条事务的所有 WAL（含 COMMIT）已经在介质上；
+    - 这条事务的所有 WAL（含 COMMIT)已经在介质上；
 - **数据页写出顺序**：
   - buffer pool 刷页时，必须确保：
-    - 对应修改的 WAL 已经 fsync（LSN 顺序）；
+    - 对应修改的 WAL 已经 fsync（LSN 顺序)；
   - 常规做法：
     - 每个 page 记录 `page_lsn`；
     - 刷页前确保 `FlushUpTo(page_lsn)` 已完成且 fsync 过。
@@ -1011,7 +1011,7 @@ commit 才fsync 会遇到什么问题，应该怎么处理
 ### 3. 恢复逻辑要对“半写 WAL”健壮
 
 - 扫描 WAL 文件时：
-  - 每条 record 带长度 / 校验（checksum/CRC）；
+  - 每条 record 带长度 / 校验（checksum/CRC)；
   - 一旦：
     - 读不到完整 header；
     - 或 payload 长度不足；
@@ -1028,13 +1028,13 @@ commit 才fsync 会遇到什么问题，应该怎么处理
 - 应用已经拿到“COMMIT 成功”；
 - 崩溃发生在内核 / 设备还没真正落盘之前。
 
-这在**任何现实系统里都存在**（除非使用特殊硬件/事务日志设备）。应对方式通常是：
+这在**任何现实系统里都存在**（除非使用特殊硬件/事务日志设备)。应对方式通常是：
 
 - 在文档中说明：  
   - 只有当 `fsync` 成功返回后且不出现严重 I/O 错误时，才保证持久性；
-  - 如果底层设备在崩溃/电源故障时丢数据，这是硬件级问题（需要电容/电池保护、RAID cache 等）。
+  - 如果底层设备在崩溃/电源故障时丢数据，这是硬件级问题（需要电容/电池保护、RAID cache 等)。
 - 在代码里：
-  - `fsync` 返回错误（尤其是 `EIO`）要视为**严重错误**，直接让实例进入“需要人工干预/只读”模式；
+  - `fsync` 返回错误（尤其是 `EIO`)要视为**严重错误**，直接让实例进入“需要人工干预/只读”模式；
   - 不能继续提供“看似正常但可能丢数据”的服务。
 
 ---
@@ -1091,13 +1091,13 @@ auto ret = wal_manager_->WriteLogRecord(commit_record, true);  // force_flush = 
 
 分两种情况：
 
-### 情况 A：record 很大（> WAL buffer size）
+### 情况 A：record 很大（> WAL buffer size)
 
 这条路径里：
 
 ```cpp
 if (record_size > log_buffer_->GetBufferSize()) {
-  FlushLogBuffer();  // 先把 buffer 刷一下（不一定 sync）
+  FlushLogBuffer();  // 先把 buffer 刷一下（不一定 sync)
   ...
   log_writer_->WriteData(...);
   if (shutdown_flag_.load() || force_flush) {
@@ -1112,7 +1112,7 @@ if (record_size > log_buffer_->GetBufferSize()) {
 
 但 CommitRecord 一般都很小，不会触发这个分支。
 
-### 情况 B：普通大小的 COMMIT 记录（绝大多数）
+### 情况 B：普通大小的 COMMIT 记录（绝大多数)
 
 正常分支：
 
@@ -1151,9 +1151,9 @@ if (shutdown_flag_.load()) {
 结合上述：
 
 - **事务 COMMIT：**
-  - 一定会把 COMMIT WAL 写进 WAL 文件（至少到内核 page cache）；
+  - 一定会把 COMMIT WAL 写进 WAL 文件（至少到内核 page cache)；
   - **通常不会 fsync**，除非：
-    - 这条 WAL record 异常大（> buffer size），  
+    - 这条 WAL record 异常大（> buffer size)，  
     - 或者在关库 / checkpoint 那条逻辑里显式调用 `Sync()`。
 
 所以你的问题：
@@ -1164,7 +1164,7 @@ if (shutdown_flag_.load()) {
 - 对“正常大小的事务 COMMIT”来说，是的，现在实现里 **commit 不会 fsync WAL**；  
 - durability 靠 checkpoint / shutdown 的 fsync，以及恢复时 WAL 重放来兜底。
 
-如果你后面想在天脉 OS 上提高可靠性，可以考虑在 `CommitTransaction` 拿到 `lsn` 后，加一层 `FlushUpTo(lsn)`，并在这条路径里强制 `Sync()`（可以做成配置开关）。
+如果你后面想在天脉 OS 上提高可靠性，可以考虑在 `CommitTransaction` 拿到 `lsn` 后，加一层 `FlushUpTo(lsn)`，并在这条路径里强制 `Sync()`（可以做成配置开关)。
 
 ### User Input
 
@@ -1178,12 +1178,12 @@ if (shutdown_flag_.load()) {
 - 所以在当前实现下：
   - 绝大多数 COMMIT 都只会：
     - 把 COMMIT WAL 写进 WAL buffer
-    - `force_flush=true` → 调用 `FlushLogBuffer()` → `log_writer_->Flush()`（写到内核缓存）
+    - `force_flush=true` → 调用 `FlushLogBuffer()` → `log_writer_->Flush()`（写到内核缓存)
   - **不会触发 `log_writer_->Sync()` → 不会 `fdatasync/fsync`**
 
 也就是说，现在的行为基本是：
 
-> **所有普通 DML WAL（INSERT/UPDATE/DELETE）+ COMMIT WAL，都只是“写 + flush 文件”，不做 fsync**，  
+> **所有普通 DML WAL（INSERT/UPDATE/DELETE)+ COMMIT WAL，都只是“写 + flush 文件”，不做 fsync**，  
 > durability 主要依赖 checkpoint / 关库时的 Sync，以及恢复中 WAL 重放，而不是“每次 commit 都 durable”。
 
 这跟你说的现象也对上了：
@@ -1217,7 +1217,7 @@ if (shutdown_flag_.load()) {
 
 ### Planner Response
 
-结论：**现在代码里，普通 DML（INSERT/UPDATE/DELETE）日志，无论记录大小，多数情况下都是“不 sync 的”**。只有在关库（`shutdown_flag_ = true`）等特殊场景才会顺带被 `Sync()`。
+结论：**现在代码里，普通 DML（INSERT/UPDATE/DELETE)日志，无论记录大小，多数情况下都是“不 sync 的”**。只有在关库（`shutdown_flag_ = true`)等特殊场景才会顺带被 `Sync()`。
 
 ---
 
@@ -1230,11 +1230,11 @@ TZDB_RET WALManager::WriteLogRecord(LogRecord &record, bool force_flush)
 ```
 
 - **COMMIT/ABORT**：通过 `WALIntegration::LogTransactionCommit/Abort` 调用时，`force_flush = true`
-- **普通 DML（INSERT/UPDATE/DELETE）**：调用时是 `force_flush = false`（在 WAL 集成里只对事务边界设为 true）
+- **普通 DML（INSERT/UPDATE/DELETE)**：调用时是 `force_flush = false`（在 WAL 集成里只对事务边界设为 true)
 
 在 `WriteLogRecord` 里：
 
-### 分支一：record 非常大（`record_size > buffer_size`）
+### 分支一：record 非常大（`record_size > buffer_size`)
 
 ```cpp
 if (record_size > log_buffer_->GetBufferSize()) {
@@ -1250,11 +1250,11 @@ if (record_size > log_buffer_->GetBufferSize()) {
 ```
 
 - 对 DML 来说：`force_flush = false`
-- 只要不是关库（`shutdown_flag_ = true`），**这里走的是 `Flush()` 而不是 `Sync()`**
+- 只要不是关库（`shutdown_flag_ = true`)，**这里走的是 `Flush()` 而不是 `Sync()`**
 
 所以：**大 DML record 也不会因为“很大”而自动触发 Sync**。
 
-### 分支二：正常大小的 record（绝大部分 DML）
+### 分支二：正常大小的 record（绝大部分 DML)
 
 普通路径写入 WALBuffer，最后：
 
@@ -1288,11 +1288,11 @@ if (shutdown_flag_.load()) {
 - **是的：**
   - 普通 DML 调用 `WriteLogRecord(..., force_flush=false)`；
   - 即使 `record_size > WAL buffer size` 走“大记录直接写”分支，只要不是关库，就还是 `Flush()` 而非 `Sync()`；
-  - 所以从 WAL 的角度看，**DML 记录不管大小，都只是写到文件（+写入 OS cache），默认不 fsync**。
+  - 所以从 WAL 的角度看，**DML 记录不管大小，都只是写到文件（+写入 OS cache)，默认不 fsync**。
 
 只有：
 
-- `shutdown_flag_ = true`（关库路径）；
+- `shutdown_flag_ = true`（关库路径)；
 - 或某些专门调用 `CreateCheckpoint()` / 其他显式 Sync 的地方，
 
 才会把当前 WAL 写入做一次真正的 `Sync()`。
@@ -1304,9 +1304,9 @@ if (shutdown_flag_.load()) {
 - 这意味着现在系统的设计是：  
   **WAL 的持久性主要依赖 checkpoint / 关库，而不是 DML/COMMIT 频繁 Sync**；
 - 在“会突然断电”的环境下，**大/小 DML 都可能是“半写或未持久”的**，  
-  恢复逻辑必须把这种情况视为常态来处理（长度/校验 + 尾部截断）。
+  恢复逻辑必须把这种情况视为常态来处理（长度/校验 + 尾部截断)。
 
-如果你接下来想调优为“**COMMIT 时对所有之前的 DML 保证 fsync**（而 DML 过程中仍不 sync）”，我可以帮你基于现有 `FlushUpTo(lsn)` 和 `WALIntegration` 设计一套最小改动方案。
+如果你接下来想调优为“**COMMIT 时对所有之前的 DML 保证 fsync**（而 DML 过程中仍不 sync)”，我可以帮你基于现有 `FlushUpTo(lsn)` 和 `WALIntegration` 设计一套最小改动方案。
 
 ### User Input
 
@@ -1328,15 +1328,15 @@ if (shutdown_flag_.load()) {
 
 ### 1. 强化 WAL 尾部解析
 
-在 `RecoveryManager` 里（扫描 WAL、反序列化的地方）加两类防御：
+在 `RecoveryManager` 里（扫描 WAL、反序列化的地方)加两类防御：
 
 - **长度检查**
   - 每条 record 反序列化前，先检查：
-    - 能否读到完整 header（含长度字段）；
+    - 能否读到完整 header（含长度字段)；
     - 文件剩余字节数是否 ≥ 该长度；
   - 不够就直接认为“到达 EOF / 尾部损坏”，**停止继续解析**。
 
-- **校验检查（如已有 checksum/LSN 单调）**
+- **校验检查（如已有 checksum/LSN 单调)**
   - 如果你 WAL record 有 checksum/CRC：
     - 校验失败 == 尾部损坏；
     - 直接把当前 offset 之后全部丢弃。
@@ -1358,7 +1358,7 @@ if (shutdown_flag_.load()) {
 例如：
 
 - `wal_sync_mode`：
-  - `off`（当前行为）：只在 checkpoint / 关库时 sync；
+  - `off`（当前行为)：只在 checkpoint / 关库时 sync；
   - `commit`：每个事务 commit 后，保证 WAL fsync；
   - 以后需要的话，可以扩成 `group`。
 
@@ -1371,7 +1371,7 @@ auto lsn = wal_integration_->LogTransactionCommit(txn);
 // 这里啥都没做
 ```
 
-可以改成（逻辑上，而不是具体代码）：
+可以改成（逻辑上，而不是具体代码)：
 
 1. 记录返回的 `lsn`；
 2. 如果 `wal_sync_mode == commit`：
@@ -1396,7 +1396,7 @@ auto lsn = wal_integration_->LogTransactionCommit(txn);
 这个是正确性要求，比 fsync 频率更关键：
 
 1. 每个 page 上记录 `page_lsn`；
-2. 刷 page 的时候（bufferpool 里）：
+2. 刷 page 的时候（bufferpool 里)：
    - 在真正 `WritePage(page_id, data, /*flash=*/false)` 前，
    - 确保 `FlushUpTo(page_lsn)` 已经执行，并且在“需要持久模式”下做了 Sync。
 3. 这样即便断电：
@@ -1431,7 +1431,7 @@ auto lsn = wal_integration_->LogTransactionCommit(txn);
 1. **恢复端：**
    - 在 WAL scan 尾部加长度/合法性检查 + 截断；
    - 确保对任何乱七八糟的尾部数据只是“忽略”，不崩。
-2. **运行端（可选，但很有帮助）：**
+2. **运行端（可选，但很有帮助)：**
    - 加 `wal_sync_mode`；
    - 在天脉环境打开 `commit`，在 `CommitTransaction` 里对 commit lsn 调 `FlushUpTo(lsn, /*sync=*/true)`。
 
@@ -1452,14 +1452,14 @@ auto lsn = wal_integration_->LogTransactionCommit(txn);
 ## 1. 你现在已经有的东西
 
 - **WAL 侧**
-  - 每条 DML/COMMIT 都会写 WAL（`WriteLogRecord`）
-  - 有 `WALIntegration::OnPageModified(page_id, lsn)` 记录 DPT（dirty page table）
+  - 每条 DML/COMMIT 都会写 WAL（`WriteLogRecord`)
+  - 有 `WALIntegration::OnPageModified(page_id, lsn)` 记录 DPT（dirty page table)
 - **刷页侧**
   - 刷页通过 `DiskManagerDisk::WritePage(page_id, data, bool flash)`：
     - 只是 `db_file_->Write(..., TZDB_PAGE_SIZE);`
     - `flash=true` 时才 `db_file_->Sync()`，否则不 sync
 
-也就是说，“谁脏了、哪个 page 的 first LSN 是多少”，系统是知道的（DPT + page_lsn），**但刷页前有没有等 WAL durable，则还没有强约束**。
+也就是说，“谁脏了、哪个 page 的 first LSN 是多少”，系统是知道的（DPT + page_lsn)，**但刷页前有没有等 WAL durable，则还没有强约束**。
 
 ---
 
@@ -1467,10 +1467,10 @@ auto lsn = wal_integration_->LogTransactionCommit(txn);
 
 从 ARIES 语义看，要想说“保证 WAL 先 durable 再刷 page”，必须在**真正写 page 到磁盘前**做类似这样的事情：
 
-1. 页面上有 `page_lsn`（或等价信息）；
+1. 页面上有 `page_lsn`（或等价信息)；
 2. 在刷这个 page 前：
    - 调 `wal_manager_->FlushUpTo(page_lsn)`；
-   - 而且这个 `FlushUpTo` 在该场景下要 **真正做 `Sync()`（fdatasync/fsync）**，而不只是 Flush；
+   - 而且这个 `FlushUpTo` 在该场景下要 **真正做 `Sync()`（fdatasync/fsync)**，而不只是 Flush；
 3. 只有当 `FlushUpTo` 成功返回后，才允许 `DiskManagerDisk::WritePage(...)` 把 page 写出去。
 
 我在你目前的代码里没看到类似：
@@ -1500,7 +1500,7 @@ void WALIntegration::OnPageFlushed(page_id_t page_id) {
   - 也没有一个地方显式阻止“在 WAL 还没 durable 时就把页写到磁盘”的行为。
 - 你现在做的是：
   - 写入顺序大致是“先写 WAL，再改 page，再某个时刻刷 page”，
-  - 但 **“写完 WAL”不等于“WAL 已经 durable（fsync 过）”**，  
+  - 但 **“写完 WAL”不等于“WAL 已经 durable（fsync 过)”**，  
     而 buffer pool 刷页逻辑也没检查过“WAL 是否已经 durable”。
 
 所以现在的状态更准确地说是：
@@ -1532,13 +1532,13 @@ void WALIntegration::OnPageFlushed(page_id_t page_id) {
 
 ### Planner Response
 
-从 [bufferpool_disk.cpp](cci:7://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:0:0-0:0) 看，你现在做到了**“WAL 先写文件，再写 page”**，但**没有做到“WAL 先 durable（fsync），再写 page”**。
+从 [bufferpool_disk.cpp](cci:7://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:0:0-0:0) 看，你现在做到了**“WAL 先写文件，再写 page”**，但**没有做到“WAL 先 durable（fsync)，再写 page”**。
 
 ---
 
 ## 1. 你现在 buffer pool 里实际做了什么
 
-### 驱逐脏页（[VictimPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:101:0-149:1)）
+### 驱逐脏页（[VictimPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:101:0-149:1))
 
 ```cpp
 if (pages_[frame_id]->IsDirty()) {
@@ -1554,7 +1554,7 @@ if (pages_[frame_id]->IsDirty()) {
 }
 ```
 
-### 显式刷某一页（[FlushPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:316:0-347:1)）
+### 显式刷某一页（[FlushPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:316:0-347:1))
 
 ```cpp
 if (wal_manager_ != nullptr) {
@@ -1567,7 +1567,7 @@ auto ret = WritePageToDisk(page_id, page->GetData());
 page->is_dirty_ = false;
 ```
 
-### 全量刷（[FlushAllPages](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:349:0-404:1)）
+### 全量刷（[FlushAllPages](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:349:0-404:1))
 
 ```cpp
 if (!shutting_down_ && wal_manager_ != nullptr) {
@@ -1583,7 +1583,7 @@ page->is_dirty_ = false;
 也就是说：
 
 - **在每次写 page 到磁盘前，都会先调用 `wal_manager_->FlushUpTo(page_lsn)`**；
-- 这一点上，你已经保证了“**WAL 先写文件，再刷 page**”的逻辑顺序（write-ahead）。
+- 这一点上，你已经保证了“**WAL 先写文件，再刷 page**”的逻辑顺序（write-ahead)。
 
 ---
 
@@ -1598,7 +1598,7 @@ TZDB_RET WALManager::FlushUpTo(lsn_t target_lsn) {
 }
 ```
 
-`FlushLogBuffer()` 中（非 shutdown 场景）：
+`FlushLogBuffer()` 中（非 shutdown 场景)：
 
 ```cpp
 log_writer_->WriteData(...);
@@ -1616,8 +1616,8 @@ flushed_lsn_.store(current_lsn_.load());
 
 所以现在的语义是：
 
-- **保证：**在刷某个 page 前，WAL buffer 至少已经写进 WAL 文件（到 OS page cache）；
-- **不能保证：**WAL 已经 `fdatasync/fsync` 到介质（durable）。
+- **保证：**在刷某个 page 前，WAL buffer 至少已经写进 WAL 文件（到 OS page cache)；
+- **不能保证：**WAL 已经 `fdatasync/fsync` 到介质（durable)。
 
 ---
 
@@ -1626,9 +1626,9 @@ flushed_lsn_.store(current_lsn_.load());
 > 保证“WAL 先 durable，再刷 page” 我现在是不是也保证了啊？
 
 - **现在保证的是：**
-  - “WAL 先写文件（flush 到文件句柄），再写 page 文件”；
+  - “WAL 先写文件（flush 到文件句柄)，再写 page 文件”；
 - **没有保证的是：**
-  - “WAL 先 durable（fsync/fdatasync 成功），再写 page”。
+  - “WAL 先 durable（fsync/fdatasync 成功)，再写 page”。
 
 也就是说，你已经实现了 **写操作顺序上的 write-ahead**，但在“掉电级持久性”的层面上，还少了“刷页前把 `FlushUpTo(page_lsn)` 这次 flush 变成真正的 `Sync()`”这一步。
 
@@ -1652,11 +1652,11 @@ flushed_lsn_.store(current_lsn_.load());
 
 ## 一、短期：先保证“断电后不崩”
 
-- **① 加强 WAL 尾部解析的健壮性（RecoveryManager 侧）**
+- **① 加强 WAL 尾部解析的健壮性（RecoveryManager 侧)**
   - **目标**：遇到“半写 WAL / 脏尾巴”时，恢复阶段**只丢最后几条日志，不崩溃**。
   - 具体要做：
     - 读 WAL 时，每条 record：
-      - 先看能否读完整 header（含长度字段/类型/LSN）。
+      - 先看能否读完整 header（含长度字段/类型/LSN)。
       - 根据长度检查：文件剩余字节数是否足够，不够 → 当作 EOF，**停止继续解析**。
       - 如有 checksum/CRC：校验失败 → 认为尾部损坏，从这里起全部丢弃。
     - 对非法类型/LSN 乱序等情况，也要当作“尾部损坏→停止解析”，不要继续往后硬读，避免崩溃。
@@ -1675,7 +1675,7 @@ flushed_lsn_.store(current_lsn_.load());
 
 - **② 增加一个配置开关**
   - 如：`wal_sync_mode` 或 `sync_on_commit`：
-    - `off`：保持当前行为（性能优先）。
+    - `off`：保持当前行为（性能优先)。
     - `commit`：每个事务 COMMIT 后，保证 WAL 至少 fsync 一次。
 
 - **③ 在 `DB::CommitTransaction` 里用 `FlushUpTo + Sync`**
@@ -1706,7 +1706,7 @@ flushed_lsn_.store(current_lsn_.load());
 - **④ 加强 `FlushUpTo` 在刷 page 场景下的语义**
   - 思路类似上面 commit：
     - 在 [VictimPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:101:0-149:1) / [FlushPage](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:316:0-347:1) / [FlushAllPages](cci:1://file:///Users/xwg/dev/cpp/new/tzdb-rebuild%202/storage/disk/buffer/bufferpool_disk.cpp:349:0-404:1) 调用 `FlushUpTo(page_lsn)` 时，
-      - 选择性地（例如按同一个配置开关）让这次 `FlushUpTo` 调用走 `Sync()`。
+      - 选择性地（例如按同一个配置开关)让这次 `FlushUpTo` 调用走 `Sync()`。
   - 这能保证：
     - **任何被写到数据文件上的 page，其 `page_lsn` 之前的 WAL 都已经 fsync 到介质**。
 
@@ -1714,7 +1714,7 @@ flushed_lsn_.store(current_lsn_.load());
 
 ---
 
-## 四、长期：更多健壮性（可以慢慢做）
+## 四、长期：更多健壮性（可以慢慢做)
 
 - **⑤ Page/索引结构的防御性校验**
   - Page header、B+树 node、page chain：
@@ -1729,7 +1729,7 @@ flushed_lsn_.store(current_lsn_.load());
 
 ## 总结一句话
 
-你现在已经做了“**先写 WAL（FlushUpTo），再写 page**”，  
+你现在已经做了“**先写 WAL（FlushUpTo)，再写 page**”，  
 接下来要补的就是：
 
 1. **恢复端**：WAL 尾部半写要能安全截断，不崩。  

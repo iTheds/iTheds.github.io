@@ -55,7 +55,7 @@ ninja -C /Users/xwg/dev/tzdb/tzdb-rebuild/cmake-build-debug unit_test
 
 - 单线程总耗时
 - 多线程总耗时
-- 吞吐量（queries/sec）
+- 吞吐量(queries/sec)
 
 ## 怎么理解结果
 

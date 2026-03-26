@@ -13,13 +13,13 @@ description: "TZDB TODO List"
 
 ### PAGE_ALLOC WAL 记录
 - [x] 添加 `LOGRECORDTYPE_PAGE_ALLOC` 枚举
-- [x] 实现 `PageAllocRecord` 类（序列化/反序列化）
+- [x] 实现 `PageAllocRecord` 类(序列化/反序列化)
 - [x] 在 `DiskEngine::InitTablePage` 中记录 WAL
 - [x] 在 `RecoveryManager::ApplyRedoPageAlloc` 中处理 Redo
-- [x] 更新 WAL 扫描器的记录类型验证（`wal_manager.cpp` 和 `recovery_manager.cpp`）
+- [x] 更新 WAL 扫描器的记录类型验证(`wal_manager.cpp` 和 `recovery_manager.cpp`)
 
 ### Undo 幂等性修复
-- [x] 修复 `UndoInsert` 的幂等性检查（使用元组删除状态而非 LSN 比较）
+- [x] 修复 `UndoInsert` 的幂等性检查(使用元组删除状态而非 LSN 比较)
 
 ### 崩溃恢复测试
 - [x] Test 1-12: 基础恢复测试
@@ -51,7 +51,7 @@ auto res = disk_engine_->Read(schema_, &rid_, ...);  // 又 fetch 一次
 **影响**:
 | 场景 | 当前开销 | 优化后 | 提升 |
 |------|---------|--------|------|
-| 遍历 1000 条记录（单页） | ~2000 次 page fetch | ~1 次 | **~2000x** |
+| 遍历 1000 条记录(单页) | ~2000 次 page fetch | ~1 次 | **~2000x** |
 | 遍历 10 页 × 100 条 | ~2000 次 page fetch | ~10 次 | **~200x** |
 | 全表扫描 | O(2n) page fetch | O(pages) | **显著** |
 
@@ -87,7 +87,7 @@ class DiskTableIterator : public StorageTableIterator {
 
 **建议**:
 - `UndoUpdate`: 检查当前值是否已经等于 `before_image`
-- `UndoDelete`: 检查元组是否已经存在（未删除状态）
+- `UndoDelete`: 检查元组是否已经存在(未删除状态)
 
 ```cpp
 // UndoUpdate 幂等性检查示例
@@ -105,7 +105,7 @@ if (!meta.is_deleted_) {
 
 ### 2. CLR 中间崩溃恢复测试
 **优先级**: 低  
-**说明**: 当前没有测试 Undo 阶段中间崩溃的场景（CLR 已写但 Undo 未完成）。
+**说明**: 当前没有测试 Undo 阶段中间崩溃的场景(CLR 已写但 Undo 未完成)。
 
 **建议**: 添加 Test 15 模拟此场景。
 
@@ -169,7 +169,7 @@ if (rec->type_ >= LogRecordType::LOGRECORDTYPE_MAX) {
 **说明**: 长时间运行后 WAL 文件会很大，需要 WAL 截断/压缩机制。
 
 ### 4. 在线备份
-**说明**: 支持在线热备份，利用 WAL 实现 PITR（Point-in-Time Recovery）。
+**说明**: 支持在线热备份，利用 WAL 实现 PITR(Point-in-Time Recovery)。
 
 ---
 

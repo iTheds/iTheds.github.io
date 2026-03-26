@@ -48,7 +48,7 @@ TZDB_RET RedoDeleteWithLayout(rid, commit_ts, lsn, layout);
 // 收集 overflow 链中的所有页面 ID
 std::vector<page_id_t> CollectOverflowPages(page_id_t head);
 
-// 恢复 overflow 链（Physical Write）
+// 恢复 overflow 链(Physical Write)
 TZDB_RET RedoOverflowChain(layout, data, length, lsn);
 
 // 获取指定 Rid 的物理布局信息
@@ -66,7 +66,7 @@ lsn_t LogInsert(txn, table_id, rid, new_data) {
         layout = disk_engine->GetPhysicalLayout(rid);
     }
     
-    // 2. 创建日志记录（包含 layout）
+    // 2. 创建日志记录(包含 layout)
     InsertRecord record(table_id, rid, data, version_link, layout);
     
     // 3. 写入 WAL
@@ -101,7 +101,7 @@ ApplyRedoDataChange(op, params) {
 
 ### 1. 严格幂等性 ✅
 - ✅ 使用 Page LSN 检查
-- ✅ 不执行 Vacuum（页面重组）
+- ✅ 不执行 Vacuum(页面重组)
 - ✅ 不重新分配 Overflow 页面
 - ✅ 使用日志中记录的物理位置
 - ✅ 可以安全地重复执行 Redo
@@ -116,7 +116,7 @@ Redo：
 ```
 
 ### 3. 向后兼容 ✅
-- ✅ 旧的 WAL 日志（没有 PhysicalLayout）仍然可以恢复
+- ✅ 旧的 WAL 日志(没有 PhysicalLayout)仍然可以恢复
 - ✅ 自动检测并选择合适的 Redo 方法
 - ✅ 不破坏现有功能
 
@@ -135,7 +135,7 @@ Redo：
 1. 应用层调用 Insert/Update/Delete
    ↓
 2. DiskEngine 执行操作
-   - 决定物理布局（offset, overflow pages）
+   - 决定物理布局(offset, overflow pages)
    - 写入数据到页面
    ↓
 3. WALTxnObserver 触发
@@ -144,7 +144,7 @@ Redo：
    - 调用 DiskEngine::GetPhysicalLayout(rid)
    - 获取刚写入的物理布局信息
    ↓
-5. 创建日志记录（包含 PhysicalLayout）
+5. 创建日志记录(包含 PhysicalLayout)
    ↓
 6. WALManager 写入 WAL
 ```
@@ -162,7 +162,7 @@ Redo：
    - 使用 Physical Redo
    ↓
 5. 如果没有 layout：
-   - 调用 RedoInsert（旧版本）
+   - 调用 RedoInsert(旧版本)
    - 使用 Logical Redo
 ```
 
@@ -198,12 +198,12 @@ TZDB_RET RedoInsertWithLayout(..., const PhysicalLayout &layout) {
     // 1. 幂等性检查
     if (page_lsn >= lsn) return kSuccess;
     
-    // 2. 恢复 overflow（如果有）
+    // 2. 恢复 overflow(如果有)
     if (layout.has_overflow) {
         RedoOverflowChain(layout, data, length, lsn);
     }
     
-    // 3. 在指定位置写入数据（Physical Write）
+    // 3. 在指定位置写入数据(Physical Write)
     memcpy(page + layout.tuple_offset, data, layout.tuple_length);
     
     // 4. 更新 slot 信息
@@ -237,19 +237,19 @@ TZDB_RET RedoOverflowChain(const PhysicalLayout &layout, ...) {
 
 ## 📈 性能对比
 
-### 改造前（Physiological Redo）
-- ❌ 需要执行 Vacuum（页面重组）
+### 改造前(Physiological Redo)
+- ❌ 需要执行 Vacuum(页面重组)
 - ❌ 需要重新分配 Overflow 页面
 - ❌ 需要重新计算物理布局
 - ⚠️ 依赖 Page LSN 检查避免重复执行
 - 📊 Redo 速度：中等
 
-### 改造后（Physical Redo）
+### 改造后(Physical Redo)
 - ✅ 不执行 Vacuum
 - ✅ 不重新分配 Overflow 页面
 - ✅ 直接使用记录的物理布局
 - ✅ 严格的幂等性保证
-- 📊 Redo 速度：快（纯字节拷贝）
+- 📊 Redo 速度：快(纯字节拷贝)
 
 ---
 
@@ -306,7 +306,7 @@ TEST(PhysicalRedoTest, InsertWithoutOverflow) {
     // 4. 模拟崩溃恢复
     engine->RedoInsertWithLayout(schema, rid, tuple, ts, lsn, layout);
     
-    // 5. 再次 Redo（幂等性测试）
+    // 5. 再次 Redo(幂等性测试)
     engine->RedoInsertWithLayout(schema, rid, tuple, ts, lsn, layout);
     
     // 6. 验证数据正确
@@ -315,7 +315,7 @@ TEST(PhysicalRedoTest, InsertWithoutOverflow) {
 }
 
 TEST(PhysicalRedoTest, InsertWithOverflow) {
-    // 测试大元组（需要 overflow）
+    // 测试大元组(需要 overflow)
     // ...
 }
 
@@ -332,14 +332,14 @@ TEST(PhysicalRedoTest, IdempotencyTest) {
 
 ### 压力测试
 - 大量 INSERT/UPDATE/DELETE
-- 大元组（Overflow）场景
+- 大元组(Overflow)场景
 - 多次崩溃恢复
 
 ---
 
 ## 🚀 使用示例
 
-### 正常使用（自动填充 PhysicalLayout）
+### 正常使用(自动填充 PhysicalLayout)
 ```cpp
 // 1. 正常插入
 Rid rid = table_heap->InsertTuple(schema, tuple, txn);
@@ -384,7 +384,7 @@ Tuple recovered = table_heap->GetTuple(rid);
 
 1. **`ARIES_REFACTOR_PLAN.md`** - 详细的改造方案
 2. **`ARIES_IMPLEMENTATION_SUMMARY.md`** - 实现总结
-3. **`ARIES_COMPLETE.md`** - 本文档（最终报告）
+3. **`ARIES_COMPLETE.md`** - 本文档(最终报告)
 
 ---
 

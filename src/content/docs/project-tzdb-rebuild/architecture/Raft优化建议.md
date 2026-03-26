@@ -1,6 +1,6 @@
 ---
 title: "Raft优化建议"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/raft/Raft_Optimization_Recommendations.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/raft/Raft_Optimization_Recommendations.md）"
 ---
 
 # 🚀 Raft 组件优化建议

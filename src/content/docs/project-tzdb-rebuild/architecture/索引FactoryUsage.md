@@ -1,6 +1,6 @@
 ---
 title: "索引FactoryUsage"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/arch/index_factory_usage.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/arch/index_factory_usage.md)"
 ---
 
 # 索引工厂模式使用指南
@@ -187,7 +187,7 @@ static IndexFactories factories;  // 静态实例，避免重复创建
 ### 2. 键大小优化
 
 - 尽量使用较小的键大小以提高性能
-- 避免使用过大的键大小（> 64 字节）
+- 避免使用过大的键大小(> 64 字节)
 
 ### 3. 主键索引
 

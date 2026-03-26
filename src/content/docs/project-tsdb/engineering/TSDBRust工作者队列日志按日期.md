@@ -1,6 +1,6 @@
 ---
 title: "TSDBRust工作者队列日志按日期"
-description: "worker、qset、queue、并发与消息分发的日期日志（保留原始表达）"
+description: "worker、qset、queue、并发与消息分发的日期日志(保留原始表达)"
 ---
 
 # TSDB Rust Worker Queue Log By Date
@@ -176,7 +176,7 @@ qset 中存储了 Arc<Mutex<Queue>>，标志其只能以锁的方式打开或者
 在本案例中 queue 根本就是直接进入到本方法内部的，所以其生存周期也是应该同等。
 生命周期的概念中，结构体和成员的生命周期是不同的。
 
-这里指定了结果引用的生存期应该等于传入引用的生存时间。唯一可能的方法（不安全代码除外）是，生成的引用以某种方式从传入引用派生，例如，它引用了传入引用指向的对象内部的某个字段： 
+这里指定了结果引用的生存期应该等于传入引用的生存时间。唯一可能的方法(不安全代码除外)是，生成的引用以某种方式从传入引用派生，例如，它引用了传入引用指向的对象内部的某个字段： 
 
 fn add<'a>(node: &'a mut Node, data: &'static str) -> &'a Node {
 fn add<'a>(node: &'a mut Node, data: &'static str) -> &'a Node

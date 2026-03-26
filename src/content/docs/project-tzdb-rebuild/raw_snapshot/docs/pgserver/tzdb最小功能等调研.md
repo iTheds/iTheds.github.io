@@ -19,7 +19,7 @@ description: "tzdb 最小功能等调研"
 
 ### 基础工具选择
 
-基于现有工具（如 DBeaver 和 SQLiteStudio）进行开发，主要需要实现：
+基于现有工具(如 DBeaver 和 SQLiteStudio)进行开发，主要需要实现：
 
 1. 直接读取文件的接口；
 2. 编译最小化裁剪工具的页面。

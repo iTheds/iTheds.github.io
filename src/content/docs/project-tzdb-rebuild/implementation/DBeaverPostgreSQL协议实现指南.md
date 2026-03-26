@@ -1,6 +1,6 @@
 ---
 title: "DBeaverPostgreSQL协议实现指南"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/pgserver/dbeaver_postgresql_protocol_implementation_guide.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/pgserver/dbeaver_postgresql_protocol_implementation_guide.md)"
 ---
 
 # TZDB DBeaver PostgreSQL 协议实现指南
@@ -43,13 +43,13 @@ PostgreSQL 协议兼容层，将 PostgreSQL 线协议消息转换为 TZDB 引擎
 实现遵循分析报告中概述的架构：
 
 ```
-DBeaver 客户端（PostgreSQL JDBC 驱动）
-    ↓ PostgreSQL 线协议（TCP/IP 端口 5432）
-TZDB PostgreSQL 协议适配器（新增）
+DBeaver 客户端(PostgreSQL JDBC 驱动)
+    ↓ PostgreSQL 线协议(TCP/IP 端口 5432)
+TZDB PostgreSQL 协议适配器(新增)
     ↓ 消息处理层
-TZDB 查询执行引擎（现有）
+TZDB 查询执行引擎(现有)
     ↓ SQL 解析 → 绑定 → 优化 → 执行
-TZDB 存储引擎（现有）
+TZDB 存储引擎(现有)
     ↓ 内存存储 / 磁盘存储 / 混合存储
 ```
 
@@ -63,7 +63,7 @@ TZDB 存储引擎（现有）
 
 ## 实现阶段
 
-### 第一阶段：核心协议基础（第1周）
+### 第一阶段：核心协议基础(第1周)
 
 #### 1.1 网络服务器设置
 
@@ -73,7 +73,7 @@ TZDB 存储引擎（现有）
 
 #### 1.2 认证实现
 
-- 解析 `StartupMessage`（客户端初始化）
+- 解析 `StartupMessage`(客户端初始化)
 - 实现认证握手
 - 发送 `AuthenticationOk` 和 `ReadyForQuery` 响应
 
@@ -88,7 +88,7 @@ TZDB 存储引擎（现有）
 - 实现 `ErrorResponse` 消息
 - 添加从 TZDB 到 PostgreSQL 错误代码的映射
 
-### 第二阶段：查询处理（第1-2周）
+### 第二阶段：查询处理(第1-2周)
 
 #### 2.1 结果集处理
 
@@ -108,7 +108,7 @@ TZDB 存储引擎（现有）
 - 实现事务状态跟踪
 - 发送适当的状态消息
 
-### 第三阶段：高级功能（第2周）
+### 第三阶段：高级功能(第2周)
 
 #### 3.1 元数据查询
 
@@ -289,7 +289,7 @@ struct StateTransition {
 
 ## 完整消息类型定义
 
-### P0 优先级消息（必须实现）
+### P0 优先级消息(必须实现)
 
 | 消息类型 | 方向 | 说明 | 处理方法 |
 |---------|------|------|--------|
@@ -305,7 +305,7 @@ struct StateTransition {
 | ErrorResponse | S→C | 错误响应 | `send_error_response()` |
 | Terminate | C→S | 连接终止 | `handle_terminate()` |
 
-### P1 优先级消息（扩展查询）
+### P1 优先级消息(扩展查询)
 
 | 消息类型 | 方向 | 说明 | 处理方法 |
 |---------|------|------|--------|
@@ -314,11 +314,11 @@ struct StateTransition {
 | Execute | C→S | 执行预处理语句 | `handle_execute()` |
 | Describe | C→S | 获取元数据 | `handle_describe()` |
 | Flush | C→S | 强制发送缓冲 | `handle_flush()` |
-| Sync | C→S | 同步点（错误恢复） | `handle_sync()` |
+| Sync | C→S | 同步点(错误恢复) | `handle_sync()` |
 | ParameterStatus | S→C | 参数状态通知 | `send_parameter_status()` |
 | NoticeResponse | S→C | 警告通知 | `send_notice()` |
 
-### P2 优先级消息（可选）
+### P2 优先级消息(可选)
 
 | 消息类型 | 方向 | 说明 |
 |---------|------|------|
@@ -456,7 +456,7 @@ void handle_bind(const BindMessage& msg) {
 }
 
 void handle_execute(const ExecuteMessage& msg) {
-    // 1. 查找门户（Portal）
+    // 1. 查找门户(Portal)
     auto it = portal_cache_.find(msg.portal_name);
     if (it == portal_cache_.end()) {
         send_error_response("ERROR", "portal not found");
@@ -467,7 +467,7 @@ void handle_execute(const ExecuteMessage& msg) {
     auto& [stmt, params] = it->second;
     auto result = execute_prepared_query(stmt.parsed_query, params);
     
-    // 3. 发送结果（支持行数限制）
+    // 3. 发送结果(支持行数限制)
     int rows_sent = 0;
     for (const auto& row : result.rows) {
         if (msg.max_rows > 0 && rows_sent >= msg.max_rows) break;
@@ -494,7 +494,7 @@ void handle_sync() {
     // 1. 丢弃所有未完成的操作
     discard_pending_operations();
     
-    // 2. 清空预处理语句缓存（可选）
+    // 2. 清空预处理语句缓存(可选)
     // prepared_statements_.clear();
     
     // 3. 重置状态机到 READY
@@ -510,7 +510,7 @@ void handle_sync() {
 PostgreSQL 和 TZDB 的数据类型需要完整映射。关键类型映射表：
 
 ```cpp
-// PostgreSQL OID 定义（部分）
+// PostgreSQL OID 定义(部分)
 const uint32_t PG_OID_BOOL = 16;
 const uint32_t PG_OID_INT2 = 21;
 const uint32_t PG_OID_INT4 = 23;
@@ -700,12 +700,12 @@ public:
         // 1. 丢弃所有未完成的操作
         discard_pending_operations();
         
-        // 2. 回滚当前事务（如果有）
+        // 2. 回滚当前事务(如果有)
         if (in_transaction_) {
             rollback_transaction();
         }
         
-        // 3. 清空预处理语句缓存（可选）
+        // 3. 清空预处理语句缓存(可选)
         // prepared_statements_.clear();
         
         // 4. 重置状态
@@ -1549,10 +1549,10 @@ LOG_ERROR("Query failed: sql=%s, error=%s, sqlstate=%s",
 ### PostgreSQL 版本兼容性
 
 - **目标版本**：PostgreSQL 12+
-- **协议版本**：3.0（自 PostgreSQL 7.4 起）
+- **协议版本**：3.0(自 PostgreSQL 7.4 起)
 - **支持的功能**：
-  - 简单查询（Query）
-  - 扩展查询（Parse/Bind/Execute）
+  - 简单查询(Query)
+  - 扩展查询(Parse/Bind/Execute)
   - 预处理语句
   - 事务管理
   - 错误恢复
@@ -1561,9 +1561,9 @@ LOG_ERROR("Query failed: sql=%s, error=%s, sqlstate=%s",
 
 - **支持的 DBeaver 版本**：21.0+
 - **必需功能**：
-  - 元数据查询（pg_catalog）
+  - 元数据查询(pg_catalog)
   - 连接参数协商
-  - 错误恢复（Sync 消息）
+  - 错误恢复(Sync 消息)
   - 预处理语句缓存
 
 ## 性能优化
@@ -1582,7 +1582,7 @@ ConnectionPool pool(
 ```cpp
 // 预处理语句缓存：每个连接 100 个
 // 元数据缓存：5 分钟过期
-// 结果集缓存：仅用于小结果集（< 1MB）
+// 结果集缓存：仅用于小结果集(< 1MB)
 ```
 
 ### 异步处理
@@ -1597,9 +1597,9 @@ ConnectionPool pool(
 
 ```cpp
 // 支持的认证方式
-1. MD5 密码认证（向后兼容）
-2. SCRAM-SHA-256 密码认证（推荐）
-3. SSL 证书认证（可选）
+1. MD5 密码认证(向后兼容)
+2. SCRAM-SHA-256 密码认证(推荐)
+3. SSL 证书认证(可选)
 
 // 密码存储
 - 不存储明文密码
@@ -1632,7 +1632,7 @@ ConnectionPool pool(
 - 连接超时次数
 
 // 查询指标
-- 每秒查询数（QPS）
+- 每秒查询数(QPS)
 - 平均查询时间
 - 慢查询数量
 
@@ -1664,9 +1664,9 @@ ConnectionPool pool(
 本指南提供了完整的 PostgreSQL 协议适配实现方案，包括：
 
 ### 核心组件
-✅ 协议状态机（7 个状态）
-✅ 完整消息处理（20+ 消息类型）
-✅ 数据类型映射（15+ 类型）
+✅ 协议状态机(7 个状态)
+✅ 完整消息处理(20+ 消息类型)
+✅ 数据类型映射(15+ 类型)
 ✅ 错误处理和恢复机制
 ✅ 连接池和资源管理
 ✅ 元数据查询系统
@@ -1677,15 +1677,15 @@ ConnectionPool pool(
 ✅ 预处理语句缓存
 ✅ 参数化查询
 ✅ 事务隔离级别映射
-✅ 错误代码映射（SQLSTATE）
+✅ 错误代码映射(SQLSTATE)
 ✅ 连接超时和查询超时
 ✅ 并发连接管理
 
 ### 测试覆盖
-✅ 单元测试（消息、类型、状态机）
-✅ 集成测试（连接、查询、事务）
-✅ 性能测试（吞吐量、并发、大结果集）
-✅ 兼容性测试（DBeaver、psql）
+✅ 单元测试(消息、类型、状态机)
+✅ 集成测试(连接、查询、事务)
+✅ 性能测试(吞吐量、并发、大结果集)
+✅ 兼容性测试(DBeaver、psql)
 
 ### 部署就绪
 ✅ CMake 构建集成

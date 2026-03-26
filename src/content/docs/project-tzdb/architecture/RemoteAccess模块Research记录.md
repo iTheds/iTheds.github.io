@@ -119,7 +119,7 @@ ODBC 符合以下规范和标准，它们处理 (CLI) 的调用级别接口。(O
 
 关键就在于，应用程序并没有传递相关的信息。
 
-`在应用程序调用函数（SQLConnect、SQLDriverConnect或SQLBrowseConnect）连接到驱动程序之前，驱动程序管理器不会连接到驱动程序。在此之前，驱动程序管理器使用自己的句柄并管理连接信息。`
+`在应用程序调用函数(SQLConnect、SQLDriverConnect或SQLBrowseConnect)连接到驱动程序之前，驱动程序管理器不会连接到驱动程序。在此之前，驱动程序管理器使用自己的句柄并管理连接信息。`
 
 ERROR [IM014] [Microsoft][ODBC 驱动程序管理器] 在指定的 DSN 中，驱动程序和应用程序之间的体系结构不匹配
 

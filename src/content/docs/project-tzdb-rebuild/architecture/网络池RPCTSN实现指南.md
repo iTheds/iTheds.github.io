@@ -1,23 +1,23 @@
 ---
 title: "网络池RPCTSN实现指南"
-description: "project-tzdb-rebuild 文档整理稿（源：raw_snapshot/docs/distribution/NET_POOL_RPC_TSN_IMPLEMENTATION_GUIDE.md）"
+description: "project-tzdb-rebuild 文档整理稿(源：raw_snapshot/docs/distribution/NET_POOL_RPC_TSN_IMPLEMENTATION_GUIDE.md)"
 ---
 
 # NetPoolRpcTsn 实现指南
 
 ## 概述
 
-本文档说明如何使用 TS_Lib（TSN 网络接口）替换 NetPoolRpc 的底层网络实现。新的实现 `NetPoolRpcTsn` 保持与原有 `NetPoolRpc` 相同的公共 API，但底层使用 TS_Lib 进行通信。
+本文档说明如何使用 TS_Lib(TSN 网络接口)替换 NetPoolRpc 的底层网络实现。新的实现 `NetPoolRpcTsn` 保持与原有 `NetPoolRpc` 相同的公共 API，但底层使用 TS_Lib 进行通信。
 
 ## 文件结构
 
 ```
 inc/distribution/network/
-├── net_pool_rpc_tsn.h          # NetPoolRpcTsn 头文件（已创建）
+├── net_pool_rpc_tsn.h          # NetPoolRpcTsn 头文件(已创建)
 └── ...
 
 distribution/network/
-├── net_pool_rpc_tsn.cpp        # NetPoolRpcTsn 实现（已创建）
+├── net_pool_rpc_tsn.cpp        # NetPoolRpcTsn 实现(已创建)
 └── ...
 ```
 
