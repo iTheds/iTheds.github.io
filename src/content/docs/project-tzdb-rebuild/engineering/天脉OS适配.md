@@ -1,5 +1,5 @@
 ---
-title: "TianmaiOS适配"
+title: "天脉OS适配"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/config/tianmai_os_adaptation.md)"
 ---
 

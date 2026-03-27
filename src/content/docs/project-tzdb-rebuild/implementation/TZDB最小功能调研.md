@@ -1,11 +1,9 @@
 ---
-title: "文档TZDB"
+title: "TZDB最小功能调研"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/pgserver/tzdb最小功能等调研.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
-
-# TZDB 最小功能调研报告
 
 ## 需求调研
 

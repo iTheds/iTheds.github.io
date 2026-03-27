@@ -1,5 +1,5 @@
 ---
-title: "IthedsContribution分析"
+title: "iTheds贡献分析"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/itheds_contribution_analysis.md)"
 ---
 

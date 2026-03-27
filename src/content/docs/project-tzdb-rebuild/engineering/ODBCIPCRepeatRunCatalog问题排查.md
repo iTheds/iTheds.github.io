@@ -1,5 +1,5 @@
 ---
-title: "ODBCIPCRepeatRunCata日志Issue"
+title: "ODBCIPCRepeatRunCatalog问题排查"
 description: "project-tzdb-rebuild 文档整理稿（源:raw_snapshot/docs/odbc/odbc_ipc_repeat_run_catalog_issue.md）"
 ---
 

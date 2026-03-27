@@ -1,11 +1,7 @@
 ---
-title: "文档RPC"
+title: "RPC框架组成与实现"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/distribution/rpc/rpc.md)"
 ---
-
-<link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
-
-# 类 RPC 框架
 
 ## RPC 框架架构图
 
@@ -29,7 +25,7 @@ description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/distrib
 
 通常 rpc 由以下部分组成，但是目前数据库支持部分操作，以实现其轻量化的类 rpc 功能。
 
-# RPC 框架组件表格
+## RPC框架组件概览
 
 | 支持情况 | 组件名称                         | 作用                                                  | 备注           |
 | -------- | -------------------------------- | ----------------------------------------------------- | -------------- |

@@ -1,9 +1,11 @@
 ---
-title: "TZDBRebuild工作数据"
+title: "TZDB重构技术日志"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/tzdb_rebuild_work_data.md)"
 ---
 
-# tzdb 重构日志
+## 时间范围
+
+本文保留了 `8.13` 到 `9.3` 的连续技术日志，主要覆盖通信协议优化、权限表开发与存储引擎实现。
 
 ## [8.13]协议优化
 
@@ -835,4 +837,3 @@ Memcpy 平均时间: 21.50 us (24379.93 MB/s)
    Performance ratio: 7.65x (string is 664.8% faster) ✅
 Process finished with exit code 0
 ```
-

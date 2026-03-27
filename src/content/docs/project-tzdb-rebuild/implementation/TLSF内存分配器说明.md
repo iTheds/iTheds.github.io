@@ -1,11 +1,9 @@
 ---
-title: "文档Tlsf"
+title: "TLSF内存分配器说明"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/third_party/tlsf.md)"
 ---
 
 <link rel="stylesheet" type="text/css" href="../auto-number-title.css" />
-
-# TLSF
 
 ## 使用方法
 

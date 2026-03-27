@@ -1,9 +1,7 @@
 ---
-title: "完整架构"
+title: "TZDB完整架构图"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/arch/complete_architecture.md)"
 ---
-
-# TZDB 完整架构图
 
 ## 架构层次结构
 

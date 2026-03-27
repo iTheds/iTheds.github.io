@@ -1,9 +1,7 @@
 ---
-title: "文档VariantLibsUsage"
+title: "TZDB变体库使用指南"
 description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/VARIANT_LIBS_USAGE.md)"
 ---
-
-# TZDB 变体库使用指南
 
 ## 概述
 
