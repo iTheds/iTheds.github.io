@@ -45,6 +45,41 @@ export default defineConfig({
     );
     if (!groups.length) return;
 
+    const desiredOrder = [
+      'overview',
+      'architecture',
+      'implementation',
+      'engineering',
+      'appendix',
+      '*',
+      'raw_snapshot',
+    ];
+
+    const getProjectSectionKey = (li, activePrefix) => {
+      const rootLink = li.querySelector(':scope > a');
+      const rootHref = (rootLink?.getAttribute('href') || '').toLowerCase();
+      if (rootHref === activePrefix) return '__root__';
+
+      const sectionLink = li.querySelector(':scope > details > ul > li > a');
+      const sectionHref = (sectionLink?.getAttribute('href') || '').toLowerCase();
+
+      const prefix = activePrefix.endsWith('/') ? activePrefix : activePrefix + '/';
+      if (sectionHref.startsWith(prefix)) {
+        const rest = sectionHref.slice(prefix.length);
+        const segment = rest.split('/').filter(Boolean)[0];
+        if (segment) return segment;
+      }
+
+      const summaryText = li.querySelector(':scope > details > summary .group-label')?.textContent?.trim().toLowerCase();
+      return summaryText || '*';
+    };
+
+    const getOrderRank = (key) => {
+      const exact = desiredOrder.indexOf(key);
+      if (exact !== -1) return exact;
+      return desiredOrder.indexOf('*');
+    };
+
     for (const li of groups) {
       const rootLink = li.querySelector(':scope > details > ul > li > a');
       const href = (rootLink?.getAttribute('href') || '').toLowerCase();
@@ -53,6 +88,28 @@ export default defineConfig({
       if (keep) {
         const details = li.querySelector(':scope > details');
         if (details) details.open = true;
+
+        const list = details?.querySelector(':scope > ul');
+        if (list) {
+          const items = [...list.children];
+          const rootItem = items.find((item) => {
+            const link = item.querySelector(':scope > a');
+            return ((link?.getAttribute('href') || '').toLowerCase() === activePrefix);
+          });
+
+          const otherItems = items.filter((item) => item !== rootItem);
+          otherItems.sort((a, b) => {
+            const keyA = getProjectSectionKey(a, activePrefix);
+            const keyB = getProjectSectionKey(b, activePrefix);
+            const rankA = getOrderRank(keyA);
+            const rankB = getOrderRank(keyB);
+            if (rankA !== rankB) return rankA - rankB;
+            return keyA.localeCompare(keyB, 'zh-CN');
+          });
+
+          const ordered = rootItem ? [rootItem, ...otherItems] : otherItems;
+          for (const item of ordered) list.appendChild(item);
+        }
       }
     }
   };

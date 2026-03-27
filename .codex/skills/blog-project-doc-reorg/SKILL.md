@@ -1,7 +1,7 @@
 ---
 name: blog-project-doc-reorg
 description: 规范化整理 blog 项目文档目录(保留原稿、英文目录、分类归档、链接修复)
-version: 1.4.0
+version: 1.5.0
 owner: iTheds
 ---
 
@@ -13,13 +13,14 @@ owner: iTheds
 
 1. 允许拆分、重命名、重分类，但不允许丢失旧内容。
 2. 每个项目的原始文件统一放在 `src/content/docs/project-xxx/raw_snapshot/`，该目录只读，禁止修改其中文件内容。
-3. 目录命名尽量使用英文。
-4. `itheds contribution` 统一使用中文命名(例如“iTheds 贡献”相关文件)，保持目录内可读性优先。
+3. 项目一级分类目录统一使用 `overview/architecture/implementation/engineering/appendix/raw_snapshot` 这组英文目录名；目录显示顺序也应保持该顺序，其他目录排在 `appendix` 之后、`raw_snapshot` 之前。
+4. 文档文件名优先使用中文命名；`iTheds contribution` 一类内容也统一收敛为中文命名，保持目录内可读性优先。
 5. 一级结构统一为:
    - `overview`
    - `architecture`
    - `implementation`
    - `engineering`
+   - `appendix`
 6. 除 `raw_snapshot` 外，不保留 `backup/issues/worklogs/test_reports` 等存档型目录，统一整理到上述四类技术文档目录。
 7. 新增文件命名统一使用中文(可保留必要缩写如 TSDB/TZDB/RPC/WAL)，尽量直观可读。
 8. `raw_snapshot` 下可读文本(如 `.md`)要按内容整理到 `overview/architecture/implementation/engineering`(源文件保留不改)。
@@ -58,7 +59,7 @@ project-xxx/
 1. 盘点文件与目录(`rg --files` + `find`)。
 2. 确认 `raw_snapshot/` 已存在且不做任何修改。
 3. 创建统一英文目录骨架。
-4. 迁移并重命名文档到目标分类(在 `raw_snapshot` 外创建整理稿，文件名统一英文)。
+4. 迁移并重命名文档到目标分类(在 `raw_snapshot` 外创建整理稿，文件名统一中文，目录名按统一分类目录保留英文)。
 5. 对无法直接归类的资料先做技术提炼，再写入对应目录。
 6. 修复所有内部相对链接。
 7. 补齐各级 `index.md` 导航。
