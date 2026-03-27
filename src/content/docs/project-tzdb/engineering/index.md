@@ -18,3 +18,5 @@ description: "Engineering practices, test methods, and technical reports"
 - [601出差测试复盘](601出差测试复盘.md)
 - [远程访问模块字符串结果集问题排查](远程访问模块字符串结果集问题排查.md)
 - [远程访问模块单句柄并发与线程池设计](远程访问模块单句柄并发与线程池设计.md)
+- [RemoteAccess模块问题清单与平台适配](RemoteAccess模块问题清单与平台适配.md)
+- [RemoteAccess模块开发策略](RemoteAccess模块开发策略.md)

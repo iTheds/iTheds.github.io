@@ -8,6 +8,7 @@ description: "TZDB architecture document navigation"
 - [集群测试体系与用例生成](集群测试体系与用例生成.md)
 - [RemoteAccess模块系统设计](RemoteAccess模块系统设计.md)
 - [RemoteAccess模块项目文档](RemoteAccess模块项目文档.md)
-- [RemoteAccess模块调研记录](RemoteAccess模块调研记录.md)
+- [RemoteAccess模块调研](RemoteAccess模块调研.md)
+- [RemoteAccess模块接口与代码体系](RemoteAccess模块接口与代码体系.md)
 - [RemoteAccess模块连接池与会话管理](RemoteAccess模块连接池与会话管理.md)
 - [RemoteAccess模块监控与日志体系](RemoteAccess模块监控与日志体系.md)

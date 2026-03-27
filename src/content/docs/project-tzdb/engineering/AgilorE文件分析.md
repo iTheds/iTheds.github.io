@@ -382,7 +382,7 @@ Record 依赖于tree.h文件，内部是下一层的测试文件。
 [testMutliThreads]
 [xml_test]
 
-## 问题记录
+## 已知问题
 
 ### 文件路径问题 mco 层
 
@@ -396,11 +396,10 @@ CreateMutex(AGILORE_SECURITY_ATTRIBUTES, true, name);
 
 如果需要更改需要对数据库更了解。
 
-## 修改内容记录 by iTheds
+## iTheds 修改点
 
-[10.18]
-修改SQLTOOL部分，添加功能宏定义。
-其中锐华天脉需要添加SQLTool类中的额外内存 memAddr，以适应接口 dbDataBase::open()。
+修改 `SQLTOOL` 部分，添加功能宏定义。
+其中锐华天脉需要添加 `SQLTool` 类中的额外内存 `memAddr`，以适应接口 `dbDataBase::open()`。
 
 
 ## 代码留存
