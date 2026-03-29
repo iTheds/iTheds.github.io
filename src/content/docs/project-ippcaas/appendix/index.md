@@ -1,8 +1,6 @@
 ---
 title: "附录"
-description: "TZDB 附录与历史资料"
+description: "project-ippcaas 附录与统计口径"
 ---
 
-
-
-> 当前项目未保留可公开的附录内容。
+- [术语与角色口径](术语与角色口径.md)
