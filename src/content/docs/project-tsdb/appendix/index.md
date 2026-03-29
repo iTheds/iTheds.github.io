@@ -1,8 +1,6 @@
----
+﻿---
 title: "附录"
-description: "TZDB 附录与历史资料"
+description: "project-tsdb 附录与口径说明"
 ---
 
-
-
-> 当前项目未保留可公开的附录内容。
+- [测试与基准口径说明](测试与基准口径说明.md)
