@@ -1,21 +1,421 @@
 ---
-title: "iTheds 项目文档中心"
-description: "项目文档总览。"
+title: "iTheds"
+description: "iTheds 的个人博客首页，聚合技能、项目与贡献度。"
 template: splash
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## 项目入口
+<style is:global>{`
+  .hero-panel {
+    padding: 1.4rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1.25rem;
+    background:
+      radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 36%),
+      linear-gradient(135deg, rgba(8, 47, 73, 0.92), rgba(15, 23, 42, 0.98));
+    color: white;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.22);
+  }
+
+  .hero-kicker {
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .hero-title {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.02;
+  }
+
+  .hero-summary {
+    margin: 0.9rem 0 0;
+    max-width: 48rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 1.02rem;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+
+  .hero-meta strong {
+    display: block;
+    font-size: 1.15rem;
+    color: white;
+  }
+
+  .hero-meta span {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.92rem;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.4rem;
+  }
+
+  .intro-card {
+    padding: 1.1rem 1.15rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.92));
+  }
+
+  .intro-card h3,
+  .focus-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+
+  .intro-card p,
+  .focus-card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .skill-card {
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(241, 245, 249, 0.92));
+  }
+
+  .skill-card h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+  }
+
+  .skill-card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+  }
+
+  .project-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+  }
+
+  .project-table th,
+  .project-table td {
+    padding: 0.9rem 0.85rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+
+  .project-table th {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sl-color-gray-2);
+    background: var(--sl-color-black);
+  }
+
+  .project-bar {
+    position: relative;
+    min-width: 160px;
+    height: 0.78rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    overflow: hidden;
+  }
+
+  .project-bar > span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #0f766e, #f59e0b);
+  }
+
+  .project-rate {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    color: var(--sl-color-gray-2);
+  }
+
+  .project-note {
+    color: var(--sl-color-gray-3);
+    font-size: 0.92rem;
+    margin-top: 0.8rem;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .featured-card {
+    padding: 1.1rem 1.15rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+  }
+
+  .featured-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .featured-tag {
+    display: inline-block;
+    margin-top: 0.7rem;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(15, 118, 110, 0.12);
+    color: #0f766e;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .featured-card p {
+    margin: 0.75rem 0 0;
+    color: var(--sl-color-gray-2);
+  }
+
+  .featured-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-weight: 600;
+  }
+
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .timeline-card {
+    padding: 1rem 1.05rem;
+    border-left: 4px solid #0f766e;
+    border-radius: 0.8rem;
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
+  }
+
+  .timeline-card strong {
+    display: block;
+    color: var(--sl-color-black);
+    font-size: 0.96rem;
+  }
+
+  .timeline-card span {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.88rem;
+  }
+
+  .timeline-card p {
+    margin: 0.7rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.94rem;
+  }
+
+  @media (max-width: 900px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+`}</style>
+
+<div class="hero-panel">
+  <p class="hero-kicker">Personal Blog / Engineering Notes</p>
+  <div class="hero-meta">
+    <div><strong>6+</strong><span>核心项目归档</span></div>
+    <div><strong>Database</strong><span>TZDB / TSDB / PG / ODBC</span></div>
+    <div><strong>Systems</strong><span>Distributed / IPC / RPC / WAL</span></div>
+    <div><strong>Role</strong><span>Design · Build · Test · Delivery</span></div>
+  </div>
+</div>
+
+<div class="intro-grid">
+  <div class="intro-card">
+    <h3>About Me</h3>
+    <p>
+      软件研发工程师，后端与分布式系统方向的研发工作。具有数据库内核、分布式通信、
+      多语言接入和工程交付经验，负责存储引擎、事务恢复、RPC 链路、ODBC/JDBC/JNI 适配、
+      性能分析、回归测试。
+    </p>
+  </div>
+</div>
+
+## Skills
+
+<div class="skills-grid">
+  <div class="skill-card">
+    <h3>后端与存储系统</h3>
+    <p>长期围绕数据库内核、存储引擎、事务恢复、Catalog 与执行链路工作，偏向把复杂系统真正做出来并稳定落地。</p>
+  </div>
+  <div class="skill-card">
+    <h3>分布式系统与通信链路</h3>
+    <p>负责过 RPC、节点通信、集群元数据、订阅消费和弱通信场景下的自适应分发与重传，关注系统在真实环境中的稳定性。</p>
+  </div>
+  <div class="skill-card">
+    <h3>多语言接入与兼容层</h3>
+    <p>有 C/C++、Rust、Go、Java 以及 ODBC、JDBC、JNI 接入经验，能处理协议适配、驱动链路和跨语言访问一致性问题。</p>
+  </div>
+  <div class="skill-card">
+    <h3>工程化、测试与交付</h3>
+    <p>习惯同时推进实现、回归测试、性能分析、兼容性修复和交付文档，把研发过程沉淀成可维护、可复用、可说明的工程资产。</p>
+  </div>
+</div>
+
+## 全部项目
 
 <CardGrid stagger>
-  <Card title="TZDB" icon="seti:folder">[进入](/project-tzdb/)</Card>
-  <Card title="TZDB Rebuild" icon="seti:folder">[进入](/project-tzdb-rebuild/)</Card>
-  <Card title="TSDB" icon="seti:folder">[进入](/project-tsdb/)</Card>
-  <Card title="IPPCAAS" icon="seti:folder">[进入](/project-ippcaas/)</Card>
-  <Card title="DistributedNet" icon="seti:folder">[进入](/project-distributedNet/)</Card>
-  <Card title="TZ MultiModel" icon="seti:folder">[进入](/project-tzmultimodel/)</Card>
-  <Card title="DailyLog" icon="seti:folder">[进入](/dailylog/)</Card>
-  <Card title="Record Manual" icon="seti:folder">[进入](/record-manual/)</Card>
-  <Card title="Resume" icon="seti:folder">[进入](/personal-resume/)</Card>
+  <Card title="TZDB" icon="seti:database">嵌入式实时数据库与远程访问主线。[进入](/project-tzdb/)</Card>
+  <Card title="TZDB Rebuild" icon="seti:graph">TZDB 重构期的架构、实现、工程与兼容性收敛。[进入](/project-tzdb-rebuild/)</Card>
+  <Card title="TSDB" icon="seti:rust">Rust 时序数据库、流式处理、Topic/Consumer/Subscribe。[进入](/project-tsdb/)</Card>
+  <Card title="IPPCAAS" icon="seti:mobile">农业监测预警平台，覆盖前端采集、架构和验收沉淀。[进入](/project-ippcaas/)</Card>
+  <Card title="DistributedNet" icon="seti:link">弱通信条件下的多节点协同通信与重传系统。[进入](/project-distributednet/)</Card>
+  <Card title="TZ MultiModel" icon="seti:settings">Qt 多模数据库客户端与 ODBC/JNI/JDBC 接入链路。[进入](/project-tzmultimodel/)</Card>
 </CardGrid>
+
+## 项目贡献度
+
+<table class="project-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>WORK</th>
+          <th>Contribution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/project-tzdb-rebuild/">TZDB Rebuild</a></td>
+          <td>数据库重构、ODBC 接入、PG 兼容与工程整理</td>
+          <td>
+            <div class="project-bar"><span style="width: 28.23%;"></span></div>
+            <div class="project-rate">28.23%</div>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/project-tsdb/">TSDB</a></td>
+          <td>Rust TSDB 核心建设、流式处理与 Topic 链路</td>
+          <td>
+            <div class="project-bar"><span style="width: 72%;"></span></div>
+            <div class="project-rate">72%</div>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/project-tzmultimodel/">TZ MultiModel</a></td>
+          <td>ODBC、JNI、JDBC 接入链路与驱动适配</td>
+          <td>
+            <div class="project-bar"><span style="width: 56%;"></span></div>
+            <div class="project-rate">56%</div>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/project-ippcaas/">IPPCAAS</a></td>
+          <td>前端采集流程、业务页面实现与交付支持</td>
+          <td>
+            <div class="project-bar"><span style="width: 30%;"></span></div>
+            <div class="project-rate">29.6%</div>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/project-distributednet/">DistributedNet</a></td>
+          <td>弱通信场景下的自适应分发、重传与核心模块实现</td>
+          <td>
+            <div class="project-bar"><span style="width: 82%;"></span></div>
+            <div class="project-rate">82%</div>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/project-tzdb/">TZDB</a></td>
+          <td>RemoteAccess、集群链路、工程验证与现场问题处理</td>
+          <td>
+            <div class="project-bar"><span style="width: 68%;"></span></div>
+            <div class="project-rate">68%</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+## 精选项目
+
+<div class="featured-grid">
+  <article class="featured-card">
+    <h3>TZDB Rebuild</h3>
+    <span class="featured-tag">数据库重构</span>
+    <p>
+      重构期项目，集中体现协议兼容、ODBC 接入、PG 语义对齐、工程拆分与日志沉淀。适合用来展示数据库内核与兼容层工作的综合能力。
+    </p>
+    <a class="featured-link" href="/project-tzdb-rebuild/">查看项目</a>
+  </article>
+
+  <article class="featured-card">
+    <h3>TSDB</h3>
+    <span class="featured-tag">Rust / 流式处理</span>
+    <p>
+      体现 Rust 时序数据库实现、Topic/Consumer/Subscribe 等链路设计，以及高贡献阶段的系统搭建能力。
+    </p>
+    <a class="featured-link" href="/project-tsdb/">查看项目</a>
+  </article>
+
+  <article class="featured-card">
+    <h3>DistributedNet</h3>
+    <span class="featured-tag">弱通信系统</span>
+    <p>
+      适合展示网络不稳定条件下的自适应传输、节点协同与重传策略，突出分布式通信侧的实战能力。
+    </p>
+    <a class="featured-link" href="/project-distributednet/">查看项目</a>
+  </article>
+</div>
+
+## 近期记录
+
+<div class="timeline-grid">
+  <article class="timeline-card">
+    <strong>TZDB Rebuild 工程日志</strong>
+    <span>Engineering / 数据库重构</span>
+    <p>围绕协议优化、序列化、权限方案与 Blob 设计的分篇技术日志。</p>
+    <a class="featured-link" href="/project-tzdb-rebuild/engineering/">进入日志</a>
+  </article>
+
+  <article class="timeline-card">
+    <strong>DailyLog</strong>
+    <span>Long-term Notes</span>
+    <p>长期工作记录入口，适合作为个人持续输出与技术积累的时间线。</p>
+    <a class="featured-link" href="/dailylog/">进入日志</a>
+  </article>
+
+  <article class="timeline-card">
+    <strong>Record Manual</strong>
+    <span>Knowledge Base</span>
+    <p>调研记录、系统卡片和结构化知识沉淀，补足项目页以外的长期思考。</p>
+    <a class="featured-link" href="/record-manual/">进入记录</a>
+  </article>
+
+  <article class="timeline-card">
+    <strong>个人履历</strong>
+    <span>Resume / Summary</span>
+    <p>汇总阶段性经历、角色定位与个人技术轨迹，作为首页的补充视图。</p>
+    <a class="featured-link" href="/personal-resume/">进入履历</a>
+  </article>
+</div>

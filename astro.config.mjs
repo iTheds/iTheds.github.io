@@ -6,11 +6,75 @@ export default defineConfig({
 	site: 'https://itheds.github.io',
 	integrations: [
 		starlight({
-			title: 'iTheds Project Docs',
+			title: 'iTheds Blog',
 			social: [
 				{ icon: 'github', label: 'Old Blog (GitHub)', href: 'https://github.com/iTheds/iTheds.github.io' },
 			],
 			head: [
+				{
+					tag: 'script',
+					attrs: {
+						type: 'module',
+					},
+					content: `
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+let mermaidReady = false;
+
+const getMermaidSource = (pre) => {
+  const lineNodes = [...pre.querySelectorAll('.ec-line .code')];
+  if (lineNodes.length) {
+    return lineNodes.map((line) => line.textContent || '').join('\\n').trim();
+  }
+
+  const code = pre.querySelector('code');
+  return (code?.textContent || pre.textContent || '').trim();
+};
+
+const renderMermaidBlocks = async () => {
+  if (!mermaidReady) {
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'default',
+    });
+    mermaidReady = true;
+  }
+
+  const blocks = [...document.querySelectorAll('pre[data-language="mermaid"]')];
+  for (const pre of blocks) {
+    if (pre.dataset.mermaidProcessed === 'true') continue;
+
+    const source = getMermaidSource(pre);
+    if (!source) continue;
+
+    const host = pre.closest('.expressive-code') || pre;
+    const container = document.createElement('div');
+    container.className = 'mermaid';
+    container.textContent = source;
+
+    pre.dataset.mermaidProcessed = 'true';
+    host.replaceWith(container);
+  }
+
+  await mermaid.run({
+    querySelector: '.mermaid',
+  });
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    renderMermaidBlocks();
+  }, { once: true });
+} else {
+  renderMermaidBlocks();
+}
+
+document.addEventListener('astro:after-swap', () => {
+  renderMermaidBlocks();
+});
+					`,
+				},
 				{
 					tag: 'script',
 					content: `
@@ -52,7 +116,6 @@ export default defineConfig({
       'engineering',
       'appendix',
       '*',
-      'raw_snapshot',
     ];
 
     const getProjectSectionKey = (li, activePrefix) => {
@@ -106,6 +169,11 @@ export default defineConfig({
             if (rankA !== rankB) return rankA - rankB;
             return keyA.localeCompare(keyB, 'zh-CN');
           });
+
+          for (const item of otherItems) {
+            const key = getProjectSectionKey(item, activePrefix);
+            item.hidden = key === 'raw_snapshot';
+          }
 
           const ordered = rootItem ? [rootItem, ...otherItems] : otherItems;
           for (const item of ordered) list.appendChild(item);
