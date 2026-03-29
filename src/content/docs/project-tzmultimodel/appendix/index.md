@@ -1,8 +1,6 @@
 ---
 title: "附录"
-description: "TZDB 附录与历史资料"
+description: "project-tzmultimodel 附录"
 ---
 
-
-
-> 当前项目未保留可公开的附录内容。
+- [术语说明](术语说明.md)
