@@ -1,10 +1,9 @@
----
+﻿---
 title: "iTheds"
 description: "iTheds 的个人博客首页，聚合技能、项目与贡献度。"
 template: splash
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <style is:global>{`
   .hero-panel {
@@ -88,9 +87,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 0.9rem;
+    align-items: stretch;
   }
 
   .skill-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 1rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 1rem;
@@ -165,9 +168,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1rem;
+    align-items: stretch;
   }
 
   .featured-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 1.1rem 1.15rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 1rem;
@@ -203,13 +210,22 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
     font-weight: 600;
   }
 
+  .featured-card .featured-link {
+    margin-top: auto;
+    padding-top: 0.8rem;
+  }
+
   .timeline-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
+    align-items: stretch;
   }
 
   .timeline-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 1rem 1.05rem;
     border-left: 4px solid #0f766e;
     border-radius: 0.8rem;
@@ -235,6 +251,11 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
     font-size: 0.94rem;
   }
 
+  .timeline-card .featured-link {
+    margin-top: auto;
+    padding-top: 0.8rem;
+  }
+
   @media (max-width: 900px) {
     .intro-grid {
       grid-template-columns: 1fr;
@@ -245,10 +266,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 <div class="hero-panel">
   <p class="hero-kicker">Personal Blog / Engineering Notes</p>
   <div class="hero-meta">
-    <div><strong>6+</strong><span>核心项目归档</span></div>
+    <div><strong>Project</strong><span>6+</span></div>
     <div><strong>Database</strong><span>TZDB / TSDB / PG / ODBC</span></div>
     <div><strong>Systems</strong><span>Distributed / IPC / RPC / WAL</span></div>
-    <div><strong>Role</strong><span>Design · Build · Test · Delivery</span></div>
+    <div><strong>Role</strong><span>Design 路 Build 路 Test 路 Delivery</span></div>
   </div>
 </div>
 
@@ -256,9 +277,9 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <div class="intro-card">
     <h3>About Me</h3>
     <p>
-      软件研发工程师，后端与分布式系统方向的研发工作。具有数据库内核、分布式通信、
-      多语言接入和工程交付经验，负责存储引擎、事务恢复、RPC 链路、ODBC/JDBC/JNI 适配、
-      性能分析、回归测试。
+    软件研发工程师，后端与分布式系统方向的研发工作。具有数据库内核、分布式通信、
+    多语言接入和工程交付经验，负责存储引擎、事务恢复、RPC 链路、ODBC/JDBC/JNI 适配、
+    性能分析、回归测试。
     </p>
   </div>
 </div>
@@ -284,78 +305,75 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   </div>
 </div>
 
+
 ## 全部项目
 
-<CardGrid stagger>
-  <Card title="TZDB" icon="seti:database">嵌入式实时数据库与远程访问主线。[进入](/project-tzdb/)</Card>
-  <Card title="TZDB Rebuild" icon="seti:graph">TZDB 重构期的架构、实现、工程与兼容性收敛。[进入](/project-tzdb-rebuild/)</Card>
-  <Card title="TSDB" icon="seti:rust">Rust 时序数据库、流式处理、Topic/Consumer/Subscribe。[进入](/project-tsdb/)</Card>
-  <Card title="IPPCAAS" icon="seti:mobile">农业监测预警平台，覆盖前端采集、架构和验收沉淀。[进入](/project-ippcaas/)</Card>
-  <Card title="DistributedNet" icon="seti:link">弱通信条件下的多节点协同通信与重传系统。[进入](/project-distributednet/)</Card>
-  <Card title="TZ MultiModel" icon="seti:settings">Qt 多模数据库客户端与 ODBC/JNI/JDBC 接入链路。[进入](/project-tzmultimodel/)</Card>
-</CardGrid>
-
-## 项目贡献度
-
 <table class="project-table">
-      <thead>
-        <tr>
-          <th>Project</th>
-          <th>WORK</th>
-          <th>Contribution</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="/project-tzdb-rebuild/">TZDB Rebuild</a></td>
-          <td>数据库重构、ODBC 接入、PG 兼容与工程整理</td>
-          <td>
-            <div class="project-bar"><span style="width: 28.23%;"></span></div>
-            <div class="project-rate">28.23%</div>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="/project-tsdb/">TSDB</a></td>
-          <td>Rust TSDB 核心建设、流式处理与 Topic 链路</td>
-          <td>
-            <div class="project-bar"><span style="width: 72%;"></span></div>
-            <div class="project-rate">72%</div>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="/project-tzmultimodel/">TZ MultiModel</a></td>
-          <td>ODBC、JNI、JDBC 接入链路与驱动适配</td>
-          <td>
-            <div class="project-bar"><span style="width: 56%;"></span></div>
-            <div class="project-rate">56%</div>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="/project-ippcaas/">IPPCAAS</a></td>
-          <td>前端采集流程、业务页面实现与交付支持</td>
-          <td>
-            <div class="project-bar"><span style="width: 30%;"></span></div>
-            <div class="project-rate">29.6%</div>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="/project-distributednet/">DistributedNet</a></td>
-          <td>弱通信场景下的自适应分发、重传与核心模块实现</td>
-          <td>
-            <div class="project-bar"><span style="width: 82%;"></span></div>
-            <div class="project-rate">82%</div>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="/project-tzdb/">TZDB</a></td>
-          <td>RemoteAccess、集群链路、工程验证与现场问题处理</td>
-          <td>
-            <div class="project-bar"><span style="width: 68%;"></span></div>
-            <div class="project-rate">68%</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Intro</th>
+      <th>Contribution</th>
+      <th>Work</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/project-tzdb/">TZDB</a></td>
+      <td>嵌入式实时数据库与远程访问主线</td>
+      <td>
+        <div class="project-bar"><span style="width: 68%;"></span></div>
+        <div class="project-rate">68%</div>
+      </td>
+      <td>RemoteAccess、集群链路、工程验证与现场问题处理</td>
+    </tr>
+    <tr>
+      <td><a href="/project-tzdb-rebuild/">TZDB Rebuild</a></td>
+      <td>TZDB 重构期的架构、实现、工程与兼容性收敛</td>
+      <td>
+        <div class="project-bar"><span style="width: 28.23%;"></span></div>
+        <div class="project-rate">28.23%</div>
+      </td>
+      <td>数据库重构、ODBC 接入、PG 兼容与工程整理</td>
+    </tr>
+    <tr>
+      <td><a href="/project-tsdb/">TSDB</a></td>
+      <td>Rust 时序数据库、流式处理、Topic/Consumer/Subscribe</td>
+      <td>
+        <div class="project-bar"><span style="width: 72%;"></span></div>
+        <div class="project-rate">72%</div>
+      </td>
+      <td>Rust TSDB 核心建设、流式处理与 Topic 链路</td>
+    </tr>
+    <tr>
+      <td><a href="/project-ippcaas/">IPPCAAS</a></td>
+      <td>农业监测预警平台，覆盖前端采集、架构和验收沉淀</td>
+      <td>
+        <div class="project-bar"><span style="width: 29.6%;"></span></div>
+        <div class="project-rate">29.6%</div>
+      </td>
+      <td>前端采集流程、业务页面实现与交付支持</td>
+    </tr>
+    <tr>
+      <td><a href="/project-distributednet/">DistributedNet</a></td>
+      <td>弱通信条件下的多节点协同通信与重传系统</td>
+      <td>
+        <div class="project-bar"><span style="width: 82%;"></span></div>
+        <div class="project-rate">82%</div>
+      </td>
+      <td>弱通信场景下的自适应分发、重传与核心模块实现</td>
+    </tr>
+    <tr>
+      <td><a href="/project-tzmultimodel/">TZ MultiModel</a></td>
+      <td>Qt 多模数据库客户端与 ODBC/JNI/JDBC 接入链路</td>
+      <td>
+        <div class="project-bar"><span style="width: 56%;"></span></div>
+        <div class="project-rate">56%</div>
+      </td>
+      <td>ODBC、JNI、JDBC 接入链路与驱动适配</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 精选项目
 
@@ -363,27 +381,21 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <article class="featured-card">
     <h3>TZDB Rebuild</h3>
     <span class="featured-tag">数据库重构</span>
-    <p>
-      重构期项目，集中体现协议兼容、ODBC 接入、PG 语义对齐、工程拆分与日志沉淀。适合用来展示数据库内核与兼容层工作的综合能力。
-    </p>
+    <p>重构期项目，集中体现协议兼容、ODBC 接入、PG 语义对齐、工程拆分与日志沉淀。</p>
     <a class="featured-link" href="/project-tzdb-rebuild/">查看项目</a>
   </article>
 
   <article class="featured-card">
     <h3>TSDB</h3>
     <span class="featured-tag">Rust / 流式处理</span>
-    <p>
-      体现 Rust 时序数据库实现、Topic/Consumer/Subscribe 等链路设计，以及高贡献阶段的系统搭建能力。
-    </p>
+    <p>体现 Rust 时序数据库实现、Topic/Consumer/Subscribe 等链路设计，以及高贡献阶段的系统搭建能力。</p>
     <a class="featured-link" href="/project-tsdb/">查看项目</a>
   </article>
 
   <article class="featured-card">
     <h3>DistributedNet</h3>
     <span class="featured-tag">弱通信系统</span>
-    <p>
-      适合展示网络不稳定条件下的自适应传输、节点协同与重传策略，突出分布式通信侧的实战能力。
-    </p>
+    <p>适合展示网络不稳定条件下的自适应传输、节点协同与重传策略，突出分布式通信侧的实战能力。</p>
     <a class="featured-link" href="/project-distributednet/">查看项目</a>
   </article>
 </div>
@@ -419,3 +431,4 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
     <a class="featured-link" href="/personal-resume/">进入履历</a>
   </article>
 </div>
+

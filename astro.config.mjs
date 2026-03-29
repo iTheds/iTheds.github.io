@@ -12,6 +12,90 @@ export default defineConfig({
 			],
 			head: [
 				{
+					tag: 'style',
+					content: `
+.mermaid {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.mermaid svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid.mermaid-zoomable {
+  cursor: zoom-in;
+}
+
+.mermaid.mermaid-zoomable::after {
+  content: '点击放大';
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.mermaid.mermaid-zoomable:hover::after {
+  opacity: 1;
+}
+
+.mermaid-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.mermaid-lightbox[hidden] {
+  display: none;
+}
+
+.mermaid-lightbox__panel {
+  position: relative;
+  max-width: min(96vw, 1400px);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+
+.mermaid-lightbox__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  cursor: pointer;
+}
+
+.mermaid-lightbox__content svg {
+  display: block;
+  max-width: none;
+  height: auto;
+}
+					`,
+				},
+				{
 					tag: 'script',
 					attrs: {
 						type: 'module',
@@ -20,6 +104,7 @@ export default defineConfig({
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
 let mermaidReady = false;
+let mermaidLightbox = null;
 
 const getMermaidSource = (pre) => {
   const lineNodes = [...pre.querySelectorAll('.ec-line .code')];
@@ -29,6 +114,72 @@ const getMermaidSource = (pre) => {
 
   const code = pre.querySelector('code');
   return (code?.textContent || pre.textContent || '').trim();
+};
+
+const ensureMermaidLightbox = () => {
+  if (mermaidLightbox) return mermaidLightbox;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'mermaid-lightbox';
+  overlay.hidden = true;
+  overlay.innerHTML = \`
+    <div class="mermaid-lightbox__panel">
+      <button class="mermaid-lightbox__close" type="button" aria-label="关闭">关闭</button>
+      <div class="mermaid-lightbox__content"></div>
+    </div>
+  \`;
+
+  const close = () => {
+    overlay.hidden = true;
+    overlay.querySelector('.mermaid-lightbox__content').innerHTML = '';
+    document.body.style.removeProperty('overflow');
+  };
+
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) close();
+  });
+
+  overlay.querySelector('.mermaid-lightbox__close').addEventListener('click', close);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !overlay.hidden) close();
+  });
+
+  document.body.appendChild(overlay);
+  mermaidLightbox = { overlay, close };
+  return mermaidLightbox;
+};
+
+const bindMermaidZoom = () => {
+  const { overlay } = ensureMermaidLightbox();
+  const content = overlay.querySelector('.mermaid-lightbox__content');
+  const blocks = [...document.querySelectorAll('.mermaid svg')];
+
+  for (const svg of blocks) {
+    const container = svg.closest('.mermaid');
+    if (!container || container.dataset.zoomBound === 'true') continue;
+
+    container.dataset.zoomBound = 'true';
+    container.classList.add('mermaid-zoomable');
+    container.setAttribute('role', 'button');
+    container.setAttribute('tabindex', '0');
+    container.setAttribute('aria-label', '点击放大 Mermaid 图');
+
+    const open = () => {
+      content.innerHTML = '';
+      content.appendChild(svg.cloneNode(true));
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+
+    container.addEventListener('click', open);
+    container.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
+  }
 };
 
 const renderMermaidBlocks = async () => {
@@ -60,6 +211,8 @@ const renderMermaidBlocks = async () => {
   await mermaid.run({
     querySelector: '.mermaid',
   });
+
+  bindMermaidZoom();
 };
 
 if (document.readyState === 'loading') {
