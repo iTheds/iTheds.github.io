@@ -1,8 +1,6 @@
 ---
 title: "附录"
-description: "TZDB 附录与历史资料"
+description: "project-distributedNet 附录与外场背景资料"
 ---
 
-
-
-> 当前项目未保留可公开的附录内容。
+- [外场系统组成](外场系统组成.md)
