@@ -25,4 +25,5 @@ description: "project-tzdb-rebuild implementation documents"
 - [TZDB最小功能调研](TZDB最小功能调研.md)
 - [TZDB变体库使用指南](TZDB变体库使用指南.md)
 - [AI模型存储与推理设计](AI模型存储与推理设计.md)
+- [Node Discovery节点发现逻辑总结](node_discovery_summary.md)
 - [TLSF内存分配器说明](TLSF内存分配器说明.md)

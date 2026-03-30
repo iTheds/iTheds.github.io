@@ -4,8 +4,8 @@ description: "project-tzdb-rebuild architecture documents"
 ---
 
 - [核心模块设计](核心模块设计.md)
-- [工厂模式与动态连接库](工厂模式与动态连接库.md)
-- [基于宏定义的插件设计](基于宏定义的插件设计.md)
+- [工厂模式与动态连接库](../engineering/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F+%E5%8A%A8%E6%80%81%E8%BF%9E%E6%8E%A5%E5%BA%93.md)
+- [基于宏定义的插件设计](../engineering/%E5%9F%BA%E4%BA%8E%E5%AE%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E6%8F%92%E4%BB%B6%E8%AE%BE%E8%AE%A1.md)
 - [CLNode优化总结](CLNode%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93.md)
 - [TZDB整体架构设计](TZDB%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.md)
 - [TZDB完整架构图](TZDB%E5%AE%8C%E6%95%B4%E6%9E%B6%E6%9E%84%E5%9B%BE.md)
