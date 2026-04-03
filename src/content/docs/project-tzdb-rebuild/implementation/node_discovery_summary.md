@@ -1,13 +1,16 @@
-# 当前系统 Node Discovery（节点发现）逻辑总结
+---
+title: "Node Discovery逻辑总结"
+description: "project-tzdb-rebuild implementation document"
+---
 
 ## 1. 入口与整体调用链
 
 当前自动发现由 `DataServerConfig.discovery.enable=true` 触发，主流程在：
 
 - `src/server/db_instance_server_entry.cpp`
-  - `DBInstance::RunServer(...)`
-  - `DBInstance::InitializeDiscoveryService(...)`
-  - `DBInstance::StartOptionalServices(...)`
+    - `DBInstance::RunServer(...)`
+    - `DBInstance::InitializeDiscoveryService(...)`
+    - `DBInstance::StartOptionalServices(...)`
 
 执行顺序：
 
@@ -67,14 +70,14 @@ sequenceDiagram
 发现服务注册了 4 类消息（`NodeDiscovery` 服务）：
 
 1. `DiscoveryBroadcast`
-   - 节点启动后周期广播自己的 `ip/port/startup_time_ns/uuid/run_id`。
+    - 节点启动后周期广播自己的 `ip/port/startup_time_ns/uuid/run_id`。
 2. `LeaderResponse`
-   - Leader 单播响应，分配 `assigned_node_id`。
-   - 特殊值：`assigned_node_id=0` 表示 Leader 尚未 `server_ready`，Follower 继续低频重试。
+    - Leader 单播响应，分配 `assigned_node_id`。
+    - 特殊值：`assigned_node_id=0` 表示 Leader 尚未 `server_ready`，Follower 继续低频重试。
 3. `ElectionYield`
-   - 低优先级候选者向高优先级候选者发送“退让”通知（辅助收敛）。
+    - 低优先级候选者向高优先级候选者发送“退让”通知（辅助收敛）。
 4. `LeaderAnnounce`
-   - Leader 周期广播（500ms）宣告，帮助并发启动场景收敛单主。
+    - Leader 周期广播（500ms）宣告，帮助并发启动场景收敛单主。
 
 ## 4. 选主与收敛规则
 
@@ -190,30 +193,31 @@ sequenceDiagram
 ### Leader
 
 - `BecomeLeader()` 时：
-  - `my_node_id=1`
-  - `members` 初始化仅自己
-  - 立即广播 `LeaderAnnounce`
-  - `is_ready=true`，但 `server_ready=false`
-- 在 `server_ready=false` 时，收到新节点 `DiscoveryBroadcast` 不会正式分配 ID，而返回 `LeaderResponse(assigned_node_id=0)`。
+    - `my_node_id=1`
+    - `members` 初始化仅自己
+    - 立即广播 `LeaderAnnounce`
+    - `is_ready=true`，但 `server_ready=false`
+- 在 `server_ready=false` 时，收到新节点 `DiscoveryBroadcast` 不会正式分配 ID，而返回
+  `LeaderResponse(assigned_node_id=0)`。
 - `MarkServerReady()` 后：
-  - `server_ready=true`
-  - 广播一次 `LeaderAnnounce`
-  - 才开始给新节点分配有效 node_id。
+    - `server_ready=true`
+    - 广播一次 `LeaderAnnounce`
+    - 才开始给新节点分配有效 node_id。
 
 ### Follower
 
 - 收到有效 `LeaderResponse(assigned_node_id>0)` 后 `RegisterAsFollower()`。
 - 当前实现下 Follower 的 `members` 仅保证包含：
-  - Leader（node_id=1）
-  - 自己（my_node_id）
+    - Leader（node_id=1）
+    - 自己（my_node_id）
 
 ## 6. 配置语义（DiscoveryConfig）
 
 定义在 `src/inc/server/data_server.h`：
 
 - `local_ip`
-  - 空字符串：自动选本机可用 IP（优先非 `127.0.0.1`）
-  - 支持前缀模式：`192.168.3.x` / `192.168.3.*`
+    - 空字符串：自动选本机可用 IP（优先非 `127.0.0.1`）
+    - 支持前缀模式：`192.168.3.x` / `192.168.3.*`
 - `local_port=0`：自动分配随机动态端口（49152-65535）
 - `broadcast_bind_ip`：广播监听绑定地址（默认 `0.0.0.0`）
 - `broadcast_address`：广播目标地址（默认 `255.255.255.255`）
