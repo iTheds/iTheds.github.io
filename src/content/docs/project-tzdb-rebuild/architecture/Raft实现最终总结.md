@@ -7,7 +7,7 @@ description: "project-tzdb-rebuild 文档整理稿(源:raw_snapshot/docs/raft/Ra
 
 ## 🎯 项目完成概览
 
-我已经成功为你的TZDB分布式数据库实现了完整的Raft选举和心跳机制。这是一个生产级的实现，符合Raft协议标准，提供了强一致性和高可用性保证。
+TZDB分布式数据库实现了完整的Raft选举和心跳机制。这是一个生产级的实现，符合Raft协议标准，提供了强一致性和高可用性保证。
 
 ## 📁 整理后的项目结构
 

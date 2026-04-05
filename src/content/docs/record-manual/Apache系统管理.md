@@ -3,10 +3,6 @@ title: "Apache系统管理"
 description: "Apache系统管理"
 ---
 
-<link rel="stylesheet" type="text/css" href="../../auto-number-title.css" />
-
-# Apache系统管理
-
 Apache HTTP Server(简称Apache)是世界使用排名领先的Web服务器软件之一。它可以运行在几乎所有广泛使用的计算机平台上。
 
 ## 基本信息
@@ -50,6 +46,7 @@ firewall-cmd --reload
 - `/var/www/html/index.html` - 默认首页文件
 
 创建默认首页示例:
+
 ```bash
 vim /var/www/html/index.html
 ```
@@ -57,6 +54,7 @@ vim /var/www/html/index.html
 ## 查看服务状态
 
 查看Apache默认端口监听情况:
+
 ```bash
 netstat -antlupe | grep httpd
 ```
@@ -66,6 +64,7 @@ netstat -antlupe | grep httpd
 镜像配置文件目录:`/etc/yum.repos.d/`
 
 替换为国内镜像源(以阿里云为例):
+
 ```bash
 sed -i 's|^#baseurl=https://download.fedoraproject.org/pub|baseurl=https://mirrors.aliyun.com|' /etc/yum.repos.d/epel*
 sed -i 's|^metalink|#metalink|' /etc/yum.repos.d/epel*
@@ -104,6 +103,7 @@ DocumentRoot "/var/www/html"
 Apache支持基于名称和IP的虚拟主机配置，可以在一台服务器上托管多个网站。
 
 基本虚拟主机配置示例:
+
 ```apache
 <VirtualHost *:80>
     ServerName www.example.com
