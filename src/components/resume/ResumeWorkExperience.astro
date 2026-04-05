@@ -1,0 +1,24 @@
+---
+import ResumeEntryCard from "./ResumeEntryCard.astro";
+
+interface Props {
+  company: string;
+  role: string;
+  duration: string;
+  timeline: string[];
+}
+
+const { company, role, duration, timeline = [] } = Astro.props;
+---
+
+<ResumeEntryCard
+  sectionTitle="工作经历"
+  title={company}
+  duration={duration}
+  meta={[{ label: "岗位", value: role }]}
+  containerClass="resume-work-card"
+>
+  <ul class="resume-work-timeline">
+    {timeline.map((item) => <li set:html={item} />)}
+  </ul>
+</ResumeEntryCard>

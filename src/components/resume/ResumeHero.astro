@@ -1,0 +1,58 @@
+---
+import type { ContactItem, ResumeProfile } from "./types";
+
+interface Props {
+  profile: ResumeProfile;
+}
+
+const { profile } = Astro.props;
+
+const {
+  name,
+  role,
+  summary,
+  phone,
+  email,
+  location,
+  photoSrc = "/personal-resume/avatar-placeholder.svg",
+  status = "在看机会",
+  intent,
+} = profile;
+
+const basicInfoItems: ContactItem[] = [
+  { label: "手机", value: phone },
+  { label: "邮箱", value: email },
+  { label: "城市", value: location },
+  { label: "状态", value: status },
+];
+---
+
+<div class="resume-hero">
+  <div class="resume-main">
+    <div class="resume-kicker">Personal Resume</div>
+    <h1>{name}</h1>
+    <p class="resume-role">{role}</p>
+    <p class="resume-summary">{summary}</p>
+    <div class="resume-info-card">
+      <strong class="resume-info-title">基础信息</strong>
+      <dl class="resume-contact">
+        {basicInfoItems.map((item) => (
+          <div class="resume-contact-item">
+            <dt>{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <div class="resume-intent">
+      <strong>求职意向</strong>
+      <p>{intent}</p>
+    </div>
+  </div>
+
+  <aside class="resume-side">
+    <div class="resume-photo-card">
+      <img class="resume-photo-image" src={photoSrc} alt={`${name} 头像`} />
+    </div>
+  </aside>
+</div>

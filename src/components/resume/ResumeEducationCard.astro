@@ -1,0 +1,47 @@
+---
+import GpaBadge from "../GpaBadge.astro";
+import ResumeEntryCard from "./ResumeEntryCard.astro";
+
+interface Props {
+  school: string;
+  major: string;
+  degree: string;
+  duration: string;
+  gpa?: string;
+  items?: string[];
+}
+
+const {
+  school,
+  major,
+  degree,
+  duration,
+  gpa = "[GPA 待填写]",
+  items = [],
+} = Astro.props;
+
+const educationItems = items.length > 0
+  ? items
+  : [`<code>${duration}</code>：${school}，[教育阶段说明、主修方向、研究主题或校园项目待填写]。`];
+---
+
+<ResumeEntryCard
+  sectionTitle="教育经历"
+  title={school}
+  duration={duration}
+  meta={[
+    { label: "专业", value: major },
+    { label: "学历", value: degree },
+  ]}
+  containerClass="resume-edu-card"
+>
+  <Fragment slot="header-extra">
+    <div class="resume-edu-gpa">
+      <GpaBadge value={gpa} />
+    </div>
+  </Fragment>
+
+  <ul class="resume-work-timeline">
+    {educationItems.map((item) => <li set:html={item}></li>)}
+  </ul>
+</ResumeEntryCard>

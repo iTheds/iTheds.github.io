@@ -1,0 +1,60 @@
+---
+import type { ResumeSkills } from "./types";
+
+interface Props {
+  skills?: ResumeSkills;
+}
+
+const { skills = {} } = Astro.props;
+
+const {
+  tags = [],
+  highlights = [],
+  metrics = [],
+  items = [],
+} = skills;
+
+const hasSkills =
+  highlights.length > 0 ||
+  tags.length > 0 ||
+  metrics.length > 0 ||
+  items.length > 0;
+---
+
+{hasSkills && (
+  <section class="resume-block">
+    <h2>Skills</h2>
+    <div class="resume-block-body">
+      {metrics.length > 0 && (
+        <div class="resume-skill-metrics">
+          {metrics.map((metric) => (
+            <div class="resume-metric">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {tags.length > 0 && (
+        <div class="resume-tags" aria-label="skills">
+          {tags.map((tag) => <span class="resume-tag">{tag}</span>)}
+        </div>
+      )}
+      {highlights.length > 0 && (
+        <div class="resume-highlights">
+          {highlights.map((item) => (
+            <div class="resume-highlight">
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {items.length > 0 && (
+        <ul class="resume-work-timeline">
+          {items.map((item) => <li>{item}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+)}

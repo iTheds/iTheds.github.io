@@ -1,8 +1,201 @@
----
-title: "personal-resume"
-description: "personal-resume 文档入口"
+﻿---
+title: "个人简历"
+description: "面向不同岗位的个人简历导航"
 ---
 
-该目录为 **personal-resume** 项目文档入口。
+<style is:global>{`
+.resume-hub {
+  display: grid;
+  gap: 1rem;
+}
+.resume-hub-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 1rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(31, 44, 53, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8f3ea 0%, #ffffff 20%);
+  box-shadow: 0 20px 48px rgba(31, 44, 53, 0.08);
+}
+.resume-hub-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+.resume-hub-hero p {
+  color: #5b6974;
+  line-height: 1.75;
+}
+.resume-hub-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+.resume-hub-badges span,
+.resume-card .keywords span {
+  display: inline-flex;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 44, 53, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.92rem;
+}
+.resume-hub-side {
+  display: grid;
+  gap: 0.9rem;
+}
+.resume-hub-note,
+.resume-hub-timeline,
+.resume-card {
+  border: 1px solid rgba(31, 44, 53, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.resume-hub-note,
+.resume-hub-timeline {
+  padding: 1rem 1.1rem;
+}
+.resume-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.resume-card {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.resume-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.resume-card p,
+.resume-card li,
+.resume-hub-timeline li,
+.resume-hub-note li {
+  color: #5b6974;
+  line-height: 1.75;
+}
+.resume-card .meta {
+  font-size: 0.94rem;
+  color: #a85c32;
+  font-weight: 700;
+}
+.resume-card .keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.resume-card a {
+  margin-top: auto;
+  font-weight: 700;
+}
+@media (max-width: 960px) {
+  .resume-hub-hero,
+  .resume-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+`}</style>
 
-请从左侧选择具体文档。
+<div class="resume-hub">
+  <section class="resume-hub-hero">
+    <div>
+      <h1>个人简历</h1>
+      <p>这里保留一套可投递、可展示、可继续扩展的简历页面。每个版本共用同一组项目经历，但会根据岗位重点调整摘要、能力项和项目排序。页面已经预留照片区域，后续你只需要替换照片和占位信息即可。</p>
+      <div class="resume-hub-badges">
+        <span>照片占位</span>
+        <span>展示版布局</span>
+        <span>Markdown/MDX 可维护</span>
+        <span>可继续收敛成最终投递版</span>
+      </div>
+    </div>
+
+    <div class="resume-hub-side">
+      <div class="resume-hub-note">
+        <strong>当前版本说明</strong>
+        <ul>
+          <li>正文已经调整为更接近展示页的双栏布局和信息卡片。</li>
+          <li>联系方式、教育经历和照片仍保留占位，便于你后续自行填写。</li>
+          <li>若需要最终投递 PDF 版，下一步可以继续压缩成更短的一页版。</li>
+        </ul>
+      </div>
+      <div class="resume-hub-note">
+        <strong>建议替换的信息</strong>
+        <ul>
+          <li>姓名、电话、邮箱、城市</li>
+          <li>学校、专业、学历、时间</li>
+          <li>照片区域替换为职业头像或证件照</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="resume-card-grid">
+      <article class="resume-card">
+        <div class="meta">适合先完整展示经历</div>
+        <h2>通用软件研发工程师简历</h2>
+        <p>保留完整项目主线，适合岗位方向还不完全收敛时使用。</p>
+        <div class="keywords">
+          <span>C/C++</span><span>Rust</span><span>Java</span><span>SQL</span><span>RPC</span><span>ODBC</span>
+        </div>
+        <a href="./通用软件研发工程师简历/">进入简历</a>
+      </article>
+
+      <article class="resume-card">
+        <div class="meta">数据库 / 存储引擎 / SQL 执行</div>
+        <h2>数据库内核工程师简历</h2>
+        <p>重点展示数据库内核、协议兼容、查询执行链路和测试闭环经验。</p>
+        <div class="keywords">
+          <span>WAL</span><span>ARIES</span><span>Catalog</span><span>Buffer Pool</span><span>ODBC</span><span>PG Protocol</span>
+        </div>
+        <a href="./数据库内核工程师简历/">进入简历</a>
+      </article>
+
+      <article class="resume-card">
+        <div class="meta">通信链路 / 分布式协同 / 服务稳定性</div>
+        <h2>后端与分布式系统工程师简历</h2>
+        <p>重点展示弱通信场景、节点协同、服务链路和压测验证经验。</p>
+        <div class="keywords">
+          <span>TCP</span><span>UDP</span><span>RPC</span><span>NetPool</span><span>Node Discovery</span><span>Observability</span>
+        </div>
+        <a href="./后端与分布式系统工程师简历/">进入简历</a>
+      </article>
+
+      <article class="resume-card">
+        <div class="meta">ODBC / JDBC / JNI / 协议兼容</div>
+        <h2>数据库接入与驱动开发工程师简历</h2>
+        <p>重点展示跨语言接入链路、驱动实现和客户端工具兼容经验。</p>
+        <div class="keywords">
+          <span>ODBC</span><span>JDBC</span><span>JNI</span><span>DBeaver</span><span>ResultSet</span><span>Metadata</span>
+        </div>
+        <a href="./数据库接入与驱动开发工程师简历/">进入简历</a>
+      </article>
+
+      <article class="resume-card">
+        <div class="meta">自由填写</div>
+        <h2>简历模板</h2>
+        <p>保留完整的展示结构，适合作为你后续生成新岗位版本的基础模板。</p>
+        <div class="keywords">
+          <span>照片位</span><span>求职意向</span><span>项目经历</span><span>量化成果</span>
+        </div>
+        <a href="./简历模板/">进入模板</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="resume-hub-timeline">
+    <strong>项目时间线</strong>
+    <ul>
+      <li><code>2021-10</code> 至 <code>2026-03</code>：TZDB，远程访问服务、集群链路、ODBC、RecGH、工程交付。</li>
+      <li><code>2023-02</code> 至 <code>2024-10</code>：TSDB，Rust 时序数据库、Worker/队列、Topic/Consumer/Subscribe。</li>
+      <li><code>2024-08</code> 至 <code>2024-11</code>：TZ MultiModel，多模数据库客户端，ODBC/JNI/JDBC 接入链路。</li>
+      <li><code>2024-09</code> 至 <code>2024-12</code>：DistributedNet，弱通信场景下的多节点协同、自适应分发与重传。</li>
+      <li><code>2025-02</code> 至 <code>2026-03</code>：IPPCAAS，农业监测预警平台，uni-app/Vue3 前端与数据模型。</li>
+      <li><code>2025-07</code> 至 <code>2026-03</code>：TZDB Rebuild，数据库重构、PG/ODBC 兼容、测试与工程化。</li>
+    </ul>
+  </section>
+</div>

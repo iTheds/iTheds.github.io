@@ -1,5 +1,5 @@
 ﻿---
-title: "blob pages"
+title: "Blob溢出页设计记录"
 description: "TZDB重构技术日志拆分稿，日期：2025-09-03"
 ---
 

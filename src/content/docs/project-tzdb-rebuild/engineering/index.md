@@ -27,7 +27,7 @@ description: "project-tzdb-rebuild engineering documents"
 - [RPC并发与连接模型问题](./RPC并发与连接模型问题/)
 - [权限表开发记录](./权限表开发记录/)
 - [MetaServer与DataServer权限方案](./MetaServer与DataServer权限方案/)
-- [Blob溢出页设计记录](./Blob溢出页设计记录/)
+- [Blob溢出页设计记录](./blob溢出页设计记录/)
 - [WAL刷盘与提交持久性分析](./WAL刷盘与提交持久性分析/)
 - [应用软件基本信息及数据特征](./应用软件基本信息及数据特征/)
 - [写入上下文设计](./写入上下文设计/)

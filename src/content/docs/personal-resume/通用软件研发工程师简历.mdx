@@ -1,0 +1,118 @@
+﻿---
+title: "通用软件研发工程师简历"
+description: "保留完整经历的通用简历版本"
+---
+
+import { resumePlaceholders } from "../../../components/resume/placeholders";
+import ResumePage from "../../../components/resume/ResumePage.astro";
+
+export const profile = {
+  name: resumePlaceholders.name,
+  role: "软件研发工程师 / 后端研发工程师",
+  summary: "以数据库系统、分布式服务和通信链路为主线的工程师。项目经历覆盖数据库内核、驱动接入、弱通信网络以及业务平台交付，适合在一份简历中完整展示跨方向经验。",
+  phone: resumePlaceholders.phone,
+  email: resumePlaceholders.email,
+  location: resumePlaceholders.location,
+  intent: "目标岗位为软件研发工程师、后端开发工程师、数据库研发工程师，期望方向为数据库系统、分布式服务、通信链路和数据库生态接入。",
+};
+
+export const workTimeline = [
+  "<code>2021-10</code> 至 <code>2026-03</code>：TZDB，远程访问服务、ODBC、集群链路与工程交付。",
+  "<code>2023-02</code> 至 <code>2024-10</code>：TSDB，Rust 时序数据库、流式处理、Topic/Consumer/Subscribe。",
+  "<code>2024-08</code> 至 <code>2024-11</code>：TZ MultiModel，多模数据库客户端，ODBC/JNI/JDBC 接入链路。",
+  "<code>2024-09</code> 至 <code>2024-12</code>：DistributedNet，弱通信场景下的多节点协同、自适应分发与重传。",
+  "<code>2025-02</code> 至 <code>2026-03</code>：IPPCAAS，农业监测预警平台，uni-app/Vue3 前端与数据模型。",
+  "<code>2025-07</code> 至 <code>2026-03</code>：TZDB Rebuild，数据库重构、PG/ODBC 兼容、测试与工程化。",
+];
+
+export const projects = [
+  {
+    title: "TZDB | 嵌入式数据库与远程访问服务",
+    time: "2021-10 至 2026-03",
+    items: [
+      "长期参与 TZDB 数据库工程，工作覆盖远程访问服务、ODBC 工具链、集群链路与工程交付。",
+      "参与 <code>raserver</code> 远程访问主链路、客户端接口、网络与协议层重构。",
+      "参与 <code>NetPool</code>、连接/缓冲处理、safe commit、多线程修复与诊断能力增强。",
+      "参与 RecGH 实时接入/分发模块，覆盖消息协议与接收-分发-解析-存储链路。",
+    ],
+  },
+  {
+    title: "TSDB | Rust 时序数据库",
+    time: "2023-02 至 2024-10",
+    items: [
+      "参与 Rust TSDB 的基础设施、执行模型、流式处理与订阅消费能力建设。",
+      "负责 SQL 解析、逻辑计划、RPC 协议与服务执行队列跨层改造。",
+      "推进 Topic/Consumer/Subscribe 从框架搭建到可运行、测试闭环与列查询增强。",
+      "参与共享内存、skiplist、rbtree、错误码体系等基础组件建设。",
+    ],
+  },
+  {
+    title: "TZ MultiModel | 多模数据库客户端与驱动链路",
+    time: "2024-08 至 2024-11",
+    items: [
+      "参与 ODBC/JNI/JDBC 端到端访问链路建设。",
+      "参与 JDBC <code>Driver/Statement/ResultSet/MetaData</code> 等关键模块实现与联调。",
+      "参与 ODBC/JDBC 测试补齐与兼容性问题修复。",
+    ],
+  },
+  {
+    title: "DistributedNet | 弱通信分布式协同通信系统",
+    time: "2024-09 至 2024-12",
+    items: [
+      "负责弱通信条件下的节点可达状态管理、自适应分发与缓存重传机制实现。",
+      "设计 <code>CONNECT + IOMode + NetPool</code> 分层通信架构，统一 TCP/UDP 接入。",
+      "组织多节点仿真与压测，覆盖多种带宽场景下的策略切换与可靠性验证。",
+    ],
+  },
+  {
+    title: "IPPCAAS | 农业监测预警平台",
+    time: "2025-02 至 2026-03",
+    items: [
+      "参与 uni-app + Vue3 前端基线、日志采集流程、数据模型重构与业务页面建设。",
+      "参与接口联调、移动端调试、页面重构与交付支撑。",
+    ],
+  },
+  {
+    title: "TZDB Rebuild | 数据库重构与兼容性收敛",
+    time: "2025-07 至 2026-03",
+    items: [
+      "参与 TZDB 重构阶段研发，工作集中在网络与分布式通信、ODBC 驱动、PG 协议兼容、测试体系与 CI 工程化。",
+      "参与 ODBC 驱动句柄链路、连接序列化、Windows 兼容与绑定问题修复。",
+      "参与 PG 类型序列化、catalog 兼容与 DBeaver 元数据展示适配。",
+      "持续推进测试回归、构建修复与工程整理。",
+    ],
+  },
+];
+
+export const skills = {
+  tags: ["C/C++", "Rust", "Java", "SQL", "RPC", "ODBC", "JDBC", "Raft"],
+  metrics: [
+    { label: "核心项目", value: "6 项" },
+    { label: "经历跨度", value: "4+ 年" },
+    { label: "主语言", value: "C++/Rust" },
+    { label: "关注方向", value: "数据库 / 后端" },
+  ],
+  items: [
+    "数据库内核：存储引擎、Catalog、索引、WAL、协议兼容。",
+    "分布式与通信：TCP/UDP、RPC、节点协同、Raft、网络池与链路重传。",
+    "工程交付：方案设计、问题定位、回归测试、兼容性修复与交付收敛。",
+    "跨语言接入：ODBC、JDBC、JNI、数据库协议与客户端工具适配。",
+  ],
+};
+
+export const work = {
+  company: resumePlaceholders.company,
+  role: resumePlaceholders.role,
+  duration: resumePlaceholders.duration,
+  timeline: workTimeline,
+};
+
+export const education = {
+  school: resumePlaceholders.school,
+  major: resumePlaceholders.major,
+  degree: resumePlaceholders.degree,
+  duration: resumePlaceholders.duration,
+  gpa: resumePlaceholders.gpa,
+};
+
+<ResumePage profile={profile} skills={skills} work={work} education={education} projects={projects} />

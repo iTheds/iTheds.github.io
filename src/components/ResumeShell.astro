@@ -1,0 +1,992 @@
+﻿---
+import type { ContactItem, ResumeProfile, ResumeSkills } from "./resume/types";
+
+interface Props {
+  profile: ResumeProfile;
+  skills?: ResumeSkills;
+}
+
+const {
+  profile,
+  skills = {},
+} = Astro.props;
+
+const {
+  tags = [],
+  highlights = [],
+  metrics = [],
+  items: skillItems = [],
+} = skills;
+
+const {
+  name,
+  role,
+  summary,
+  phone,
+  email,
+  location,
+  photoSrc = "/personal-resume/avatar-placeholder.jpg",
+  status = "在看机会",
+  intent,
+} = profile;
+
+const basicInfoItems: ContactItem[] = [
+  { label: "手机", value: phone },
+  { label: "邮箱", value: email },
+  { label: "城市", value: location },
+  { label: "状态", value: status },
+];
+
+const hasSkills = highlights.length > 0 || tags.length > 0 || metrics.length > 0 || skillItems.length > 0;
+---
+
+<section class="resume-shell">
+  <div class="resume-hero">
+    <div class="resume-main">
+      <div class="resume-kicker">Personal Resume</div>
+      <h1>{name}</h1>
+      <p class="resume-role">{role}</p>
+      <p class="resume-summary">{summary}</p>
+      <div class="resume-info-card">
+        <strong class="resume-info-title">基础信息</strong>
+        <dl class="resume-contact">
+          {basicInfoItems.map((item) => (
+            <div class="resume-contact-item">
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div class="resume-intent">
+        <strong>求职意向</strong>
+        <p>{intent}</p>
+      </div>
+    </div>
+
+    <aside class="resume-side">
+      <div class="resume-photo-card">
+        <img class="resume-photo-image" src={photoSrc} alt={`${name} 头像`} />
+      </div>
+    </aside>
+  </div>
+
+  {hasSkills && (
+    <section class="resume-block">
+      <h2>Skills</h2>
+      <div class="resume-block-body">
+        {metrics.length > 0 && (
+          <div class="resume-skill-metrics">
+            {metrics.map((metric) => (
+              <div class="resume-metric">
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {tags.length > 0 && (
+          <div class="resume-tags" aria-label="skills">
+            {tags.map((tag) => <span class="resume-tag">{tag}</span>)}
+          </div>
+        )}
+        {highlights.length > 0 && (
+          <div class="resume-highlights">
+            {highlights.map((item) => (
+              <div class="resume-highlight">
+                <strong>{item.title}</strong>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {skillItems.length > 0 && (
+          <ul class="resume-work-timeline">
+            {skillItems.map((item) => <li set:html={item} />)}
+          </ul>
+        )}
+      </div>
+    </section>
+  )}
+
+  <div class="resume-content">
+    <slot />
+  </div>
+</section>
+
+<style>
+  @page {
+    size: A4;
+    margin: 4mm;
+  }
+
+  .resume-shell {
+    --resume-bg: linear-gradient(180deg, #f6f9fc 0%, #ffffff 18%);
+    --resume-card: rgba(255, 255, 255, 0.94);
+    --resume-line: rgba(43, 73, 104, 0.12);
+    --resume-text: #1f2c35;
+    --resume-muted: #60707f;
+    --resume-accent: #325f8c;
+    --resume-accent-soft: rgba(50, 95, 140, 0.08);
+    color: var(--resume-text);
+  }
+
+  .resume-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(260px, 0.9fr);
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--resume-line);
+    border-radius: 24px;
+    background: var(--resume-bg);
+    box-shadow: 0 22px 50px rgba(31, 44, 53, 0.08);
+  }
+
+  .resume-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--resume-accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .resume-main h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .resume-role {
+    margin: 0.35rem 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--resume-accent);
+  }
+
+  .resume-summary {
+    margin: 0.5rem 0 0;
+    max-width: 60ch;
+    color: var(--resume-muted);
+    line-height: 1.58;
+  }
+
+  .resume-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.18rem 1rem;
+    margin-top: 0.35rem;
+  }
+
+  .resume-contact > * {
+    margin-top: 0 !important;
+  }
+
+  .resume-info-card {
+    margin-top: 0.65rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: 12px;
+    background: var(--resume-card);
+    border: 1px solid var(--resume-line);
+  }
+
+  .resume-info-title {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--resume-text);
+  }
+
+  .resume-contact-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.32rem;
+    min-width: max-content;
+    padding: 0;
+  }
+
+  .resume-contact-item dt {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--resume-accent);
+    margin: 0;
+  }
+
+  .resume-contact-item dd {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--resume-text);
+    word-break: break-word;
+    text-align: left;
+  }
+
+  .resume-intent {
+    margin-top: 0.65rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: 12px;
+    background: var(--resume-card);
+    border: 1px solid var(--resume-line);
+  }
+
+  .resume-intent strong {
+    display: block;
+    margin-bottom: 0.22rem;
+    font-size: 0.9rem;
+  }
+
+  .resume-intent p {
+    margin: 0;
+    color: var(--resume-muted);
+    line-height: 1.6;
+  }
+
+  .resume-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .resume-photo-card,
+  .resume-content :global(section),
+  .resume-content :global(.resume-block) {
+    border: 1px solid var(--resume-line);
+    border-radius: 20px;
+    background: var(--resume-card);
+  }
+
+  .resume-photo-card {
+    padding: 1rem;
+    min-height: 320px;
+  }
+
+  .resume-photo-placeholder {
+    display: none;
+  }
+
+  .resume-photo-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 288px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid rgba(50, 95, 140, 0.14);
+    background: linear-gradient(180deg, #f3f7fb 0%, #ffffff 100%);
+  }
+
+  .resume-shell > .resume-block {
+    margin-top: 0.85rem;
+    padding: 0 0 0.95rem;
+    border: 1px solid var(--resume-line);
+    border-radius: 18px;
+    background: var(--resume-card);
+    overflow: hidden;
+  }
+
+  .resume-shell > .resume-block h2 {
+    margin: 0;
+    padding: 1rem 1.1rem 0;
+    font-size: 1.02rem;
+  }
+
+  .resume-block-body {
+    padding: 0 1.1rem;
+  }
+
+  .resume-skill-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+  }
+
+  .resume-skill-metrics > * {
+    margin-top: 0 !important;
+  }
+
+  .resume-metric {
+    display: grid;
+    gap: 0.04rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(43, 73, 104, 0.08);
+  }
+
+  .resume-metric strong {
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin-bottom: 0;
+  }
+
+  .resume-metric span {
+    color: var(--resume-muted);
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  .resume-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+  }
+
+  .resume-tag {
+    padding: 0.42rem 0.62rem;
+    border-radius: 999px;
+    background: var(--resume-accent-soft);
+    border: 1px solid rgba(50, 95, 140, 0.16);
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .resume-highlights {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+  }
+
+  .resume-highlight {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+    min-height: 100%;
+    border-radius: 10px;
+    padding: 0.55rem 0.65rem;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(50, 95, 140, 0.08);
+    color: var(--resume-text);
+  }
+
+  .resume-highlight strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--resume-accent);
+    line-height: 1.6;
+  }
+
+  .resume-highlight p {
+    margin: 0;
+    line-height: 1.58;
+    color: var(--resume-muted);
+  }
+
+  .resume-shell > .resume-block .resume-work-timeline {
+    margin: 0.8rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .resume-shell > .resume-block .resume-work-timeline li {
+    margin: 0.5rem 0;
+    line-height: 1.75;
+    color: var(--resume-muted);
+  }
+
+  .resume-content {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .resume-content :global(h2) {
+    margin: 0;
+    padding: 1.15rem 1.25rem 0;
+    font-size: 1.08rem;
+  }
+
+  .resume-content :global(h3) {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+  }
+
+  .resume-content :global(section),
+  .resume-content :global(.resume-block) {
+    padding: 0 0 1.15rem;
+    overflow: hidden;
+  }
+
+  .resume-content :global(.resume-columns) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .resume-content :global(.resume-columns > :only-child) {
+    grid-column: 1 / -1;
+  }
+
+  .resume-content :global(.resume-edu-card) {
+    padding: 0 1.25rem;
+    margin-top: 0.7rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .resume-content :global(.resume-work-card) {
+    padding: 0 1.25rem;
+    margin-top: 0.85rem;
+  }
+
+  .resume-content :global(.resume-work-header) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.42rem;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--resume-line);
+    border-radius: 16px;
+    background: #fbfdff;
+  }
+
+  .resume-content :global(.resume-entry-topline) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 0.8rem;
+    flex-wrap: wrap;
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .resume-content :global(.resume-entry-duration) {
+    color: var(--resume-muted);
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .resume-content :global(.resume-work-company) {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--resume-text);
+  }
+
+  .resume-content :global(.resume-work-meta) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.32rem 0.9rem;
+    color: var(--resume-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+  }
+
+  .resume-content :global(.resume-work-meta strong) {
+    color: var(--resume-accent);
+    font-weight: 700;
+    margin-right: 0.22rem;
+  }
+
+  .resume-content :global(.resume-work-timeline) {
+    margin: 0.8rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .resume-content :global(.resume-work-timeline li) {
+    margin: 0.5rem 0;
+    line-height: 1.75;
+    color: var(--resume-muted);
+  }
+
+  .resume-content :global(.resume-edu-gpa) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    margin-left: 0.8rem;
+    margin-top: -0.1rem;
+  }
+
+  .resume-content :global(.resume-edu-card .resume-work-header) {
+    grid-template-areas:
+      "topline topline"
+      "meta gpa";
+  }
+
+  .resume-content :global(.resume-edu-card .resume-entry-topline) {
+    grid-area: topline;
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .resume-content :global(.resume-edu-card .resume-work-meta) {
+    grid-area: meta;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .resume-content :global(.resume-edu-card .resume-edu-gpa) {
+    grid-area: gpa;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .resume-content :global(.resume-list),
+  .resume-content :global(.resume-projects),
+  .resume-content :global(.resume-timeline) {
+    padding: 0 1.25rem;
+    margin: 0.85rem 0 0;
+  }
+
+  .resume-content :global(.resume-list li),
+  .resume-content :global(.resume-timeline li) {
+    margin: 0.55rem 0;
+    line-height: 1.75;
+    color: var(--resume-muted);
+  }
+
+  .resume-content :global(.resume-chip-list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0 1.25rem;
+    margin-top: 0.9rem;
+  }
+
+  .resume-content :global(.resume-chip) {
+    display: inline-flex;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(31, 44, 53, 0.05);
+    border: 1px solid var(--resume-line);
+    font-size: 0.92rem;
+  }
+
+  .resume-content :global(.resume-project) {
+    margin-top: 0.9rem;
+    padding: 1rem 1.05rem;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid var(--resume-line);
+  }
+
+  .resume-content :global(.resume-projects > *),
+  .resume-content :global(.resume-columns > *),
+  .resume-content :global(.resume-work-card),
+  .resume-content :global(.resume-edu-card) {
+    margin-top: 0 !important;
+  }
+
+  .resume-content :global(.resume-project-head) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .resume-content :global(.resume-project-time) {
+    color: var(--resume-muted);
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .resume-content :global(.resume-project ul) {
+    margin: 0.55rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .resume-content :global(.resume-project li) {
+    margin: 0.45rem 0;
+    line-height: 1.7;
+    color: var(--resume-muted);
+  }
+
+  @media (max-width: 960px) {
+    .resume-hero,
+    .resume-content :global(.resume-columns) {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-skill-metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resume-photo-card {
+      min-height: 220px;
+    }
+
+    .resume-photo-image {
+      min-height: 220px;
+    }
+
+    .resume-content :global(.resume-edu-gpa) {
+      justify-content: flex-start;
+      grid-column: 1;
+      grid-row: auto;
+      margin-left: 0;
+      margin-top: 0.2rem;
+    }
+
+    .resume-highlight {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+
+  @media print {
+    :global(body:has(.resume-shell) .page > header),
+    :global(body:has(.resume-shell) main > .content-panel:first-of-type) {
+      display: none !important;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    :global(body:has(.resume-shell) main) {
+      padding: 0 !important;
+    }
+
+    :global(body:has(.resume-shell) .main-pane) {
+      padding: 0 !important;
+    }
+
+    :global(body:has(.resume-shell) .content-panel) {
+      margin: 0 !important;
+      padding-inline: 0 !important;
+    }
+
+    .resume-shell {
+      --resume-bg: linear-gradient(180deg, #eef5fb 0%, #ffffff 24%);
+      --resume-card: #ffffff;
+      --resume-line: rgba(0, 0, 0, 0.12);
+      --resume-text: #111111;
+      --resume-muted: #222222;
+      --resume-accent: #204e78;
+      --resume-accent-soft: rgba(0, 0, 0, 0.04);
+      font-size: 10pt;
+      color: #111111;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .resume-hero {
+      grid-template-columns: minmax(0, 2.1fr) 180px;
+      gap: 0.7rem;
+      padding: 0.82rem 0.88rem;
+      border-radius: 10px;
+      background: var(--resume-bg);
+      box-shadow: none;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .resume-side,
+    .resume-photo-card,
+    .resume-skill-metrics,
+    .resume-highlights,
+    .resume-highlight,
+    .resume-content :global(.resume-work-card),
+    .resume-content :global(.resume-edu-card),
+    .resume-content :global(.resume-project),
+    .resume-content :global(.resume-block) {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .resume-main h1 {
+      font-size: 22pt;
+      line-height: 1.02;
+    }
+
+    .resume-kicker {
+      font-size: 6.5pt;
+      margin-bottom: 0.18rem;
+      color: #204e78;
+    }
+
+    .resume-role {
+      margin-top: 0.2rem;
+      font-size: 10.5pt;
+    }
+
+    .resume-summary {
+      max-width: none;
+      margin-top: 0.32rem;
+      line-height: 1.38;
+      font-size: 9.1pt;
+    }
+
+    .resume-contact {
+      gap: 0.08rem 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .resume-info-card {
+      margin-top: 0.45rem;
+      padding: 0.36rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .resume-info-title {
+      font-size: 8.6pt;
+    }
+
+    .resume-contact-item,
+    .resume-tag,
+    .resume-highlight,
+    .resume-content :global(.resume-chip) {
+      padding: 0.35rem 0.5rem;
+      font-size: 9pt;
+    }
+
+    .resume-contact-item {
+      gap: 0.22rem;
+    }
+
+    .resume-contact-item dt,
+    .resume-contact-item dd {
+      white-space: normal;
+    }
+
+    .resume-contact-item dd {
+      font-size: 9pt;
+    }
+
+    .resume-intent {
+      margin-top: 0.45rem;
+      padding: 0.42rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .resume-intent strong {
+      margin-bottom: 0.12rem;
+      font-size: 8.7pt;
+    }
+
+    .resume-intent p {
+      font-size: 9pt;
+      line-height: 1.35;
+    }
+
+    .resume-photo-card {
+      min-height: 164px;
+      padding: 0.5rem;
+    }
+
+    .resume-photo-image {
+      min-height: 138px;
+    }
+
+    .resume-skill-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.28rem;
+    }
+
+    .resume-metric {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.16rem;
+      min-width: 0;
+      padding: 0.28rem 0.32rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .resume-metric strong,
+    .resume-metric span {
+      white-space: nowrap;
+    }
+
+    .resume-metric strong {
+      font-size: 8.8pt;
+    }
+
+    .resume-metric span {
+      font-size: 7pt;
+      color: #222222;
+      overflow: hidden;
+      text-overflow: clip;
+    }
+
+    .resume-highlights {
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+    }
+
+    .resume-shell > .resume-block .resume-work-timeline {
+      margin-top: 0.45rem;
+      padding-left: 0.95rem;
+    }
+
+    .resume-highlight {
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 0.45rem;
+      border-radius: 10px;
+    }
+
+    .resume-content {
+      gap: 0.48rem;
+      margin-top: 0.48rem;
+    }
+
+    .resume-content :global(h2) {
+      padding: 0.62rem 0.88rem 0;
+      font-size: 10.2pt;
+      color: #111111;
+    }
+
+    .resume-content :global(.resume-columns) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.52rem;
+    }
+
+    .resume-content :global(.resume-list),
+    .resume-content :global(.resume-projects),
+    .resume-content :global(.resume-timeline) {
+      padding: 0 0.88rem;
+      margin-top: 0.4rem;
+    }
+
+    .resume-tags,
+    .resume-content :global(.resume-chip-list) {
+      gap: 0.35rem;
+    }
+
+    .resume-tag,
+    .resume-content :global(.resume-chip) {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      color: #111111;
+    }
+
+    .resume-content :global(.resume-project) {
+      margin-top: 0.45rem;
+      padding: 0.58rem 0.68rem;
+      border-radius: 10px;
+    }
+
+    .resume-content :global(.resume-edu-card),
+    .resume-content :global(.resume-work-card) {
+      padding: 0 0.88rem;
+      margin-top: 0.32rem;
+      gap: 0.42rem;
+    }
+
+    .resume-content :global(.resume-work-header) {
+      gap: 0.24rem;
+      padding: 0.58rem 0.68rem;
+      border-radius: 10px;
+    }
+
+    .resume-content :global(.resume-entry-duration) {
+      font-size: 8.4pt;
+    }
+
+    .resume-content :global(.resume-work-company) {
+      font-size: 9.8pt;
+      color: #111111;
+    }
+
+    .resume-content :global(.resume-work-meta) {
+      gap: 0.2rem 0.72rem;
+      font-size: 8.4pt;
+      line-height: 1.35;
+    }
+
+    .resume-content :global(.resume-work-timeline),
+    .resume-content :global(.resume-project ul) {
+      margin-top: 0.42rem;
+      padding-left: 0.95rem;
+    }
+
+    .resume-shell > .resume-block .resume-work-timeline li,
+    .resume-content :global(.resume-work-timeline li),
+    .resume-content :global(.resume-project li),
+    .resume-content :global(.resume-list li),
+    .resume-content :global(.resume-timeline li) {
+      margin: 0.26rem 0;
+      line-height: 1.48;
+      font-size: 8.9pt;
+    }
+
+    .resume-shell > .resume-block .resume-work-timeline :global(code),
+    .resume-content :global(.resume-work-timeline code) {
+      font-size: 0.9375em;
+      font-family: inherit;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: #111111;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+    }
+
+    .resume-content :global(.resume-project-head) {
+      margin-bottom: 0.24rem;
+      gap: 0.45rem 0.8rem;
+    }
+
+    .resume-content :global(.resume-project-time) {
+      font-size: 8.3pt;
+      color: #222222;
+    }
+
+    .resume-summary,
+    .resume-intent p,
+    .resume-metric span,
+    .resume-highlight p,
+    .resume-shell > .resume-block .resume-work-timeline li,
+    .resume-content :global(.resume-entry-duration),
+    .resume-content :global(.resume-work-meta),
+    .resume-content :global(.resume-work-timeline li),
+    .resume-content :global(.resume-project li),
+    .resume-content :global(.resume-list li),
+    .resume-content :global(.resume-timeline li),
+    .resume-content :global(.resume-project-time) {
+      color: #222222 !important;
+    }
+
+    .resume-role,
+    .resume-info-title,
+    .resume-contact-item dt,
+    .resume-intent strong,
+    .resume-highlight strong,
+    .resume-content :global(.resume-work-meta strong) {
+      color: #111111 !important;
+    }
+
+    .resume-content :global(.resume-edu-card .resume-work-header) {
+      grid-template-areas:
+        "topline topline"
+        "meta gpa";
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      align-items: start;
+    }
+
+    .resume-content :global(.resume-edu-card .resume-entry-topline) {
+      grid-area: topline;
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+
+    .resume-content :global(.resume-edu-card .resume-work-meta) {
+      grid-area: meta;
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .resume-content :global(.resume-edu-card .resume-edu-gpa) {
+      grid-area: gpa;
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      justify-self: end;
+      margin-top: 0;
+      margin-left: 0.5rem;
+    }
+  }
+</style>

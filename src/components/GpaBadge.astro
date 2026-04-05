@@ -1,0 +1,201 @@
+---
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+
+const normalized = value.trim();
+const match = normalized.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);
+const numerator = match?.[1] ?? "";
+const denominator = match?.[2] ?? "";
+
+let percentageLabel = "";
+let percentageValue = 0;
+if (match) {
+  const score = Number(match[1]);
+  const total = Number(match[2]);
+  if (Number.isFinite(score) && Number.isFinite(total) && total > 0) {
+    percentageValue = Math.round((score / total) * 100);
+    percentageLabel = `${percentageValue}%`;
+  }
+}
+---
+
+<div class="resume-gpa-card">
+  {percentageLabel && <div class="resume-gpa-label">GPA</div>}
+  <div class="resume-gpa-cup">
+    <div class="resume-gpa-cup-body">
+      {percentageLabel && (
+        <>
+          <div class="resume-gpa-fill" style={`height: ${percentageValue}%`}></div>
+          <div class="resume-gpa-surface" style={`bottom: ${percentageValue}%`}></div>
+        </>
+      )}
+      <div class="resume-gpa-content">
+        {match ? (
+          <strong class="resume-gpa-value" aria-label={`GPA ${numerator} / ${denominator}`}>
+            <span class="resume-gpa-score">{numerator}</span>
+          </strong>
+        ) : (
+          <strong class="resume-gpa-value">{normalized}</strong>
+        )}
+      </div>
+    </div>
+    <div class="resume-gpa-cup-handle" aria-hidden="true"></div>
+
+  </div>
+</div>
+
+<style>
+  .resume-gpa-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+    width: fit-content;
+    min-width: 0;
+    gap: 0.12rem;
+    text-align: center;
+  }
+
+  .resume-gpa-label {
+    width: 3.9rem;
+    margin-right: 0.76rem;
+    font-size: 0.54rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #325f8c;
+    font-weight: 600;
+  }
+
+  .resume-gpa-cup {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.12rem;
+  }
+
+  .resume-gpa-cup-body {
+    position: relative;
+    width: 3.9rem;
+    height: 2.22rem;
+    padding: 0.22rem 0.38rem 0.24rem;
+    border-radius: 0.26rem 0.26rem 0.52rem 0.52rem;
+    border: 1px solid rgba(50, 95, 140, 0.28);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(236, 244, 251, 0.8) 100%);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .resume-gpa-cup-body::before {
+    content: "";
+    position: absolute;
+    inset: 0.08rem 0.18rem auto;
+    height: 0.16rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .resume-gpa-cup-handle {
+    width: 0.66rem;
+    height: 1.02rem;
+    border: 1px solid rgba(50, 95, 140, 0.28);
+    border-left: 0;
+    border-radius: 0 999px 999px 0;
+  }
+
+  .resume-gpa-content {
+    position: absolute;
+    inset: 0;
+    left: 0.3rem;
+    right: 0.3rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .resume-gpa-card strong {
+    display: block;
+    font-size: 0.88rem;
+    line-height: 1;
+    white-space: normal;
+  }
+
+  .resume-gpa-value {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .resume-gpa-score {
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: #1f2c35;
+    line-height: 1;
+    display: block;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .resume-gpa-fill {
+    position: absolute;
+    inset: auto 0 0;
+    height: 0;
+    border-radius: 0 0 0.42rem 0.42rem;
+    background: linear-gradient(180deg, rgba(169, 208, 236, 0.58) 0%, rgba(128, 184, 224, 0.74) 100%);
+    min-height: 0.16rem;
+  }
+
+  .resume-gpa-surface {
+    position: absolute;
+    left: 0.16rem;
+    right: 0.16rem;
+    height: 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.75);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @media print {
+    .resume-gpa-card {
+      transform: scale(0.9);
+      transform-origin: top right;
+      gap: 0.08rem;
+    }
+
+    .resume-gpa-label {
+      width: 3.3rem;
+      margin-right: 0.6rem;
+      font-size: 5pt;
+    }
+
+    .resume-gpa-cup-body {
+      width: 3.3rem;
+      height: 1.84rem;
+    }
+
+    .resume-gpa-content {
+      inset: 0;
+      left: 0.22rem;
+      right: 0.22rem;
+    }
+
+    .resume-gpa-cup-handle {
+      width: 0.52rem;
+      height: 0.84rem;
+    }
+
+    .resume-gpa-card strong {
+      font-size: 7.8pt;
+    }
+
+    .resume-gpa-score {
+      font-size: 8.9pt;
+    }
+  }
+</style>

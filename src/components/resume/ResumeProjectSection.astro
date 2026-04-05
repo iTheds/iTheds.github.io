@@ -1,0 +1,27 @@
+﻿---
+import type { ProjectItem } from "./types";
+import ResumeProjectCard from "./ResumeProjectCard.astro";
+
+interface Props {
+  title?: string;
+  projects: ProjectItem[];
+}
+
+const {
+  title = "项目经历",
+  projects = [],
+} = Astro.props;
+---
+
+<section>
+  <h2>{title}</h2>
+  <div class="resume-projects">
+    {projects.map((project) => (
+      <ResumeProjectCard
+        title={project.title}
+        time={project.time}
+        items={project.items}
+      />
+    ))}
+  </div>
+</section>

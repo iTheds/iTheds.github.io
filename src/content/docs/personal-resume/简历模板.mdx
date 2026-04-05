@@ -1,0 +1,95 @@
+﻿---
+title: "简历模板"
+description: "可自由填写并直接扩展为展示版的简历模板"
+---
+
+import { resumePlaceholders } from "../../../components/resume/placeholders";
+import ResumePage from "../../../components/resume/ResumePage.astro";
+
+export const profile = {
+  name: resumePlaceholders.name,
+  role: "[目标岗位待填写]",
+  summary: "这里填写 2 到 3 句简短介绍，概括你的主要工作方向、技术主线和项目类型。建议写清你最想让面试官先看到的能力，例如数据库、后端、分布式、驱动、客户端或业务平台。",
+  phone: resumePlaceholders.phone,
+  email: resumePlaceholders.email,
+  location: resumePlaceholders.location,
+  status: "[求职状态待填写]",
+  intent: "目标岗位：[待填写]；目标城市：[待填写]；目标方向：[待填写]。",
+};
+
+export const workTimeline = [
+  "<code>[时间点]</code>：[该时间点负责的项目、阶段或成果]",
+  "<code>[时间点]</code>：[该时间点负责的项目、阶段或成果]",
+  "<code>[时间点]</code>：[该时间点负责的项目、阶段或成果]",
+];
+
+export const projects = [
+  {
+    title: "[项目名称] | [角色]",
+    time: "[起止时间]",
+    items: [
+      "项目背景：[待填写]",
+      "负责内容 1：[待填写]",
+      "负责内容 2：[待填写]",
+      "负责内容 3：[待填写]",
+      "技术关键词：[待填写]",
+    ],
+  },
+  {
+    title: "[项目名称] | [角色]",
+    time: "[起止时间]",
+    items: [
+      "项目背景：[待填写]",
+      "负责内容 1：[待填写]",
+      "负责内容 2：[待填写]",
+      "负责内容 3：[待填写]",
+      "技术关键词：[待填写]",
+    ],
+  },
+];
+
+export const skills = {
+  tags: ["技能 1", "技能 2", "技能 3", "技能 4", "技能 5", "技能 6"],
+  metrics: [
+    { label: "核心项目数", value: "[待填]" },
+    { label: "工作年限", value: "[待填]" },
+    { label: "主语言", value: "[待填]" },
+    { label: "重点方向", value: "[待填]" },
+  ],
+  items: [
+    "[能力方向 1]：[填写对应技能内容]。",
+    "[能力方向 2]：[填写对应技能内容]。",
+    "[能力方向 3]：[填写对应技能内容]。",
+    "[能力方向 4]：[填写对应技能内容]。",
+  ],
+};
+
+export const work = {
+  company: resumePlaceholders.company,
+  role: resumePlaceholders.role,
+  duration: resumePlaceholders.duration,
+  timeline: workTimeline,
+};
+
+export const education = {
+  school: resumePlaceholders.school,
+  major: resumePlaceholders.major,
+  degree: resumePlaceholders.degree,
+  duration: resumePlaceholders.duration,
+  gpa: resumePlaceholders.gpa,
+  items: [
+    "<code>[起止时间]</code>：[学校、方向、研究主题或代表课程待填写]",
+    "<code>[起止时间]</code>：[竞赛、实验室、项目、奖学金或综合表现待填写]",
+  ],
+};
+
+<ResumePage profile={profile} skills={skills} work={work} education={education} projects={projects}>
+  <section>
+    <h2>可量化成果</h2>
+    <ul class="resume-list">
+      <li>[指标或成果 1]</li>
+      <li>[指标或成果 2]</li>
+      <li>[指标或成果 3]</li>
+    </ul>
+  </section>
+</ResumePage>

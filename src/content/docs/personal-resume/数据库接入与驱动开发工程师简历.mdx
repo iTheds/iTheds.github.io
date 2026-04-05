@@ -1,0 +1,116 @@
+﻿---
+title: "数据库接入与驱动开发工程师简历"
+description: "面向数据库生态、驱动、中间件与跨语言接入岗位的简历版本"
+---
+
+import { resumePlaceholders } from "../../../components/resume/placeholders";
+import ResumePage from "../../../components/resume/ResumePage.astro";
+
+export const profile = {
+  name: resumePlaceholders.name,
+  role: "数据库接入与驱动开发工程师",
+  summary: "以 ODBC、JDBC、JNI 和数据库协议兼容为重点的简历版本。适合展示跨语言接入链路、驱动实现、客户端兼容和中间件联调经验。",
+  phone: resumePlaceholders.phone,
+  email: resumePlaceholders.email,
+  location: resumePlaceholders.location,
+  intent: "目标岗位为数据库驱动开发工程师、数据库生态接入工程师、中间件研发工程师，期望方向为 ODBC、JDBC、JNI、数据库协议与跨语言访问链路。",
+};
+
+export const workTimeline = [
+  "<code>2021-10</code> 至 <code>2026-03</code>：TZDB，ODBC 工具链、远程访问服务、协议适配。",
+  "<code>2024-08</code> 至 <code>2024-11</code>：TZ MultiModel，ODBC/JNI/JDBC 接入与测试。",
+  "<code>2025-07</code> 至 <code>2026-03</code>：TZDB Rebuild，ODBC、PG、DBeaver 兼容与工程回归。",
+  "<code>2025-02</code> 至 <code>2026-03</code>：IPPCAAS，前后端数据对接与业务交付。",
+  "<code>2024-09</code> 至 <code>2024-12</code>：DistributedNet，通信协议、分包与重传机制。",
+  "<code>2023-02</code> 至 <code>2024-10</code>：TSDB，协议、执行链路与流式订阅能力建设。",
+];
+
+export const projects = [
+  {
+    title: "TZ MultiModel | 多模数据库客户端与驱动链路",
+    time: "2024-08 至 2024-11",
+    items: [
+      "主要承担 ODBC/JNI/JDBC 接入链路与相关测试落地工作。",
+      "参与建立 <code>ODBC (C/C++) -&gt; JNI -&gt; JDBC (Java)</code> 端到端访问链路。",
+      "参与 JDBC 驱动核心类实现，覆盖 <code>Driver</code>、<code>Statement</code>、<code>ResultSet</code>、<code>MetaData</code>。",
+      "持续处理 ODBC/JDBC 联调中的兼容问题与测试补齐。",
+      "贡献口径：<code>29</code> 次提交，其中非 merge <code>22</code> 次，非 merge 代码量 <code>+49,412 / -21,336</code>。",
+    ],
+  },
+  {
+    title: "TZDB Rebuild | ODBC 与 PG 协议兼容",
+    time: "2025-07 至 2026-03",
+    items: [
+      "参与 TZDB ODBC 驱动实现与持续重构。",
+      "修复句柄语义、连接序列化、Windows 兼容、单例模式和绑定问题。",
+      "补齐 PG 协议类型序列化与 catalog 兼容，适配 DBeaver 类型识别与元数据展示。",
+      "推进 PG server、ODBC、发现机制、IPC 报告等场景回归测试。",
+    ],
+  },
+  {
+    title: "TZDB | 远程访问与 ODBC 工具链",
+    time: "2021-10 至 2026-03",
+    items: [
+      "参与 <code>tools/tzdb-odbc*</code> 路径下的驱动、安装器、配置工具开发。",
+      "参与环境、连接、语句、描述符管理与 API 适配。",
+      "参与 <code>SQLGetDiagRec</code> 等诊断能力增强与多线程问题修复。",
+      "参与 local/cluster 两类 ODBC 方向开发与功能测试迭代。",
+    ],
+  },
+  {
+    title: "TSDB | Rust 时序数据库",
+    time: "2023-02 至 2024-10",
+    items: [
+      "参与 SQL 解析、逻辑计划、协议与服务执行链路改造。",
+      "参与 Topic/Consumer/Subscribe 能力建设，具备协议和执行链路的跨层理解。",
+    ],
+  },
+  {
+    title: "DistributedNet | 弱通信分布式协同通信系统",
+    time: "2024-09 至 2024-12",
+    items: [
+      "参与通信协议、分包与重传机制实现，对网络可靠性与链路状态具备工程经验。",
+    ],
+  },
+  {
+    title: "IPPCAAS | 农业监测预警平台",
+    time: "2025-02 至 2026-03",
+    items: [
+      "参与前后端数据模型对接、请求映射与业务页面交付。",
+      "具备从业务前端到后端接口联调的完整协作经验。",
+    ],
+  },
+];
+
+export const skills = {
+  tags: ["ODBC", "JDBC", "JNI", "PostgreSQL Protocol", "DBeaver", "Metadata", "ResultSet"],
+  metrics: [
+    { label: "核心方向", value: "驱动 / 接入" },
+    { label: "跨语言链路", value: "C++ -> Java" },
+    { label: "主语言", value: "C++ / Java" },
+    { label: "核心项目", value: "3 条主线" },
+  ],
+  items: [
+    "数据库接入：ODBC、JDBC、JNI、PostgreSQL 协议兼容。",
+    "跨语言链路：C/C++ -> JNI -> Java，驱动与结果集处理。",
+    "客户端生态：DBeaver、图形化客户端、多模数据库管理工具。",
+    "工程验证：接口测试、流程测试、兼容性修复、安装与配置链路。",
+  ],
+};
+
+export const work = {
+  company: resumePlaceholders.company,
+  role: resumePlaceholders.role,
+  duration: resumePlaceholders.duration,
+  timeline: workTimeline,
+};
+
+export const education = {
+  school: resumePlaceholders.school,
+  major: resumePlaceholders.major,
+  degree: resumePlaceholders.degree,
+  duration: resumePlaceholders.duration,
+  gpa: resumePlaceholders.gpa,
+};
+
+<ResumePage profile={profile} skills={skills} work={work} education={education} projects={projects} />

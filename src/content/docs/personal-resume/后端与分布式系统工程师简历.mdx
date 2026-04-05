@@ -1,0 +1,119 @@
+﻿---
+title: "后端与分布式系统工程师简历"
+description: "面向后端基础设施、分布式系统与通信链路岗位的简历版本"
+---
+
+import { resumePlaceholders } from "../../../components/resume/placeholders";
+import ResumePage from "../../../components/resume/ResumePage.astro";
+
+export const profile = {
+  name: resumePlaceholders.name,
+  role: "后端与分布式系统工程师",
+  summary: "以通信链路、节点协同和服务稳定性为重点的简历版本。核心经历集中在 DistributedNet、TZDB、TZDB Rebuild 与 TSDB 的服务端和分布式链路改造。",
+  phone: resumePlaceholders.phone,
+  email: resumePlaceholders.email,
+  location: resumePlaceholders.location,
+  intent: "目标岗位为后端开发工程师、分布式系统工程师、中间件研发工程师，期望方向为通信链路、分布式协同、服务稳定性和基础设施研发。",
+};
+
+export const workTimeline = [
+  "<code>2021-10</code> 至 <code>2026-03</code>：TZDB，远程访问服务、网络协议、集群链路。",
+  "<code>2023-02</code> 至 <code>2024-10</code>：TSDB，服务端执行框架、队列模型、流式订阅。",
+  "<code>2024-09</code> 至 <code>2024-12</code>：DistributedNet，弱通信场景下的多节点协同与重传系统。",
+  "<code>2024-08</code> 至 <code>2024-11</code>：TZ MultiModel，ODBC/JNI/JDBC 接入与测试。",
+  "<code>2025-07</code> 至 <code>2026-03</code>：TZDB Rebuild，节点发现、网络池、测试与兼容性收敛。",
+  "<code>2025-02</code> 至 <code>2026-03</code>：IPPCAAS，业务平台前端、数据模型与交付支撑。",
+];
+
+export const projects = [
+  {
+    title: "DistributedNet | 弱通信分布式协同通信系统",
+    time: "2024-09 至 2024-12",
+    items: [
+      "独立负责核心模块，覆盖需求调研、架构设计、实现、测试与演示联调。",
+      "设计 <code>CONNECT + IOMode + NetPool</code> 分层通信架构，统一 TCP/UDP 接入并支持单播、组播、广播。",
+      "主导 UDP 分包、ACK 回执、超时重发与失败判定机制，并与链路状态检测联动。",
+      "实现节点可达状态管理与拓扑动态更新，支持多跳通信策略验证。",
+      "构建多级多类任务队列，基于带宽与网络质量动态调整压缩和裁剪策略。",
+      "组织多节点仿真与压测，覆盖 <code>8MB/s</code>、<code>2MB/s</code>、<code>500KB/s</code>、<code>200KB/s</code> 场景。",
+    ],
+  },
+  {
+    title: "TZDB Rebuild | 数据库重构期后端链路建设",
+    time: "2025-07 至 2026-03",
+    items: [
+      "参与 <code>net_pool</code>、<code>discovery</code>、UDP 相关实现和重构。",
+      "处理 leader 收敛、启动并发、回退算法与网络读写接口统一。",
+      "持续推进 ODBC/PG 接入、测试回归与跨平台构建修复。",
+      "在数据库重构阶段同时承担功能实现、兼容性问题排查与工程整理。",
+    ],
+  },
+  {
+    title: "TZDB | 远程访问服务与集群链路",
+    time: "2021-10 至 2026-03",
+    items: [
+      "长期参与 <code>raserver</code> 远程访问主链路开发与维护。",
+      "参与客户端接口演进、请求解析、SQL 执行、结果回传与网络协议重构。",
+      "参与 <code>NetPool</code>、safe commit、配置与连接处理等服务稳定性改造。",
+      "参与 RecGH 接收-分发-解析-存储链路开发与联调。",
+    ],
+  },
+  {
+    title: "TSDB | Rust 服务端与订阅消费链路",
+    time: "2023-02 至 2024-10",
+    items: [
+      "参与 Worker、队列、流处理执行框架建设。",
+      "推进 Topic/Consumer/Subscribe 全链路能力落地。",
+      "参与 parser、proto、执行队列与服务处理链路跨层改造。",
+    ],
+  },
+  {
+    title: "TZ MultiModel | 多模数据库客户端与驱动链路",
+    time: "2024-08 至 2024-11",
+    items: [
+      "参与 ODBC/JNI/JDBC 接入链路实现与测试，补充跨语言访问通路。",
+      "参与 JDBC 驱动与 ODBC 测试问题修复，提升多端接入稳定性。",
+    ],
+  },
+  {
+    title: "IPPCAAS | 农业监测预警平台",
+    time: "2025-02 至 2026-03",
+    items: [
+      "参与前端基线、日志采集主线、数据模型重构与接口联调。",
+      "在业务交付阶段处理移动端调试、页面重构与模块复用。",
+    ],
+  },
+];
+
+export const skills = {
+  tags: ["TCP", "UDP", "RPC", "IPC", "Raft", "NetPool", "Node Discovery", "Observability"],
+  metrics: [
+    { label: "核心方向", value: "通信 / 服务" },
+    { label: "压测场景", value: "4 档带宽" },
+    { label: "主语言", value: "C++ / Rust" },
+    { label: "项目跨度", value: "2021-2026" },
+  ],
+  items: [
+    "通信链路：TCP/UDP、RPC、IPC、连接管理、分包与重传。",
+    "分布式系统：节点发现、集群元数据、拓扑状态管理、Raft 一致性执行。",
+    "系统稳定性：超时重发、失败判定、链路监控、压测、回归与现场问题排查。",
+    "后端工程：服务路由、协议适配、跨平台兼容、测试脚本与交付文档。",
+  ],
+};
+
+export const work = {
+  company: resumePlaceholders.company,
+  role: resumePlaceholders.role,
+  duration: resumePlaceholders.duration,
+  timeline: workTimeline,
+};
+
+export const education = {
+  school: resumePlaceholders.school,
+  major: resumePlaceholders.major,
+  degree: resumePlaceholders.degree,
+  duration: resumePlaceholders.duration,
+  gpa: resumePlaceholders.gpa,
+};
+
+<ResumePage profile={profile} skills={skills} work={work} education={education} projects={projects} />

@@ -1,0 +1,121 @@
+﻿---
+title: "数据库内核工程师简历"
+description: "面向数据库内核、存储引擎、事务与查询执行岗位的简历版本"
+---
+
+import { resumePlaceholders } from "../../../components/resume/placeholders";
+import ResumePage from "../../../components/resume/ResumePage.astro";
+
+export const profile = {
+  name: resumePlaceholders.name,
+  role: "数据库内核工程师",
+  summary: "以数据库内核、协议兼容和查询执行链路为主线的简历版本。重点展示在 TZDB、TZDB Rebuild、TSDB 中的存储、协议、Catalog、订阅执行和测试闭环经验。",
+  phone: resumePlaceholders.phone,
+  email: resumePlaceholders.email,
+  location: resumePlaceholders.location,
+  intent: "目标岗位为数据库内核工程师、存储引擎工程师、数据库后端研发工程师，期望方向为存储引擎、事务恢复、SQL 执行和数据库协议兼容。",
+};
+
+export const workTimeline = [
+  "<code>2021-10</code> 至 <code>2026-03</code>：TZDB，持续参与数据库远程访问、ODBC、集群链路与工程交付。",
+  "<code>2023-02</code> 至 <code>2024-10</code>：TSDB，Rust 数据库核心、流式处理、Topic/Consumer/Subscribe。",
+  "<code>2025-07</code> 至 <code>2026-03</code>：TZDB Rebuild，重构期协议兼容、测试体系、PG/ODBC 生态接入。",
+  "<code>2025-02</code> 至 <code>2026-03</code>：IPPCAAS，农业监测预警平台，前端基线、数据模型与交付支撑。",
+  "<code>2024-09</code> 至 <code>2024-12</code>：DistributedNet，弱通信场景下的多节点协同与重传系统。",
+  "<code>2024-08</code> 至 <code>2024-11</code>：TZ MultiModel，多模数据库客户端，ODBC/JNI/JDBC 接入链路。",
+];
+
+export const projects = [
+  {
+    title: "TZDB Rebuild | 数据库重构与兼容性收敛",
+    time: "2025-07 至 2026-03",
+    items: [
+      "参与 TZDB 重构阶段核心研发，累计 <code>260</code> 次提交，占仓库总提交数 <code>28.23%</code>。",
+      "工作集中在网络与分布式通信、ODBC 驱动、PG 协议兼容、测试体系与 CI 工程化。",
+      "参与 ODBC 驱动句柄链路、连接序列化、Windows 兼容与绑定问题修复。",
+      "参与 PG 类型序列化、catalog 兼容与 DBeaver 元数据展示适配。",
+      "推动 smoke test、HTML 报告、ctest/脚本与跨平台构建修复。",
+    ],
+  },
+  {
+    title: "TSDB | Rust 时序数据库",
+    time: "2023-02 至 2024-10",
+    items: [
+      "参与 Rust TSDB 的基础设施、执行模型、流式处理与订阅消费能力建设。",
+      "负责 SQL 解析、逻辑计划、RPC 协议、服务执行队列跨层改造，打通 <code>db_common -&gt; db_core</code> 核心链路。",
+      "推进 Topic/Consumer/Subscribe 从框架搭建到可运行、测试闭环与列查询增强。",
+      "参与共享内存、sleep、skiplist、rbtree、错误码体系等基础组件建设。",
+      "贡献口径：<code>106</code> 次提交，其中非 merge <code>64</code> 次，非 merge 代码口径约 <code>+78,692 / -44,930</code>。",
+    ],
+  },
+  {
+    title: "TZDB | 嵌入式数据库与远程访问服务",
+    time: "2021-10 至 2026-03",
+    items: [
+      "长期参与 TZDB 数据库工程，贡献时间跨度超过 4 年。",
+      "参与远程访问服务 <code>raserver</code> 主链路、客户端访问接口、网络与协议层重构。",
+      "参与 <code>NetPool</code>、<code>ProtocolFormat</code>、safe commit、连接/缓冲处理等稳定性改造。",
+      "参与 ODBC 驱动、安装器与配置工具开发，补充诊断与多线程修复。",
+      "参与 RecGH 实时接入/分发模块，覆盖消息协议与接收-分发-解析-存储链路。",
+    ],
+  },
+  {
+    title: "DistributedNet | 弱通信分布式协同通信系统",
+    time: "2024-09 至 2024-12",
+    items: [
+      "负责弱通信条件下的节点可达状态管理、自适应分发与缓存重传机制实现。",
+      "设计 <code>CONNECT + IOMode + NetPool</code> 分层通信架构，统一 TCP/UDP 接入。",
+      "组织多节点仿真与压测，覆盖多种带宽场景下的策略切换与可靠性验证。",
+    ],
+  },
+  {
+    title: "TZ MultiModel | 多模数据库客户端与驱动链路",
+    time: "2024-08 至 2024-11",
+    items: [
+      "参与 ODBC/JNI/JDBC 端到端访问链路建设。",
+      "参与 JDBC <code>Driver/Statement/ResultSet/MetaData</code> 等关键模块实现与联调。",
+      "参与 ODBC/JDBC 接口测试与兼容性问题修复。",
+    ],
+  },
+  {
+    title: "IPPCAAS | 农业监测预警平台",
+    time: "2025-02 至 2026-03",
+    items: [
+      "参与 uni-app + Vue3 前端基线、日志采集流程、数据模型重构与业务页面建设。",
+      "参与接口联调、移动端调试、页面重构与交付支撑。",
+    ],
+  },
+];
+
+export const skills = {
+  tags: ["WAL", "ARIES", "Catalog", "Buffer Pool", "SQL", "ODBC", "PostgreSQL Protocol"],
+  metrics: [
+    { label: "核心项目", value: "3 条主线" },
+    { label: "提交记录", value: "260+" },
+    { label: "关注方向", value: "内核 / 协议" },
+    { label: "技术栈", value: "C++ / Rust" },
+  ],
+  items: [
+    "数据库内核：存储引擎、Catalog、索引、Buffer Pool、WAL、ARIES 恢复。",
+    "查询执行：SQL 解析、逻辑计划、执行链路、Topic/Consumer/Subscribe。",
+    "分布式能力：节点发现、RPC、Raft、网络池、集群元数据。",
+    "生态兼容：PG 协议、ODBC 接入、客户端工具兼容。",
+  ],
+};
+
+export const work = {
+  company: resumePlaceholders.company,
+  role: resumePlaceholders.role,
+  duration: resumePlaceholders.duration,
+  timeline: workTimeline,
+};
+
+export const education = {
+  school: resumePlaceholders.school,
+  major: resumePlaceholders.major,
+  degree: resumePlaceholders.degree,
+  duration: resumePlaceholders.duration,
+  gpa: resumePlaceholders.gpa,
+};
+
+<ResumePage profile={profile} skills={skills} work={work} education={education} projects={projects} />

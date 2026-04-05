@@ -1,0 +1,54 @@
+---
+import ResumeShell from "../ResumeShell.astro";
+import type {
+  ProjectItem,
+  ResumeEducation,
+  ResumeProfile,
+  ResumeSkills,
+  ResumeWork,
+} from "./types";
+import ResumeEducationCard from "./ResumeEducationCard.astro";
+import ResumeProjectSection from "./ResumeProjectSection.astro";
+import ResumeWorkExperience from "./ResumeWorkExperience.astro";
+
+interface Props {
+  profile: ResumeProfile;
+  skills?: ResumeSkills;
+  work: ResumeWork;
+  education: ResumeEducation;
+  projects: ProjectItem[];
+  projectTitle?: string;
+}
+
+const {
+  profile,
+  skills,
+  work,
+  education,
+  projects,
+  projectTitle,
+} = Astro.props;
+---
+
+<ResumeShell profile={profile} skills={skills}>
+  <ResumeWorkExperience
+    company={work.company}
+    role={work.role}
+    duration={work.duration}
+    timeline={work.timeline}
+  />
+
+  <div class="resume-columns">
+    <ResumeEducationCard
+      school={education.school}
+      major={education.major}
+      degree={education.degree}
+      duration={education.duration}
+      gpa={education.gpa}
+      items={education.items}
+    />
+  </div>
+
+  <ResumeProjectSection title={projectTitle} projects={projects} />
+  <slot />
+</ResumeShell>

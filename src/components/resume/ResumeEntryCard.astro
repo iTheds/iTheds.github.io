@@ -1,0 +1,43 @@
+---
+interface MetaItem {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  sectionTitle: string;
+  title: string;
+  duration?: string;
+  meta?: MetaItem[];
+  containerClass?: string;
+}
+
+const {
+  sectionTitle,
+  title,
+  duration,
+  meta = [],
+  containerClass = "resume-work-card",
+} = Astro.props;
+---
+
+<section>
+  <h2>{sectionTitle}</h2>
+  <div class={containerClass}>
+    <div class="resume-work-header">
+      <div class="resume-entry-topline">
+        <div class="resume-work-company">{title}</div>
+        {duration && <div class="resume-entry-duration">{duration}</div>}
+      </div>
+      {meta.length > 0 && (
+        <div class="resume-work-meta">
+          {meta.map((item) => (
+            <span><strong>{item.label}</strong>{item.value}</span>
+          ))}
+        </div>
+      )}
+      <slot name="header-extra" />
+    </div>
+    <slot />
+  </div>
+</section>
